@@ -11,7 +11,8 @@ import SwiftUI
 struct DreamDetailView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
-    @State var title : String = ""
+    @State var title : String
+    @State var text : String
 
     var dream : Dream?
     var isNewDream : Bool{
@@ -20,16 +21,20 @@ struct DreamDetailView: View {
     init(dream : Dream) {
         self.dream = dream
         _title = .init(initialValue: dream.title ?? "")
+        _text = .init(initialValue: dream.text ?? "")
     }
     
     init() {
         _title = .init(initialValue: "")
+        _text = .init(initialValue: "")
     }
     
     var body: some View {
         VStack {
             Form{
                 TextField("Title", text: $title)
+                TextField("Text", text: $text)
+
                 Button(isNewDream ? "Save" : "Update"){
                     if self.isNewDream{
                         self.saveDream()
@@ -51,6 +56,7 @@ struct DreamDetailView: View {
         }
         
         updatedDream.title = title
+        updatedDream.text = text
         
         if updatedDream.hasPersistentChangedValues{
             do{
@@ -68,6 +74,7 @@ struct DreamDetailView: View {
         let newDream = Dream(entity: Dream.entity(), insertInto: nil)
         newDream.id = UUID()
         newDream.title = title
+        newDream.text = text
         
         do{
             try newDream.validateForInsert()
