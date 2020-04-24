@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
     @FetchRequest(entity: Dream.entity(), sortDescriptors: []) var dreams : FetchedResults<Dream>
@@ -49,8 +50,10 @@ struct ContentView: View {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    static var previews: some View {
+        ContentView().environment(\.managedObjectContext, self.context)
+    }
+}
