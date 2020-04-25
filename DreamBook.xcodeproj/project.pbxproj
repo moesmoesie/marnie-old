@@ -13,8 +13,8 @@
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
+		1168B0202454556B00E9E186 /* DreamBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1168B01D2454556B00E9E186 /* DreamBook.xcdatamodeld */; };
 		118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118EA0E62453286900A2446F /* DreamDetailView.swift */; };
-		11A88BDB2453779D0079782A /* DreamBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11A88BD92453779D0079782A /* DreamBook.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +26,9 @@
 		110F88FE24530F6900C7B797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1168B01E2454556B00E9E186 /* dream_book.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dream_book.xcdatamodel; sourceTree = "<group>"; };
+		1168B01F2454556B00E9E186 /* DreamBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DreamBook.xcdatamodel; sourceTree = "<group>"; };
 		118EA0E62453286900A2446F /* DreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailView.swift; sourceTree = "<group>"; };
-		11A88BDA2453779D0079782A /* DreamBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DreamBook.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +61,6 @@
 		110F88F124530F6700C7B797 /* DreamBook */ = {
 			isa = PBXGroup;
 			children = (
-				11A88BD92453779D0079782A /* DreamBook.xcdatamodeld */,
 				110F88F224530F6700C7B797 /* AppDelegate.swift */,
 				110F88F424530F6700C7B797 /* SceneDelegate.swift */,
 				110F88F924530F6700C7B797 /* ContentView.swift */,
@@ -69,6 +69,7 @@
 				110F890324530F6900C7B797 /* Info.plist */,
 				110F88FD24530F6900C7B797 /* Preview Content */,
 				118EA0E62453286900A2446F /* DreamDetailView.swift */,
+				1168B01D2454556B00E9E186 /* DreamBook.xcdatamodeld */,
 			);
 			path = DreamBook;
 			sourceTree = "<group>";
@@ -154,7 +155,7 @@
 			files = (
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
-				11A88BDB2453779D0079782A /* DreamBook.xcdatamodeld in Sources */,
+				1168B0202454556B00E9E186 /* DreamBook.xcdatamodeld in Sources */,
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
 				110F88FA24530F6700C7B797 /* ContentView.swift in Sources */,
 			);
@@ -352,14 +353,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		11A88BD92453779D0079782A /* DreamBook.xcdatamodeld */ = {
+		1168B01D2454556B00E9E186 /* DreamBook.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				11A88BDA2453779D0079782A /* DreamBook.xcdatamodel */,
+				1168B01E2454556B00E9E186 /* dream_book.xcdatamodel */,
+				1168B01F2454556B00E9E186 /* DreamBook.xcdatamodel */,
 			);
-			currentVersion = 11A88BDA2453779D0079782A /* DreamBook.xcdatamodel */;
+			currentVersion = 1168B01E2454556B00E9E186 /* dream_book.xcdatamodel */;
 			path = DreamBook.xcdatamodeld;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
