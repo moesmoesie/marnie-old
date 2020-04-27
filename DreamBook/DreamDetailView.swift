@@ -18,6 +18,7 @@ struct DreamDetailView: View {
     var isNewDream : Bool{
         dream == nil
     }
+    
     init(dream : Dream) {
         self.dream = dream
         _title = .init(initialValue: dream.title ?? "")
@@ -34,55 +35,54 @@ struct DreamDetailView: View {
             Form{
                 TextField("Title", text: $title)
                 TextField("Text", text: $text)
-
-                Button(isNewDream ? "Save" : "Update"){
-                    if self.isNewDream{
-                        self.saveDream()
-                    }else{
-                        self.updateDream()
-                    }
+                if !isNewDream{
+                    Button("Delete", action: deleteDream)
                 }
+
+                Button(isNewDream ? "Save" : "Update",
+                       action: isNewDream ? saveDream : updateDream)
             }
         }
     }
     
     func updateDream(){
-        let updatedDream : Dream
-        if let tempDream = self.dream{
-            updatedDream = tempDream
-        }else{
-            print("dream doesnt exits!")
-            return
-        }
-        
-        updatedDream.title = title
-        updatedDream.text = text
-        
-        if updatedDream.hasPersistentChangedValues{
-            do{
-                try updatedDream.validateForUpdate()
-                try moc.save()
-            }catch let error as NSError{
-                print(error.localizedDescription)
+        if let updatedDream = dream{
+            do {
+                try updatedDream.updateDream(moc: moc, title: title, text: text)
+                presentationMode.wrappedValue.dismiss()
+            } catch Dream.DreamError.invalidUpdate(let message){
+                print(message)
+            } catch Dream.DreamError.updatingNonExistingDream{
+                print("Cant update a dream that doesn't exist!")
+            } catch{
+                print("Unexpected error: \(error).")
             }
+        }else{
+            print("Cant update a dream that doesnt exit!")
         }
-        
-        presentationMode.wrappedValue.dismiss()
     }
     
     func saveDream(){
-        let newDream = Dream(entity: Dream.entity(), insertInto: nil)
-        newDream.id = UUID()
-        newDream.title = title
-        newDream.text = text
-        
-        do{
-            try newDream.validateForInsert()
-            moc.insert(newDream)
-            try moc.save()
+        do {
+            try Dream.saveDream(moc: moc, title: title, text: text)
             presentationMode.wrappedValue.dismiss()
-        }catch let error as NSError{
-            print(error.localizedDescription)
+        } catch Dream.DreamError.invalidSave(error: let message) {
+            print(message)
+        } catch{
+            print("Unexpected error: \(error).")
+        }
+    }
+    
+    func deleteDream(){
+        if let dreamToDelete = dream{
+            do{
+                try dreamToDelete.deleteDream(context: moc)
+                presentationMode.wrappedValue.dismiss()
+            }catch Dream.DreamError.invalidDelete(error: let message){
+                print(message)
+            }catch{
+                print("Unexpected error: \(error).")
+            }
         }
     }
 }

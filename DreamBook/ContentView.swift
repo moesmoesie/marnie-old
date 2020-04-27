@@ -15,7 +15,7 @@ struct ContentView: View {
     @State var showNewDream = false
     
     var body: some View {
-        NavigationView {
+        return NavigationView {
             VStack {
                 NavigationLink(
                     destination: DreamDetailView(),
