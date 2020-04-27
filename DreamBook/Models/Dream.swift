@@ -14,7 +14,9 @@ extension Dream{
     static func saveDream(moc : NSManagedObjectContext,title:String?, text:String?) throws {
         let dream = Dream(entity: Dream.entity(), insertInto: nil)
         dream.id = UUID()
-        dream.title = title
+        if let title = title{
+            dream.title = title.isEmpty ? nil : title
+        }
         dream.text = text
         
         do{

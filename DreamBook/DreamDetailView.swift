@@ -35,6 +35,7 @@ struct DreamDetailView: View {
             Form{
                 TextField("Title", text: $title)
                 TextField("Text", text: $text)
+                
                 if !isNewDream{
                     Button("Delete", action: deleteDream)
                 }
