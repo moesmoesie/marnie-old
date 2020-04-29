@@ -25,7 +25,10 @@ class CoreDataStack{
         let container = NSPersistentContainer(name: CoreDataStack.modelName, managedObjectModel: CoreDataStack.model)
         
         container.loadPersistentStores { (storeDescription, error) in
-            print("Error loading store")
+            if let error = error as NSError? {
+                fatalError(
+                    "Unresolved error \(error), \(error.userInfo)")
+            }
         }
         return container
     }()
@@ -49,7 +52,10 @@ class InMemoryCoreDataStack: CoreDataStack {
         container.persistentStoreDescriptions = [storeDescription]
         
         container.loadPersistentStores { (storeDescription, error) in
-            print("Error loading store")
+            if let error = error as NSError? {
+                fatalError(
+                    "Unresolved error \(error), \(error.userInfo)")
+            }
         }
         
         self.storeContainer = container
