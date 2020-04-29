@@ -13,7 +13,7 @@ struct ContentView: View {
     @FetchRequest(entity: Dream.entity(), sortDescriptors: []) var dreams : FetchedResults<Dream>
     @Environment(\.managedObjectContext) var moc
     @State var showNewDream = false
-    
+   
     var body: some View {
         return NavigationView {
             VStack {
@@ -42,10 +42,14 @@ struct ContentView: View {
     }
     
     func deleteDreams(at offsets : IndexSet){
+        let dreamService = DreamService(managedObjectContext: self.moc)
         for offset in offsets{
             let dream = dreams[offset]
-            moc.delete(dream)
-            try? moc.save()
+            do{
+                try dreamService.deleteDream(dream)
+            }catch{
+                print("Error Deleting Dream")
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ struct DreamDetailView: View {
     @State var text : String
 
     var dream : Dream?
+    
     var isNewDream : Bool{
         dream == nil
     }
@@ -47,13 +48,14 @@ struct DreamDetailView: View {
     }
     
     func updateDream(){
-        if let updatedDream = dream{
+        let dreamService = DreamService(managedObjectContext: self.moc)
+        if let dreamToUpDate = dream{
             do {
-                try updatedDream.updateDream(moc: moc, title: title, text: text)
+                try dreamService.updateDream(dreamToUpDate, title: title, text: text)
                 presentationMode.wrappedValue.dismiss()
-            } catch Dream.DreamError.invalidUpdate(let message){
+            } catch DreamService.DreamError.invalidUpdate(let message){
                 print(message)
-            } catch Dream.DreamError.updatingNonExistingDream{
+            } catch DreamService.DreamError.updatingNonExistingDream{
                 print("Cant update a dream that doesn't exist!")
             } catch{
                 print("Unexpected error: \(error).")
@@ -64,10 +66,11 @@ struct DreamDetailView: View {
     }
     
     func saveDream(){
+        let dreamService = DreamService(managedObjectContext: self.moc)
         do {
-            try Dream.saveDream(moc: moc, title: title, text: text)
+            try dreamService.saveDream(title: title, text: text)
             presentationMode.wrappedValue.dismiss()
-        } catch Dream.DreamError.invalidSave(error: let message) {
+        } catch DreamService.DreamError.invalidSave(error: let message) {
             print(message)
         } catch{
             print("Unexpected error: \(error).")
@@ -75,11 +78,12 @@ struct DreamDetailView: View {
     }
     
     func deleteDream(){
+        let dreamService = DreamService(managedObjectContext: self.moc)
         if let dreamToDelete = dream{
             do{
-                try dreamToDelete.deleteDream(context: moc)
+                try dreamService.deleteDream(dreamToDelete)
                 presentationMode.wrappedValue.dismiss()
-            }catch Dream.DreamError.invalidDelete(error: let message){
+            }catch DreamService.DreamError.invalidDelete(error: let message){
                 print(message)
             }catch{
                 print("Unexpected error: \(error).")
