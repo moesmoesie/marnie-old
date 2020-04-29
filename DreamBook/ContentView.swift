@@ -51,7 +51,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, self.context)
