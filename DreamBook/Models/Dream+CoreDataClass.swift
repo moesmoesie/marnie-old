@@ -1,16 +1,17 @@
 //
-//  Dream.swift
+//  Dream+CoreDataClass.swift
 //  DreamBook
 //
-//  Created by moesmoesie on 25/04/2020.
+//  Created by moesmoesie on 29/04/2020.
 //  Copyright © 2020 moesmoesie. All rights reserved.
+//
 //
 
 import Foundation
 import CoreData
 
-extension Dream{
-    
+@objc(Dream)
+public class Dream: NSManagedObject {
     static func saveDream(moc : NSManagedObjectContext,title:String?, text:String?) throws {
         let dream = Dream(entity: Dream.entity(), insertInto: nil)
         dream.id = UUID()
