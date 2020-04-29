@@ -15,7 +15,7 @@ struct DreamDetailView: View {
     @State var text : String
     @State var isBookmarked : Bool
     @State var date : Date
-
+    
     var dream : Dream?
     
     var isNewDream : Bool{
@@ -38,22 +38,20 @@ struct DreamDetailView: View {
     }
     
     var body: some View {
-        VStack {
-            Form{
-                TextField("Title", text: $title)
-                TextField("Text", text: $text)
-                
-                if !isNewDream{
-                    Button("Delete", action: deleteDream)
-                }
-                
-                DatePicker("Date", selection: $date, displayedComponents: .date)
-                
-                Button(isNewDream ? "Save" : "Update",
-                       action: isNewDream ? saveDream : updateDream)
-                Toggle(isOn: $isBookmarked){
-                    Text("Bookmarked")
-                }
+        Form{
+            TextField("Title", text: $title)
+            TextField("Text", text: $text)
+            
+            if !isNewDream{
+                Button("Delete", action: deleteDream)
+            }
+            
+            DatePicker("Date", selection: $date, displayedComponents: .date)
+            
+            Button(isNewDream ? "Save" : "Update",
+                   action: isNewDream ? saveDream : updateDream)
+            Toggle(isOn: $isBookmarked){
+                Text("Bookmarked")
             }
         }
     }

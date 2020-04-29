@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F224530F6700C7B797 /* AppDelegate.swift */; };
 		110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F424530F6700C7B797 /* SceneDelegate.swift */; };
-		110F88FA24530F6700C7B797 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F924530F6700C7B797 /* ContentView.swift */; };
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
 		1124BD4A2459EE660073A271 /* Dream+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1124BD482459EE660073A271 /* Dream+CoreDataClass.swift */; };
 		1124BD4B2459EE660073A271 /* Dream+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1124BD492459EE660073A271 /* Dream+CoreDataProperties.swift */; };
 		114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F65762459C7250056EB4C /* DreamServiceTests.swift */; };
+		11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B2E245A2A5D00025F9F /* HomeView.swift */; };
+		11559B31245A2AB900025F9F /* DreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* DreamListView.swift */; };
 		1166455D24599F24000F2DC0 /* DreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166455C24599F24000F2DC0 /* DreamService.swift */; };
 		118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118EA0E62453286900A2446F /* DreamDetailView.swift */; };
 		11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */; };
@@ -36,7 +37,6 @@
 		110F88EF24530F6700C7B797 /* DreamBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DreamBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		110F88F224530F6700C7B797 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		110F88F424530F6700C7B797 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		110F88F924530F6700C7B797 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		110F88FB24530F6900C7B797 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		110F88FE24530F6900C7B797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -46,6 +46,8 @@
 		114F656C2459C70A0056EB4C /* DreamBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		114F65702459C70A0056EB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		114F65762459C7250056EB4C /* DreamServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamServiceTests.swift; sourceTree = "<group>"; };
+		11559B2E245A2A5D00025F9F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		11559B30245A2AB900025F9F /* DreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListView.swift; sourceTree = "<group>"; };
 		1166455C24599F24000F2DC0 /* DreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamService.swift; sourceTree = "<group>"; };
 		118EA0E62453286900A2446F /* DreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailView.swift; sourceTree = "<group>"; };
 		11B8A65D24596C500057D1E6 /* DreamBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DreamBook.xcdatamodel; sourceTree = "<group>"; };
@@ -123,6 +125,23 @@
 			path = DreamBookTests;
 			sourceTree = "<group>";
 		};
+		11559B2D245A29B800025F9F /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				11559B2E245A2A5D00025F9F /* HomeView.swift */,
+				11559B30245A2AB900025F9F /* DreamListView.swift */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		11559B32245A2D9200025F9F /* DreamDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				118EA0E62453286900A2446F /* DreamDetailView.swift */,
+			);
+			path = DreamDetailView;
+			sourceTree = "<group>";
+		};
 		1166455B24599EFA000F2DC0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,8 +153,8 @@
 		1166455E2459B4FA000F2DC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				118EA0E62453286900A2446F /* DreamDetailView.swift */,
-				110F88F924530F6700C7B797 /* ContentView.swift */,
+				11559B32245A2D9200025F9F /* DreamDetailView */,
+				11559B2D245A29B800025F9F /* HomeView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,14 +270,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1166455D24599F24000F2DC0 /* DreamService.swift in Sources */,
+				11559B31245A2AB900025F9F /* DreamListView.swift in Sources */,
 				1124BD4A2459EE660073A271 /* Dream+CoreDataClass.swift in Sources */,
 				11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */,
+				11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */,
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
 				11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */,
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
 				1124BD4B2459EE660073A271 /* Dream+CoreDataProperties.swift in Sources */,
-				110F88FA24530F6700C7B797 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
