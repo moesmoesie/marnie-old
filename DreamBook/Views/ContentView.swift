@@ -13,7 +13,7 @@ struct ContentView: View {
     @FetchRequest(entity: Dream.entity(), sortDescriptors: []) var dreams : FetchedResults<Dream>
     @Environment(\.managedObjectContext) var moc
     @State var showNewDream = false
-   
+    
     var body: some View {
         return NavigationView {
             VStack {
@@ -28,7 +28,13 @@ struct ContentView: View {
                         NavigationLink(
                             destination: DreamDetailView(dream: dream)
                         ){
-                            Text(dream.title ?? "No title")
+                            HStack{
+                                Text(dream.title ?? "No title")
+                                if dream.isBookmarked{
+                                    Spacer()
+                                    Image(systemName: "heart")
+                                }
+                            }
                         }
                     }
                     .onDelete(perform: deleteDreams)

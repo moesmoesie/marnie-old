@@ -13,6 +13,7 @@ struct DreamDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var title : String
     @State var text : String
+    @State var isBookmarked : Bool
 
     var dream : Dream?
     
@@ -24,11 +25,13 @@ struct DreamDetailView: View {
         self.dream = dream
         _title = .init(initialValue: dream.title ?? "")
         _text = .init(initialValue: dream.text ?? "")
+        _isBookmarked = .init(initialValue: dream.isBookmarked)
     }
     
     init() {
         _title = .init(initialValue: "")
         _text = .init(initialValue: "")
+        _isBookmarked = .init(initialValue: false)
     }
     
     var body: some View {
@@ -43,6 +46,9 @@ struct DreamDetailView: View {
 
                 Button(isNewDream ? "Save" : "Update",
                        action: isNewDream ? saveDream : updateDream)
+                Toggle(isOn: $isBookmarked){
+                    Text("Bookmarked")
+                }
             }
         }
     }
@@ -51,7 +57,7 @@ struct DreamDetailView: View {
         let dreamService = DreamService(managedObjectContext: self.moc)
         if let dreamToUpDate = dream{
             do {
-                try dreamService.updateDream(dreamToUpDate, title: title, text: text)
+                try dreamService.updateDream(dreamToUpDate, title: title, text: text, isBookmarked: isBookmarked)
                 presentationMode.wrappedValue.dismiss()
             } catch DreamService.DreamError.invalidUpdate(let message){
                 print(message)
@@ -68,7 +74,7 @@ struct DreamDetailView: View {
     func saveDream(){
         let dreamService = DreamService(managedObjectContext: self.moc)
         do {
-            try dreamService.saveDream(id : UUID(), title: title, text: text)
+            try dreamService.saveDream(id : UUID(), title: title, text: text, isBookmarked: isBookmarked)
             presentationMode.wrappedValue.dismiss()
         } catch DreamService.DreamError.invalidSave(error: let message) {
             print(message)

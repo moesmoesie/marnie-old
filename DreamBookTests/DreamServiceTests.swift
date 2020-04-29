@@ -15,6 +15,7 @@ class DreamServiceTests: XCTestCase {
     let sampleID = UUID()
     let sampleText = "Text"
     let sampleTitle = "Title"
+    let sampleIsBookmarked = false
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -24,6 +25,7 @@ class DreamServiceTests: XCTestCase {
         sampleDream.id = sampleID
         sampleDream.title = sampleTitle
         sampleDream.text = sampleText
+        sampleDream.isBookmarked = sampleIsBookmarked
         coreDataStack.saveContext()
     }
     
@@ -39,6 +41,7 @@ class DreamServiceTests: XCTestCase {
         XCTAssertNotNil(dream, "Dream should not be nil!")
         XCTAssertEqual(dream?.title!, self.sampleTitle)
         XCTAssertEqual(dream?.text!, self.sampleText)
+        XCTAssertEqual(dream?.isBookmarked, self.sampleIsBookmarked)
     }
     
     func testInValidDreamRead() throws{
@@ -57,22 +60,24 @@ class DreamServiceTests: XCTestCase {
     func testDreamUpdate() throws{
         let newText = "NewText"
         let newTitle = "NewTitle"
-
-        XCTAssertNoThrow(try sut.updateDream(self.sampleDream, title: newTitle, text: newText))
+        let newIsBookmarked = true
+        XCTAssertNoThrow(try sut.updateDream(self.sampleDream, title: newTitle, text: newText, isBookmarked: newIsBookmarked))
         XCTAssertEqual(sampleDream.text, newText)
         XCTAssertEqual(sampleDream.title, newTitle)
+        XCTAssertEqual(sampleDream.isBookmarked, newIsBookmarked)
         XCTAssertFalse(coreDataStack.managedObjectContext.hasChanges)
     }
     
     func testValidDreamSave() throws{
         let text = "Dream Text"
         let title = "Dream Title"
+        let isBookmarked = false
         let id = UUID()
         XCTAssertNil(sut.getDream(id: id))
-        XCTAssertNoThrow(try sut.saveDream(id: id, title: title, text: text))
+        XCTAssertNoThrow(try sut.saveDream(id: id, title: title, text: text, isBookmarked: isBookmarked))
         let dream = try XCTUnwrap(sut.getDream(id: id))
         XCTAssertEqual(dream.text, text)
         XCTAssertEqual(dream.title, title)
+        XCTAssertEqual(dream.isBookmarked, isBookmarked)
     }
-
 }

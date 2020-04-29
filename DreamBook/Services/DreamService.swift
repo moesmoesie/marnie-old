@@ -18,9 +18,10 @@ public class DreamService{
 }
 
 extension DreamService{
-    func saveDream(id: UUID, title:String?, text:String?) throws {
+    func saveDream(id: UUID, title:String?, text:String?, isBookmarked : Bool) throws {
         let dream = Dream(entity: Dream.entity(), insertInto: nil)
         dream.id = id
+        dream.isBookmarked = isBookmarked
         if let title = title{
             dream.title = title.isEmpty ? nil : title
         }
@@ -35,9 +36,10 @@ extension DreamService{
         }
     }
     
-    func updateDream(_ dream : Dream, title:String?, text:String?) throws {
+    func updateDream(_ dream : Dream, title:String?, text:String?, isBookmarked: Bool) throws {
         dream.title = title ?? dream.title
         dream.text = text ?? dream.text
+        dream.isBookmarked = isBookmarked
         
         do{
             try self.managedObjectContext.existingObject(with: dream.objectID)
