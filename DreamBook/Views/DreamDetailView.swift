@@ -68,7 +68,7 @@ struct DreamDetailView: View {
     func saveDream(){
         let dreamService = DreamService(managedObjectContext: self.moc)
         do {
-            try dreamService.saveDream(title: title, text: text)
+            try dreamService.saveDream(id : UUID(), title: title, text: text)
             presentationMode.wrappedValue.dismiss()
         } catch DreamService.DreamError.invalidSave(error: let message) {
             print(message)

@@ -18,9 +18,9 @@ public class DreamService{
 }
 
 extension DreamService{
-    func saveDream(title:String?, text:String?) throws {
+    func saveDream(id: UUID, title:String?, text:String?) throws {
         let dream = Dream(entity: Dream.entity(), insertInto: nil)
-        dream.id = UUID()
+        dream.id = id
         if let title = title{
             dream.title = title.isEmpty ? nil : title
         }
