@@ -23,7 +23,7 @@ class CoreDataStack{
     }()
     
     private lazy var storeContainer : NSPersistentContainer = {
-       let container = NSPersistentContainer(name: modelName)
+        let container = NSPersistentContainer(name: modelName)
         if self.inMemory{
             let storeDescription = NSPersistentStoreDescription()
             storeDescription.type = NSInMemoryStoreType
@@ -34,4 +34,12 @@ class CoreDataStack{
         }
         return container
     }()
+    
+    func saveContext () {
+        guard managedObjectContext.hasChanges else { return }
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            print("Unresolved error \(error), \(error.userInfo)") }
+    }
 }
