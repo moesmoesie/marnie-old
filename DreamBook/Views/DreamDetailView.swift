@@ -14,6 +14,7 @@ struct DreamDetailView: View {
     @State var title : String
     @State var text : String
     @State var isBookmarked : Bool
+    @State var date : Date
 
     var dream : Dream?
     
@@ -26,12 +27,14 @@ struct DreamDetailView: View {
         _title = .init(initialValue: dream.title ?? "")
         _text = .init(initialValue: dream.text ?? "")
         _isBookmarked = .init(initialValue: dream.isBookmarked)
+        _date = .init(initialValue: dream.date)
     }
     
     init() {
         _title = .init(initialValue: "")
         _text = .init(initialValue: "")
         _isBookmarked = .init(initialValue: false)
+        _date = .init(initialValue: Date())
     }
     
     var body: some View {
@@ -43,7 +46,9 @@ struct DreamDetailView: View {
                 if !isNewDream{
                     Button("Delete", action: deleteDream)
                 }
-
+                
+                DatePicker("Date", selection: $date, displayedComponents: .date)
+                
                 Button(isNewDream ? "Save" : "Update",
                        action: isNewDream ? saveDream : updateDream)
                 Toggle(isOn: $isBookmarked){
@@ -57,7 +62,7 @@ struct DreamDetailView: View {
         let dreamService = DreamService(managedObjectContext: self.moc)
         if let dreamToUpDate = dream{
             do {
-                try dreamService.updateDream(dreamToUpDate, title: title, text: text, isBookmarked: isBookmarked)
+                try dreamService.updateDream(dreamToUpDate, title: title, text: text, isBookmarked: isBookmarked, date: date)
                 presentationMode.wrappedValue.dismiss()
             } catch DreamService.DreamError.invalidUpdate(let message){
                 print(message)
@@ -74,7 +79,7 @@ struct DreamDetailView: View {
     func saveDream(){
         let dreamService = DreamService(managedObjectContext: self.moc)
         do {
-            try dreamService.saveDream(id : UUID(), title: title, text: text, isBookmarked: isBookmarked)
+            try dreamService.saveDream(id : UUID(), title: title, text: text, isBookmarked: isBookmarked, date: date)
             presentationMode.wrappedValue.dismiss()
         } catch DreamService.DreamError.invalidSave(error: let message) {
             print(message)

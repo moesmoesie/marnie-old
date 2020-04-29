@@ -28,12 +28,15 @@ struct ContentView: View {
                         NavigationLink(
                             destination: DreamDetailView(dream: dream)
                         ){
-                            HStack{
-                                Text(dream.title ?? "No title")
-                                if dream.isBookmarked{
-                                    Spacer()
-                                    Image(systemName: "heart")
+                            VStack{
+                                HStack{
+                                    Text(dream.title ?? "No title")
+                                    if dream.isBookmarked{
+                                        Spacer()
+                                        Image(systemName: "heart")
+                                    }
                                 }
+                                Text(dream.dateString)
                             }
                         }
                     }
