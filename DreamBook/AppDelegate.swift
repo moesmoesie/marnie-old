@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    lazy var coreDataStack = CoreDataStack(modelName: "DreamBook")
+    lazy var coreDataStack = CoreDataStack()
 
     // MARK: UISceneSession Lifecycle
 

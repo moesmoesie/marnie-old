@@ -10,25 +10,20 @@ import Foundation
 import CoreData
 
 class CoreDataStack{
-    private let modelName : String
-    private let inMemory : Bool
+    public static let modelName = "DreamBook"
     
-    init(modelName : String, inMemory : Bool = false) {
-        self.modelName = modelName
-        self.inMemory = inMemory
-    }
+    public static let model: NSManagedObjectModel = {
+        let modelURL = Bundle.main.url(forResource: modelName, withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
+    }()
     
     lazy var managedObjectContext : NSManagedObjectContext = {
         self.storeContainer.viewContext
     }()
     
-    private lazy var storeContainer : NSPersistentContainer = {
-        let container = NSPersistentContainer(name: modelName)
-        if self.inMemory{
-            let storeDescription = NSPersistentStoreDescription()
-            storeDescription.type = NSInMemoryStoreType
-            container.persistentStoreDescriptions = [storeDescription]
-        }
+    lazy var storeContainer : NSPersistentContainer = {
+        let container = NSPersistentContainer(name: CoreDataStack.modelName, managedObjectModel: CoreDataStack.model)
+        
         container.loadPersistentStores { (storeDescription, error) in
             print("Error loading store")
         }
@@ -41,5 +36,22 @@ class CoreDataStack{
             try managedObjectContext.save()
         } catch let error as NSError {
             print("Unresolved error \(error), \(error.userInfo)") }
+    }
+}
+
+class InMemoryCoreDataStack: CoreDataStack {
+    override init() {
+        super.init()
+        let container = NSPersistentContainer(name: CoreDataStack.modelName, managedObjectModel: CoreDataStack.model)
+        let storeDescription = NSPersistentStoreDescription()
+        
+        storeDescription.type = NSInMemoryStoreType
+        container.persistentStoreDescriptions = [storeDescription]
+        
+        container.loadPersistentStores { (storeDescription, error) in
+            print("Error loading store")
+        }
+        
+        self.storeContainer = container
     }
 }
