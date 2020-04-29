@@ -20,5 +20,7 @@ extension Dream {
     @NSManaged public var id: UUID?
     @NSManaged public var text: String?
     @NSManaged public var title: String?
+    @NSManaged public var isBookmarked: Bool
+    @NSManaged public var date: Date?
 
 }

@@ -12,4 +12,5 @@ import CoreData
 
 @objc(Dream)
 public class Dream: NSManagedObject {
+
 }
