@@ -68,18 +68,17 @@
 		110F88F124530F6700C7B797 /* DreamBook */ = {
 			isa = PBXGroup;
 			children = (
+				1166455E2459B4FA000F2DC0 /* Views */,
 				1166455B24599EFA000F2DC0 /* Services */,
 				1168B0242454593D00E9E186 /* Models */,
 				110F88F224530F6700C7B797 /* AppDelegate.swift */,
 				110F88F424530F6700C7B797 /* SceneDelegate.swift */,
-				110F88F924530F6700C7B797 /* ContentView.swift */,
-				110F88FB24530F6900C7B797 /* Assets.xcassets */,
+				11B8A65F24596D480057D1E6 /* CoreDataStack.swift */,
 				110F890024530F6900C7B797 /* LaunchScreen.storyboard */,
+				11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */,
 				110F890324530F6900C7B797 /* Info.plist */,
 				110F88FD24530F6900C7B797 /* Preview Content */,
-				118EA0E62453286900A2446F /* DreamDetailView.swift */,
-				11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */,
-				11B8A65F24596D480057D1E6 /* CoreDataStack.swift */,
+				110F88FB24530F6900C7B797 /* Assets.xcassets */,
 			);
 			path = DreamBook;
 			sourceTree = "<group>";
@@ -98,6 +97,15 @@
 				1166455C24599F24000F2DC0 /* DreamService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		1166455E2459B4FA000F2DC0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				118EA0E62453286900A2446F /* DreamDetailView.swift */,
+				110F88F924530F6700C7B797 /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		1168B0242454593D00E9E186 /* Models */ = {
