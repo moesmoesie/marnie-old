@@ -13,6 +13,7 @@
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
+		114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F65762459C7250056EB4C /* DreamServiceTests.swift */; };
 		1166455D24599F24000F2DC0 /* DreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166455C24599F24000F2DC0 /* DreamService.swift */; };
 		118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118EA0E62453286900A2446F /* DreamDetailView.swift */; };
 		11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */; };
@@ -20,6 +21,16 @@
 		11B8A663245973150057D1E6 /* Dream+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A661245973150057D1E6 /* Dream+CoreDataClass.swift */; };
 		11B8A664245973150057D1E6 /* Dream+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A662245973150057D1E6 /* Dream+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		114F65712459C70A0056EB4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 110F88E724530F6700C7B797 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 110F88EE24530F6700C7B797;
+			remoteInfo = DreamBook;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		110F88EF24530F6700C7B797 /* DreamBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DreamBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +41,9 @@
 		110F88FE24530F6900C7B797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		114F656C2459C70A0056EB4C /* DreamBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		114F65702459C70A0056EB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		114F65762459C7250056EB4C /* DreamServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamServiceTests.swift; sourceTree = "<group>"; };
 		1166455C24599F24000F2DC0 /* DreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamService.swift; sourceTree = "<group>"; };
 		118EA0E62453286900A2446F /* DreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailView.swift; sourceTree = "<group>"; };
 		11B8A65D24596C500057D1E6 /* DreamBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DreamBook.xcdatamodel; sourceTree = "<group>"; };
@@ -46,6 +60,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		114F65692459C70A0056EB4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -53,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				110F88F124530F6700C7B797 /* DreamBook */,
+				114F656D2459C70A0056EB4C /* DreamBookTests */,
 				110F88F024530F6700C7B797 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				110F88EF24530F6700C7B797 /* DreamBook.app */,
+				114F656C2459C70A0056EB4C /* DreamBookTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +112,15 @@
 				110F88FE24530F6900C7B797 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		114F656D2459C70A0056EB4C /* DreamBookTests */ = {
+			isa = PBXGroup;
+			children = (
+				114F65762459C7250056EB4C /* DreamServiceTests.swift */,
+				114F65702459C70A0056EB4C /* Info.plist */,
+			);
+			path = DreamBookTests;
 			sourceTree = "<group>";
 		};
 		1166455B24599EFA000F2DC0 /* Services */ = {
@@ -137,6 +169,24 @@
 			productReference = 110F88EF24530F6700C7B797 /* DreamBook.app */;
 			productType = "com.apple.product-type.application";
 		};
+		114F656B2459C70A0056EB4C /* DreamBookTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamBookTests" */;
+			buildPhases = (
+				114F65682459C70A0056EB4C /* Sources */,
+				114F65692459C70A0056EB4C /* Frameworks */,
+				114F656A2459C70A0056EB4C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				114F65722459C70A0056EB4C /* PBXTargetDependency */,
+			);
+			name = DreamBookTests;
+			productName = DreamBookTests;
+			productReference = 114F656C2459C70A0056EB4C /* DreamBookTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -149,6 +199,10 @@
 				TargetAttributes = {
 					110F88EE24530F6700C7B797 = {
 						CreatedOnToolsVersion = 11.4.1;
+					};
+					114F656B2459C70A0056EB4C = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 110F88EE24530F6700C7B797;
 					};
 				};
 			};
@@ -166,6 +220,7 @@
 			projectRoot = "";
 			targets = (
 				110F88EE24530F6700C7B797 /* DreamBook */,
+				114F656B2459C70A0056EB4C /* DreamBookTests */,
 			);
 		};
 /* End PBXProject section */
@@ -178,6 +233,13 @@
 				110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */,
 				110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */,
 				110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		114F656A2459C70A0056EB4C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +262,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		114F65682459C70A0056EB4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		114F65722459C70A0056EB4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 110F88EE24530F6700C7B797 /* DreamBook */;
+			targetProxy = 114F65712459C70A0056EB4C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		110F890024530F6900C7B797 /* LaunchScreen.storyboard */ = {
@@ -368,6 +446,46 @@
 			};
 			name = Release;
 		};
+		114F65732459C70A0056EB4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C342Q22M8Y;
+				INFOPLIST_FILE = DreamBookTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.DreamBookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamBook.app/DreamBook";
+			};
+			name = Debug;
+		};
+		114F65742459C70A0056EB4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C342Q22M8Y;
+				INFOPLIST_FILE = DreamBookTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.DreamBookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamBook.app/DreamBook";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -385,6 +503,15 @@
 			buildConfigurations = (
 				110F890724530F6900C7B797 /* Debug */,
 				110F890824530F6900C7B797 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamBookTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				114F65732459C70A0056EB4C /* Debug */,
+				114F65742459C70A0056EB4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
