@@ -21,6 +21,10 @@
 		11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A65F24596D480057D1E6 /* CoreDataStack.swift */; };
 		11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */; };
 		11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */; };
+		11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */; };
+		11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */; };
+		11F5ED33245B3D0100667B4E /* TagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED32245B3D0100667B4E /* TagService.swift */; };
+		11F5ED35245B3F6500667B4E /* TagServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED34245B3F6500667B4E /* TagServiceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,10 @@
 		11B8A65F24596D480057D1E6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11F5ED32245B3D0100667B4E /* TagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagService.swift; sourceTree = "<group>"; };
+		11F5ED34245B3F6500667B4E /* TagServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagServiceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +127,7 @@
 		114F656D2459C70A0056EB4C /* DreamBookTests */ = {
 			isa = PBXGroup;
 			children = (
+				11F5ED34245B3F6500667B4E /* TagServiceTest.swift */,
 				114F65762459C7250056EB4C /* DreamServiceTests.swift */,
 				114F65702459C70A0056EB4C /* Info.plist */,
 			);
@@ -146,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				1166455C24599F24000F2DC0 /* DreamService.swift */,
+				11F5ED32245B3D0100667B4E /* TagService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -162,6 +172,8 @@
 		1168B0242454593D00E9E186 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */,
+				11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */,
 				11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */,
 				11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */,
 			);
@@ -270,13 +282,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1166455D24599F24000F2DC0 /* DreamService.swift in Sources */,
+				11F5ED33245B3D0100667B4E /* TagService.swift in Sources */,
 				11559B31245A2AB900025F9F /* DreamListView.swift in Sources */,
+				11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */,
 				11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */,
 				11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */,
 				11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */,
 				11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */,
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
+				11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */,
 				11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */,
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
 			);
@@ -286,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F5ED35245B3F6500667B4E /* TagServiceTest.swift in Sources */,
 				114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

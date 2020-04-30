@@ -6,8 +6,19 @@
         <attribute name="isBookmarked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String" minValueString="1" maxValueString="40"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Tag" inverseName="dreams" inverseEntity="Tag"/>
+    </entity>
+    <entity name="Tag" representedClassName="Tag" syncable="YES">
+        <attribute name="text" attributeType="String" minValueString="1" maxValueString="30"/>
+        <relationship name="dreams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dream" inverseName="tags" inverseEntity="Dream"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="text"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Dream" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Dream" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Tag" positionX="354.55859375" positionY="41.93359375" width="128" height="73"/>
     </elements>
 </model>
