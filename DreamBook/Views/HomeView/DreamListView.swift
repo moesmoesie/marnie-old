@@ -24,6 +24,13 @@ struct DreamListView: View {
                         }
                     }
                     Text(dream.wrappedTitle).font(.headline)
+                    if(!dream.wrappedTags.isEmpty){
+                        HStack{
+                            ForEach(dream.wrappedTags, id: \.self){ (tag : Tag) in
+                                Text(tag.wrapperText)
+                            }
+                        }
+                    }
                     Text(dream.wrappedText).lineLimit(5)
                 }
             }
