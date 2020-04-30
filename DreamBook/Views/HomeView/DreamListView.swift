@@ -13,20 +13,18 @@ struct DreamListView: View {
     
     var body: some View {
         List{
-            ForEach(dreams, id: \.self){ dream in
-                NavigationLink(
-                    destination: DreamDetailView(dream: dream)
-                ){
-                    VStack{
-                        HStack{
-                            Text(dream.title ?? "No title")
-                            if dream.isBookmarked{
-                                Spacer()
-                                Image(systemName: "heart")
-                            }
+            ForEach(dreams, id: \.self){ (dream: Dream) in
+                VStack(alignment: .leading){
+                    NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}
+                    HStack(alignment: VerticalAlignment.firstTextBaseline){
+                        Text(dream.dateString).font(.caption)
+                        Spacer()
+                        if dream.isBookmarked{
+                            Image(systemName: "heart")
                         }
-                        Text(dream.dateString)
                     }
+                    Text(dream.title ?? "No title").font(.headline)
+                    Text(dream.text ?? "").lineLimit(5)
                 }
             }
         }
