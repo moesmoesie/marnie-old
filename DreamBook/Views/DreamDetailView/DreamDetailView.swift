@@ -24,10 +24,10 @@ struct DreamDetailView: View {
     
     init(dream : Dream) {
         self.dream = dream
-        _title = .init(initialValue: dream.title ?? "")
-        _text = .init(initialValue: dream.text ?? "")
+        _title = .init(initialValue: dream.wrappedTitle)
+        _text = .init(initialValue: dream.wrappedText)
         _isBookmarked = .init(initialValue: dream.isBookmarked)
-        _date = .init(initialValue: dream.date)
+        _date = .init(initialValue: dream.wrapperDate)
     }
     
     init() {

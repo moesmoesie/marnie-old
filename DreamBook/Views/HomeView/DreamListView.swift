@@ -17,14 +17,14 @@ struct DreamListView: View {
                 VStack(alignment: .leading){
                     NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}
                     HStack(alignment: VerticalAlignment.firstTextBaseline){
-                        Text(dream.dateString).font(.caption)
+                        Text(dream.wrapperDateString).font(.caption)
                         Spacer()
                         if dream.isBookmarked{
                             Image(systemName: "heart")
                         }
                     }
-                    Text(dream.title ?? "No title").font(.headline)
-                    Text(dream.text ?? "").lineLimit(5)
+                    Text(dream.wrappedTitle).font(.headline)
+                    Text(dream.wrappedText).lineLimit(5)
                 }
             }
         }

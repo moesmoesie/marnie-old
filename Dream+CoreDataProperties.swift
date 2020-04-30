@@ -17,16 +17,31 @@ extension Dream {
         return NSFetchRequest<Dream>(entityName: "Dream")
     }
 
-    @NSManaged public var date: Date
+    @NSManaged public var date: Date?
     @NSManaged public var id: UUID?
     @NSManaged public var isBookmarked: Bool
     @NSManaged public var text: String?
     @NSManaged public var title: String?
     
-    public var dateString : String {
+    public var wrapperDateString : String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        return formatter.string(from: self.date)
+        if let date = date{
+            return formatter.string(from: date)
+        }
+        return "Unknown date"
     }
-
+    
+    public var wrapperDate : Date {
+        date ?? Date()
+    }
+    
+    public var wrappedText : String {
+        text ?? ""
+    }
+    
+    public var wrappedTitle: String{
+        title ?? "Unknown title"
+    }
+    
 }
