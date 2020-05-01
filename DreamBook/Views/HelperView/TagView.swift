@@ -13,6 +13,7 @@ struct TagView: View {
     var body: some View {
         Text(tag.wrapperText)
             .font(.caption)
+            .bold()
             .padding(.horizontal)
             .padding(.vertical,2)
             .background(Color.black)
