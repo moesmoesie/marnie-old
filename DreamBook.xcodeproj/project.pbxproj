@@ -12,6 +12,7 @@
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
+		114D1563245CB5FB0042A38B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1562245CB5FB0042A38B /* TagView.swift */; };
 		114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F65762459C7250056EB4C /* DreamServiceTests.swift */; };
 		11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B2E245A2A5D00025F9F /* HomeView.swift */; };
 		11559B31245A2AB900025F9F /* DreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* DreamListView.swift */; };
@@ -45,6 +46,7 @@
 		110F88FE24530F6900C7B797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		114D1562245CB5FB0042A38B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		114F656C2459C70A0056EB4C /* DreamBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		114F65702459C70A0056EB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		114F65762459C7250056EB4C /* DreamServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamServiceTests.swift; sourceTree = "<group>"; };
@@ -124,6 +126,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		114D155F245CB58C0042A38B /* HelperView */ = {
+			isa = PBXGroup;
+			children = (
+				114D1562245CB5FB0042A38B /* TagView.swift */,
+			);
+			path = HelperView;
+			sourceTree = "<group>";
+		};
 		114F656D2459C70A0056EB4C /* DreamBookTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +173,7 @@
 		1166455E2459B4FA000F2DC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				114D155F245CB58C0042A38B /* HelperView */,
 				11559B32245A2D9200025F9F /* DreamDetailView */,
 				11559B2D245A29B800025F9F /* HomeView */,
 			);
@@ -292,6 +303,7 @@
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
 				11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */,
+				114D1563245CB5FB0042A38B /* TagView.swift in Sources */,
 				11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */,
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
 			);

@@ -27,7 +27,7 @@ struct DreamListView: View {
                     if(!dream.wrappedTags.isEmpty){
                         HStack{
                             ForEach(dream.wrappedTags, id: \.self){ (tag : Tag) in
-                                Text(tag.wrapperText)
+                                TagView(tag: tag)
                             }
                         }
                     }
