@@ -41,52 +41,146 @@ struct DreamDetailView: View {
     }
     
     var body: some View {
-        Form{
-            TextField("Title", text: $title)
-            TextField("Text", text: $text)
-            
-            if !isNewDream{
-                Button("Delete", action: deleteDream)
-            }
-            
-            DatePicker("Date", selection: $date, displayedComponents: .date)
-            
-            Button(isNewDream ? "Save" : "Update",
-                   action: isNewDream ? saveDream : updateDream)
-            Toggle(isOn: $isBookmarked){
-                Text("Bookmarked")
-            }
-            
-            HStack{
-                ForEach(tags, id: \.self){ (tag : Tag) in
-                    Text(tag.wrapperText)
+        ScrollView(.vertical, showsIndicators: false){
+            VStack(alignment : .leading){
+                HStack{
+                    DreamBackView()
+                    Spacer()
+                    if isNewDream{
+                        DreamSaveView(title: title, text: text, isBookmarked: isBookmarked, date: date, tags: tags)
+                    }else{
+                        DreamUpdateView(dream: dream, title: title, text: text, isBookmarked: isBookmarked, date: date, tags: tags)
+                    }
+                    if !isNewDream{
+                        DreamDeleteView(dream: dream)
+                    }
+                    DreamBookmarkedView(isBookmarked: $isBookmarked)
                 }
+                DreamTitleView(title: $title)
+                TagCollectionView(tags: tags)
+                DreamAddTagView(tags: $tags)
+                DreamTextView(text: $text)
             }
-            
-            Button("Add random Tags"){
-                let randomTags = ["Jeremy", "Skeet", "Je Moeder"]
-                self.addTag(text: randomTags.randomElement()!)
-            }
+        }.navigationBarTitle("",displayMode: .inline)
+            .navigationBarHidden(true)
+    }
+}
+
+struct DreamDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        DreamDetailView()
+    }
+}
+
+private struct DreamBookmarkedView : View{
+    @Binding var isBookmarked: Bool
+    var body : some View{
+        Button(action:{
+            self.isBookmarked.toggle()
+        }){
+            Image(systemName: "heart.fill")
+                .foregroundColor(self.isBookmarked ? .accentColor : .gray)
         }
     }
     
-    func addTag(text : String){
-        let tagService = TagService(managedObjectContext: self.moc)
-        if let tag = tagService.getTag(text: text){
-            if tags.contains(tag){
-                return
-            }
-            tags.append(tag)
-        }else{
+}
+
+private struct DreamTitleView : View{
+    @Binding var title: String
+    var body: some View{
+        TextField("Title", text: $title)
+    }
+}
+
+private struct DreamDeleteView : View{
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
+    let dream : Dream?
+    
+    var body : some View{
+        Button(action:deleteDream){
+            Image(systemName: "trash.fill")
+                .foregroundColor(.red)
+        }
+    }
+    
+    func deleteDream(){
+        let dreamService = DreamService(managedObjectContext: self.moc)
+        if let dreamToDelete = dream{
             do{
-                let tag = try tagService.createTag(text: text)
-                if tags.contains(tag){
-                    return
-                }
-                tags.append(tag)
+                try dreamService.deleteDream(dreamToDelete)
+                presentationMode.wrappedValue.dismiss()
+            }catch DreamService.DreamError.invalidDelete(error: let message){
+                print(message)
             }catch{
-                print("Cant create that tag")
+                print("Unexpected error: \(error).")
             }
+        }
+    }
+}
+
+private struct DreamBackView : View {
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body : some View{
+        Button(action:backButtonPress){
+            Image(systemName: "chevron.left")
+        }
+    }
+    
+    func backButtonPress(){
+        self.presentationMode.wrappedValue.dismiss()
+    }
+}
+
+private struct DreamTextView : View{
+    @Binding var text: String
+    var body: some View{
+        TextField("Text",text: $text)
+    }
+}
+
+private struct DreamSaveView : View{
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
+    let title : String
+    let text : String
+    let isBookmarked : Bool
+    let date : Date
+    let tags : [Tag]
+    
+    var body : some View{
+        Button(action: saveDream){
+            Image(systemName: "tray.and.arrow.down.fill")
+        }
+    }
+    
+    func saveDream(){
+        let dreamService = DreamService(managedObjectContext: self.moc)
+        do {
+            try dreamService.saveDream(id : UUID(), title: title, text: text, isBookmarked: isBookmarked, date: date,tags: tags)
+            presentationMode.wrappedValue.dismiss()
+        } catch DreamService.DreamError.invalidSave(error: let message) {
+            print(message)
+        } catch{
+            print("Unexpected error: \(error).")
+        }
+    }
+}
+
+private struct DreamUpdateView : View{
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
+    let dream : Dream?
+    let title : String
+    let text : String
+    let isBookmarked : Bool
+    let date : Date
+    let tags : [Tag]
+    
+    var body : some View{
+        Button(action: updateDream){
+            Image(systemName: "tray.and.arrow.down.fill")
         }
     }
     
@@ -107,36 +201,43 @@ struct DreamDetailView: View {
             print("Cant update a dream that doesnt exit!")
         }
     }
-    
-    func saveDream(){
-        let dreamService = DreamService(managedObjectContext: self.moc)
-        do {
-            try dreamService.saveDream(id : UUID(), title: title, text: text, isBookmarked: isBookmarked, date: date,tags: tags)
-            presentationMode.wrappedValue.dismiss()
-        } catch DreamService.DreamError.invalidSave(error: let message) {
-            print(message)
-        } catch{
-            print("Unexpected error: \(error).")
-        }
-    }
-    
-    func deleteDream(){
-        let dreamService = DreamService(managedObjectContext: self.moc)
-        if let dreamToDelete = dream{
-            do{
-                try dreamService.deleteDream(dreamToDelete)
-                presentationMode.wrappedValue.dismiss()
-            }catch DreamService.DreamError.invalidDelete(error: let message){
-                print(message)
-            }catch{
-                print("Unexpected error: \(error).")
+}
+
+private struct DreamAddTagView : View {
+    @Environment(\.managedObjectContext) var moc
+    @Binding var tags : [Tag]
+    @State var text : String = ""
+    var body : some View{
+        HStack{
+            TextField("tag" , text: $text)
+            Button(action: {self.addTag()}){
+                Image(systemName: "plus")
             }
         }
     }
-}
-
-struct DreamDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DreamDetailView()
+    
+    func addTag(){
+        if text.isEmpty{
+            return
+        }
+        let tagService = TagService(managedObjectContext: self.moc)
+        if let tag = tagService.getTag(text: text){
+            if tags.contains(tag){
+                return
+            }
+            tags.append(tag)
+        }else{
+            do{
+                let tag = try tagService.createTag(text: text)
+                if tags.contains(tag){
+                    return
+                }
+                tags.append(tag)
+            }catch{
+                print("Cant create that tag")
+            }
+        }
+        
+        text = ""
     }
 }
