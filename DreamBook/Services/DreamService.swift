@@ -66,7 +66,6 @@ extension DreamService{
     
     func deleteDream(_ dream : Dream) throws {
         do{
-            try dream.validateForDelete()
             self.managedObjectContext.delete(dream)
             try self.managedObjectContext.save()
         }catch let error as NSError{
