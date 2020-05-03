@@ -2,7 +2,7 @@
 //  Tag+CoreDataProperties.swift
 //  DreamBook
 //
-//  Created by moesmoesie on 30/04/2020.
+//  Created by moesmoesie on 03/05/2020.
 //  Copyright © 2020 moesmoesie. All rights reserved.
 //
 //
@@ -18,27 +18,10 @@ extension Tag {
     }
 
     @NSManaged public var text: String?
-    @NSManaged public var dreams: NSSet?
+    @NSManaged public var dream: Dream?
     
     var wrapperText : String {
         text ?? ""
     }
-
-}
-
-// MARK: Generated accessors for dreams
-extension Tag {
-
-    @objc(addDreamsObject:)
-    @NSManaged public func addToDreams(_ value: Dream)
-
-    @objc(removeDreamsObject:)
-    @NSManaged public func removeFromDreams(_ value: Dream)
-
-    @objc(addDreams:)
-    @NSManaged public func addToDreams(_ values: NSSet)
-
-    @objc(removeDreams:)
-    @NSManaged public func removeFromDreams(_ values: NSSet)
 
 }

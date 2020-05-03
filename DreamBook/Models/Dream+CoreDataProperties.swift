@@ -2,7 +2,7 @@
 //  Dream+CoreDataProperties.swift
 //  DreamBook
 //
-//  Created by moesmoesie on 30/04/2020.
+//  Created by moesmoesie on 03/05/2020.
 //  Copyright © 2020 moesmoesie. All rights reserved.
 //
 //
@@ -25,33 +25,34 @@ extension Dream {
     @NSManaged public var tags: NSOrderedSet?
     
     public var wrappedTags : [Tag]{
-        var wrappedTags : [Tag] = []
-        for tag in tags ?? []{
-            wrappedTags.append(tag as! Tag)
+         var wrappedTags : [Tag] = []
+         for tag in tags ?? []{
+             wrappedTags.append(tag as! Tag)
+         }
+         return wrappedTags
+     }
+     
+     public var wrapperDateString : String {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            if let date = date{
+                return formatter.string(from: date)
+            }
+            return "Unknown date"
         }
-        return wrappedTags
-    }
-    
-    public var wrapperDateString : String {
-           let formatter = DateFormatter()
-           formatter.dateStyle = .medium
-           if let date = date{
-               return formatter.string(from: date)
-           }
-           return "Unknown date"
-       }
-       
-       public var wrapperDate : Date {
-           date ?? Date()
-       }
-       
-       public var wrappedText : String {
-           text ?? ""
-       }
-       
-       public var wrappedTitle: String{
-           title ?? "Unknown title"
-       }
+        
+        public var wrapperDate : Date {
+            date ?? Date()
+        }
+        
+        public var wrappedText : String {
+            text ?? ""
+        }
+        
+        public var wrappedTitle: String{
+            title ?? "Unknown title"
+        }
+
 
 }
 
