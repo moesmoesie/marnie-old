@@ -27,7 +27,7 @@ struct DreamListView: View {
                     if(!dream.wrappedTags.isEmpty){
                         TagCollectionView(tags: dream.wrappedTags)
                     }
-                    Text(dream.wrappedText).lineLimit(5)
+                    Text(dream.wrappedText.replacingOccurrences(of: "\n", with: "")).lineLimit(6)
                 }
             }
         }
