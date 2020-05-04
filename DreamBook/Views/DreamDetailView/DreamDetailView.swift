@@ -136,7 +136,7 @@ private struct DreamBackView : View {
 private struct DreamTextView : View{
     @Binding var text: String
     var body: some View{
-        TextField("Text",text: $text)
+        MultilineTextField(placeholder: "The journey begins here", text: $text)
     }
 }
 
