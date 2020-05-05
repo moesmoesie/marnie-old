@@ -16,7 +16,7 @@ struct DreamListView: View {
             ForEach(dreams, id: \.self){ (dream: Dream) in
                 VStack(alignment: .leading, spacing: 0){
                     NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}.hidden()
-                    HStack(alignment: VerticalAlignment.firstTextBaseline){
+                    HStack{
                         Text(dream.wrapperDateString).font(.caption).foregroundColor(self.theme.primaryColor).bold()
                         Spacer()
                         if dream.isBookmarked{
