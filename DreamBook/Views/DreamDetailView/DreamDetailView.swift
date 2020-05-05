@@ -85,7 +85,7 @@ private struct DreamBookmarkedView : View{
             self.isBookmarked.toggle()
         }){
             Image(systemName: "heart.fill")
-                .foregroundColor(self.isBookmarked ? theme.primaryColor : .gray)
+                .foregroundColor(self.isBookmarked ? theme.primaryColor : theme.passiveColor)
         }
     }
 }
@@ -101,12 +101,14 @@ private struct DreamTitleView : View{
 private struct DreamDeleteView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var theme : Theme
+
     let dream : Dream?
     
     var body : some View{
         Button(action:deleteDream){
             Image(systemName: "trash.fill")
-                .foregroundColor(.red)
+                .foregroundColor(theme.tertiaryColor)
         }
     }
     
@@ -127,10 +129,11 @@ private struct DreamDeleteView : View{
 
 private struct DreamBackView : View {
     @Environment(\.presentationMode) var presentationMode
-    
+    @EnvironmentObject var theme : Theme
+
     var body : some View{
         Button(action:backButtonPress){
-            Image(systemName: "chevron.left")
+            Image(systemName: "chevron.left").foregroundColor(theme.primaryColor)
         }
     }
     
@@ -149,6 +152,8 @@ private struct DreamTextView : View{
 private struct DreamSaveView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var theme : Theme
+
     let title : String
     let text : String
     let isBookmarked : Bool
@@ -157,7 +162,7 @@ private struct DreamSaveView : View{
     
     var body : some View{
         Button(action: saveDream){
-            Image(systemName: "tray.and.arrow.down.fill")
+            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
         }
     }
     
@@ -177,6 +182,8 @@ private struct DreamSaveView : View{
 private struct DreamUpdateView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var theme : Theme
+
     let dream : Dream?
     let title : String
     let text : String
@@ -186,7 +193,7 @@ private struct DreamUpdateView : View{
     
     var body : some View{
         Button(action: updateDream){
-            Image(systemName: "tray.and.arrow.down.fill")
+            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
         }
     }
     

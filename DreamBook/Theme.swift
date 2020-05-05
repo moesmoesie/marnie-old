@@ -14,9 +14,11 @@ class Theme : ObservableObject {
     @Published var mediumPadding : CGFloat = 20
     @Published var largePadding : CGFloat = 30
     
+    @Published var passiveColor : Color = Color(red: 46 / 255.0, green: 49 / 255.0, blue: 56/225.0)
+
     @Published var primaryColor : Color = Color(red: 226 / 255.0, green: 157 / 255.0, blue: 29/225.0)
-    @Published var secundaryColor : Color = Color.red
-    @Published var tertiaryColor : Color = Color.green
+    @Published var secundaryColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
+    @Published var tertiaryColor : Color = Color.red
     
     @Published var primaryBackgroundColor : Color = Color(red: 22 / 255.0, green: 29 / 255.0, blue: 67/225.0)
     @Published var secundaryBackgroundColor : Color = Color(red: 31 / 255.0, green: 38 / 255.0, blue: 76/225.0)
