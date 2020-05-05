@@ -57,7 +57,7 @@ struct DreamDetailView: View {
                     DreamBookmarkedView(isBookmarked: $isBookmarked)
                 }
                 DreamTitleView(title: $title)
-                TagCollectionView(tags: tags)
+                TagCollectionView(tags: $tags)
                 DreamAddTagView(tags: $tags)
                 DreamTextView(text: $text)
             }
