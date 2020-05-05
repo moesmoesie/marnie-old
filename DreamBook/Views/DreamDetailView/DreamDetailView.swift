@@ -11,6 +11,7 @@ import SwiftUI
 struct DreamDetailView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var theme : Theme
     @State var title : String
     @State var text : String
     @State var isBookmarked : Bool
@@ -41,9 +42,10 @@ struct DreamDetailView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false){
-            VStack(alignment : .leading){
-                HStack{
+        ZStack{
+            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+            VStack{
+                HStack(alignment : .firstTextBaseline,spacing : self.theme.mediumPadding){
                     DreamBackView()
                     Spacer()
                     if isNewDream{
@@ -55,14 +57,17 @@ struct DreamDetailView: View {
                         DreamDeleteView(dream: dream)
                     }
                     DreamBookmarkedView(isBookmarked: $isBookmarked)
-                }
-                DreamTitleView(title: $title)
-                TagCollectionView(tags: $tags)
-                DreamAddTagView(tags: $tags)
-                DreamTextView(text: $text)
-            }
-        }.navigationBarTitle("",displayMode: .inline)
-            .navigationBarHidden(true)
+                }.padding(.vertical,self.theme.smallPadding)
+                ScrollView(.vertical, showsIndicators: false){
+                    VStack(alignment : .leading){
+                        DreamTitleView(title: $title)
+                        TagCollectionView(tags: $tags)
+                        DreamTextView(text: $text)
+                    }
+                }.navigationBarTitle("",displayMode: .inline)
+                    .navigationBarHidden(true)
+            }.padding(.horizontal, self.theme.mediumPadding)
+        }
     }
 }
 
@@ -74,21 +79,22 @@ struct DreamDetailView_Previews: PreviewProvider {
 
 private struct DreamBookmarkedView : View{
     @Binding var isBookmarked: Bool
+    @EnvironmentObject var theme : Theme
     var body : some View{
         Button(action:{
             self.isBookmarked.toggle()
         }){
             Image(systemName: "heart.fill")
-                .foregroundColor(self.isBookmarked ? .accentColor : .gray)
+                .foregroundColor(self.isBookmarked ? theme.primaryColor : .gray)
         }
     }
-    
 }
 
 private struct DreamTitleView : View{
+    @EnvironmentObject var theme : Theme
     @Binding var title: String
     var body: some View{
-        TextField("Title", text: $title)
+        TextField("Title", text: $title).foregroundColor(theme.textTitleColor).font(.headline)
     }
 }
 

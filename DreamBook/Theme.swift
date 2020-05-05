@@ -22,7 +22,11 @@ class Theme : ObservableObject {
     @Published var secundaryBackgroundColor : Color = Color(red: 31 / 255.0, green: 38 / 255.0, blue: 76/225.0)
     
     @Published var textTitleColor : Color = Color(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0)
+    @Published var textTitleUIColor : UIColor = UIColor(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0, alpha: 1)
+
     @Published var textBodyColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
+    @Published var textBodyUIColor : UIColor = UIColor(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0, alpha: 1)
+
 }
 
 

@@ -15,13 +15,14 @@ struct MultilineTextField: View {
     }
     
     @State var state = _State()
+    @EnvironmentObject var theme : Theme
 
     let placeholder: String
     @Binding var text: String
     
     let placeholderColor: UIColor = .gray
-    let font: UIFont = UIFont.systemFont(ofSize: 16)
-    let textColor: UIColor = .black
+    let font: UIFont = UIFont.preferredFont(forTextStyle: .body)
+   
     
     var body: some View {
         GeometryReader { (geo: GeometryProxy) in
@@ -52,7 +53,7 @@ struct MultilineTextField: View {
                 textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
                 textView.textContainerInset = .zero
                 textView.textContainer.lineFragmentPadding = 0
-                textView.textColor = self.textColor
+                textView.textColor = self.theme.textBodyUIColor
                 textView.font = self.font
                 
                 coordinator.text = self.$text
