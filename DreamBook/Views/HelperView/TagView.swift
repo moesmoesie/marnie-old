@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TagView: View {
+    @EnvironmentObject var theme : Theme
     let tag : Tag
     var body: some View {
         Text(tag.wrapperText)
@@ -16,9 +17,10 @@ struct TagView: View {
             .bold()
             .padding(.horizontal)
             .padding(.vertical,2)
-            .background(Color.black)
-            .foregroundColor(.white)
+            .background(theme.primaryColor)
+            .foregroundColor(theme.textTitleColor)
             .clipShape(Capsule())
+        
     }
 }
 

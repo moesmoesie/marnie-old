@@ -12,6 +12,7 @@
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
+		114744DC2461AB4900EF4A36 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114744DB2461AB4900EF4A36 /* Theme.swift */; };
 		114D1563245CB5FB0042A38B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1562245CB5FB0042A38B /* TagView.swift */; };
 		114D1565245CB9720042A38B /* TagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1564245CB9720042A38B /* TagCollectionView.swift */; };
 		114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F65762459C7250056EB4C /* DreamServiceTests.swift */; };
@@ -48,6 +49,7 @@
 		110F88FE24530F6900C7B797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		114744DB2461AB4900EF4A36 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		114D1562245CB5FB0042A38B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		114D1564245CB9720042A38B /* TagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionView.swift; sourceTree = "<group>"; };
 		114F656C2459C70A0056EB4C /* DreamBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +115,7 @@
 				110F88F224530F6700C7B797 /* AppDelegate.swift */,
 				110F88F424530F6700C7B797 /* SceneDelegate.swift */,
 				11B8A65F24596D480057D1E6 /* CoreDataStack.swift */,
+				114744DB2461AB4900EF4A36 /* Theme.swift */,
 				110F890024530F6900C7B797 /* LaunchScreen.storyboard */,
 				11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */,
 				110F890324530F6900C7B797 /* Info.plist */,
@@ -314,6 +317,7 @@
 				114D1563245CB5FB0042A38B /* TagView.swift in Sources */,
 				11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */,
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
+				114744DC2461AB4900EF4A36 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

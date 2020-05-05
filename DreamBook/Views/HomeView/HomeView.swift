@@ -9,11 +9,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var theme : Theme
     var body: some View {
         NavigationView{
-            DreamListView()
-                .navigationBarTitle("Dreams")
-                .navigationBarItems(trailing: AddDreamButton())
+            ZStack(alignment: .topLeading){
+                theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                DreamListView()
+            }
+             .navigationBarTitle("", displayMode: .inline)
+             .navigationBarHidden(true)
         }
     }
 }
