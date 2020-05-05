@@ -11,8 +11,42 @@ import SwiftUI
 struct DreamListView: View {
     @FetchRequest(entity: Dream.entity(), sortDescriptors: []) var dreams : FetchedResults<Dream>
     @EnvironmentObject var theme : Theme
+    @State var showNewDream = false
     var body: some View {
         List{
+            VStack(alignment : .center, spacing: 0){
+                NavigationLink(destination: DreamDetailView(), isActive: self.$showNewDream){EmptyView()}
+                Image(systemName: "moon.fill")
+                    .resizable()
+                    .foregroundColor(theme.secundaryColor)
+                    .frame(width : theme.largePadding * 2, height: theme.largePadding * 2)
+                    .padding(.bottom, theme.mediumPadding)
+                
+                HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
+                    Text("Dreams").font(.largeTitle).bold().foregroundColor(theme.textTitleColor)
+                    Spacer()
+                    Image(systemName: "magnifyingglass.circle.fill")
+                        .resizable()
+                        .foregroundColor(theme.secundaryColor)
+                        .frame(width : theme.largePadding, height: theme.largePadding)
+                        .padding(.bottom, -2)
+                        
+                        .onTapGesture {
+                            print("Show Filter Sheet")
+                    }
+                    
+                    Image(systemName: "plus.circle.fill")
+                        .resizable()
+                        .foregroundColor(theme.secundaryColor)
+                        .frame(width : theme.largePadding, height: theme.largePadding)
+                        .padding(.bottom, -2)
+                        
+                        .onTapGesture {
+                            self.showNewDream = true
+                    }
+                    
+                }
+            }.padding(.horizontal,self.theme.mediumPadding)
             ForEach(dreams, id: \.self){ (dream: Dream) in
                 VStack(alignment: .leading, spacing: 0){
                     NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}.hidden()
