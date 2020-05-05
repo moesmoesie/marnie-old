@@ -26,7 +26,9 @@ struct DreamListView: View {
                     Text(dream.wrappedTitle).bold().font(.headline).foregroundColor(self.theme.textTitleColor)
                         .padding(.bottom,3)
                     
-                    TagCollectionView(tags: .constant(dream.wrappedTags)).padding(.vertical,3)
+                    if !dream.wrappedTags.isEmpty{
+                        TagCollectionView(tags: .constant(dream.wrappedTags)).padding(.vertical,3)
+                    }
                     
                     Text(dream.wrappedText.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)
                 }.listRowInsets(EdgeInsets())
