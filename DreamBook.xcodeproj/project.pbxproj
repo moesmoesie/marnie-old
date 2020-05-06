@@ -19,6 +19,8 @@
 		11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B2E245A2A5D00025F9F /* HomeView.swift */; };
 		11559B31245A2AB900025F9F /* DreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* DreamListView.swift */; };
 		1166455D24599F24000F2DC0 /* DreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166455C24599F24000F2DC0 /* DreamService.swift */; };
+		1182E35E24634C4800C41E3E /* DreamDetailTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */; };
+		1182E36024634EDC00C41E3E /* DreamDetailMainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */; };
 		118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118EA0E62453286900A2446F /* DreamDetailView.swift */; };
 		11AF16C22462D5D4009A150B /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AF16C12462D5D4009A150B /* KeyboardObserver.swift */; };
 		11AF16C62463105B009A150B /* DreamDetailKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AF16C52463105B009A150B /* DreamDetailKeyboardBar.swift */; };
@@ -60,6 +62,8 @@
 		11559B2E245A2A5D00025F9F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		11559B30245A2AB900025F9F /* DreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListView.swift; sourceTree = "<group>"; };
 		1166455C24599F24000F2DC0 /* DreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamService.swift; sourceTree = "<group>"; };
+		1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailTopBar.swift; sourceTree = "<group>"; };
+		1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailMainContentView.swift; sourceTree = "<group>"; };
 		118EA0E62453286900A2446F /* DreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailView.swift; sourceTree = "<group>"; };
 		11AF16C12462D5D4009A150B /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		11AF16C52463105B009A150B /* DreamDetailKeyboardBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailKeyboardBar.swift; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 			children = (
 				118EA0E62453286900A2446F /* DreamDetailView.swift */,
 				11AF16C52463105B009A150B /* DreamDetailKeyboardBar.swift */,
+				1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */,
+				1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */,
 			);
 			path = DreamDetailView;
 			sourceTree = "<group>";
@@ -323,8 +329,10 @@
 				11AF16C22462D5D4009A150B /* KeyboardObserver.swift in Sources */,
 				11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */,
 				11F499472460252600927D12 /* MultilineTextView.swift in Sources */,
+				1182E36024634EDC00C41E3E /* DreamDetailMainContentView.swift in Sources */,
 				11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */,
 				11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */,
+				1182E35E24634C4800C41E3E /* DreamDetailTopBar.swift in Sources */,
 				11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */,
 				11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */,
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
