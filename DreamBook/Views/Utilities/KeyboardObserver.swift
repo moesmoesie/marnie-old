@@ -14,6 +14,10 @@ class KeyboardObserver : ObservableObject{
     @Published var height : CGFloat = 0
     private var cancellableSet: Set<AnyCancellable> = []
     
+    var isKeyboardShowing : Bool{
+        height > 0
+    }
+    
     func dismissKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
