@@ -72,7 +72,7 @@ private struct DreamBackView : View {
     
     var body : some View{
         Button(action:backButtonPress){
-            Image(systemName: "chevron.left").foregroundColor(theme.primaryColor)
+            Image(systemName: "chevron.left").foregroundColor(theme.passiveLightColor)
         }
     }
     
@@ -158,7 +158,7 @@ private struct DreamBookmarkedView : View{
             self.isBookmarked.toggle()
         }){
             Image(systemName: "heart.fill")
-                .foregroundColor(self.isBookmarked ? theme.primaryColor : theme.passiveColor)
+                .foregroundColor(self.isBookmarked ? theme.primaryColor : theme.passiveDarkColor)
         }
     }
 }
