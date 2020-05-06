@@ -18,6 +18,10 @@ class KeyboardObserver : ObservableObject{
         height > 0
     }
     
+    var heightWithoutSaveArea : CGFloat{
+        height - (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0)
+    }
+    
     func dismissKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
