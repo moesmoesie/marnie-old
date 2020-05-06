@@ -24,9 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let theme = Theme()
+        let keyboardObserver = KeyboardObserver()
         let contentView = HomeView()
             .environment(\.managedObjectContext, context)
             .environmentObject(theme)
+            .environmentObject(keyboardObserver)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

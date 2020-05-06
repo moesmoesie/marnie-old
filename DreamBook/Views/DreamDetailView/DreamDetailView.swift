@@ -45,9 +45,10 @@ struct DreamDetailView: View {
         ZStack{
             theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
             VStack{
-                HStack(alignment : .firstTextBaseline,spacing : self.theme.mediumPadding){
+                HStack(alignment : .bottom,spacing : self.theme.mediumPadding){
                     DreamBackView()
                     Spacer()
+                    DimissKeyboardButton()
                     if isNewDream{
                         DreamSaveView(title: title, text: text, isBookmarked: isBookmarked, date: date, tags: tags)
                     }else{
@@ -102,7 +103,7 @@ private struct DreamDeleteView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
-
+    
     let dream : Dream?
     
     var body : some View{
@@ -130,7 +131,7 @@ private struct DreamDeleteView : View{
 private struct DreamBackView : View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
-
+    
     var body : some View{
         Button(action:backButtonPress){
             Image(systemName: "chevron.left").foregroundColor(theme.primaryColor)
@@ -153,7 +154,7 @@ private struct DreamSaveView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
-
+    
     let title : String
     let text : String
     let isBookmarked : Bool
@@ -183,7 +184,7 @@ private struct DreamUpdateView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
-
+    
     let dream : Dream?
     let title : String
     let text : String
@@ -252,5 +253,17 @@ private struct DreamAddTagView : View {
         }
         
         text = ""
+    }
+}
+
+
+struct DimissKeyboardButton : View {
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+    var body: some View{
+        Button(action:{
+            self.keyboardObserver.dismissKeyboard()
+        }){
+            Image(systemName: "keyboard.chevron.compact.down").foregroundColor(.white)
+        }
     }
 }

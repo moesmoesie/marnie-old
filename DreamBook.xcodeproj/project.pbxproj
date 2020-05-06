@@ -20,6 +20,7 @@
 		11559B31245A2AB900025F9F /* DreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* DreamListView.swift */; };
 		1166455D24599F24000F2DC0 /* DreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166455C24599F24000F2DC0 /* DreamService.swift */; };
 		118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118EA0E62453286900A2446F /* DreamDetailView.swift */; };
+		11AF16C22462D5D4009A150B /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AF16C12462D5D4009A150B /* KeyboardObserver.swift */; };
 		11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */; };
 		11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A65F24596D480057D1E6 /* CoreDataStack.swift */; };
 		11F499472460252600927D12 /* MultilineTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F499462460252600927D12 /* MultilineTextView.swift */; };
@@ -59,6 +60,7 @@
 		11559B30245A2AB900025F9F /* DreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListView.swift; sourceTree = "<group>"; };
 		1166455C24599F24000F2DC0 /* DreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamService.swift; sourceTree = "<group>"; };
 		118EA0E62453286900A2446F /* DreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailView.swift; sourceTree = "<group>"; };
+		11AF16C12462D5D4009A150B /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		11B8A65D24596C500057D1E6 /* DreamBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DreamBook.xcdatamodel; sourceTree = "<group>"; };
 		11B8A65F24596D480057D1E6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		11F499462460252600927D12 /* MultilineTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		1166455E2459B4FA000F2DC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				11AF16C02462D238009A150B /* Utilities */,
 				114D155F245CB58C0042A38B /* HelperView */,
 				11559B32245A2D9200025F9F /* DreamDetailView */,
 				11559B2D245A29B800025F9F /* HomeView */,
@@ -198,6 +201,14 @@
 				11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		11AF16C02462D238009A150B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				11AF16C12462D5D4009A150B /* KeyboardObserver.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,6 +316,7 @@
 				11F5ED33245B3D0100667B4E /* TagService.swift in Sources */,
 				114D1565245CB9720042A38B /* TagCollectionView.swift in Sources */,
 				11559B31245A2AB900025F9F /* DreamListView.swift in Sources */,
+				11AF16C22462D5D4009A150B /* KeyboardObserver.swift in Sources */,
 				11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */,
 				11F499472460252600927D12 /* MultilineTextView.swift in Sources */,
 				11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */,
