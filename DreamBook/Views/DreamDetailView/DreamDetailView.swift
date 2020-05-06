@@ -12,6 +12,8 @@ struct DreamDetailView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+
     @State var title : String
     @State var text : String
     @State var isBookmarked : Bool
@@ -42,13 +44,12 @@ struct DreamDetailView: View {
     }
     
     var body: some View {
-        ZStack{
+        ZStack(alignment: .bottom){
             theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
             VStack{
                 HStack(alignment : .bottom,spacing : self.theme.mediumPadding){
                     DreamBackView()
                     Spacer()
-                    DimissKeyboardButton()
                     if isNewDream{
                         DreamSaveView(title: title, text: text, isBookmarked: isBookmarked, date: date, tags: tags)
                     }else{
@@ -68,6 +69,9 @@ struct DreamDetailView: View {
                 }.navigationBarTitle("",displayMode: .inline)
                     .navigationBarHidden(true)
             }.padding(.horizontal, self.theme.mediumPadding)
+            if keyboardObserver.isKeyboardShowing{
+                DreamDetailKeyboardBar(tags: $tags)
+            }
         }
     }
 }
@@ -253,17 +257,5 @@ private struct DreamAddTagView : View {
         }
         
         text = ""
-    }
-}
-
-
-struct DimissKeyboardButton : View {
-    @EnvironmentObject var keyboardObserver : KeyboardObserver
-    var body: some View{
-        Button(action:{
-            self.keyboardObserver.dismissKeyboard()
-        }){
-            Image(systemName: "keyboard.chevron.compact.down").foregroundColor(.white)
-        }
     }
 }
