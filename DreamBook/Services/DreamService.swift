@@ -19,7 +19,7 @@ public class DreamService{
 
 extension DreamService{
     func saveDream(id: UUID, title:String?, text:String?, isBookmarked : Bool, date : Date, tags:[Tag]) throws {
-        let dream = Dream(entity: Dream.entity(), insertInto: nil)
+        let dream = Dream(entity: Dream.entity(), insertInto: self.managedObjectContext)
         dream.id = id
         dream.isBookmarked = isBookmarked
         dream.date = date
