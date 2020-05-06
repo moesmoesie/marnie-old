@@ -65,6 +65,7 @@ struct DreamDetailView: View {
                         DreamTitleView(title: $title)
                         TagCollectionView(tags: $tags)
                         DreamTextView(text: $text)
+                        Spacer().frame(height : keyboardObserver.height < 500 ? 500 : keyboardObserver.heightWithoutSaveArea + 50)
                     }
                 }.navigationBarTitle("",displayMode: .inline)
                     .navigationBarHidden(true)
