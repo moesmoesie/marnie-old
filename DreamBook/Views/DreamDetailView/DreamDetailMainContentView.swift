@@ -20,6 +20,7 @@ struct DreamDetailMainContentView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack(alignment : .leading){
+                DreamDateView(date: date)
                 DreamTitleView(title: $title)
                 TagCollectionView(tags: $tags)
                 DreamTextView(text: $text)
@@ -43,6 +44,21 @@ private struct DreamTextView : View{
     @Binding var text: String
     var body: some View{
         MultilineTextField(placeholder: "The journey begins here", text: $text)
+    }
+}
+
+private struct DreamDateView : View{
+    @EnvironmentObject var theme : Theme
+    let  date : Date
+    var wrapperDateString : String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
+    }
+    var body: some View{
+        Text(wrapperDateString)
+            .font(.caption)
+            .foregroundColor(theme.primaryColor)
     }
 }
 
