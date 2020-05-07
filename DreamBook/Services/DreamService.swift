@@ -37,6 +37,7 @@ extension DreamService{
             self.managedObjectContext.insert(dream)
             try self.managedObjectContext.save()
         }catch let error as NSError{
+            self.managedObjectContext.reset()
             throw DreamError.invalidSave(error: error.localizedDescription)
         }
     }
@@ -63,6 +64,7 @@ extension DreamService{
             try self.managedObjectContext.save()
             tagService.deleteDreamlessTags()
         }catch let error as NSError{
+            self.managedObjectContext.reset()
             throw DreamError.invalidSave(error: error.localizedDescription)
         }
     }
@@ -76,6 +78,7 @@ extension DreamService{
             self.managedObjectContext.delete(dream)
             try self.managedObjectContext.save()
         }catch let error as NSError{
+            self.managedObjectContext.reset()
             throw DreamError.invalidDelete(error: error.localizedDescription)
         }
     }
