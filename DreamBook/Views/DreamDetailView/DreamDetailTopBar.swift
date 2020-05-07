@@ -27,7 +27,7 @@ struct DreamDetailTopBar: View {
                 DreamDeleteView()
             }
             DreamBookmarkedView()
-        }.padding(.vertical, theme.smallPadding)
+        }
     }
 }
 
@@ -42,6 +42,7 @@ private struct DreamDeleteView : View{
         Button(action:deleteDream){
             Image(systemName: "trash.fill")
                 .foregroundColor(theme.tertiaryColor)
+                .padding(.vertical, theme.smallPadding)
         }
     }
     
@@ -67,6 +68,8 @@ private struct DreamBackView : View {
     var body : some View{
         Button(action:backButtonPress){
             Image(systemName: "chevron.left").foregroundColor(theme.passiveLightColor)
+                .padding(.vertical, theme.smallPadding)
+                .padding(.horizontal, theme.mediumPadding)
         }
     }
     
@@ -80,13 +83,14 @@ private struct DreamSaveView : View{
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
-
+    
     @State var currentAlert : Alert = Alert(title: Text("Error"))
     @State var showAlert = false
     
     var body : some View{
         Button(action: saveDream){
             Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
+                .padding(.vertical, theme.smallPadding)
         }.alert(isPresented: $showAlert){
             self.currentAlert
         }
@@ -117,6 +121,7 @@ private struct DreamUpdateView : View{
     var body : some View{
         Button(action: updateDream){
             Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
+                .padding(.vertical, theme.smallPadding)
         }.alert(isPresented: $showAlert, content: {self.currentAlert})
     }
     
@@ -143,17 +148,17 @@ private struct DreamUpdateView : View{
     }
     
     func saveDream(){
-          let dreamService = DreamService(managedObjectContext: self.moc)
-          do {
-              try dreamService.saveDream(dreamViewModel: dream)
-              presentationMode.wrappedValue.dismiss()
-          } catch DreamService.DreamError.invalidSave(error: let message) {
-              self.currentAlert = Alert(title: Text("InvalidSave"), message: Text(message), dismissButton: .default(Text("OK")))
-              self.showAlert = true
-          } catch{
-              print("Unexpected error: \(error).")
-          }
-      }
+        let dreamService = DreamService(managedObjectContext: self.moc)
+        do {
+            try dreamService.saveDream(dreamViewModel: dream)
+            presentationMode.wrappedValue.dismiss()
+        } catch DreamService.DreamError.invalidSave(error: let message) {
+            self.currentAlert = Alert(title: Text("InvalidSave"), message: Text(message), dismissButton: .default(Text("OK")))
+            self.showAlert = true
+        } catch{
+            print("Unexpected error: \(error).")
+        }
+    }
 }
 
 private struct DreamBookmarkedView : View{
@@ -165,6 +170,8 @@ private struct DreamBookmarkedView : View{
         }){
             Image(systemName: "heart.fill")
                 .foregroundColor(self.dream.isBookmarked ? theme.primaryColor : theme.passiveDarkColor)
+                .padding(.vertical, theme.smallPadding)
+                .padding(.trailing, theme.mediumPadding)
         }
     }
 }

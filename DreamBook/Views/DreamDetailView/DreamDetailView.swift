@@ -30,8 +30,9 @@ struct DreamDetailContentView : View {
             VStack(spacing: theme.smallPadding){
                 DreamDetailTopBar()
                 DreamDetailMainContentView()
+                .padding(.horizontal, theme.mediumPadding)
+
             }
-            .padding(.horizontal, theme.mediumPadding)
             .navigationBarTitle("",displayMode: .inline)
             .navigationBarHidden(true)
             
