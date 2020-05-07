@@ -65,7 +65,7 @@ extension DreamService{
             tagService.deleteDreamlessTags()
         }catch let error as NSError{
             self.managedObjectContext.reset()
-            throw DreamError.invalidSave(error: error.localizedDescription)
+            throw DreamError.invalidUpdate(error: error.localizedDescription.capitalized)
         }
     }
     

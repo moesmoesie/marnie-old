@@ -22,6 +22,7 @@ struct DreamDetailTopBar: View {
             }else{
                 DreamUpdateView()
             }
+            
             if !dream.isNewDream{
                 DreamDeleteView()
             }
@@ -79,10 +80,15 @@ private struct DreamSaveView : View{
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
+
+    @State var currentAlert : Alert = Alert(title: Text("Error"))
+    @State var showAlert = false
     
     var body : some View{
         Button(action: saveDream){
             Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
+        }.alert(isPresented: $showAlert){
+            self.currentAlert
         }
     }
     
@@ -92,7 +98,8 @@ private struct DreamSaveView : View{
             try dreamService.saveDream(dreamViewModel: dream)
             presentationMode.wrappedValue.dismiss()
         } catch DreamService.DreamError.invalidSave(error: let message) {
-            print(message)
+            self.currentAlert = Alert(title: Text("Invalid Save"), message: Text(message), dismissButton: .default(Text("OK")))
+            self.showAlert = true
         } catch{
             print("Unexpected error: \(error).")
         }
@@ -104,12 +111,13 @@ private struct DreamUpdateView : View{
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
-    
+    @State var currentAlert : Alert = Alert(title: Text("Error"))
+    @State var showAlert = false
     
     var body : some View{
         Button(action: updateDream){
             Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
-        }
+        }.alert(isPresented: $showAlert, content: {self.currentAlert})
     }
     
     func updateDream(){
@@ -118,13 +126,34 @@ private struct DreamUpdateView : View{
             try dreamService.updateDream(dreamViewModel: dream)
             presentationMode.wrappedValue.dismiss()
         } catch DreamService.DreamError.invalidUpdate(let message){
-            print(message)
+            self.currentAlert = Alert(title: Text("Invalid Update"), message: Text(message), dismissButton: .default(Text("OK")))
+            showAlert = true
         } catch DreamService.DreamError.updatingNonExistingDream{
-            print("Cant update a dream that doesn't exist!")
+            let errorMessage = "The dream you are tryin to update doesn't exist anymore. You can save it instead."
+            self.currentAlert =  Alert(title: Text("Invalid Update"), message: Text(errorMessage), primaryButton: .destructive(Text("DELETE"), action: {
+                self.moc.reset()
+                self.presentationMode.wrappedValue.dismiss()
+            }), secondaryButton: .default(Text("Save")) {
+                self.saveDream()
+                })
+            self.showAlert = true
         } catch{
             print("Unexpected error: \(error).")
         }
     }
+    
+    func saveDream(){
+          let dreamService = DreamService(managedObjectContext: self.moc)
+          do {
+              try dreamService.saveDream(dreamViewModel: dream)
+              presentationMode.wrappedValue.dismiss()
+          } catch DreamService.DreamError.invalidSave(error: let message) {
+              self.currentAlert = Alert(title: Text("InvalidSave"), message: Text(message), dismissButton: .default(Text("OK")))
+              self.showAlert = true
+          } catch{
+              print("Unexpected error: \(error).")
+          }
+      }
 }
 
 private struct DreamBookmarkedView : View{
