@@ -21,10 +21,15 @@ class DreamViewModel : ObservableObject, Identifiable{
         self.id = dream.id!
         self.title = dream.wrappedTitle
         self.text = dream.wrappedText
-        self.tags = dream.wrappedTags
         self.date = dream.wrapperDate
         self.isNewDream = false
         self.isBookmarked = dream.isBookmarked
+        self.tags = []
+        
+        for tag in dream.wrappedTags{
+            self.tags.append(TagViewModel(tag: tag))
+        }
+
     }
     
     init(){

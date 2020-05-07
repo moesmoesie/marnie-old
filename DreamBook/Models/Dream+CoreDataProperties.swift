@@ -24,11 +24,11 @@ extension Dream {
     @NSManaged public var title: String?
     @NSManaged public var tags: NSOrderedSet?
     
-    var wrappedTags : [TagViewModel]{
-        var wrappedTags : [TagViewModel] = []
+    var wrappedTags : [Tag]{
+        var wrappedTags : [Tag] = []
         for tag in tags ?? []{
             let tempTag = tag as! Tag
-            wrappedTags.append(TagViewModel(tag: tempTag))
+            wrappedTags.append(tempTag)
         }
         return wrappedTags
     }
