@@ -54,6 +54,7 @@ struct MultilineTextField: View {
                 textView.textContainerInset = .zero
                 textView.textContainer.lineFragmentPadding = 0
                 textView.textColor = self.theme.textBodyUIColor
+                textView.tintColor = self.theme.primaryUIColor
                 textView.font = self.font
                 
                 coordinator.text = self.$text

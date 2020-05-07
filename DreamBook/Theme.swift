@@ -22,6 +22,10 @@ class Theme : ObservableObject {
     @Published var secundaryColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
     @Published var tertiaryColor : Color = Color.red
     
+    @Published var primaryUIColor : UIColor = UIColor(red: 226 / 255.0, green: 157 / 255.0, blue: 29/225.0, alpha: 1)
+    @Published var secundaryUIColor : UIColor = UIColor(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0, alpha: 1)
+    @Published var tertiaryUIColor : UIColor = UIColor.red
+    
     @Published var primaryBackgroundColor : Color = Color(red: 22 / 255.0, green: 29 / 255.0, blue: 67/225.0)
     @Published var secundaryBackgroundColor : Color = Color(red: 31 / 255.0, green: 38 / 255.0, blue: 76/225.0)
     

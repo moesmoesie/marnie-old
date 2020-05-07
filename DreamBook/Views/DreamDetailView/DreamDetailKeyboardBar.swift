@@ -134,6 +134,7 @@ private struct AddTagTextField : View {
             .foregroundColor(theme.textTitleColor)
             .font(.caption)
             .padding(.leading, theme.mediumPadding)
+            .accentColor(theme.primaryColor)
     }
     
     func addTag(text : String){
