@@ -18,18 +18,17 @@ public class DreamService{
 }
 
 extension DreamService{
-    func saveDream(id: UUID, title:String?, text:String?, isBookmarked : Bool, date : Date, tags:[Tag]) throws {
+    func saveDream(dreamViewModel : DreamViewModel) throws {
         let dream = Dream(entity: Dream.entity(), insertInto: self.managedObjectContext)
-        dream.id = id
-        dream.isBookmarked = isBookmarked
-        dream.date = date
-        for tag in tags {
+        dream.id = dreamViewModel.id
+        dream.isBookmarked = dreamViewModel.isBookmarked
+        dream.date = dreamViewModel.date
+        for tag in dreamViewModel.tags {
             dream.addToTags(tag)
         }
-        if let title = title{
-            dream.title = title.isEmpty ? nil : title
-        }
-        dream.text = text
+        
+        dream.title = dreamViewModel.title
+        dream.text = dreamViewModel.text
         
         do{
             try dream.validateForInsert()
@@ -40,21 +39,20 @@ extension DreamService{
         }
     }
     
-    func updateDream(_ dream : Dream, title:String?, text:String?, isBookmarked: Bool, date : Date, tags : [Tag]) throws {
-        dream.title = title ?? dream.title
-        dream.text = text ?? dream.text
-        dream.isBookmarked = isBookmarked
-        dream.date = date
+    func updateDream(dreamViewModel : DreamViewModel) throws {
+        guard let dream = getDream(id: dreamViewModel.id)else{
+            throw DreamError.updatingNonExistingDream
+        }
+        
+        dream.title = dreamViewModel.title
+        dream.text = dreamViewModel.text
+        dream.isBookmarked = dreamViewModel.isBookmarked
+        dream.date = dreamViewModel.date
         dream.tags = []
-        for tag in tags {
+        for tag in dreamViewModel.tags {
             dream.addToTags(tag)
         }
         
-        do{
-            try self.managedObjectContext.existingObject(with: dream.objectID)
-        }catch{
-            throw DreamError.updatingNonExistingDream
-        }
         
         do{
             try dream.validateForUpdate()
@@ -64,7 +62,11 @@ extension DreamService{
         }
     }
     
-    func deleteDream(_ dream : Dream) throws {
+    func deleteDream(_ dreamViewModel : DreamViewModel) throws {
+        guard let dream = getDream(id: dreamViewModel.id)else{
+            throw DreamService.DreamError.deletingNonExistingDream
+        }
+        
         do{
             self.managedObjectContext.delete(dream)
             try self.managedObjectContext.save()
@@ -95,6 +97,7 @@ extension DreamService{
 extension DreamService {
     enum DreamError : Error {
         case updatingNonExistingDream
+        case deletingNonExistingDream
         case invalidUpdate(error : String)
         case invalidSave(error : String)
         case invalidDelete(error : String)

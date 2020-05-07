@@ -11,27 +11,21 @@ import SwiftUI
 struct DreamDetailTopBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var theme : Theme
-    let isNewDream : Bool
-    @Binding var title : String
-    @Binding var text : String
-    @Binding var isBookmarked : Bool
-    @Binding var date : Date
-    @Binding var tags : [Tag]
-    var dream : Dream?
+    @EnvironmentObject var dream : DreamViewModel
     
     var body: some View {
         HStack(alignment : .bottom,spacing : self.theme.mediumPadding){
             DreamBackView()
             Spacer()
-            if isNewDream{
-                DreamSaveView(title: title, text: text, isBookmarked: isBookmarked, date: date, tags: tags)
+            if dream.isNewDream{
+                DreamSaveView()
             }else{
-                DreamUpdateView(dream: dream, title: title, text: text, isBookmarked: isBookmarked, date: date, tags: tags)
+                DreamUpdateView()
             }
-            if !isNewDream{
-                DreamDeleteView(dream: dream)
+            if !dream.isNewDream{
+                DreamDeleteView()
             }
-            DreamBookmarkedView(isBookmarked: $isBookmarked)
+            DreamBookmarkedView()
         }.padding(.vertical, theme.smallPadding)
     }
 }
@@ -41,8 +35,7 @@ private struct DreamDeleteView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
-    
-    let dream : Dream?
+    @EnvironmentObject var dream : DreamViewModel
     
     var body : some View{
         Button(action:deleteDream){
@@ -53,16 +46,16 @@ private struct DreamDeleteView : View{
     
     func deleteDream(){
         let dreamService = DreamService(managedObjectContext: self.moc)
-        if let dreamToDelete = dream{
-            do{
-                try dreamService.deleteDream(dreamToDelete)
-                presentationMode.wrappedValue.dismiss()
-            }catch DreamService.DreamError.invalidDelete(error: let message){
-                print(message)
-            }catch{
-                print("Unexpected error: \(error).")
-            }
+        
+        do{
+            try dreamService.deleteDream(dream)
+            presentationMode.wrappedValue.dismiss()
+        }catch DreamService.DreamError.invalidDelete(error: let message){
+            print(message)
+        }catch{
+            print("Unexpected error: \(error).")
         }
+        
     }
 }
 
@@ -81,18 +74,11 @@ private struct DreamBackView : View {
     }
 }
 
-
-
 private struct DreamSaveView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
-    
-    let title : String
-    let text : String
-    let isBookmarked : Bool
-    let date : Date
-    let tags : [Tag]
+    @EnvironmentObject var dream : DreamViewModel
     
     var body : some View{
         Button(action: saveDream){
@@ -103,7 +89,7 @@ private struct DreamSaveView : View{
     func saveDream(){
         let dreamService = DreamService(managedObjectContext: self.moc)
         do {
-            try dreamService.saveDream(id : UUID(), title: title, text: text, isBookmarked: isBookmarked, date: date,tags: tags)
+            try dreamService.saveDream(dreamViewModel: dream)
             presentationMode.wrappedValue.dismiss()
         } catch DreamService.DreamError.invalidSave(error: let message) {
             print(message)
@@ -117,13 +103,8 @@ private struct DreamUpdateView : View{
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var theme : Theme
+    @EnvironmentObject var dream : DreamViewModel
     
-    let dream : Dream?
-    let title : String
-    let text : String
-    let isBookmarked : Bool
-    let date : Date
-    let tags : [Tag]
     
     var body : some View{
         Button(action: updateDream){
@@ -133,33 +114,28 @@ private struct DreamUpdateView : View{
     
     func updateDream(){
         let dreamService = DreamService(managedObjectContext: self.moc)
-        if let dreamToUpDate = dream{
-            do {
-                try dreamService.updateDream(dreamToUpDate, title: title, text: text, isBookmarked: isBookmarked, date: date,tags: tags)
-                presentationMode.wrappedValue.dismiss()
-            } catch DreamService.DreamError.invalidUpdate(let message){
-                print(message)
-            } catch DreamService.DreamError.updatingNonExistingDream{
-                print("Cant update a dream that doesn't exist!")
-            } catch{
-                print("Unexpected error: \(error).")
-            }
-        }else{
-            print("Cant update a dream that doesnt exit!")
+        do {
+            try dreamService.updateDream(dreamViewModel: dream)
+            presentationMode.wrappedValue.dismiss()
+        } catch DreamService.DreamError.invalidUpdate(let message){
+            print(message)
+        } catch DreamService.DreamError.updatingNonExistingDream{
+            print("Cant update a dream that doesn't exist!")
+        } catch{
+            print("Unexpected error: \(error).")
         }
     }
 }
 
 private struct DreamBookmarkedView : View{
-    @Binding var isBookmarked: Bool
     @EnvironmentObject var theme : Theme
+    @EnvironmentObject var dream : DreamViewModel
     var body : some View{
         Button(action:{
-            self.isBookmarked.toggle()
+            self.dream.isBookmarked.toggle()
         }){
             Image(systemName: "heart.fill")
-                .foregroundColor(self.isBookmarked ? theme.primaryColor : theme.passiveDarkColor)
+                .foregroundColor(self.dream.isBookmarked ? theme.primaryColor : theme.passiveDarkColor)
         }
     }
 }
-

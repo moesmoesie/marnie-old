@@ -9,16 +9,15 @@
 import SwiftUI
 
 struct DreamDetailKeyboardBar: View {
-    @Binding var tags : [Tag]
     @State var showSuggestionTags = false
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var theme : Theme
     var body: some View {
         VStack(spacing : 0){
             if showSuggestionTags{
-                SuggestionTags(currentTags: $tags)
+                SuggestionTags()
             }
-            MenuView(showSuggestionTags: $showSuggestionTags, tags: $tags)
+            MenuView(showSuggestionTags: $showSuggestionTags)
         }.padding(.bottom, keyboardObserver.heightWithoutSaveArea)
     }
 }
@@ -27,14 +26,14 @@ struct MenuView : View {
     @Environment(\.managedObjectContext) var moc
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var theme : Theme
+    @EnvironmentObject var dream : DreamViewModel
     @Binding var showSuggestionTags : Bool
-    @Binding var tags : [Tag]
     
 
     var body: some View{
         HStack(alignment: .center){
             if(showSuggestionTags){
-                AddTagTextField(tags: $tags)
+                AddTagTextField(tags: self.$dream.tags)
             }
             Spacer()
             ActivateTagAddButton(showSuggestionTags: self.$showSuggestionTags)
@@ -48,8 +47,8 @@ private struct SuggestionTags : View {
     @FetchRequest(entity: Tag.entity(), sortDescriptors: []) var tags : FetchedResults<Tag>
     @EnvironmentObject var theme : Theme
     @Environment(\.managedObjectContext) var moc
-    @Binding var currentTags : [Tag]
-    
+    @EnvironmentObject var dream : DreamViewModel
+
     
     var tagsToShow : [Tag]{
         var tempTags : [Tag] = []
@@ -84,10 +83,10 @@ private struct SuggestionTags : View {
         
         do{
             let tag = try tagService.createTag(text: text)
-            if currentTags.contains(where: {$0.wrapperText == tag.wrapperText}){
+            if self.dream.tags.contains(where: {$0.wrapperText == tag.wrapperText}){
                 return
             }
-            currentTags.append(tag)
+            self.dream.tags.append(tag)
         }catch{
             print("Cant create that tag")
         }

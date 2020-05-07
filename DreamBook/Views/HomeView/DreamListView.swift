@@ -15,7 +15,7 @@ struct DreamListView: View {
     var body: some View {
         List{
             VStack(alignment : .center, spacing: 0){
-                NavigationLink(destination: DreamDetailView(), isActive: self.$showNewDream){EmptyView()}
+                NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}
                 Image(systemName: "moon.fill")
                     .resizable()
                     .foregroundColor(theme.secundaryColor)
@@ -47,7 +47,7 @@ struct DreamListView: View {
                     
                 }
             }.padding(.horizontal,self.theme.mediumPadding)
-            ForEach(dreams, id: \.self){ (dream: Dream) in
+            ForEach(dreams.map({DreamViewModel(dream: $0)})){ (dream : DreamViewModel) in
                 VStack(alignment: .leading, spacing: 0){
                     NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}.hidden()
                     HStack{
@@ -57,14 +57,14 @@ struct DreamListView: View {
                             Image(systemName: "heart.fill").foregroundColor(self.theme.primaryColor)                        }
                     }
                     .padding(.bottom,3)
-                    Text(dream.wrappedTitle).bold().font(.headline).foregroundColor(self.theme.textTitleColor)
+                    Text(dream.title).bold().font(.headline).foregroundColor(self.theme.textTitleColor)
                         .padding(.bottom,3)
                     
-                    if !dream.wrappedTags.isEmpty{
-                        TagCollectionView(tags: .constant(dream.wrappedTags)).padding(.vertical,3)
+                    if !dream.tags.isEmpty{
+                        TagCollectionView(tags: .constant(dream.tags)).padding(.vertical,3)
                     }
                     
-                    Text(dream.wrappedText.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)
+                    Text(dream.text.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)
                 }.listRowInsets(EdgeInsets())
                     .padding(self.theme.mediumPadding)
                     .background(self.theme.secundaryBackgroundColor)

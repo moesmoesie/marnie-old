@@ -27,19 +27,3 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
-
-struct AddDreamButton : View {
-    @State var showNewDream = false
-    var body: some View{
-        VStack{
-            NavigationLink(destination: DreamDetailView(), isActive: $showNewDream){
-                EmptyView()
-            }
-            Button(action:{
-                self.showNewDream = true
-            }){
-                Image(systemName: "plus")
-            }.padding()
-        }
-    }
-}
