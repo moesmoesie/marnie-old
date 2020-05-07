@@ -39,7 +39,7 @@ extension TagService{
         let tag = Tag(context: self.managedObjectContext)
         tag.text = tagViewModel.text
         self.managedObjectContext.insert(tag)
-
+        
         do {
             try tag.validateForInsert()
             self.managedObjectContext.insert(tag)
@@ -47,6 +47,19 @@ extension TagService{
             return tag
         } catch let error as NSError{
             throw TagError.invalidSave(error: error.localizedDescription)
+        }
+    }
+    
+    func deleteDreamlessTags(){
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tag")
+        fetchRequest.predicate = NSPredicate(
+            format: "dream == nil"
+        )
+        do{
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            try managedObjectContext.execute(batchDeleteRequest)
+        }catch{
+            print("error fetching tags to delete")
         }
     }
 }
