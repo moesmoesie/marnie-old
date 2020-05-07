@@ -45,6 +45,7 @@ extension DreamService{
         guard let dream = getDream(id: dreamViewModel.id)else{
             throw DreamError.updatingNonExistingDream
         }
+        let tagService = TagService(managedObjectContext: self.managedObjectContext)
         
         dream.title = dreamViewModel.title
         dream.text = dreamViewModel.text
@@ -60,6 +61,7 @@ extension DreamService{
         do{
             try dream.validateForUpdate()
             try self.managedObjectContext.save()
+            tagService.deleteDreamlessTags()
         }catch let error as NSError{
             throw DreamError.invalidSave(error: error.localizedDescription)
         }

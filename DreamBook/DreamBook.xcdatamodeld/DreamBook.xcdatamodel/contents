@@ -10,7 +10,7 @@
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
         <attribute name="text" attributeType="String" minValueString="1" maxValueString="30"/>
-        <relationship name="dream" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Dream" inverseName="tags" inverseEntity="Dream"/>
+        <relationship name="dream" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Dream" inverseName="tags" inverseEntity="Dream"/>
     </entity>
     <elements>
         <element name="Dream" positionX="-63" positionY="-18" width="128" height="133"/>
