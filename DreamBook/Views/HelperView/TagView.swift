@@ -10,9 +10,9 @@ import SwiftUI
 
 struct TagView: View {
     @EnvironmentObject var theme : Theme
-    let tag : Tag
+    let tag : TagViewModel
     var body: some View {
-        Text(tag.wrapperText)
+        Text(tag.text)
             .font(.caption)
             .bold()
             .padding(.horizontal)
@@ -20,15 +20,5 @@ struct TagView: View {
             .background(theme.primaryColor)
             .foregroundColor(theme.textTitleColor)
             .clipShape(Capsule())
-        
-    }
-}
-
-struct TagView_Previews: PreviewProvider {
-    static let coreDataStack = InMemoryCoreDataStack()
-    static var previews: some View {
-        let tagService = TagService(managedObjectContext: coreDataStack.managedObjectContext)
-        let tag = try? tagService.createTag(text: "TestTag")
-        return TagView(tag: tag!)
     }
 }

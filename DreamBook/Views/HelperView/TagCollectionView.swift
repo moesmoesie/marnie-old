@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct TagCollectionView: View {
-    @Binding var tags : [Tag]
+    @Binding var tags : [TagViewModel]
     var body: some View {
         HStack{
-            ForEach(tags, id: \.self){tag in
+            ForEach(tags){tag in
                 TagView(tag: tag)
                     .padding(.trailing,2)
                     .onTapGesture {
@@ -21,14 +21,5 @@ struct TagCollectionView: View {
                 }
             }
         }
-    }
-}
-
-struct TagCollectionView_Previews: PreviewProvider {
-    static let coreDataStack = InMemoryCoreDataStack()
-    static var previews: some View {
-        let tagService = TagService(managedObjectContext: coreDataStack.managedObjectContext)
-        let tag = try? tagService.createTag(text: "TestTag")
-        return TagCollectionView(tags: .constant([tag!]))
     }
 }

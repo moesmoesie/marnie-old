@@ -23,12 +23,14 @@ extension DreamService{
         dream.id = dreamViewModel.id
         dream.isBookmarked = dreamViewModel.isBookmarked
         dream.date = dreamViewModel.date
-        for tag in dreamViewModel.tags {
-            dream.addToTags(tag)
-        }
-        
         dream.title = dreamViewModel.title
         dream.text = dreamViewModel.text
+        
+        for tagViewModel in dreamViewModel.tags {
+            let tag = Tag(context: self.managedObjectContext)
+            tag.text = tagViewModel.text
+            dream.addToTags(tag)
+        }
         
         do{
             try dream.validateForInsert()
@@ -49,10 +51,11 @@ extension DreamService{
         dream.isBookmarked = dreamViewModel.isBookmarked
         dream.date = dreamViewModel.date
         dream.tags = []
-        for tag in dreamViewModel.tags {
+        for tagViewModel in dreamViewModel.tags {
+            let tag = Tag(context: self.managedObjectContext)
+            tag.text = tagViewModel.text
             dream.addToTags(tag)
         }
-        
         
         do{
             try dream.validateForUpdate()

@@ -35,9 +35,9 @@ extension TagService{
         }
     }
     
-    func createTag(text:String) throws -> Tag{
+    func createTag(tagViewModel : TagViewModel) throws -> Tag{
         let tag = Tag(context: self.managedObjectContext)
-        tag.text = text
+        tag.text = tagViewModel.text
         self.managedObjectContext.insert(tag)
 
         do {

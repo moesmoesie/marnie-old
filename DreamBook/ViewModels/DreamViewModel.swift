@@ -12,7 +12,7 @@ class DreamViewModel : ObservableObject, Identifiable{
     @Published var id : UUID
     @Published var title : String
     @Published var text: String
-    @Published var tags : [Tag]
+    @Published var tags : [TagViewModel]
     @Published var date : Date
     @Published var isBookmarked : Bool
     @Published var isNewDream : Bool
@@ -43,7 +43,7 @@ class DreamViewModel : ObservableObject, Identifiable{
         return formatter.string(from: date)
     }
     
-    private init(id : UUID, title : String, text: String, tags: [Tag], date : Date, isBookmarked : Bool, isNewDream : Bool ){
+    private init(id : UUID, title : String, text: String, tags: [TagViewModel], date : Date, isBookmarked : Bool, isNewDream : Bool ){
         self.id = id
         self.title = title
         self.text = text

@@ -22,39 +22,39 @@ struct DreamDetailKeyboardBar: View {
     }
 }
 
-struct MenuView : View {
+private struct MenuView : View {
     @Environment(\.managedObjectContext) var moc
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
     @Binding var showSuggestionTags : Bool
     
-
+    
     var body: some View{
         HStack(alignment: .center){
-            if(showSuggestionTags){
-                AddTagTextField(tags: self.$dream.tags)
+            if showSuggestionTags{
+                AddTagTextField()
             }
             Spacer()
             ActivateTagAddButton(showSuggestionTags: self.$showSuggestionTags)
             DimissKeyboardButton()
-        }.background(showSuggestionTags ? theme.primaryBackgroundColor : .clear)
+        }
     }
 }
-
 
 private struct SuggestionTags : View {
     @FetchRequest(entity: Tag.entity(), sortDescriptors: []) var tags : FetchedResults<Tag>
     @EnvironmentObject var theme : Theme
     @Environment(\.managedObjectContext) var moc
     @EnvironmentObject var dream : DreamViewModel
-
     
-    var tagsToShow : [Tag]{
-        var tempTags : [Tag] = []
+    
+    var tagsToShow : [TagViewModel]{
+        var tempTags : [TagViewModel] = []
         for tag in tags{
-            if !tempTags.contains(where: {$0.wrapperText == tag.wrapperText}){
-                tempTags.append(tag)
+            let tagViewModel = TagViewModel(tag: tag)
+            if !tempTags.contains(where: {$0.text == tagViewModel.text}){
+                tempTags.append(tagViewModel)
             }
         }
         
@@ -64,14 +64,14 @@ private struct SuggestionTags : View {
     var body: some View{
         ScrollView(.horizontal,showsIndicators: false){
             HStack{
-                ForEach(tagsToShow, id: \.self){ (tag:Tag) in
+                ForEach(tagsToShow){ (tag:TagViewModel) in
                     TagView(tag: tag)
                         .onTapGesture {
-                            self.addTag(text: tag.wrapperText)
+                            self.addTag(text: tag.text)
                     }
                 }
             }.padding(.horizontal, theme.mediumPadding)
-            .padding(.bottom, theme.smallPadding)
+                .padding(.bottom, theme.smallPadding)
         }
     }
     
@@ -79,17 +79,14 @@ private struct SuggestionTags : View {
         if text.isEmpty{
             return
         }
-        let tagService = TagService(managedObjectContext: self.moc)
         
-        do{
-            let tag = try tagService.createTag(text: text)
-            if self.dream.tags.contains(where: {$0.wrapperText == tag.wrapperText}){
-                return
-            }
-            self.dream.tags.append(tag)
-        }catch{
-            print("Cant create that tag")
+        let tag = TagViewModel(text: text)
+        
+        if self.dream.tags.contains(where: {$0.text == tag.text}){
+            return
         }
+        
+        self.dream.tags.append(tag)
     }
 }
 
@@ -123,34 +120,31 @@ private struct ActivateTagAddButton : View {
 
 private struct AddTagTextField : View {
     @State var text : String = ""
-    @Binding var tags : [Tag]
     @EnvironmentObject var theme : Theme
     @Environment(\.managedObjectContext) var moc
-
+    @EnvironmentObject var dream : DreamViewModel
+    
     var body: some View{
         TextField("New Tag", text: $text,onCommit: {
             self.addTag(text: self.text)
         })
-        .disableAutocorrection(true)
-        .foregroundColor(theme.textTitleColor)
-        .font(.caption)
-        .padding(.leading, theme.mediumPadding)
+            .disableAutocorrection(true)
+            .foregroundColor(theme.textTitleColor)
+            .font(.caption)
+            .padding(.leading, theme.mediumPadding)
     }
     
     func addTag(text : String){
-           if text.isEmpty{
-               return
-           }
-           let tagService = TagService(managedObjectContext: self.moc)
-           
-           do{
-               let tag = try tagService.createTag(text: text)
-               if tags.contains(where: {$0.wrapperText == tag.wrapperText}){
-                   return
-               }
-               tags.append(tag)
-           }catch{
-               print("Cant create that tag")
-           }
-       }
+        if text.isEmpty{
+            return
+        }
+        
+        let tag = TagViewModel(text: text)
+        
+        if self.dream.tags.contains(where: {$0.text == tag.text}){
+            return
+        }
+        
+        self.dream.tags.append(tag)
+    }
 }
