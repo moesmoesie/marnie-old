@@ -53,8 +53,10 @@ private struct SuggestionTags : View {
         var tempTags : [TagViewModel] = []
         for tag in tags{
             let tagViewModel = TagViewModel(tag: tag)
-            if !tempTags.contains(where: {$0.text == tagViewModel.text}){
-                tempTags.append(tagViewModel)
+            if !dream.tags.contains(where : {$0.text == tagViewModel.text}){
+                if !tempTags.contains(where: {$0.text == tagViewModel.text}){
+                    tempTags.append(tagViewModel)
+                }
             }
         }
         
