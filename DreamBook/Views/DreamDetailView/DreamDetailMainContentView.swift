@@ -36,7 +36,13 @@ private struct DreamTitleView : View{
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        TextField("Title", text: self.$dream.title).foregroundColor(theme.textTitleColor).font(.headline).accentColor(theme.primaryColor)
+        CustomTextField(
+            text: $dream.title,
+            placeholder: "Title",
+            textColor: theme.textTitleUIColor,
+            tintColor: theme.primaryUIColor,
+            font: .preferredFont(forTextStyle: .headline)
+        )
     }
 }
 
