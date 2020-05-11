@@ -71,8 +71,8 @@ struct DreamListView: View {
                         .padding(self.theme.mediumPadding)
                         .background(self.theme.secundaryBackgroundColor)
                         .clipShape(RoundedRectangle(cornerRadius: self.theme.mediumPadding))
-                        .padding(.horizontal, self.theme.largePadding)
-                        .padding(.bottom, self.theme.largePadding)
+                        .padding(.horizontal, self.theme.mediumPadding)
+                        .padding(.bottom, self.theme.mediumPadding)
                 }
             }
         }
