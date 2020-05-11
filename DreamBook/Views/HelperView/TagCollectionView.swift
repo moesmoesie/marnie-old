@@ -12,6 +12,7 @@ struct TagCollectionView: View {
     @State var height : CGFloat = 0
     @EnvironmentObject var theme : Theme
     @ObservedObject var dream : DreamViewModel
+    let isEditable : Bool
     
     var body: some View {
         var currentHeight : CGFloat = .zero
@@ -60,11 +61,14 @@ struct TagCollectionView: View {
                         return currentHeight
                     }
                     .onTapGesture {
-                        let index = self.dream.tags.firstIndex(of: tag)!
-                        self.dream.tags.remove(at: index)
+                        if self.isEditable{
+                            let index = self.dream.tags.firstIndex(of: tag)!
+                            self.dream.tags.remove(at: index)
+                        }
                     }
                 }
             }
         }.frame(height : self.height)
+        .disabled(!isEditable)
     }
 }

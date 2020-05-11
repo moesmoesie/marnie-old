@@ -12,6 +12,7 @@ struct DreamListView: View {
     @FetchRequest(entity: Dream.entity(), sortDescriptors: []) var dreams : FetchedResults<Dream>
     @EnvironmentObject var theme : Theme
     @State var showNewDream = false
+    @State var showDream = false
     var body: some View {
         List{
             VStack(alignment : .center, spacing: 0){
@@ -48,29 +49,31 @@ struct DreamListView: View {
                 }
             }.padding(.horizontal,self.theme.mediumPadding)
             ForEach(dreams.map({DreamViewModel(dream: $0)})){ (dream : DreamViewModel) in
-                VStack(alignment: .leading, spacing: 0){
+                ZStack{
                     NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}.hidden()
-                    HStack{
-                        Text(dream.wrapperDateString).font(.caption).foregroundColor(self.theme.primaryColor).bold()
-                        Spacer()
-                        if dream.isBookmarked{
-                            Image(systemName: "heart.fill").foregroundColor(self.theme.primaryColor)                        }
-                    }
-                    .padding(.bottom,3)
-                    Text(dream.title).bold().font(.headline).foregroundColor(self.theme.textTitleColor)
+                    VStack(alignment: .leading, spacing: 0){
+                        HStack{
+                            Text(dream.wrapperDateString).font(.caption).foregroundColor(self.theme.primaryColor).bold()
+                            Spacer()
+                            if dream.isBookmarked{
+                                Image(systemName: "heart.fill").foregroundColor(self.theme.primaryColor)                        }
+                        }
                         .padding(.bottom,3)
-                    
-                    if !dream.tags.isEmpty{
-                        TagCollectionView(dream: dream).padding(.vertical,3)
-                    }
-                    
-                    Text(dream.text.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)
-                }.listRowInsets(EdgeInsets())
-                    .padding(self.theme.mediumPadding)
-                    .background(self.theme.secundaryBackgroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: self.theme.mediumPadding))
-                    .padding(.horizontal, self.theme.largePadding)
-                    .padding(.bottom, self.theme.largePadding)
+                        Text(dream.title).bold().font(.headline).foregroundColor(self.theme.textTitleColor)
+                            .padding(.bottom,3)
+                        
+                        if !dream.tags.isEmpty{
+                            TagCollectionView(dream: dream, isEditable: false).padding(.vertical,3)
+                        }
+                        
+                        Text(dream.text.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)
+                    }.listRowInsets(EdgeInsets())
+                        .padding(self.theme.mediumPadding)
+                        .background(self.theme.secundaryBackgroundColor)
+                        .clipShape(RoundedRectangle(cornerRadius: self.theme.mediumPadding))
+                        .padding(.horizontal, self.theme.largePadding)
+                        .padding(.bottom, self.theme.largePadding)
+                }
             }
         }
         .onAppear{
