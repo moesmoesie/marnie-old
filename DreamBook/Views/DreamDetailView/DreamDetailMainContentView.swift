@@ -20,7 +20,7 @@ struct DreamDetailMainContentView: View {
                 VStack(alignment : .leading){
                     DreamDateView()
                     DreamTitleView()
-                    TagCollectionView(dream: self.dream, isEditable: true)
+                    TagCollectionView(self.dream, isEditable: true)
                         .frame(width: geo.size.width)
                     DreamTextView()
                     Spacer()

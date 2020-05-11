@@ -63,7 +63,7 @@ struct DreamListView: View {
                             .padding(.bottom,3)
                         
                         if !dream.tags.isEmpty{
-                            TagCollectionView(dream: dream, isEditable: false).padding(.vertical,3)
+                            TagCollectionView(dream, maxRows: 1).padding(.vertical,3)
                         }
                         
                         Text(dream.text.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)

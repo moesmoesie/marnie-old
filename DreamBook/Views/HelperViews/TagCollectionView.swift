@@ -10,14 +10,24 @@ import SwiftUI
 
 struct TagCollectionView: View {
     @State var height : CGFloat = 0
+    @State var itemCount : Int?
+    let maxRows : Int
     @EnvironmentObject var theme : Theme
     @ObservedObject var dream : DreamViewModel
     let isEditable : Bool
+    
+    init(_ dream : DreamViewModel, isEditable: Bool = false, maxRows : Int = .max) {
+        self.dream = dream
+        self.isEditable = isEditable
+        self.maxRows = maxRows
+    }
     
     var body: some View {
         var currentHeight : CGFloat = .zero
         var currentWidth : CGFloat = .zero
         var currentFrameHeight : CGFloat = .zero
+        var currentItemCount : Int = 0
+        var currentRowCount : Int = 0
         
         if dream.tags.isEmpty{
             DispatchQueue.main.async {
@@ -28,7 +38,7 @@ struct TagCollectionView: View {
         return GeometryReader{ geo in
             ZStack(alignment: .topLeading){
                 Color.clear
-                ForEach(self.dream.tags){ tag in
+                ForEach(self.dream.tags.prefix(self.itemCount ?? self.dream.tags.count)){ tag in
                     TagView(tag: tag)
                         .padding([.trailing], self.theme.smallPadding)
                         .alignmentGuide(.leading) { (d) -> CGFloat in
@@ -36,6 +46,8 @@ struct TagCollectionView: View {
                                 currentHeight = .zero
                                 currentWidth = .zero
                                 currentFrameHeight = d.height
+                                currentRowCount = 1
+                                currentItemCount = 0
                             }
                             
                             var position = currentWidth
@@ -46,7 +58,14 @@ struct TagCollectionView: View {
                                 currentHeight -= (d.height + self.theme.smallPadding)
                                 position = .zero
                                 endPosition = position - d.width
-                                currentFrameHeight += (d.height + self.theme.smallPadding)
+                                currentRowCount += 1
+                                if currentRowCount <= self.maxRows{
+                                    currentFrameHeight += (d.height + self.theme.smallPadding)
+                                }
+                            }
+                            
+                            if currentRowCount <= self.maxRows{
+                                currentItemCount += 1
                             }
                             
                             currentWidth = endPosition
@@ -56,6 +75,7 @@ struct TagCollectionView: View {
                         if tag == self.dream.tags.last!{
                             DispatchQueue.main.async {
                                 self.height = currentFrameHeight
+                                self.itemCount = currentItemCount
                             }
                         }
                         return currentHeight
@@ -69,6 +89,6 @@ struct TagCollectionView: View {
                 }
             }
         }.frame(height : self.height)
-        .disabled(!isEditable)
-    }
+            .disabled(!isEditable)
+        }
 }
