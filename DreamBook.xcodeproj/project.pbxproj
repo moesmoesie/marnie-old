@@ -125,6 +125,7 @@
 				1166455B24599EFA000F2DC0 /* Services */,
 				1168B0242454593D00E9E186 /* Models */,
 				11564C102463F59600CDAE93 /* ViewModels */,
+				11AF16C02462D238009A150B /* Utilities */,
 				110F88F224530F6700C7B797 /* AppDelegate.swift */,
 				110F88F424530F6700C7B797 /* SceneDelegate.swift */,
 				11B8A65F24596D480057D1E6 /* CoreDataStack.swift */,
@@ -146,14 +147,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		114D155F245CB58C0042A38B /* HelperView */ = {
+		114D155F245CB58C0042A38B /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
 				114D1562245CB5FB0042A38B /* TagView.swift */,
 				114D1564245CB9720042A38B /* TagCollectionView.swift */,
 				11F499462460252600927D12 /* MultilineTextView.swift */,
 			);
-			path = HelperView;
+			path = HelperViews;
 			sourceTree = "<group>";
 		};
 		114F656D2459C70A0056EB4C /* DreamBookTests */ = {
@@ -207,8 +208,7 @@
 		1166455E2459B4FA000F2DC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				11AF16C02462D238009A150B /* Utilities */,
-				114D155F245CB58C0042A38B /* HelperView */,
+				114D155F245CB58C0042A38B /* HelperViews */,
 				11559B32245A2D9200025F9F /* DreamDetailView */,
 				11559B2D245A29B800025F9F /* HomeView */,
 			);
