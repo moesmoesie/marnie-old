@@ -127,14 +127,11 @@ private struct AddTagTextField : View {
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        TextField("New Tag", text: $text,onCommit: {
+        CustomTextField(text: $text, placeholder: "Tag", textColor: theme.textTitleUIColor, tintColor: theme.primaryUIColor, font: .preferredFont(forTextStyle: .caption1)) { (textView) -> Bool in
             self.addTag(text: self.text)
-        })
-            .disableAutocorrection(true)
-            .foregroundColor(theme.textTitleColor)
-            .font(.caption)
-            .padding(.leading, theme.mediumPadding)
-            .accentColor(theme.primaryColor)
+            self.text = ""
+            return true
+        }
     }
     
     func addTag(text : String){
@@ -147,7 +144,7 @@ private struct AddTagTextField : View {
         if self.dream.tags.contains(where: {$0.text == tag.text}){
             return
         }
-        
+                
         self.dream.tags.append(tag)
     }
 }

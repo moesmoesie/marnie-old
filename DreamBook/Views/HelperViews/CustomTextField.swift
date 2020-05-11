@@ -17,9 +17,10 @@ struct CustomTextField : View {
     let placeholder : String
     let tintColor : UIColor
     let font : UIFont
+    let onReturn : (UITextField) -> Bool
     
     init(text : Binding<String>, placeholder : String, focus : Binding<Bool> = .constant(false), textColor : UIColor = .white,
-         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body)) {
+         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body), onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
         self._text = text
         self._focus = focus
         self.placeholder = placeholder
@@ -27,6 +28,7 @@ struct CustomTextField : View {
         self.backgroundColor = backgroundColor
         self.tintColor = tintColor
         self.font = font
+        self.onReturn = onReturn
     }
     
     var body: some View{
@@ -40,7 +42,7 @@ struct CustomTextField : View {
             if text.isEmpty{
                 Text(placeholder).font(.body).opacity(0.2).foregroundColor(.white)
             }
-            UICustomTextField(text: self.$text, width: width, height: self.$height, focus: $focus, make: self.make)
+            UICustomTextField(text: self.$text, width: width, height: self.$height, focus: $focus, onReturn: onReturn, make: self.make)
         }
     }
     
@@ -54,8 +56,8 @@ struct CustomTextField : View {
         textField.font = self.font
         textField.returnKeyType = .done
         textField.addTarget(coordinator,
-        action: #selector(coordinator.textFieldDidChange),
-        for: .editingChanged)
+            action: #selector(coordinator.textFieldDidChange),
+            for: .editingChanged)
         return textField
     }
 }
@@ -66,7 +68,8 @@ private struct UICustomTextField : UIViewRepresentable{
     let width : CGFloat
     @Binding var height : CGFloat
     @Binding var focus : Bool
- 
+    let onReturn : (UITextField) -> Bool
+
     
     let make: (Coordinator) -> UIViewType
     
@@ -87,20 +90,26 @@ private struct UICustomTextField : UIViewRepresentable{
     }
     
     func makeCoordinator() -> UICustomTextField.Coordinator {
-        return Coordinator($text,$focus)
+        return Coordinator($text,$focus,onReturn: onReturn)
     }
     
     class Coordinator: NSObject, UITextFieldDelegate{
         @Binding var text : String
         @Binding var focus : Bool
+        let onReturn : (UITextField) -> Bool
 
-        init(_ text : Binding<String>, _ focus : Binding <Bool>) {
+        init(_ text : Binding<String>, _ focus : Binding <Bool>, onReturn : @escaping (UITextField) -> Bool) {
             self._text = text
             self._focus = focus
+            self.onReturn = onReturn
         }
         
         @objc func textFieldDidChange(_ textField: UITextField) {
             text = textField.text ?? ""
          }
+        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            onReturn(textField)
+        }
     }
 }

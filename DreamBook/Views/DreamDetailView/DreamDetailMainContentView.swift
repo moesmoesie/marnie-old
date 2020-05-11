@@ -42,7 +42,10 @@ private struct DreamTitleView : View{
             textColor: theme.textTitleUIColor,
             tintColor: theme.primaryUIColor,
             font: .preferredFont(forTextStyle: .headline)
-        )
+            ){textView in
+                textView.resignFirstResponder()
+                return true
+        }
     }
 }
 
