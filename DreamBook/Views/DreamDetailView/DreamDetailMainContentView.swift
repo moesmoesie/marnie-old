@@ -43,9 +43,16 @@ private struct DreamTitleView : View{
 
 private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
-    
+    @EnvironmentObject var theme : Theme
+
     var body: some View{
-        MultilineTextField(placeholder: "The journey begins here", text: self.$dream.text)
+        CustomTextView(
+            text: self.$dream.text,
+            placeholder: "Begin your journey..",
+            textColor: theme.secundaryUIColor,
+            tintColor: theme.primaryUIColor,
+            font: UIFont.preferredFont(forTextStyle: .body)
+        )
     }
 }
 
