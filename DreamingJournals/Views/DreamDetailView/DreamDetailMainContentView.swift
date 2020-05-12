@@ -43,7 +43,7 @@ private struct DreamTitleView : View{
             placeholder: "Title",
             textColor: theme.textTitleUIColor,
             tintColor: theme.primaryUIColor,
-            font: .preferredFont(forTextStyle: .headline)
+            font: theme.primaryLargeUIFont
             ){textView in
                 textView.resignFirstResponder()
                 return true
@@ -62,7 +62,7 @@ private struct DreamTextView : View{
             placeholder: "Begin your journey..",
             textColor: theme.secundaryUIColor,
             tintColor: theme.primaryUIColor,
-            font: UIFont.preferredFont(forTextStyle: .body)
+            font: theme.primaryRegularUIFont
         )
     }
 }
@@ -73,7 +73,7 @@ private struct DreamDateView : View{
     
     var body: some View{
         Text(dream.wrapperDateString)
-            .font(.caption)
+            .font(theme.primarySmallFont)
             .foregroundColor(theme.primaryColor)
     }
 }

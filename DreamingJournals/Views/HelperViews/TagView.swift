@@ -13,7 +13,7 @@ struct TagView: View {
     let tag : TagViewModel
     var body: some View {
         Text(tag.text)
-            .font(.caption)
+            .font(theme.secundaryRegularFont)
             .bold()
             .padding(.horizontal)
             .padding(.vertical,2)

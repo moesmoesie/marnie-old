@@ -49,12 +49,12 @@ private struct ListItem : View {
             NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}.hidden()
             VStack(alignment: .leading, spacing: theme.smallPadding * 0.6){
                 HStack{
-                    Text(dream.wrapperDateString).font(.caption).foregroundColor(self.theme.primaryColor).bold()
+                    Text(dream.wrapperDateString).font(theme.primarySmallFont).foregroundColor(theme.primaryColor)
                     Spacer()
                     if dream.isBookmarked{
                         Image(systemName: "heart.fill").foregroundColor(self.theme.primaryColor)                        }
                 }
-                Text(dream.title).bold().font(.headline).foregroundColor(self.theme.textTitleColor)
+                Text(dream.title).font(theme.primaryLargeFont).foregroundColor(self.theme.textTitleColor)
                 
                 if !dream.tags.isEmpty{
                     TagCollectionView(dream, maxRows: 1)
@@ -80,7 +80,7 @@ private struct ListHeader : View {
                 .padding(.bottom, theme.mediumPadding)
             
             HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
-                Text("Dreams").font(.largeTitle).bold().foregroundColor(theme.textTitleColor)
+                Text("Dreams").font(theme.secundaryLargeFont).foregroundColor(theme.textTitleColor)
                 Spacer()
                 Image(systemName: "magnifyingglass.circle.fill")
                     .resizable()
@@ -97,7 +97,6 @@ private struct ListHeader : View {
                     .foregroundColor(theme.secundaryColor)
                     .frame(width : theme.largePadding, height: theme.largePadding)
                     .padding(.bottom, -2)
-                    
                     .onTapGesture {
                         self.showNewDream = true
                 }

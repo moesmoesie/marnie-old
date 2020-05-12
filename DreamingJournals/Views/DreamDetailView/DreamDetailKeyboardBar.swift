@@ -133,7 +133,7 @@ private struct AddTagTextField : View {
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        CustomTextField(text: $text, placeholder: "Tag", textColor: theme.textTitleUIColor, tintColor: theme.primaryUIColor, font: .preferredFont(forTextStyle: .caption1)) { (textView) -> Bool in
+        CustomTextField(text: $text, placeholder: "Tag", textColor: theme.textTitleUIColor, tintColor: theme.primaryUIColor, font: theme.secundaryRegularUIFont) { (textView) -> Bool in
             self.addTag(text: self.text)
             self.text = ""
             return true

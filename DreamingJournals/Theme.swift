@@ -16,8 +16,8 @@ class Theme : ObservableObject {
     
     @Published var passiveDarkColor : Color = Color(red: 46 / 255.0, green: 49 / 255.0, blue: 56/225.0)
     @Published var passiveLightColor : Color = Color(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0)
-
-
+    
+    
     @Published var primaryColor : Color = Color(red: 226 / 255.0, green: 157 / 255.0, blue: 29/225.0)
     @Published var secundaryColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
     @Published var tertiaryColor : Color = Color.red
@@ -31,11 +31,20 @@ class Theme : ObservableObject {
     
     @Published var textTitleColor : Color = Color(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0)
     @Published var textTitleUIColor : UIColor = UIColor(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0, alpha: 1)
-
+    
     @Published var textBodyColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
     @Published var textBodyUIColor : UIColor = UIColor(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0, alpha: 1)
-
+    
+    @Published var primaryRegularFont : Font = Font.body
+    @Published var secundaryRegularFont : Font = Font.caption.bold()
+    @Published var primaryLargeFont : Font = Font.headline
+    @Published var secundaryLargeFont : Font = Font.largeTitle.bold()
+    
+    @Published var primaryRegularUIFont : UIFont = UIFont.preferredFont(forTextStyle: .body)
+    @Published var secundaryRegularUIFont : UIFont = UIFont(descriptor: UIFont.preferredFont(forTextStyle: .caption1).fontDescriptor.withSymbolicTraits(.traitBold) ?? UIFont.preferredFont(forTextStyle: .caption1).fontDescriptor, size: UIFont.preferredFont(forTextStyle: .caption1).fontDescriptor.withSymbolicTraits(.traitBold)?.pointSize ?? UIFont.preferredFont(forTextStyle: .caption1).fontDescriptor.pointSize)
+    @Published var primaryLargeUIFont : UIFont = UIFont.preferredFont(forTextStyle: .headline)
+    @Published var secundaryLargeUIFont : UIFont = UIFont(descriptor: UIFont.preferredFont(forTextStyle: .largeTitle).fontDescriptor.withSymbolicTraits(.traitBold) ?? UIFont.preferredFont(forTextStyle: .largeTitle).fontDescriptor, size: UIFont.preferredFont(forTextStyle: .largeTitle).fontDescriptor.withSymbolicTraits(.traitBold)?.pointSize ?? UIFont.preferredFont(forTextStyle: .caption1).fontDescriptor.pointSize)
+    
+    @Published var primarySmallFont : Font = Font.caption
+    @Published var primarySmallUIFont : UIFont = UIFont.preferredFont(forTextStyle: .caption1)
 }
-
-
-
