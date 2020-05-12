@@ -17,11 +17,13 @@ struct DreamDetailMainContentView: View {
     var body: some View {
         GeometryReader{ geo in
             ScrollView(.vertical, showsIndicators: false){
-                VStack(alignment : .leading){
+                VStack(alignment : .leading, spacing: self.theme.smallPadding * 0.8){
                     DreamDateView()
                     DreamTitleView()
+                    if !self.dream.tags.isEmpty{
                     TagCollectionView(self.dream, isEditable: true)
                         .frame(width: geo.size.width)
+                    }
                     DreamTextView()
                     Spacer()
                         .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)
