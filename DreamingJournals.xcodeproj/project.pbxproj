@@ -49,17 +49,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		110F88EF24530F6700C7B797 /* DreamBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DreamBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		110F88EF24530F6700C7B797 /* Dreaming Journals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dreaming Journals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		110F88F224530F6700C7B797 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		110F88F424530F6700C7B797 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		110F88FB24530F6900C7B797 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		110F88FE24530F6900C7B797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dreaming Journals.entitlements"; sourceTree = "<group>"; };
 		114744DB2461AB4900EF4A36 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		114D1562245CB5FB0042A38B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		114D1564245CB9720042A38B /* TagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionView.swift; sourceTree = "<group>"; };
-		114F656C2459C70A0056EB4C /* DreamBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		114F656C2459C70A0056EB4C /* DreamingJournalsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamingJournalsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		114F65702459C70A0056EB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		114F65762459C7250056EB4C /* DreamServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamServiceTests.swift; sourceTree = "<group>"; };
 		11559B2E245A2A5D00025F9F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -105,8 +106,8 @@
 		110F88E624530F6700C7B797 = {
 			isa = PBXGroup;
 			children = (
-				110F88F124530F6700C7B797 /* DreamBook */,
-				114F656D2459C70A0056EB4C /* DreamBookTests */,
+				110F88F124530F6700C7B797 /* DreamingJournals */,
+				114F656D2459C70A0056EB4C /* DreamingJournalsTest */,
 				110F88F024530F6700C7B797 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,15 +115,16 @@
 		110F88F024530F6700C7B797 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				110F88EF24530F6700C7B797 /* DreamBook.app */,
-				114F656C2459C70A0056EB4C /* DreamBookTests.xctest */,
+				110F88EF24530F6700C7B797 /* Dreaming Journals.app */,
+				114F656C2459C70A0056EB4C /* DreamingJournalsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		110F88F124530F6700C7B797 /* DreamBook */ = {
+		110F88F124530F6700C7B797 /* DreamingJournals */ = {
 			isa = PBXGroup;
 			children = (
+				110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */,
 				1166455E2459B4FA000F2DC0 /* Views */,
 				1166455B24599EFA000F2DC0 /* Services */,
 				1168B0242454593D00E9E186 /* Models */,
@@ -138,7 +140,7 @@
 				110F88FD24530F6900C7B797 /* Preview Content */,
 				110F88FB24530F6900C7B797 /* Assets.xcassets */,
 			);
-			path = DreamBook;
+			path = DreamingJournals;
 			sourceTree = "<group>";
 		};
 		110F88FD24530F6900C7B797 /* Preview Content */ = {
@@ -160,14 +162,14 @@
 			path = HelperViews;
 			sourceTree = "<group>";
 		};
-		114F656D2459C70A0056EB4C /* DreamBookTests */ = {
+		114F656D2459C70A0056EB4C /* DreamingJournalsTest */ = {
 			isa = PBXGroup;
 			children = (
 				11F5ED34245B3F6500667B4E /* TagServiceTest.swift */,
 				114F65762459C7250056EB4C /* DreamServiceTests.swift */,
 				114F65702459C70A0056EB4C /* Info.plist */,
 			);
-			path = DreamBookTests;
+			path = DreamingJournalsTest;
 			sourceTree = "<group>";
 		};
 		11559B2D245A29B800025F9F /* HomeView */ = {
@@ -240,9 +242,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		110F88EE24530F6700C7B797 /* DreamBook */ = {
+		110F88EE24530F6700C7B797 /* DreamingJournals */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "DreamBook" */;
+			buildConfigurationList = 110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "DreamingJournals" */;
 			buildPhases = (
 				110F88EB24530F6700C7B797 /* Sources */,
 				110F88EC24530F6700C7B797 /* Frameworks */,
@@ -252,14 +254,14 @@
 			);
 			dependencies = (
 			);
-			name = DreamBook;
+			name = DreamingJournals;
 			productName = "dream-book";
-			productReference = 110F88EF24530F6700C7B797 /* DreamBook.app */;
+			productReference = 110F88EF24530F6700C7B797 /* Dreaming Journals.app */;
 			productType = "com.apple.product-type.application";
 		};
-		114F656B2459C70A0056EB4C /* DreamBookTests */ = {
+		114F656B2459C70A0056EB4C /* DreamingJournalsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamBookTests" */;
+			buildConfigurationList = 114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamingJournalsTests" */;
 			buildPhases = (
 				114F65682459C70A0056EB4C /* Sources */,
 				114F65692459C70A0056EB4C /* Frameworks */,
@@ -270,9 +272,9 @@
 			dependencies = (
 				114F65722459C70A0056EB4C /* PBXTargetDependency */,
 			);
-			name = DreamBookTests;
+			name = DreamingJournalsTests;
 			productName = DreamBookTests;
-			productReference = 114F656C2459C70A0056EB4C /* DreamBookTests.xctest */;
+			productReference = 114F656C2459C70A0056EB4C /* DreamingJournalsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -294,7 +296,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "DreamBook" */;
+			buildConfigurationList = 110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "DreamingJournals" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -307,8 +309,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				110F88EE24530F6700C7B797 /* DreamBook */,
-				114F656B2459C70A0056EB4C /* DreamBookTests */,
+				110F88EE24530F6700C7B797 /* DreamingJournals */,
+				114F656B2459C70A0056EB4C /* DreamingJournalsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -379,7 +381,7 @@
 /* Begin PBXTargetDependency section */
 		114F65722459C70A0056EB4C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 110F88EE24530F6700C7B797 /* DreamBook */;
+			target = 110F88EE24530F6700C7B797 /* DreamingJournals */;
 			targetProxy = 114F65712459C70A0056EB4C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -514,19 +516,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"DreamBook/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DreamBook/Info.plist;
+				INFOPLIST_FILE = DreamingJournals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.DreamBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
+				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -534,19 +538,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"DreamBook/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DreamBook/Info.plist;
+				INFOPLIST_FILE = DreamingJournals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.DreamBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
+				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -566,7 +572,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamBook.app/DreamBook";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamingJournals.app/DreamingJournals";
 			};
 			name = Debug;
 		};
@@ -586,14 +592,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamBook.app/DreamBook";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamingJournals.app/DreamingJournals";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "DreamBook" */ = {
+		110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "DreamingJournals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				110F890424530F6900C7B797 /* Debug */,
@@ -602,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "DreamBook" */ = {
+		110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "DreamingJournals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				110F890724530F6900C7B797 /* Debug */,
@@ -611,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamBookTests" */ = {
+		114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamingJournalsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				114F65732459C70A0056EB4C /* Debug */,
