@@ -7,10 +7,11 @@
 //
 
 import SwiftUI
-
+import Combine
 struct TagCollectionView: View {
     @State var height : CGFloat = 0
     @State var itemCount : Int?
+    @State var cancellables = Set<AnyCancellable>()
     let maxRows : Int
     @EnvironmentObject var theme : Theme
     @ObservedObject var dream : DreamViewModel
@@ -90,5 +91,10 @@ struct TagCollectionView: View {
             }
         }.frame(height : self.height)
             .disabled(!isEditable)
+            .onAppear{
+                self.dream.$tags.sink { (tag) in
+                    self.itemCount = nil
+                }.store(in: &self.cancellables)
         }
+    }
 }
