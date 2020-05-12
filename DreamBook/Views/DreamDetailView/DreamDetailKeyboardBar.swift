@@ -38,7 +38,7 @@ private struct MenuView : View {
             Spacer()
             ActivateTagAddButton(showSuggestionTags: self.$showSuggestionTags)
             DimissKeyboardButton()
-        }
+        }.background(showSuggestionTags ? theme.primaryBackgroundColor : .clear)
     }
 }
 
@@ -131,7 +131,7 @@ private struct AddTagTextField : View {
             self.addTag(text: self.text)
             self.text = ""
             return true
-        }
+        }.padding(.leading, theme.mediumPadding)
     }
     
     func addTag(text : String){
