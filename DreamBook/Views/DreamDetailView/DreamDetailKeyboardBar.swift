@@ -16,9 +16,15 @@ struct DreamDetailKeyboardBar: View {
         VStack(spacing : 0){
             if showSuggestionTags{
                 SuggestionTags()
+
             }
             MenuView(showSuggestionTags: $showSuggestionTags)
-        }.padding(.bottom, keyboardObserver.heightWithoutSaveArea)
+        }
+            
+        .padding(.bottom, keyboardObserver.heightWithoutSaveArea)
+        .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
+        .animation(.easeInOut(duration: keyboardObserver.animationTime + 0.2))
+        .disabled(!keyboardObserver.isKeyboardShowing)
     }
 }
 

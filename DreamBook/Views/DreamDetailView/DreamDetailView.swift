@@ -36,9 +36,11 @@ struct DreamDetailContentView : View {
             .navigationBarTitle("",displayMode: .inline)
             .navigationBarHidden(true)
             
-            if keyboardObserver.isKeyboardShowing{
-                DreamDetailKeyboardBar()
-            }
+            DreamDetailKeyboardBar()
+            
+            
+                    
+            
         }
     }
 }

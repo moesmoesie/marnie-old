@@ -13,6 +13,7 @@ class KeyboardObserver : ObservableObject{
     
     @Published var height : CGFloat = 0
     private var cancellableSet: Set<AnyCancellable> = []
+    let animationTime = 0.25
     
     var isKeyboardShowing : Bool{
         height > 0
@@ -28,14 +29,14 @@ class KeyboardObserver : ObservableObject{
     
     init() {
         
-        let keyboardShow = NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)
+        let keyboardShow = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
             .compactMap{
                 $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
         }.map{
             $0.cgRectValue.height
         }
         
-        let keyboardHide = NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)
+        let keyboardHide = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
             .map{ _ in CGFloat.zero}
         
         
