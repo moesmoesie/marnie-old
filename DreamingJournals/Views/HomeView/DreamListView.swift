@@ -17,6 +17,10 @@ struct DreamListView: View {
     var body: some View {
         List{
             ListHeader()
+                .listRowInsets(EdgeInsets())
+                .padding(.horizontal, self.theme.mediumPadding)
+                .padding(.bottom, self.theme.smallPadding)
+
             ForEach(dreams.map({DreamViewModel(dream: $0)})){ (dream : DreamViewModel) in
                 ListItem(dream: dream)
                     .listRowInsets(EdgeInsets())
@@ -82,14 +86,9 @@ private struct ListHeader : View {
     
     @State var showNewDream : Bool = false
     var body: some View{
-        VStack(alignment : .center, spacing: 0){
-            NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}.disabled(true)
-            Image(systemName: "moon.fill")
-                .resizable()
-                .foregroundColor(theme.secundaryColor)
-                .frame(width : theme.largePadding * 2, height: theme.largePadding * 2)
-                .padding(.bottom, theme.mediumPadding)
-            
+        ZStack{
+            NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}.disabled(true).hidden()
+
             HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
                 Text("Dreams").font(theme.secundaryLargeFont).foregroundColor(theme.textTitleColor)
                 Spacer()
