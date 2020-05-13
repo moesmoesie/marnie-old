@@ -16,14 +16,14 @@ struct DreamDetailKeyboardBar: View {
         VStack(spacing : 0){
             if showSuggestionTags{
                 SuggestionTags()
-
+                
             }
             MenuView(showSuggestionTags: $showSuggestionTags)
+                .animation(nil)
+                .padding(.bottom, keyboardObserver.height)
+                .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
+                .animation(.easeInOut(duration: keyboardObserver.animationTime + 0.2))
         }
-            
-        .padding(.bottom, keyboardObserver.height)
-        .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
-        .animation(.easeInOut(duration: keyboardObserver.animationTime + 0.2))
         .disabled(!keyboardObserver.isKeyboardShowing)
     }
 }
@@ -150,7 +150,7 @@ private struct AddTagTextField : View {
         if self.dream.tags.contains(where: {$0.text == tag.text}){
             return
         }
-                
+        
         self.dream.tags.append(tag)
     }
 }
