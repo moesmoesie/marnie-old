@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct DreamListView: View {
-    @FetchRequest(entity: Dream.entity(), sortDescriptors: []) var dreams : FetchedResults<Dream>
+    @FetchRequest(entity: Dream.entity(), sortDescriptors: [
+        NSSortDescriptor(key: "date", ascending: false)
+    ]) var dreams : FetchedResults<Dream>
     @EnvironmentObject var theme : Theme
     @State var showDream = false
     var body: some View {
