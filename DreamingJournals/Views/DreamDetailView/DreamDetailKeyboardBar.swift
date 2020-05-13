@@ -13,7 +13,12 @@ struct DreamDetailKeyboardBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var theme : Theme
     var body: some View {
-        VStack(spacing : 0){
+        if !keyboardObserver.isKeyboardShowing{
+            DispatchQueue.main.async {
+                self.showSuggestionTags = false
+            }
+        }
+        return VStack(spacing : 0){
             if showSuggestionTags{
                 SuggestionTags()
                 

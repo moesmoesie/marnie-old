@@ -546,7 +546,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
 				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;
@@ -568,7 +568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
 				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;
