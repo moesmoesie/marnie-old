@@ -86,6 +86,7 @@ private struct ListHeader : View {
     @EnvironmentObject var navigationObserver : NavigationObserver
     
     @State var showNewDream : Bool = false
+    @State var showFilterSheet : Bool = false
     var body: some View{
         ZStack{
             NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}.disabled(true).hidden()
@@ -93,15 +94,20 @@ private struct ListHeader : View {
             HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
                 Text("Dreams").font(theme.secundaryLargeFont).foregroundColor(theme.textTitleColor)
                 Spacer()
-                Image(systemName: "magnifyingglass.circle.fill")
-                    .resizable()
-                    .foregroundColor(theme.secundaryColor)
-                    .frame(width : theme.largePadding, height: theme.largePadding)
-                    .padding(.bottom, -2)
-                    
-                    .onTapGesture {
-                        print("Show Filter Sheet")
+                Button(action:{
+                    self.showFilterSheet = true
+                }){
+                    Image(systemName: "magnifyingglass.circle.fill")
+                        .resizable()
+                        .foregroundColor(theme.secundaryColor)
+                        .frame(width : theme.largePadding, height: theme.largePadding)
+                        .padding(.bottom, -2)
+                }.sheet(isPresented: $showFilterSheet) {
+                    DreamFilterSheetView()
+                        .environmentObject(self.theme)
                 }
+                    
+               
                 
                 Image(systemName: "plus.circle.fill")
                     .resizable()
