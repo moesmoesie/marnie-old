@@ -12,6 +12,9 @@
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
+		113E891D246BE28D0070F018 /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E891C246BE28D0070F018 /* MainNavigationView.swift */; };
+		113E891F246BE7460070F018 /* SaveAreaObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E891E246BE7460070F018 /* SaveAreaObserver.swift */; };
+		113E8921246BF31D0070F018 /* NavigationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E8920246BF31D0070F018 /* NavigationObserver.swift */; };
 		114744DC2461AB4900EF4A36 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114744DB2461AB4900EF4A36 /* Theme.swift */; };
 		114D1563245CB5FB0042A38B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1562245CB5FB0042A38B /* TagView.swift */; };
 		114D1565245CB9720042A38B /* TagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1564245CB9720042A38B /* TagCollectionView.swift */; };
@@ -57,6 +60,9 @@
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dreaming Journals.entitlements"; sourceTree = "<group>"; };
+		113E891C246BE28D0070F018 /* MainNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationView.swift; sourceTree = "<group>"; };
+		113E891E246BE7460070F018 /* SaveAreaObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAreaObserver.swift; sourceTree = "<group>"; };
+		113E8920246BF31D0070F018 /* NavigationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationObserver.swift; sourceTree = "<group>"; };
 		114744DB2461AB4900EF4A36 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		114D1562245CB5FB0042A38B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		114D1564245CB9720042A38B /* TagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionView.swift; sourceTree = "<group>"; };
@@ -124,7 +130,6 @@
 		110F88F124530F6700C7B797 /* DreamingJournals */ = {
 			isa = PBXGroup;
 			children = (
-				110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */,
 				1166455E2459B4FA000F2DC0 /* Views */,
 				1166455B24599EFA000F2DC0 /* Services */,
 				1168B0242454593D00E9E186 /* Models */,
@@ -137,6 +142,7 @@
 				110F890024530F6900C7B797 /* LaunchScreen.storyboard */,
 				11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */,
 				110F890324530F6900C7B797 /* Info.plist */,
+				110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */,
 				110F88FD24530F6900C7B797 /* Preview Content */,
 				110F88FB24530F6900C7B797 /* Assets.xcassets */,
 			);
@@ -149,6 +155,14 @@
 				110F88FE24530F6900C7B797 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		113E891B246BE2750070F018 /* MainNavigationView */ = {
+			isa = PBXGroup;
+			children = (
+				113E891C246BE28D0070F018 /* MainNavigationView.swift */,
+			);
+			path = MainNavigationView;
 			sourceTree = "<group>";
 		};
 		114D155F245CB58C0042A38B /* HelperViews */ = {
@@ -213,6 +227,7 @@
 		1166455E2459B4FA000F2DC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				113E891B246BE2750070F018 /* MainNavigationView */,
 				114D155F245CB58C0042A38B /* HelperViews */,
 				11559B32245A2D9200025F9F /* DreamDetailView */,
 				11559B2D245A29B800025F9F /* HomeView */,
@@ -235,6 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				11AF16C12462D5D4009A150B /* KeyboardObserver.swift */,
+				113E891E246BE7460070F018 /* SaveAreaObserver.swift */,
+				113E8920246BF31D0070F018 /* NavigationObserver.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -355,6 +372,7 @@
 				11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */,
 				1182E35E24634C4800C41E3E /* DreamDetailTopBar.swift in Sources */,
 				11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */,
+				113E891F246BE7460070F018 /* SaveAreaObserver.swift in Sources */,
 				11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */,
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
@@ -363,6 +381,8 @@
 				11B4E24B246A1501006295B5 /* CustomTextField.swift in Sources */,
 				11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */,
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
+				113E891D246BE28D0070F018 /* MainNavigationView.swift in Sources */,
+				113E8921246BF31D0070F018 /* NavigationObserver.swift in Sources */,
 				114744DC2461AB4900EF4A36 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

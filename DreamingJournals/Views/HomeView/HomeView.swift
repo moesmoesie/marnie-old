@@ -10,14 +10,24 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var theme : Theme
+    @EnvironmentObject var navigationObserver : NavigationObserver
+    
     var body: some View {
         NavigationView{
             ZStack(alignment: .topLeading){
                 theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
                 DreamListView()
             }
-             .navigationBarTitle("", displayMode: .inline)
-             .navigationBarHidden(true)
+            .onAppear(){
+                withAnimation{
+                    if !self.navigationObserver.showBottomBar{
+                        self.navigationObserver.showBottomBar = true
+                    }
+                }
+                
+            }
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarHidden(true)
         }
     }
 }

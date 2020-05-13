@@ -12,7 +12,8 @@ struct DreamDetailMainContentView: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
-    
+    @EnvironmentObject var navigationObserver : NavigationObserver
+
     
     var body: some View {
         GeometryReader{ geo in

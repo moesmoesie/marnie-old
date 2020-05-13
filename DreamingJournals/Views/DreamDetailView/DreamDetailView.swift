@@ -22,21 +22,27 @@ struct DreamDetailContentView : View {
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-
+    @EnvironmentObject var navigationObserver : NavigationObserver
+    
     var body: some View{
         ZStack(alignment: .bottom){
             theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
             VStack(spacing: theme.smallPadding){
                 DreamDetailTopBar()
                 DreamDetailMainContentView()
-                .padding(.horizontal, theme.mediumPadding)
-
+                    .padding(.horizontal, theme.mediumPadding)
             }
             .navigationBarTitle("",displayMode: .inline)
             .navigationBarHidden(true)
+            
             DreamDetailKeyboardBar()
+        }.onAppear{
+            withAnimation{
+                if self.navigationObserver.showBottomBar{
+                    self.navigationObserver.showBottomBar = false
+                }
+            }
         }
     }
 }
-
 

@@ -24,6 +24,7 @@ struct DreamListView: View {
                     .padding(.horizontal, self.theme.mediumPadding)
                     .padding(.bottom, self.theme.mediumPadding)
             }
+            Spacer().frame(height : theme.smallPadding * 3)
         }
         .onAppear{
             UITableView.appearance().backgroundColor = .clear
