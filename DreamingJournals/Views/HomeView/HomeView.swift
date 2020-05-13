@@ -19,12 +19,9 @@ struct HomeView: View {
                 DreamListView()
             }
             .onAppear(){
-                withAnimation{
-                    if !self.navigationObserver.showBottomBar{
-                        self.navigationObserver.showBottomBar = true
-                    }
+                if !self.navigationObserver.showBottomBar{
+                    self.navigationObserver.showBottomBar = true
                 }
-                
             }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)

@@ -44,10 +44,12 @@ struct DreamListView_Previews: PreviewProvider {
 private struct ListItem : View {
     @EnvironmentObject var theme : Theme
     let dream : DreamViewModel
+    @State var showDream : Bool = false
+    @EnvironmentObject var navigationObserver : NavigationObserver
     
     var body: some View{
         ZStack{
-            NavigationLink(destination: DreamDetailView(dream: dream)){EmptyView()}.hidden()
+            NavigationLink(destination: DreamDetailView(dream: dream), isActive: self.$showDream){EmptyView()}.disabled(true).hidden()
             VStack(alignment: .leading, spacing: theme.smallPadding * 0.6){
                 HStack{
                     Text(dream.wrapperDateString).font(theme.primarySmallFont).foregroundColor(theme.primaryColor)
@@ -63,6 +65,10 @@ private struct ListItem : View {
                 
                 Text(dream.text.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)
             }
+        }.overlay(theme.primaryBackgroundColor.opacity(0.0000001)) //getto fix
+            .onTapGesture {
+                self.navigationObserver.showBottomBar = false
+                self.showDream = true
         }
     }
 }
@@ -70,6 +76,8 @@ private struct ListItem : View {
 
 private struct ListHeader : View {
     @EnvironmentObject var theme : Theme
+    @EnvironmentObject var navigationObserver : NavigationObserver
+    
     @State var showNewDream : Bool = false
     var body: some View{
         VStack(alignment : .center, spacing: 0){
@@ -100,6 +108,7 @@ private struct ListHeader : View {
                     .padding(.bottom, -2)
                     .onTapGesture {
                         self.showNewDream = true
+                        self.navigationObserver.showBottomBar = false
                 }
             }
         }

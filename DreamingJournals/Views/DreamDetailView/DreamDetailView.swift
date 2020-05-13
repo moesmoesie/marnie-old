@@ -22,8 +22,7 @@ struct DreamDetailContentView : View {
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-    @EnvironmentObject var navigationObserver : NavigationObserver
-    
+
     var body: some View{
         ZStack(alignment: .bottom){
             theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
@@ -36,12 +35,6 @@ struct DreamDetailContentView : View {
             .navigationBarHidden(true)
             
             DreamDetailKeyboardBar()
-        }.onAppear{
-            withAnimation{
-                if self.navigationObserver.showBottomBar{
-                    self.navigationObserver.showBottomBar = false
-                }
-            }
         }
     }
 }

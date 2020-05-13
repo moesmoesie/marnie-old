@@ -21,7 +21,7 @@ struct DreamDetailKeyboardBar: View {
             MenuView(showSuggestionTags: $showSuggestionTags)
         }
             
-        .padding(.bottom, keyboardObserver.heightWithoutSaveArea)
+        .padding(.bottom, keyboardObserver.height)
         .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
         .animation(.easeInOut(duration: keyboardObserver.animationTime + 0.2))
         .disabled(!keyboardObserver.isKeyboardShowing)

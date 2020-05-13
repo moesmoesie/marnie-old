@@ -26,6 +26,7 @@ struct MainNavigationView: View {
                 theme.primaryBackgroundColor.frame(height: getBottomSaveArea())
             }.offset(x: 0, y: navigationObserver.showBottomBar ? 0 : 100)
             .disabled(!navigationObserver.showBottomBar)
+            .animation(.easeInOut)
         }.edgesIgnoringSafeArea(.bottom)
         
     }
