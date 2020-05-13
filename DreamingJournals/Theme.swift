@@ -8,8 +8,57 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class Theme : ObservableObject {
+    
+    private var lightModePassiveDarkColor : Color = Color(red: 46 / 255.0, green: 49 / 255.0, blue: 56/225.0)
+    private var lightModePassiveLightColor : Color = .black
+    
+    private var lightModePrimaryColor : Color = Color(red: 226 / 255.0, green: 157 / 255.0, blue: 29/225.0)
+    private var lightModeSecundaryColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
+    private var lightModeTertiaryColor : Color = Color.red
+    
+    private var lightModePrimaryUIColor : UIColor = UIColor(red: 226 / 255.0, green: 157 / 255.0, blue: 29/225.0, alpha: 1)
+    private var lightModeSecundaryUIColor : UIColor = UIColor(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0, alpha: 1)
+    private var lightModeTertiaryUIColor : UIColor = UIColor.red
+    
+    private var lightModePrimaryBackgroundColor : Color = Color(red: 252 / 255.0, green: 252 / 255.0, blue: 252/225.0)
+    private var lightModeSecundaryBackgroundColor : Color = Color(red: 239 / 255.0, green: 239 / 255.0, blue: 239/225.0)
+    
+    private var lightModeTextTitleColor : Color = .black
+    private var lightModeTextTitleUIColor : UIColor = .black
+    
+    private var lightModeTextBodyColor : Color = .black
+    private var lightModeTextBodyUIColor : UIColor = .black
+    
+    //darkmode
+    
+    private var darkModePassiveDarkColor : Color = Color(red: 46 / 255.0, green: 49 / 255.0, blue: 56/225.0)
+    private var darkModePassiveLightColor : Color = Color(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0)
+    
+    private var darkModePrimaryColor : Color = Color(red: 226 / 255.0, green: 157 / 255.0, blue: 29/225.0)
+    private var darkModeSecundaryColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
+    private var darkModeTertiaryColor : Color = Color.red
+    
+    private var darkModePrimaryUIColor : UIColor = UIColor(red: 226 / 255.0, green: 157 / 255.0, blue: 29/225.0, alpha: 1)
+    private var darkModeSecundaryUIColor : UIColor = UIColor(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0, alpha: 1)
+    private var darkModeTertiaryUIColor : UIColor = UIColor.red
+    
+    private var darkModePrimaryBackgroundColor : Color = Color(red: 22 / 255.0, green: 29 / 255.0, blue: 67/225.0)
+    private var darkModeSecundaryBackgroundColor : Color = Color(red: 31 / 255.0, green: 38 / 255.0, blue: 76/225.0)
+    
+    private var darkModeTextTitleColor : Color = Color(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0)
+    private var darkModeTextTitleUIColor : UIColor = UIColor(red: 249 / 255.0, green: 249 / 255.0, blue: 249/225.0, alpha: 1)
+    
+    private var darkModeTextBodyColor : Color = Color(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0)
+    private var darkModeTextBodyUIColor : UIColor = UIColor(red: 145 / 255.0, green: 196 / 255.0, blue: 242/225.0, alpha: 1)
+    
+    
+    // publishers
+    
+    @Published var darkMode : Bool = true
+    
     @Published var smallPadding : CGFloat = 10
     @Published var mediumPadding : CGFloat = 20
     @Published var largePadding : CGFloat = 30
@@ -47,4 +96,32 @@ class Theme : ObservableObject {
     
     @Published var primarySmallFont : Font = Font.caption
     @Published var primarySmallUIFont : UIFont = UIFont.preferredFont(forTextStyle: .caption1)
+    
+    private var cancellableSet: Set<AnyCancellable> = []
+    
+    init() {
+        
+        self.$darkMode.sink { (darkMode) in
+            self.primaryBackgroundColor = darkMode ? self.darkModePrimaryColor : self.lightModePrimaryColor
+            self.secundaryColor = darkMode ? self.darkModeSecundaryColor : self.lightModeSecundaryColor
+            self.tertiaryColor = darkMode ? self.darkModeTertiaryColor : self.lightModeTertiaryColor
+            
+            self.primaryUIColor = darkMode ? self.darkModePrimaryUIColor : self.lightModePrimaryUIColor
+            self.secundaryUIColor = darkMode ? self.darkModeSecundaryUIColor : self.lightModeSecundaryUIColor
+            self.tertiaryUIColor =  darkMode ? self.darkModeTertiaryUIColor : self.lightModeTertiaryUIColor
+            
+            self.primaryBackgroundColor = darkMode ? self.darkModePrimaryBackgroundColor : self.lightModePrimaryBackgroundColor
+            self.secundaryBackgroundColor = darkMode ? self.darkModeSecundaryBackgroundColor : self.lightModeSecundaryBackgroundColor
+            
+            self.textTitleColor = darkMode ? self.darkModeTextTitleColor : self.lightModeTextTitleColor
+            self.textTitleUIColor = darkMode ? self.darkModeTextTitleUIColor : self.lightModeTextTitleUIColor
+            
+            self.textBodyColor = darkMode ? self.darkModeTextBodyColor : self.lightModeTextBodyColor
+            self.textBodyUIColor = darkMode ? self.darkModeTextBodyUIColor : self.textBodyUIColor
+            
+            self.passiveDarkColor = darkMode ? self.darkModePassiveDarkColor : self.lightModePassiveDarkColor
+            self.passiveLightColor = darkMode ? self.darkModePassiveLightColor : self.lightModePassiveLightColor
+            
+        }.store(in: &cancellableSet)
+    }
 }

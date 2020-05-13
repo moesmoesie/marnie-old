@@ -16,7 +16,7 @@ struct MainNavigationView: View {
             if navigationObserver.currentPage == Pages.home{
                 HomeView().padding(.bottom,  navigationObserver.showBottomBar ? getBottomSaveArea() : 0)
             }else if navigationObserver.currentPage == Pages.settings{
-                theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                SettingsView()
             }else if navigationObserver.currentPage == Pages.statistics{
                 theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
             }
@@ -24,7 +24,9 @@ struct MainNavigationView: View {
             VStack(spacing : 0){
                 BottomAppBar()
                 theme.primaryBackgroundColor.frame(height: getBottomSaveArea())
-            }.offset(x: 0, y: navigationObserver.showBottomBar ? 0 : 100)
+            }
+            .animation(nil)
+            .offset(x: 0, y: navigationObserver.showBottomBar ? 0 : 100)
             .disabled(!navigationObserver.showBottomBar)
             .animation(.easeInOut)
         }.edgesIgnoringSafeArea(.bottom)
