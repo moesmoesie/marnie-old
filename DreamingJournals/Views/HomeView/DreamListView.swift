@@ -37,6 +37,7 @@ struct DreamListView: View {
             UITableView.appearance().separatorStyle = .none
             UITableViewCell.appearance().backgroundColor = .clear
             UITableViewCell.appearance().selectionStyle = .none
+            UITableView.appearance().showsVerticalScrollIndicator = false
         }
     }
 }
