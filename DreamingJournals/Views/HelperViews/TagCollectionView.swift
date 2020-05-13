@@ -90,6 +90,7 @@ struct TagCollectionView: View {
                 }
             }
         }.frame(height : self.height)
+            .animation(self.isEditable ?  .easeInOut : nil)
             .disabled(!isEditable)
             .onAppear{
                 self.dream.$tags.sink { (tag) in
