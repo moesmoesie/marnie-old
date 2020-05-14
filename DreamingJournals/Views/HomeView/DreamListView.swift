@@ -8,38 +8,7 @@
 
 import SwiftUI
 
-struct DreamListView: View {
-    @EnvironmentObject var theme : Theme
-    @EnvironmentObject var filterObserver : FilterObserver
-    @FetchRequest(entity: Dream.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \Dream.date, ascending: false)]) var fetchedDreams: FetchedResults<Dream>
-    
-    var filteredDreams : [DreamViewModel]{
-        let dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
-        return filterObserver.filteredDreams(dreams: dreams)
-    }
-    
-    var body: some View {
-        DreamListContentView(dreams: filteredDreams)
-            .onAppear{
-                UITableView.appearance().backgroundColor = .clear
-                UITableView.appearance().separatorStyle = .none
-                UITableViewCell.appearance().backgroundColor = .clear
-                UITableViewCell.appearance().selectionStyle = .none
-                UITableView.appearance().showsVerticalScrollIndicator = false
-        }
-    }
-}
-
-struct DreamListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DreamListView()
-    }
-}
-
-
-private struct DreamListContentView : View {
-    @State var showDream = false
+struct DreamList : View {
     var dreams: [DreamViewModel]
     @EnvironmentObject var theme : Theme
     
@@ -51,7 +20,7 @@ private struct DreamListContentView : View {
                 .padding(.bottom, self.theme.smallPadding)
             
             ForEach(self.dreams){ (dream : DreamViewModel) in
-                ListItem(dream: dream)
+                DreamListItem(dream: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(self.theme.mediumPadding)
                     .background(self.theme.secundaryBackgroundColor)
@@ -60,83 +29,6 @@ private struct DreamListContentView : View {
                     .padding(.bottom, self.theme.mediumPadding)
             }
             Spacer().frame(height : theme.largePadding + getBottomSaveArea())
-        }
-    }
-}
-
-private struct ListItem : View {
-    @EnvironmentObject var theme : Theme
-    let dream : DreamViewModel
-    @State var showDream : Bool = false
-    @EnvironmentObject var navigationObserver : NavigationObserver
-    
-    var body: some View{
-        ZStack{
-            NavigationLink(destination: DreamDetailView(dream: dream), isActive: self.$showDream){EmptyView()}.disabled(true).hidden()
-            VStack(alignment: .leading, spacing: theme.smallPadding * 0.6){
-                HStack{
-                    Text(dream.wrapperDateString).font(theme.primarySmallFont).foregroundColor(theme.primaryColor)
-                    Spacer()
-                    if dream.isBookmarked{
-                        Image(systemName: "heart.fill").foregroundColor(self.theme.primaryColor)                        }
-                }
-                Text(dream.title).font(theme.primaryLargeFont).foregroundColor(self.theme.textTitleColor)
-                
-                if !dream.tags.isEmpty{
-                    TagCollectionView(dream, maxRows: 1)
-                }
-                
-                Text(dream.text.replacingOccurrences(of: "\n", with: "")).lineLimit(6).foregroundColor(self.theme.textBodyColor)
-            }
-        }.overlay(theme.primaryBackgroundColor.opacity(0.0000001)) //getto fix
-            .onTapGesture {
-                self.navigationObserver.showBottomBar = false
-                self.showDream = true
-        }
-    }
-}
-
-
-private struct ListHeader : View {
-    @EnvironmentObject var theme : Theme
-    @EnvironmentObject var navigationObserver : NavigationObserver
-    @EnvironmentObject var filterObserver : FilterObserver
-    @Environment(\.managedObjectContext) var moc
-    
-    @State var showNewDream : Bool = false
-    @State var showFilterSheet : Bool = false
-    var body: some View{
-        return ZStack{
-            NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}.disabled(true).hidden()
-            
-            HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
-                Text("Dreams").font(theme.secundaryLargeFont).foregroundColor(theme.textTitleColor)
-                Spacer()
-                Button(action:{
-                    self.showFilterSheet = true
-                }){
-                    Image(systemName: "magnifyingglass.circle.fill")
-                        .resizable()
-                        .foregroundColor(filterObserver.tagFilters.isEmpty ? theme.secundaryColor : theme.primaryColor)
-                        .frame(width : theme.largePadding, height: theme.largePadding)
-                        .padding(.bottom, -2)
-                }.sheet(isPresented: $showFilterSheet) {
-                    DreamFilterSheetView()
-                        .environmentObject(self.theme)
-                        .environmentObject(self.filterObserver)
-                        .environment(\.managedObjectContext, self.moc)
-                }
-                
-                Image(systemName: "plus.circle.fill")
-                    .resizable()
-                    .foregroundColor(theme.secundaryColor)
-                    .frame(width : theme.largePadding, height: theme.largePadding)
-                    .padding(.bottom, -2)
-                    .onTapGesture {
-                        self.showNewDream = true
-                        self.navigationObserver.showBottomBar = false
-                }
-            }
         }
     }
 }

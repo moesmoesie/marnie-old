@@ -11,21 +11,39 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var navigationObserver : NavigationObserver
+    @EnvironmentObject var filterObserver : FilterObserver
+    @FetchRequest(entity: Dream.entity(),sortDescriptors: [NSSortDescriptor(keyPath: \Dream.date, ascending: false)])var fetchedDreams: FetchedResults<Dream>
+    
+    var filteredDreams : [DreamViewModel]{
+        let dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+        return filterObserver.filteredDreams(dreams: dreams)
+    }
     
     var body: some View {
         NavigationView{
             ZStack(alignment: .topLeading){
                 theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
-                DreamListView()
+                DreamList(dreams: filteredDreams)
             }
-            .onAppear(){
-                if !self.navigationObserver.showBottomBar{
-                    self.navigationObserver.showBottomBar = true
-                }
-            }
+            .onAppear(perform: viewSetup)
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
         }
+    }
+    
+    private func viewSetup(){
+        if !self.navigationObserver.showBottomBar{
+            self.navigationObserver.showBottomBar = true
+        }
+        styleUITableView()
+    }
+    
+    private func styleUITableView(){
+        UITableView.appearance().backgroundColor = .clear
+        UITableView.appearance().separatorStyle = .none
+        UITableViewCell.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().selectionStyle = .none
+        UITableView.appearance().showsVerticalScrollIndicator = false
     }
 }
 
