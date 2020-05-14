@@ -15,6 +15,8 @@
 		113E891D246BE28D0070F018 /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E891C246BE28D0070F018 /* MainNavigationView.swift */; };
 		113E891F246BE7460070F018 /* SaveAreaObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E891E246BE7460070F018 /* SaveAreaObserver.swift */; };
 		113E8921246BF31D0070F018 /* NavigationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E8920246BF31D0070F018 /* NavigationObserver.swift */; };
+		11411C46246CBB3B0031A991 /* FilterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11411C45246CBB3B0031A991 /* FilterObserver.swift */; };
+		11411C48246CBFAF0031A991 /* FilterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11411C47246CBFAF0031A991 /* FilterCollectionView.swift */; };
 		114744DC2461AB4900EF4A36 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114744DB2461AB4900EF4A36 /* Theme.swift */; };
 		114D1563245CB5FB0042A38B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1562245CB5FB0042A38B /* TagView.swift */; };
 		114D1565245CB9720042A38B /* TagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1564245CB9720042A38B /* TagCollectionView.swift */; };
@@ -65,6 +67,8 @@
 		113E891C246BE28D0070F018 /* MainNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationView.swift; sourceTree = "<group>"; };
 		113E891E246BE7460070F018 /* SaveAreaObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAreaObserver.swift; sourceTree = "<group>"; };
 		113E8920246BF31D0070F018 /* NavigationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationObserver.swift; sourceTree = "<group>"; };
+		11411C45246CBB3B0031A991 /* FilterObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterObserver.swift; sourceTree = "<group>"; };
+		11411C47246CBFAF0031A991 /* FilterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionView.swift; sourceTree = "<group>"; };
 		114744DB2461AB4900EF4A36 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		114D1562245CB5FB0042A38B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		114D1564245CB9720042A38B /* TagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionView.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 				114D1564245CB9720042A38B /* TagCollectionView.swift */,
 				11944D7E24695E5F00A8A3B2 /* CustomTextView.swift */,
 				11B4E24A246A1501006295B5 /* CustomTextField.swift */,
+				11411C47246CBFAF0031A991 /* FilterCollectionView.swift */,
 			);
 			path = HelperViews;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				11AF16C12462D5D4009A150B /* KeyboardObserver.swift */,
 				113E891E246BE7460070F018 /* SaveAreaObserver.swift */,
 				113E8920246BF31D0070F018 /* NavigationObserver.swift */,
+				11411C45246CBB3B0031A991 /* FilterObserver.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -378,6 +384,8 @@
 				11F5ED33245B3D0100667B4E /* TagService.swift in Sources */,
 				11564C1824641FBC00CDAE93 /* TagViewModel.swift in Sources */,
 				114D1565245CB9720042A38B /* TagCollectionView.swift in Sources */,
+				11411C48246CBFAF0031A991 /* FilterCollectionView.swift in Sources */,
+				11411C46246CBB3B0031A991 /* FilterObserver.swift in Sources */,
 				11559B31245A2AB900025F9F /* DreamListView.swift in Sources */,
 				11AF16C22462D5D4009A150B /* KeyboardObserver.swift in Sources */,
 				11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */,

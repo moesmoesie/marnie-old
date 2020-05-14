@@ -26,11 +26,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let theme = Theme()
         let navigationObserver = NavigationObserver()
         let keyboardObserver = KeyboardObserver()
+        let filterObserver = FilterObserver()
         let contentView = MainNavigationView()
             .environment(\.managedObjectContext, context)
             .environmentObject(theme)
             .environmentObject(keyboardObserver)
             .environmentObject(navigationObserver)
+            .environmentObject(filterObserver)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

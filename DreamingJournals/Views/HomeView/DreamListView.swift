@@ -14,14 +14,26 @@ struct DreamListView: View {
     ]) var dreams : FetchedResults<Dream>
     @EnvironmentObject var theme : Theme
     @State var showDream = false
+    @EnvironmentObject var filterObserver : FilterObserver
     var body: some View {
         List{
             ListHeader()
                 .listRowInsets(EdgeInsets())
                 .padding(.horizontal, self.theme.mediumPadding)
                 .padding(.bottom, self.theme.smallPadding)
-
-            ForEach(dreams.map({DreamViewModel(dream: $0)})){ (dream : DreamViewModel) in
+            
+            ForEach(dreams.map({DreamViewModel(dream: $0)}).filter({ dream in
+                if filterObserver.tagFilters.isEmpty{
+                    return true
+                }
+                
+                for tag in filterObserver.tagFilters{
+                    if !dream.tags.contains(where: {tag.text == $0.text}){
+                        return false
+                    }
+                }
+                return true
+            })){ (dream : DreamViewModel) in
                 ListItem(dream: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(self.theme.mediumPadding)
@@ -84,13 +96,15 @@ private struct ListItem : View {
 private struct ListHeader : View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var navigationObserver : NavigationObserver
+    @EnvironmentObject var filterObserver : FilterObserver
+    @Environment(\.managedObjectContext) var moc
     
     @State var showNewDream : Bool = false
     @State var showFilterSheet : Bool = false
     var body: some View{
-        ZStack{
+        return ZStack{
             NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}.disabled(true).hidden()
-
+            
             HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
                 Text("Dreams").font(theme.secundaryLargeFont).foregroundColor(theme.textTitleColor)
                 Spacer()
@@ -99,15 +113,15 @@ private struct ListHeader : View {
                 }){
                     Image(systemName: "magnifyingglass.circle.fill")
                         .resizable()
-                        .foregroundColor(theme.secundaryColor)
+                        .foregroundColor(filterObserver.tagFilters.isEmpty ? theme.secundaryColor : theme.primaryColor)
                         .frame(width : theme.largePadding, height: theme.largePadding)
                         .padding(.bottom, -2)
                 }.sheet(isPresented: $showFilterSheet) {
                     DreamFilterSheetView()
                         .environmentObject(self.theme)
+                        .environmentObject(self.filterObserver)
+                        .environment(\.managedObjectContext, self.moc)
                 }
-                    
-               
                 
                 Image(systemName: "plus.circle.fill")
                     .resizable()
