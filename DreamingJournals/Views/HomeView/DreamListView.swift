@@ -9,31 +9,48 @@
 import SwiftUI
 
 struct DreamListView: View {
-    @FetchRequest(entity: Dream.entity(), sortDescriptors: [
-        NSSortDescriptor(key: "date", ascending: false)
-    ]) var dreams : FetchedResults<Dream>
     @EnvironmentObject var theme : Theme
-    @State var showDream = false
     @EnvironmentObject var filterObserver : FilterObserver
+    @FetchRequest(entity: Dream.entity(),
+                  sortDescriptors: [NSSortDescriptor(keyPath: \Dream.date, ascending: false)]) var fetchedDreams: FetchedResults<Dream>
+    
     var body: some View {
+        DreamListContentView(fetchedDreams : Array(fetchedDreams),  filters: filterObserver.tagFilters)
+            .onAppear{
+                UITableView.appearance().backgroundColor = .clear
+                UITableView.appearance().separatorStyle = .none
+                UITableViewCell.appearance().backgroundColor = .clear
+                UITableViewCell.appearance().selectionStyle = .none
+                UITableView.appearance().showsVerticalScrollIndicator = false
+        }
+    }
+}
+
+struct DreamListView_Previews: PreviewProvider {
+    static var previews: some View {
+        DreamListView()
+    }
+}
+
+
+private struct DreamListContentView : View {
+    @State var showDream = false
+    var dreams: [DreamViewModel]
+    @EnvironmentObject var theme : Theme
+    
+    init(fetchedDreams : [Dream] ,filters : [TagViewModel]) {
+        dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+        dreams =  tagFilter(tags: filters, dreams: dreams)
+    }
+    
+    var body: some View{
         List{
             ListHeader()
                 .listRowInsets(EdgeInsets())
                 .padding(.horizontal, self.theme.mediumPadding)
                 .padding(.bottom, self.theme.smallPadding)
             
-            ForEach(dreams.map({DreamViewModel(dream: $0)}).filter({ dream in
-                if filterObserver.tagFilters.isEmpty{
-                    return true
-                }
-                
-                for tag in filterObserver.tagFilters{
-                    if !dream.tags.contains(where: {tag.text == $0.text}){
-                        return false
-                    }
-                }
-                return true
-            })){ (dream : DreamViewModel) in
+            ForEach(self.dreams){ (dream : DreamViewModel) in
                 ListItem(dream: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(self.theme.mediumPadding)
@@ -44,19 +61,6 @@ struct DreamListView: View {
             }
             Spacer().frame(height : theme.largePadding + getBottomSaveArea())
         }
-        .onAppear{
-            UITableView.appearance().backgroundColor = .clear
-            UITableView.appearance().separatorStyle = .none
-            UITableViewCell.appearance().backgroundColor = .clear
-            UITableViewCell.appearance().selectionStyle = .none
-            UITableView.appearance().showsVerticalScrollIndicator = false
-        }
-    }
-}
-
-struct DreamListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DreamListView()
     }
 }
 
