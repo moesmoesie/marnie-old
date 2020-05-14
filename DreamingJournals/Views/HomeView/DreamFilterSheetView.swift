@@ -20,6 +20,7 @@ struct DreamFilterSheetView: View {
             ScrollView{
                 
                 VStack(alignment: .leading){
+              
                     HStack(alignment:.center, spacing: theme.mediumPadding){
                         Text("Filters").font(theme.secundaryLargeFont).foregroundColor(theme.textTitleColor)
                         Spacer()
@@ -33,6 +34,11 @@ struct DreamFilterSheetView: View {
                         }
                     }.padding(.horizontal, theme.mediumPadding)
                         .padding(.top, theme.mediumPadding)
+                    
+                    Toggle(isOn: self.$filterObserver.showOnlyFave){
+                                      Text("Favorite only").font(theme.primaryLargeFont).foregroundColor(theme.textTitleColor)
+                                  }
+                                  .padding(.horizontal, theme.mediumPadding)
                     ZStack(alignment: filterObserver.tagFilters.isEmpty ?  .center : .topLeading){
                         Color.clear
                         if filterObserver.tagFilters.isEmpty{
@@ -57,6 +63,8 @@ struct DreamFilterSheetView: View {
                     
                     AvailableFilters(tags: Array(self.tags), filterObserver: filterObserver)
                         .padding(.leading, theme.mediumPadding)
+                    
+                    
                 }
             }
         }
@@ -99,7 +107,7 @@ struct AvailableFilters : View {
                 self.availableFilters = []
                 for filter in self.allFilters{
                     if !self.availableFilters.contains(where: {filter.text == $0.text}){
-                     if !tags.contains(where: {filter.text == $0.text}){
+                        if !tags.contains(where: {filter.text == $0.text}){
                             self.availableFilters.append(filter)
                         }
                     }

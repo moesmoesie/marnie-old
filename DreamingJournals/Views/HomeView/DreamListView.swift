@@ -14,8 +14,13 @@ struct DreamListView: View {
     @FetchRequest(entity: Dream.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Dream.date, ascending: false)]) var fetchedDreams: FetchedResults<Dream>
     
+    var filteredDreams : [DreamViewModel]{
+        let dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+        return filterObserver.filteredDreams(dreams: dreams)
+    }
+    
     var body: some View {
-        DreamListContentView(fetchedDreams : Array(fetchedDreams),  filters: filterObserver.tagFilters)
+        DreamListContentView(dreams: filteredDreams)
             .onAppear{
                 UITableView.appearance().backgroundColor = .clear
                 UITableView.appearance().separatorStyle = .none
@@ -37,11 +42,6 @@ private struct DreamListContentView : View {
     @State var showDream = false
     var dreams: [DreamViewModel]
     @EnvironmentObject var theme : Theme
-    
-    init(fetchedDreams : [Dream] ,filters : [TagViewModel]) {
-        dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
-        dreams =  tagFilter(tags: filters, dreams: dreams)
-    }
     
     var body: some View{
         List{

@@ -18,3 +18,11 @@ func tagFilter(tags : [TagViewModel], dreams : [DreamViewModel]) -> [DreamViewMo
         return true
     })
 }
+
+func isBookmarkedFilter(isBookmarked : Bool, dreams: [DreamViewModel]) -> [DreamViewModel]{
+    if !isBookmarked{
+        return dreams
+    }
+    
+    return dreams.filter{$0.isBookmarked}
+}
