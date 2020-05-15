@@ -20,8 +20,8 @@ struct DreamListItem : View {
             VStack(alignment: .leading, spacing: theme.smallPadding * 0.6){
                 topBarView
                 titleView
-                if !dream.tags.isEmpty{
-                    TagCollectionView(dream, maxRows: 1)
+                CollectionView(data: dream.tags, maxRows: 1){ (tag : TagViewModel) in
+                    TagView(tag: tag)
                 }
                 textView
             }

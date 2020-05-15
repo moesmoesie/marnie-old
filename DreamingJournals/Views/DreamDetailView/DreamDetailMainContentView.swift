@@ -21,10 +21,14 @@ struct DreamDetailMainContentView: View {
                 VStack(alignment : .leading, spacing: self.theme.smallPadding * 0.8){
                     DreamDateView()
                     DreamTitleView()
-                    if !self.dream.tags.isEmpty{
-                    TagCollectionView(self.dream, isEditable: true)
-                        .frame(width: geo.size.width)
+                    CollectionView(data: self.dream.tags, animate: true){(tag : TagViewModel) in
+                        TagView(tag: tag)
+                            .onTapGesture {
+                                let index = self.dream.tags.firstIndex(of: tag)!
+                                self.dream.tags.remove(at: index)
+                        }
                     }
+                    
                     DreamTextView()
                     Spacer()
                         .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)

@@ -13,30 +13,51 @@ struct DreamFilterSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @FetchRequest(entity: Tag.entity(), sortDescriptors: []) var tags : FetchedResults<Tag>
     @EnvironmentObject var filterObserver : FilterObserver
+
+    var allTags : [TagViewModel]{
+        return self.tags.map({TagViewModel(tag: $0)})
+    }
+    
+    var availableFilters : [TagViewModel]{
+        var filters : [TagViewModel] = []
+        for filter in allTags{
+            if !filters.contains(where: {filter.text == $0.text}) && !filterObserver.tagFilters.contains(where: {filter.text == $0.text}){
+                filters.append(filter)
+            }
+        }
+        return filters
+    }
+    
+    var activeFilters : [TagViewModel]{
+        return filterObserver.tagFilters
+    }
     
     var body: some View {
-        return ZStack(alignment:.top){
-            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
-            ScrollView{
-                VStack(alignment: .leading){
-                    
-                    topBarView
-                    
-                    isBookmarkedFilterView
-                        .padding(.horizontal, theme.mediumPadding)
-                    
-                    ActiveFilters(filterObserver: filterObserver)
-                        .padding(.horizontal, theme.mediumPadding)
-                    
-                    seperatorView
-                    
-                    AvailableFilters(tags: Array(self.tags), filterObserver: filterObserver)
-                        .padding(.leading, theme.mediumPadding)
-                    
+        return
+            GeometryReader{ geo in
+                ZStack(alignment:.top){
+                    self.theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                    ScrollView{
+                        VStack(alignment: .leading){
+                            
+                            self.topBarView
+                            
+                            self.isBookmarkedFilterView
+                                .padding(.horizontal, self.theme.mediumPadding)
+                            
+                            AvailableFilters(tags: self.availableFilters)
+                                .padding(.horizontal, self.theme.mediumPadding)
+                                .frame(width : geo.size.width)
+                            
+                            ActiveFilters(tags: self.activeFilters)
+                                .padding(.horizontal, self.theme.mediumPadding)
+                                .frame(width : geo.size.width)
+                            
+                        }
+                        .padding(.leading, self.theme.mediumPadding)
+                        .padding(.bottom, self.theme.smallPadding)
+                    }
                 }
-                .padding(.leading, theme.mediumPadding)
-                .padding(.bottom, theme.smallPadding)
-            }
         }
     }
     
@@ -82,63 +103,33 @@ struct DreamFilterSheetView: View {
 // MARK: - Active Filters
 
 private struct ActiveFilters : View {
-    @ObservedObject var filterObserver : FilterObserver
-    @EnvironmentObject var theme : Theme
+    let tags : [TagViewModel]
+    @EnvironmentObject var filterObserver : FilterObserver
+    
     var body: some View{
-        ZStack(alignment: filterObserver.tagFilters.isEmpty ?  .center : .topLeading){
-            Color.clear
-            if filterObserver.tagFilters.isEmpty{
-                placeHolderView()
-            }else{
-                FilterCollectionView($filterObserver.tagFilters, action: onItemPress)
+        CollectionView(data: tags, animate: true) { (tag : TagViewModel) in
+            TagView(tag: tag)
+                .onTapGesture {
+                    let index = self.filterObserver.tagFilters.firstIndex(of: tag)!
+                    self.filterObserver.tagFilters.remove(at: index)
             }
-        }.frame(minHeight : 200)
-    }
-    
-    private func onItemPress(tagViewModel : TagViewModel){
-        let index = self.filterObserver.tagFilters.firstIndex(of: tagViewModel)!
-        self.filterObserver.tagFilters.remove(at: index)
-    }
-    
-    private func placeHolderView() -> some View {
-        Text("No Active Filters")
-            .foregroundColor(theme.textTitleColor)
-            .opacity(0.5)
-            .offset(x: 0, y: -theme.smallPadding)
+        }
     }
 }
 
 // MARK: - Available Filters
 
 private struct AvailableFilters : View {
-    @State var cancellableSet: Set<AnyCancellable> = []
-    @State var availableFilters : [TagViewModel] = []
-    @ObservedObject var filterObserver : FilterObserver
-    let allFilters : [TagViewModel]
-    
-    init(tags : [Tag], filterObserver : FilterObserver) {
-        self.filterObserver = filterObserver
-        self.allFilters = tags.map({TagViewModel(tag: $0)})
-    }
+    let tags : [TagViewModel]
+    @EnvironmentObject var filterObserver : FilterObserver
     
     var body: some View{
-        FilterCollectionView(self.$availableFilters){ tag in
-            let index = self.availableFilters.firstIndex(of: tag)!
-            self.availableFilters.remove(at: index)
-            self.filterObserver.tagFilters.append(tag)
-        }.onAppear(perform: setupFilterListener)
-    }
-    
-    private func setupFilterListener(){
-        self.filterObserver.$tagFilters.sink { tags in
-            self.availableFilters = []
-            for filter in self.allFilters{
-                if !self.availableFilters.contains(where: {filter.text == $0.text}){
-                    if !tags.contains(where: {filter.text == $0.text}){
-                        self.availableFilters.append(filter)
-                    }
-                }
+        CollectionView(data: tags, animate: true) { (tag : TagViewModel) in
+            TagView(tag: tag).onTapGesture {
+                self.filterObserver.tagFilters.append(tag)
             }
-        }.store(in: &self.cancellableSet)
+        }
     }
 }
+
+
