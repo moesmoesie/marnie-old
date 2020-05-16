@@ -16,7 +16,7 @@ struct DreamFilterSheetView: View {
         return
             GeometryReader{ geo in
                 ZStack(alignment:.top){
-                    self.theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                    self.theme.backgroundColor.edgesIgnoringSafeArea(.all)
                     ScrollView{
                         VStack(alignment: .leading, spacing: 0){
                             
@@ -44,7 +44,7 @@ struct DreamFilterSheetView: View {
     private var seperatorView : some View{
         Rectangle()
             .frame(height: 1)
-            .foregroundColor(theme.passiveDarkColor)
+            .foregroundColor(theme.secondaryBackgroundColor)
     }
     
     private var topBarView : some View{
@@ -58,7 +58,7 @@ struct DreamFilterSheetView: View {
     private var titleView : some View{
         Text("Filters")
             .font(theme.secundaryLargeFont)
-            .foregroundColor(theme.textTitleColor)
+            .foregroundColor(theme.textColor)
     }
     
     private var closeButtonView : some View{
@@ -68,7 +68,7 @@ struct DreamFilterSheetView: View {
             Image(systemName: "xmark.circle.fill")
                 .resizable()
                 .frame(width : theme.largePadding, height: theme.largePadding)
-                .foregroundColor(theme.passiveLightColor)
+                .foregroundColor(theme.secondaryColor)
         }
     }
 }
@@ -119,7 +119,7 @@ private struct ActiveFilters : View {
     
     private var placeHolderView : some View {
         Text("No Active Filters")
-            .foregroundColor(theme.textTitleColor)
+            .foregroundColor(theme.textColor)
             .opacity(0.5)
             .offset(x: 0, y: -theme.smallPadding)
     }

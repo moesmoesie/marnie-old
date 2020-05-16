@@ -25,7 +25,7 @@ struct DreamDetailContentView : View {
 
     var body: some View{
         ZStack(alignment: .bottom){
-            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+            theme.backgroundColor.edgesIgnoringSafeArea(.all)
             VStack(spacing: theme.smallPadding){
                 DreamDetailTopBar()
                 DreamDetailMainContentView()

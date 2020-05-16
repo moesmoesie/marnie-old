@@ -35,13 +35,13 @@ struct ListHeader : View {
     private var title : some View{
         Text("Dreams")
             .font(theme.secundaryLargeFont)
-            .foregroundColor(theme.textTitleColor)
+            .foregroundColor(theme.textColor)
     }
     
      private var addDreamButton : some View{
         Image(systemName: "plus.circle.fill")
             .resizable()
-            .foregroundColor(theme.secundaryColor)
+            .foregroundColor(theme.secondaryColor)
             .frame(width : theme.largePadding, height: theme.largePadding)
             .padding(.bottom, -2)
             .onTapGesture {
@@ -56,7 +56,7 @@ struct ListHeader : View {
         }){
             Image(systemName: "magnifyingglass.circle.fill")
                 .resizable()
-                .foregroundColor(filterObserver.filters.isEmpty ? theme.secundaryColor : theme.primaryColor)
+                .foregroundColor(filterObserver.filters.isEmpty ? theme.secondaryColor : theme.primaryColor)
                 .frame(width : theme.largePadding, height: theme.largePadding)
                 .padding(.bottom, -2)
         }.sheet(isPresented: $showFilterSheet) {

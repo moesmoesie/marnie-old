@@ -41,7 +41,7 @@ private struct DreamDeleteView : View{
     var body : some View{
         Button(action:deleteDream){
             Image(systemName: "trash.fill")
-                .foregroundColor(theme.tertiaryColor)
+                .foregroundColor(theme.primaryColor)
                 .padding(.vertical, theme.smallPadding)
         }
     }
@@ -67,7 +67,7 @@ private struct DreamBackView : View {
     
     var body : some View{
         Button(action:backButtonPress){
-            Image(systemName: "chevron.left").foregroundColor(theme.passiveLightColor)
+            Image(systemName: "chevron.left").foregroundColor(theme.secondaryColor)
                 .padding(.vertical, theme.smallPadding)
                 .padding(.horizontal, theme.mediumPadding)
         }
@@ -89,7 +89,7 @@ private struct DreamSaveView : View{
     
     var body : some View{
         Button(action: saveDream){
-            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
+            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secondaryColor)
                 .padding(.vertical, theme.smallPadding)
         }.alert(isPresented: $showAlert){
             self.currentAlert
@@ -120,7 +120,7 @@ private struct DreamUpdateView : View{
     
     var body : some View{
         Button(action: updateDream){
-            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secundaryColor)
+            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.secondaryColor)
                 .padding(.vertical, theme.smallPadding)
         }.alert(isPresented: $showAlert, content: {self.currentAlert})
     }
@@ -169,7 +169,7 @@ private struct DreamBookmarkedView : View{
             self.dream.isBookmarked.toggle()
         }){
             Image(systemName: "heart.fill")
-                .foregroundColor(self.dream.isBookmarked ? theme.primaryColor : theme.passiveDarkColor)
+                .foregroundColor(self.dream.isBookmarked ? theme.primaryColor : theme.passiveColor)
                 .padding(.vertical, theme.smallPadding)
                 .padding(.trailing, theme.mediumPadding)
         }

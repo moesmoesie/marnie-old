@@ -22,7 +22,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView{
             ZStack(alignment: .topLeading){
-                theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                theme.backgroundColor.edgesIgnoringSafeArea(.all)
                 DreamList(dreams: filteredDreams)
             }
             .onAppear(perform: viewSetup)

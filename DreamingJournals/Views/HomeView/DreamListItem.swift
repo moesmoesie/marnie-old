@@ -17,16 +17,20 @@ struct DreamListItem : View {
     var body: some View{
         ZStack{
             NavigationLink(destination: DreamDetailView(dream: dream), isActive: self.$showDream){EmptyView()}.disabled(true).hidden()
-            VStack(alignment: .leading, spacing: theme.smallPadding * 0.6){
+            VStack(alignment: .leading, spacing: 0){
                 topBarView
+                    .padding(.bottom, theme.extraSmallPadding * 0.8)
                 titleView
-                CollectionView(data: dream.tags, maxRows: 1){ (tag : TagViewModel) in
-                    TagView(tag: tag)
+                    .padding(.bottom, theme.extraSmallPadding)
+                if !dream.tags.isEmpty{
+                    CollectionView(data: dream.tags, maxRows: 1){ (tag : TagViewModel) in
+                        TagView(tag: tag)
+                    }.padding(.bottom, theme.extraSmallPadding)
                 }
                 textView
             }
-        }.overlay(theme.primaryBackgroundColor.opacity(0.0000001)) //getto fix
-        .onTapGesture(perform: onItemTap)
+        }.overlay(theme.backgroundColor.opacity(0.0000001)) //getto fix
+            .onTapGesture(perform: onItemTap)
     }
     
     // MARK: - LOGIC FUNCTIONS
@@ -41,14 +45,14 @@ struct DreamListItem : View {
     private var titleView: some View{
         Text(dream.title)
             .font(theme.primaryLargeFont)
-            .foregroundColor(self.theme.textTitleColor)
+            .foregroundColor(theme.textColor)
     }
     
     private var textView : some View {
         let textToShow = dream.text.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
             .lineLimit(6)
-            .foregroundColor(self.theme.textBodyColor)
+            .foregroundColor(self.theme.textColor)
     }
     
     private var topBarView : some View{

@@ -49,7 +49,7 @@ private struct MenuView : View {
             Spacer()
             ActivateTagAddButton(showSuggestionTags: self.$showSuggestionTags)
             DimissKeyboardButton()
-        }.background(showSuggestionTags ? theme.primaryBackgroundColor : .clear)
+        }.background(showSuggestionTags ? theme.backgroundColor : .clear)
     }
 }
 
@@ -138,7 +138,7 @@ private struct AddTagTextField : View {
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        CustomTextField(text: $text, placeholder: "Tag", textColor: theme.textTitleUIColor, tintColor: theme.primaryUIColor, font: theme.secundaryRegularUIFont) { (textView) -> Bool in
+        CustomTextField(text: $text, placeholder: "Tag", textColor: theme.textUIColor, tintColor: theme.primaryUIColor, font: theme.secundaryRegularUIFont) { (textView) -> Bool in
             self.addTag(text: self.text)
             self.text = ""
             return true

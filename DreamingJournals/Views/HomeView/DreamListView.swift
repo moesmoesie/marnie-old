@@ -23,7 +23,7 @@ struct DreamList : View {
                 DreamListItem(dream: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(self.theme.mediumPadding)
-                    .background(self.theme.secundaryBackgroundColor)
+                    .background(self.theme.secondaryBackgroundColor)
                     .clipShape(RoundedRectangle(cornerRadius: self.theme.mediumPadding))
                     .padding(.horizontal, self.theme.mediumPadding)
                     .padding(.bottom, self.theme.mediumPadding)

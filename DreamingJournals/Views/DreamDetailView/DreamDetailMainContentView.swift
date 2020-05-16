@@ -13,7 +13,7 @@ struct DreamDetailMainContentView: View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var navigationObserver : NavigationObserver
-
+    
     
     var body: some View {
         GeometryReader{ geo in
@@ -21,11 +21,13 @@ struct DreamDetailMainContentView: View {
                 VStack(alignment : .leading, spacing: self.theme.smallPadding * 0.8){
                     DreamDateView()
                     DreamTitleView()
-                    CollectionView(data: self.dream.tags, animate: true){(tag : TagViewModel) in
-                        TagView(tag: tag)
-                            .onTapGesture {
-                                let index = self.dream.tags.firstIndex(of: tag)!
-                                self.dream.tags.remove(at: index)
+                    if !self.dream.tags.isEmpty{
+                        CollectionView(data: self.dream.tags){(tag : TagViewModel) in
+                            TagView(tag: tag)
+                                .onTapGesture {
+                                    let index = self.dream.tags.firstIndex(of: tag)!
+                                    self.dream.tags.remove(at: index)
+                            }
                         }
                     }
                     
@@ -46,12 +48,12 @@ private struct DreamTitleView : View{
         CustomTextField(
             text: $dream.title,
             placeholder: "Title",
-            textColor: theme.textTitleUIColor,
+            textColor: theme.textUIColor,
             tintColor: theme.primaryUIColor,
             font: theme.primaryLargeUIFont
-            ){textView in
-                textView.resignFirstResponder()
-                return true
+        ){textView in
+            textView.resignFirstResponder()
+            return true
         }
     }
 }
@@ -60,12 +62,12 @@ private struct DreamTitleView : View{
 private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var theme : Theme
-
+    
     var body: some View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
-            textColor: theme.secundaryUIColor,
+            textColor: theme.textUIColor,
             tintColor: theme.primaryUIColor,
             font: theme.primaryRegularUIFont
         )

@@ -13,15 +13,15 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack{
-            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+            theme.backgroundColor.edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment : .center, spacing: 10){
                     HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
-                        Text("Settings").font(theme.secundaryLargeFont).foregroundColor(theme.textTitleColor)
+                        Text("Settings").font(theme.secundaryLargeFont).foregroundColor(theme.textColor)
                         Spacer()
                     }
                     Toggle(isOn: self.$theme.darkMode){
-                        Text("Darkmode").foregroundColor(self.theme.textTitleColor)
+                        Text("Darkmode").foregroundColor(self.theme.textColor)
                     }.accentColor(theme.primaryColor)
                 }.padding(.horizontal, self.theme.mediumPadding)
             }

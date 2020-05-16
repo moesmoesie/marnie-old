@@ -19,7 +19,7 @@ struct MainNavigationView: View {
             }else if navigationObserver.currentPage == Pages.settings{
                 SettingsView().padding(.bottom,  navigationObserver.showBottomBar ? getBottomSaveArea() : 0)
             }else if navigationObserver.currentPage == Pages.statistics{
-                theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                theme.backgroundColor.edgesIgnoringSafeArea(.all)
             }
             
             BottomAppBar()
@@ -41,7 +41,7 @@ private struct BottomAppBar : View {
                 bottomBarcontent
                     .padding(.vertical, theme.smallPadding * 1.2)
                     .padding(.bottom, getBottomSaveArea())
-                    .background(theme.primaryBackgroundColor)
+                    .background(theme.backgroundColor)
                    
             }
             .offset(x: 0, y: navigationObserver.showBottomBar ? 0 : 100)
@@ -52,7 +52,7 @@ private struct BottomAppBar : View {
     var topBorder : some View{
         Rectangle()
             .frame(height: 0.2)
-            .foregroundColor(theme.passiveDarkColor)
+            .foregroundColor(theme.secondaryBackgroundColor)
     }
     
     var bottomBarcontent : some View{
@@ -70,7 +70,7 @@ private struct BottomAppBar : View {
     }
     
     func BarButton(page : Pages, iconName: String) -> some View {
-        let color = navigationObserver.currentPage == page ? theme.primaryColor : theme.passiveLightColor
+        let color = navigationObserver.currentPage == page ? theme.primaryColor : theme.secondaryColor
         return Button(action: {
             if self.navigationObserver.currentPage != page{
                 self.navigationObserver.currentPage = page
