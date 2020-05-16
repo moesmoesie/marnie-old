@@ -17,6 +17,17 @@ enum Filter{
     case tag(TagViewModel)
     case bookmarked(Bool)
     
+    public func areEqual(filter : Self) -> Bool{
+        switch (self,filter) {
+        case let (.tag(a), .tag(b)):
+            return a.text == b.text
+        case let (.bookmarked(a), .bookmarked(b)):
+            return a == b
+        default:
+            return false
+        }
+    }
+    
     static func dreams(_ allDreams : [DreamViewModel],filters: [Self]) -> [DreamViewModel]{
         allDreams.filter({ dream in
             for filter in filters{

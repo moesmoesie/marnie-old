@@ -78,52 +78,15 @@ struct DreamFilterSheetView: View {
 struct AvailableFilters : View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var filterObserver : FilterObserver
-    @FetchRequest(entity: Tag.entity(), sortDescriptors: []) var fetchedTags : FetchedResults<Tag>
-    @State var availableFilters : [FilterViewModel] = []
     
     
     var body: some View{
-        CollectionView(data: availableFilters, animate: true){(filter : FilterViewModel) in
+        CollectionView(data: filterObserver.availableFilters, animate: true){(filter : FilterViewModel) in
             FilterView(filter: filter)
                 .onTapGesture {
                     self.filterObserver.filters.append(filter)
-                    let index = self.availableFilters.firstIndex(where: {filter.id == $0.id})!
-                    self.availableFilters.remove(at: index)
-            }
-        }.onReceive(filterObserver.$filters) { _ in
-            self.updateFilters()
-        }
-    }
-    
-    func updateFilters(){
-        availableFilters = []
-        availableFilters.append(contentsOf: getBookmarkedFilter())
-        availableFilters.append(contentsOf: getTagFilters())
-    }
-    
-    func getBookmarkedFilter() -> [FilterViewModel]{
-        
-        if filterObserver.bookmarkedFilters.count > 0{
-            return []
-        }
-        
-        return [
-            FilterViewModel(filter: .bookmarked(false)),
-            FilterViewModel(filter: .bookmarked(true))
-        ]
-    }
-    
-    func getTagFilters() -> [FilterViewModel]{
-        var temp : [TagViewModel] = []
-        for tag in fetchedTags{
-            let tagViewModel = TagViewModel(tag: tag)
-            let notDuplicate = !temp.contains(where: {tagViewModel.text == $0.text})
-            let notInUse = !filterObserver.tagFilters.contains(where: {tagViewModel.text == $0.text})
-            if notInUse && notDuplicate{
-                temp.append(tagViewModel)
             }
         }
-        return temp.map({FilterViewModel(filter: .tag($0))})
     }
 }
 

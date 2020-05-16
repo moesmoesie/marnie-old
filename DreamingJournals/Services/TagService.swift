@@ -50,6 +50,23 @@ extension TagService{
         }
     }
     
+    func getUniqueTags() -> [TagViewModel]{
+        let fetchRequest : NSFetchRequest<Tag> = Tag.fetchRequest()
+        var uniqueFilters : [TagViewModel] = []
+        
+        do{
+            let tagViewModels = try managedObjectContext.fetch(fetchRequest).map({TagViewModel(tag: $0)})
+            for tag in tagViewModels{
+                if !uniqueFilters.contains(where: {tag.text == $0.text}){
+                    uniqueFilters.append(tag)
+                }
+            }
+            return uniqueFilters
+        }catch{
+            return []
+        }
+    }
+    
     func deleteDreamlessTags(){
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tag")
         fetchRequest.predicate = NSPredicate(
