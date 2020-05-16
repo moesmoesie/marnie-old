@@ -73,6 +73,60 @@ struct DreamFilterSheetView: View {
     }
 }
 
+// MARK: - Available Filters
+
+struct AvailableFilters : View {
+    @EnvironmentObject var theme : Theme
+    @EnvironmentObject var filterObserver : FilterObserver
+    @FetchRequest(entity: Tag.entity(), sortDescriptors: []) var fetchedTags : FetchedResults<Tag>
+    @State var availableFilters : [FilterViewModel] = []
+    
+    
+    var body: some View{
+        CollectionView(data: availableFilters, animate: true){(filter : FilterViewModel) in
+            FilterView(filter: filter)
+                .onTapGesture {
+                    self.filterObserver.filters.append(filter)
+                    let index = self.availableFilters.firstIndex(where: {filter.id == $0.id})!
+                    self.availableFilters.remove(at: index)
+            }
+        }.onReceive(filterObserver.$filters) { _ in
+            self.updateFilters()
+        }
+    }
+    
+    func updateFilters(){
+        availableFilters = []
+        availableFilters.append(contentsOf: getBookmarkedFilter())
+        availableFilters.append(contentsOf: getTagFilters())
+    }
+    
+    func getBookmarkedFilter() -> [FilterViewModel]{
+        
+        if filterObserver.bookmarkedFilters.count > 0{
+            return []
+        }
+        
+        return [
+            FilterViewModel(filter: .bookmarked(false)),
+            FilterViewModel(filter: .bookmarked(true))
+        ]
+    }
+    
+    func getTagFilters() -> [FilterViewModel]{
+        var temp : [TagViewModel] = []
+        for tag in fetchedTags{
+            let tagViewModel = TagViewModel(tag: tag)
+            let notDuplicate = !temp.contains(where: {tagViewModel.text == $0.text})
+            let notInUse = !filterObserver.tagFilters.contains(where: {tagViewModel.text == $0.text})
+            if notInUse && notDuplicate{
+                temp.append(tagViewModel)
+            }
+        }
+        return temp.map({FilterViewModel(filter: .tag($0))})
+    }
+}
+
 // MARK: - Active Filters
 
 private struct ActiveFilters : View {
@@ -80,19 +134,21 @@ private struct ActiveFilters : View {
     @EnvironmentObject var theme : Theme
     
     var body: some View{
-        ZStack(alignment: .center){
-            if self.filterObserver.tagFilters.isEmpty{
-                self.placeHolderView
-            }else{
-                VStack{
-                    CollectionView(data: filterObserver.tagFilters, animate: true) { (tag : TagViewModel) in
-                        TagView(tag: tag)
+        VStack{
+            ZStack(alignment: .center){
+                if self.filterObserver.filters.isEmpty{
+                    self.placeHolderView
+                }else{
+                    VStack{
+                    CollectionView(data: filterObserver.filters, animate: true){ (filterViewModel : FilterViewModel) in
+                        FilterView(filter: filterViewModel)
                             .onTapGesture {
-                                let index = self.filterObserver.tagFilters.firstIndex(of: tag)!
-                                self.filterObserver.tagFilters.remove(at: index)
+                                let index = self.filterObserver.filters.firstIndex(where: {$0.id == filterViewModel.id})!
+                                self.filterObserver.filters.remove(at: index)
                         }
                     }
-                    Spacer()
+                        Spacer()
+                    }
                 }
             }
         }
@@ -105,47 +161,3 @@ private struct ActiveFilters : View {
             .offset(x: 0, y: -theme.smallPadding)
     }
 }
-
-// MARK: - Available Filters
-
-private struct AvailableFilters : View {
-    @EnvironmentObject var theme : Theme
-    @EnvironmentObject var filterObserver : FilterObserver
-    @FetchRequest(entity: Tag.entity(), sortDescriptors: []) var fetchedTags : FetchedResults<Tag>
-    @State var availableFilters : [TagViewModel] = []
-    var tags : [TagViewModel]{fetchedTags.map({TagViewModel(tag: $0)})}
-    
-    var body: some View{
-        CollectionView(data: availableFilters){(tag : TagViewModel) in
-            TagView(tag: tag)
-                .onTapGesture {self.onItemTap(tag)}
-        }.onReceive(filterObserver.$tagFilters) { _ in
-            self.onUpdate()
-        }
-    }
-    
-    private func onUpdate(){
-        self.availableFilters = []
-        for filter in self.tags{
-            if !self.availableFilters.contains(where: {filter.text == $0.text}){
-                if !self.filterObserver.tagFilters.contains(where: {filter.text == $0.text}) {
-                    self.availableFilters.append(filter)
-                }
-            }
-        }
-    }
-    
-    private func onItemTap(_ tag : TagViewModel){
-        let index = self.availableFilters.firstIndex(of: tag)!
-        self.availableFilters.remove(at: index)
-        self.filterObserver.tagFilters.append(tag)
-    }
-    
-    private var title : some View{
-        Text("Available Filters")
-            .foregroundColor(theme.textTitleColor)
-            .font(theme.primaryLargeFont)
-    }
-}
-
-

@@ -56,7 +56,7 @@ struct ListHeader : View {
         }){
             Image(systemName: "magnifyingglass.circle.fill")
                 .resizable()
-                .foregroundColor(filterObserver.tagFilters.isEmpty ? theme.secundaryColor : theme.primaryColor)
+                .foregroundColor(filterObserver.filters.isEmpty ? theme.secundaryColor : theme.primaryColor)
                 .frame(width : theme.largePadding, height: theme.largePadding)
                 .padding(.bottom, -2)
         }.sheet(isPresented: $showFilterSheet) {

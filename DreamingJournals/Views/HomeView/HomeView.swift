@@ -16,7 +16,7 @@ struct HomeView: View {
     
     var filteredDreams : [DreamViewModel]{
         let dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
-        return filterObserver.filteredDreams(dreams: dreams)
+        return Filter.dreams(dreams, filters: filterObserver.filters.map{$0.filter})
     }
     
     var body: some View {

@@ -9,29 +9,29 @@
 import Foundation
 
 class FilterObserver : ObservableObject{
-    @Published var tagFilters : [TagViewModel] = []
-    @Published var showOnlyFave = false
+    @Published var filters : [FilterViewModel] = []
     
-    
-    func filteredDreams(dreams : [DreamViewModel]) -> [DreamViewModel]{
-        return dreams.filter { (dream) -> Bool in
-            tagFilter(dream) && bookmarkFilter(dream)
-        }
-    }
-    
-    private func tagFilter(_ dream : DreamViewModel) -> Bool{
-        for filter in self.tagFilters{
-            if !dream.tags.contains(where: {$0.text == filter.text}){
-                return false
+    var tagFilters : [TagViewModel]{
+        var temp : [TagViewModel] = []
+        for filter in filters{
+            switch filter.filter {
+            case .tag(let tag):
+                temp.append(tag)
+            default: break
             }
         }
-        return true
+        return temp
     }
     
-    private func bookmarkFilter(_ dream : DreamViewModel) -> Bool{
-        if !self.showOnlyFave{
-            return true
+    var bookmarkedFilters : [Bool]{
+        var temp : [Bool] = []
+        for filter in filters{
+            switch filter.filter {
+            case .bookmarked(let isBookmarked):
+                temp.append(isBookmarked)
+            default: break
+            }
         }
-        return dream.isBookmarked
+        return temp
     }
 }
