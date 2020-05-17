@@ -29,13 +29,7 @@ struct BookmarkedFilterView: View {
      @EnvironmentObject var theme : Theme
      let isBookmarked : Bool
      var body: some View {
-        Text(isBookmarked ? "Bookmarked" : "Not Bookmarked")
-             .font(theme.secundaryRegularFont)
-             .bold()
-             .padding(.horizontal)
-             .padding(.vertical,2)
-             .background(theme.secondaryAccentColor)
-             .foregroundColor(theme.primaryTextColor)
-             .clipShape(Capsule())
+        Image(systemName: "heart.fill").foregroundColor(theme.selectedAccentColor)
+        .offset(x: 0, y: 3)
      }
  }
