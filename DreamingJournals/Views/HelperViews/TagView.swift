@@ -17,8 +17,8 @@ struct TagView: View {
             .bold()
             .padding(.horizontal)
             .padding(.vertical,2)
-            .background(theme.primaryColor)
-            .foregroundColor(theme.textColor)
+            .background(theme.primaryAccentColor)
+            .foregroundColor(theme.primaryTextColor)
             .clipShape(Capsule())
     }
 }

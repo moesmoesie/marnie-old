@@ -30,7 +30,6 @@ struct DreamDetailMainContentView: View {
                             }
                         }
                     }
-                    
                     DreamTextView()
                     Spacer()
                         .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)
@@ -48,8 +47,8 @@ private struct DreamTitleView : View{
         CustomTextField(
             text: $dream.title,
             placeholder: "Title",
-            textColor: theme.textUIColor,
-            tintColor: theme.primaryUIColor,
+            textColor: theme.primaryTextUIColor,
+            tintColor: theme.primaryAccentUIColor,
             font: theme.primaryLargeUIFont
         ){textView in
             textView.resignFirstResponder()
@@ -67,8 +66,8 @@ private struct DreamTextView : View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
-            textColor: theme.textUIColor,
-            tintColor: theme.primaryUIColor,
+            textColor: theme.primaryTextUIColor,
+            tintColor: theme.primaryAccentTextUIColor,
             font: theme.primaryRegularUIFont
         )
     }
@@ -81,6 +80,6 @@ private struct DreamDateView : View{
     var body: some View{
         Text(dream.wrapperDateString)
             .font(theme.primarySmallFont)
-            .foregroundColor(theme.primaryColor)
+            .foregroundColor(theme.primaryAccentTextColor)
     }
 }

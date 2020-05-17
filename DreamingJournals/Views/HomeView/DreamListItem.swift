@@ -29,7 +29,7 @@ struct DreamListItem : View {
                 }
                 textView
             }
-        }.overlay(theme.backgroundColor.opacity(0.0000001)) //getto fix
+        }.overlay(theme.primaryBackgroundColor.opacity(0.0000001)) //getto fix
             .onTapGesture(perform: onItemTap)
     }
     
@@ -45,14 +45,14 @@ struct DreamListItem : View {
     private var titleView: some View{
         Text(dream.title)
             .font(theme.primaryLargeFont)
-            .foregroundColor(theme.textColor)
+            .foregroundColor(theme.primaryTextColor)
     }
     
     private var textView : some View {
         let textToShow = dream.text.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
             .lineLimit(6)
-            .foregroundColor(self.theme.textColor)
+            .foregroundColor(theme.primaryTextColor)
     }
     
     private var topBarView : some View{
@@ -68,10 +68,10 @@ struct DreamListItem : View {
     private var dateView : some View{
         Text(dream.wrapperDateString)
             .font(theme.primarySmallFont)
-            .foregroundColor(theme.primaryColor)
+            .foregroundColor(theme.primaryAccentTextColor)
     }
     
     private var isBookmarkedView : some View{
-        Image(systemName: "heart.fill").foregroundColor(self.theme.primaryColor)
+        Image(systemName: "heart.fill").foregroundColor(theme.secondaryAccentColor)
     }
 }

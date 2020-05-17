@@ -23,8 +23,8 @@ struct ListHeader : View {
             HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
                 title
                 Spacer()
-                addDreamButton
                 filterButton
+                addDreamButton
             }
         }
     }
@@ -35,13 +35,13 @@ struct ListHeader : View {
     private var title : some View{
         Text("Dreams")
             .font(theme.secundaryLargeFont)
-            .foregroundColor(theme.textColor)
+            .foregroundColor(theme.primaryTextColor)
     }
     
      private var addDreamButton : some View{
         Image(systemName: "plus.circle.fill")
             .resizable()
-            .foregroundColor(theme.secondaryColor)
+            .foregroundColor(theme.primaryAccentColor)
             .frame(width : theme.largePadding, height: theme.largePadding)
             .padding(.bottom, -2)
             .onTapGesture {
@@ -56,7 +56,7 @@ struct ListHeader : View {
         }){
             Image(systemName: "magnifyingglass.circle.fill")
                 .resizable()
-                .foregroundColor(filterObserver.filters.isEmpty ? theme.secondaryColor : theme.primaryColor)
+                .foregroundColor(filterObserver.filters.isEmpty ? theme.unSelectedAccentColor : theme.selectedAccentColor)
                 .frame(width : theme.largePadding, height: theme.largePadding)
                 .padding(.bottom, -2)
         }.sheet(isPresented: $showFilterSheet) {

@@ -49,7 +49,7 @@ private struct MenuView : View {
             Spacer()
             ActivateTagAddButton(showSuggestionTags: self.$showSuggestionTags)
             DimissKeyboardButton()
-        }.background(showSuggestionTags ? theme.backgroundColor : .clear)
+        }.background(showSuggestionTags ? theme.primaryBackgroundColor : .clear)
     }
 }
 
@@ -125,7 +125,7 @@ private struct ActivateTagAddButton : View {
         Button(action:{
             self.showSuggestionTags.toggle()
         }){
-            Image(systemName: "tag.fill").foregroundColor(self.showSuggestionTags ? self.theme.primaryColor : .white)
+            Image(systemName: "tag.fill").foregroundColor(self.showSuggestionTags ? self.theme.selectedColor : self.theme.unSelectedColor)
                 .padding(.vertical, theme.smallPadding * 1.2)
         }
     }
@@ -138,7 +138,7 @@ private struct AddTagTextField : View {
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        CustomTextField(text: $text, placeholder: "Tag", textColor: theme.textUIColor, tintColor: theme.primaryUIColor, font: theme.secundaryRegularUIFont) { (textView) -> Bool in
+        CustomTextField(text: $text, placeholder: "Tag", textColor: theme.primaryTextUIColor, tintColor: theme.primaryAccentUIColor, font: theme.secundaryRegularUIFont) { (textView) -> Bool in
             self.addTag(text: self.text)
             self.text = ""
             return true

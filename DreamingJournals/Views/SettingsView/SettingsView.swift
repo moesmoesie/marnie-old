@@ -13,20 +13,23 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack{
-            theme.backgroundColor.edgesIgnoringSafeArea(.all)
+            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment : .center, spacing: 10){
                     HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
-                        Text("Settings").font(theme.secundaryLargeFont).foregroundColor(theme.textColor)
+                        Text("Settings")
+                            .font(theme.secundaryLargeFont)
+                            .foregroundColor(theme.primaryTextColor)
                         Spacer()
                     }
                     Toggle(isOn: self.$theme.darkMode){
-                        Text("Darkmode").foregroundColor(self.theme.textColor)
-                    }.accentColor(theme.primaryColor)
+                        Text("Darkmode")
+                            .foregroundColor(self.theme.primaryTextColor)
+                    }.accentColor(theme.primaryAccentColor)
                 }.padding(.horizontal, self.theme.mediumPadding)
             }
         }.onAppear{
-            UISwitch.appearance().onTintColor = self.theme.primaryUIColor
+            UISwitch.appearance().onTintColor = self.theme.primaryAccentUIColor
         }
     }
 }

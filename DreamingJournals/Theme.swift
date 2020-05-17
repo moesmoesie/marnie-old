@@ -14,29 +14,8 @@ class Theme : ObservableObject {
     
     
     @Published var darkMode : Bool = true
+    private var cancellableSet: Set<AnyCancellable> = []
     
-    @Published var extraSmallPadding : CGFloat = 5
-    @Published var smallPadding : CGFloat = 10
-    @Published var mediumPadding : CGFloat = 20
-    @Published var largePadding : CGFloat = 30
-    
-    @Published var primaryColor = Color(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0)
-    @Published var secondaryColor = Color(red: 237 / 255.0, green: 106 / 255.0, blue: 90 / 255.0)
-    @Published var textColor = Color(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0)
-    @Published var secondaryTextColor = Color(red: 157 / 255.0, green: 157 / 255.0, blue: 157 / 255.0)
-    @Published var backgroundColor = Color(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0)
-    @Published var secondaryBackgroundColor = Color(red: 20 / 255.0, green: 25 / 255.0, blue: 28 / 255.0)
-    @Published var passiveColor = Color(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0)
-
-    @Published var primaryUIColor = UIColor(red: 219 / 255.0, green: 219 / 255.0, blue: 219 / 225.0, alpha: 1)
-    @Published var secondaryUIColor = UIColor(red: 219 / 255.0, green: 219 / 255.0, blue: 219 / 225.0, alpha: 1)
-    @Published var textUIColor = UIColor(red: 219 / 255.0, green: 219 / 255.0, blue: 219 / 225.0, alpha: 1)
-    @Published var secondaryTextUIColor = UIColor(red: 219 / 255.0, green: 219 / 255.0, blue: 219 / 225.0, alpha: 1)
-    @Published var tertiaryTextUIColor = UIColor(red: 219 / 255.0, green: 219 / 255.0, blue: 219 / 225.0, alpha: 1)
-    @Published var backgroundUIColor = UIColor(red: 219 / 255.0, green: 219 / 255.0, blue: 219 / 225.0, alpha: 1)
-    @Published var secondaryBackgroundUIColor = UIColor(red: 219 / 255.0, green: 219 / 255.0, blue: 219 / 225.0, alpha: 1)
-    @Published var passiveUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
-
     @Published var primaryRegularFont : Font = Font.body
     @Published var secundaryRegularFont : Font = Font.caption.bold()
     @Published var primaryLargeFont : Font = Font.headline
@@ -50,63 +29,103 @@ class Theme : ObservableObject {
     @Published var primarySmallFont : Font = Font.caption
     @Published var primarySmallUIFont : UIFont = UIFont.preferredFont(forTextStyle: .caption1)
     
-    private var cancellableSet: Set<AnyCancellable> = []
-    
-    init() {
-        self.$darkMode.sink { (darkMode) in
-            self.primaryColor = darkMode ? self.primaryDarkModeColor : self.primaryLightModeColor
-            self.primaryUIColor = darkMode ? self.primaryDarkModeUIColor : self.primaryLightModeUIColor
-
-            self.secondaryColor = darkMode ? self.secondaryDarkModeColor : self.secondaryLightModeColor
-            self.secondaryUIColor = darkMode ? self.secondaryDarkModeUIColor : self.secondaryLightModeUIColor
-
-            self.textColor = darkMode ? self.textDarkModeColor : self.textLightModeColor
-            self.textUIColor = darkMode ? self.textDarkModeUIColor : self.textLightModeUIColor
-
-            self.secondaryTextColor = darkMode ? self.secondaryTextDarkModeColor : self.secondaryTextLightModeColor
-            self.secondaryTextUIColor = darkMode ? self.secondaryTextDarkModeUIColor : self.secondaryTextLightModeUIColor
-
-            self.backgroundColor = darkMode ? self.backgroundDarkModeColor : self.backgroundLightModeColor
-            self.backgroundUIColor = darkMode ? self.backgroundDarkModeUIColor : self.backgroundLightModeUIColor
-
-            self.secondaryBackgroundColor = darkMode ? self.secondaryBackgroundDarkModeColor : self.secondaryBackgroundLightModeColor
-            self.secondaryBackgroundUIColor = darkMode ? self.secondaryBackgroundDarkModeUIColor : self.secondaryBackgroundLightModeUIColor
-            
-            self.passiveColor = darkMode ? self.passiveColorDarkModeColor : self.passiveColorLightModeColor
-            self.passiveUIColor = darkMode ? self.passiveColorDarkModeUIColor : self.passiveColorLightModeUIColor
-
-        }.store(in: &cancellableSet)
-    }
-    
-    
+    @Published var extraSmallPadding : CGFloat = 5
+    @Published var smallPadding : CGFloat = 10
+    @Published var mediumPadding : CGFloat = 20
+    @Published var largePadding : CGFloat = 30
     
     //MARK: - PYTHON GENERATED
-    private var primaryDarkModeColor = Color(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0)
-    private var primaryDarkModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
-    private var primaryLightModeColor = Color(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0)
-    private var primaryLightModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
-    private var secondaryDarkModeColor = Color(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0)
-    private var secondaryDarkModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
-    private var secondaryLightModeColor = Color(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0)
-    private var secondaryLightModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
-    private var textDarkModeColor = Color(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0)
-    private var textDarkModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
-    private var textLightModeColor = Color(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0)
-    private var textLightModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
-    private var secondaryTextDarkModeColor = Color(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0)
-    private var secondaryTextDarkModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
-    private var secondaryTextLightModeColor = Color(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0)
-    private var secondaryTextLightModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
-    private var backgroundDarkModeColor = Color(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0)
-    private var backgroundDarkModeUIColor = UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 1)
-    private var backgroundLightModeColor = Color(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0)
-    private var backgroundLightModeUIColor = UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 1)
-    private var secondaryBackgroundDarkModeColor = Color(red: 20 / 255.0, green: 25 / 255.0, blue: 28 / 255.0)
+    private var primaryAccentDarkModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var primaryAccentLightModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var secondaryAccentDarkModeUIColor = UIColor(red: 237 / 255.0, green: 106 / 255.0, blue: 90 / 255.0, alpha: 1)
+    private var secondaryAccentLightModeUIColor = UIColor(red: 237 / 255.0, green: 106 / 255.0, blue: 90 / 255.0, alpha: 1)
+    private var primaryBackgroundDarkModeUIColor = UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 1)
+    private var primaryBackgroundLightModeUIColor = UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 1)
     private var secondaryBackgroundDarkModeUIColor = UIColor(red: 20 / 255.0, green: 25 / 255.0, blue: 28 / 255.0, alpha: 1)
-    private var secondaryBackgroundLightModeColor = Color(red: 20 / 255.0, green: 25 / 255.0, blue: 28 / 255.0)
     private var secondaryBackgroundLightModeUIColor = UIColor(red: 20 / 255.0, green: 25 / 255.0, blue: 28 / 255.0, alpha: 1)
-    private var passiveColorDarkModeColor = Color(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0)
-    private var passiveColorDarkModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
-    private var passiveColorLightModeColor = Color(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0)
-    private var passiveColorLightModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
+    private var negativeActionDarkModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var negativeActionLightModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var positiveActionDarkModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+    private var positiveActionLightModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+    private var unSelectedDarkModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
+    private var unSelectedLightModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
+    private var selectedDarkModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+    private var selectedLightModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+    private var unSelectedAccentDarkModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
+    private var unSelectedAccentLightModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
+    private var selectedAccentDarkModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var selectedAccentLightModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var primaryTextDarkModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+    private var primaryTextLightModeUIColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+    private var secondaryTextDarkModeUIColor = UIColor(red: 157 / 255.0, green: 157 / 255.0, blue: 157 / 255.0, alpha: 1)
+    private var secondaryTextLightModeUIColor = UIColor(red: 157 / 255.0, green: 157 / 255.0, blue: 157 / 255.0, alpha: 1)
+    private var primaryAccentTextDarkModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var primaryAccentTextLightModeUIColor = UIColor(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0, alpha: 1)
+    private var placeHolderTextDarkModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
+    private var placeHolderTextLightModeUIColor = UIColor(red: 93 / 255.0, green: 93 / 255.0, blue: 93 / 255.0, alpha: 1)
+
+    @Published var primaryAccentColor : Color = .clear
+    @Published var secondaryAccentColor : Color = .clear
+    @Published var primaryBackgroundColor : Color = .clear
+    @Published var secondaryBackgroundColor : Color = .clear
+    @Published var negativeActionColor : Color = .clear
+    @Published var positiveActionColor : Color = .clear
+    @Published var unSelectedColor : Color = .clear
+    @Published var selectedColor : Color = .clear
+    @Published var unSelectedAccentColor : Color = .clear
+    @Published var selectedAccentColor : Color = .clear
+    @Published var primaryTextColor : Color = .clear
+    @Published var secondaryTextColor : Color = .clear
+    @Published var primaryAccentTextColor : Color = .clear
+    @Published var placeHolderTextColor : Color = .clear
+
+    @Published var primaryAccentUIColor : UIColor = .clear
+    @Published var secondaryAccentUIColor : UIColor = .clear
+    @Published var primaryBackgroundUIColor : UIColor = .clear
+    @Published var secondaryBackgroundUIColor : UIColor = .clear
+    @Published var negativeActionUIColor : UIColor = .clear
+    @Published var positiveActionUIColor : UIColor = .clear
+    @Published var unSelectedUIColor : UIColor = .clear
+    @Published var selectedUIColor : UIColor = .clear
+    @Published var unSelectedAccentUIColor : UIColor = .clear
+    @Published var selectedAccentUIColor : UIColor = .clear
+    @Published var primaryTextUIColor : UIColor = .clear
+    @Published var secondaryTextUIColor : UIColor = .clear
+    @Published var primaryAccentTextUIColor : UIColor = .clear
+    @Published var placeHolderTextUIColor : UIColor = .clear
+
+    init() {
+           self.$darkMode.sink { (darkMode) in
+              self.primaryAccentUIColor = darkMode ? self.primaryAccentDarkModeUIColor : self.primaryAccentLightModeUIColor
+              self.primaryAccentColor = Color(self.primaryAccentUIColor)
+              self.secondaryAccentUIColor = darkMode ? self.secondaryAccentDarkModeUIColor : self.secondaryAccentLightModeUIColor
+              self.secondaryAccentColor = Color(self.secondaryAccentUIColor)
+              self.primaryBackgroundUIColor = darkMode ? self.primaryBackgroundDarkModeUIColor : self.primaryBackgroundLightModeUIColor
+              self.primaryBackgroundColor = Color(self.primaryBackgroundUIColor)
+              self.secondaryBackgroundUIColor = darkMode ? self.secondaryBackgroundDarkModeUIColor : self.secondaryBackgroundLightModeUIColor
+              self.secondaryBackgroundColor = Color(self.secondaryBackgroundUIColor)
+              self.negativeActionUIColor = darkMode ? self.negativeActionDarkModeUIColor : self.negativeActionLightModeUIColor
+              self.negativeActionColor = Color(self.negativeActionUIColor)
+              self.positiveActionUIColor = darkMode ? self.positiveActionDarkModeUIColor : self.positiveActionLightModeUIColor
+              self.positiveActionColor = Color(self.positiveActionUIColor)
+              self.unSelectedUIColor = darkMode ? self.unSelectedDarkModeUIColor : self.unSelectedLightModeUIColor
+              self.unSelectedColor = Color(self.unSelectedUIColor)
+              self.selectedUIColor = darkMode ? self.selectedDarkModeUIColor : self.selectedLightModeUIColor
+              self.selectedColor = Color(self.selectedUIColor)
+              self.unSelectedAccentUIColor = darkMode ? self.unSelectedAccentDarkModeUIColor : self.unSelectedAccentLightModeUIColor
+              self.unSelectedAccentColor = Color(self.unSelectedAccentUIColor)
+              self.selectedAccentUIColor = darkMode ? self.selectedAccentDarkModeUIColor : self.selectedAccentLightModeUIColor
+              self.selectedAccentColor = Color(self.selectedAccentUIColor)
+              self.primaryTextUIColor = darkMode ? self.primaryTextDarkModeUIColor : self.primaryTextLightModeUIColor
+              self.primaryTextColor = Color(self.primaryTextUIColor)
+              self.secondaryTextUIColor = darkMode ? self.secondaryTextDarkModeUIColor : self.secondaryTextLightModeUIColor
+              self.secondaryTextColor = Color(self.secondaryTextUIColor)
+              self.primaryAccentTextUIColor = darkMode ? self.primaryAccentTextDarkModeUIColor : self.primaryAccentTextLightModeUIColor
+              self.primaryAccentTextColor = Color(self.primaryAccentTextUIColor)
+              self.placeHolderTextUIColor = darkMode ? self.placeHolderTextDarkModeUIColor : self.placeHolderTextLightModeUIColor
+              self.placeHolderTextColor = Color(self.placeHolderTextUIColor)
+           }.store(in: &cancellableSet)
+       }
+    
+//MARK: - END PYTHON GENERATED
 }

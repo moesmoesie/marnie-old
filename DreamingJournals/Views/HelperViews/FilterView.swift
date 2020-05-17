@@ -34,8 +34,8 @@ struct BookmarkedFilterView: View {
              .bold()
              .padding(.horizontal)
              .padding(.vertical,2)
-            .background(theme.secondaryColor)
-             .foregroundColor(theme.textColor)
+             .background(theme.secondaryAccentColor)
+             .foregroundColor(theme.primaryTextColor)
              .clipShape(Capsule())
      }
  }
