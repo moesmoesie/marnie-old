@@ -72,6 +72,6 @@ struct DreamListItem : View {
     }
     
     private var isBookmarkedView : some View{
-        Image(systemName: "heart.fill").foregroundColor(theme.secondaryAccentColor)
+        Image(systemName: "heart.fill").foregroundColor(theme.selectedAccentColor)
     }
 }

@@ -41,7 +41,7 @@ struct ListHeader : View {
      private var addDreamButton : some View{
         Image(systemName: "plus.circle.fill")
             .resizable()
-            .foregroundColor(theme.primaryAccentColor)
+            .foregroundColor(theme.secondaryAccentColor)
             .frame(width : theme.largePadding, height: theme.largePadding)
             .padding(.bottom, -2)
             .onTapGesture {
