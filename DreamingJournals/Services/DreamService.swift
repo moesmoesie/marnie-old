@@ -83,6 +83,14 @@ extension DreamService{
         }
     }
     
+    func checkForChanges(_ dreamViewModel : DreamViewModel) -> Bool{
+        if let dream =  getDream(id: dreamViewModel.id){
+            let checkDreamViewModel = DreamViewModel(dream: dream)
+            return !checkDreamViewModel.isEqualTo(dreamViewModel)
+        }
+        return true
+    }
+    
     func getDream(id : UUID) -> Dream?{
         let fetchRequest : NSFetchRequest<Dream> = Dream.fetchRequest()
         fetchRequest.predicate = NSPredicate(

@@ -58,6 +58,18 @@ class DreamViewModel : ObservableObject, Identifiable{
         self.isNewDream = isNewDream
     }
     
+    func isEqualTo(_ dreamViewModel : DreamViewModel) -> Bool{
+        if(
+            self.title == dreamViewModel.title &&
+            self.text == dreamViewModel.text &&
+            self.tags == dreamViewModel.tags &&
+            self.date == dreamViewModel.date &&
+            self.isBookmarked == dreamViewModel.isBookmarked){
+            return true
+        }
+        return false
+    }
+    
     func getCopy() -> DreamViewModel{
         DreamViewModel(id: self.id, title: self.title, text: self.text, tags: self.tags, date: self.date, isBookmarked: self.isBookmarked, isNewDream: self.isNewDream)
     }

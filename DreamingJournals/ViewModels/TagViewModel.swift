@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TagViewModel : Identifiable, Equatable{
+struct TagViewModel : Identifiable{
     let id = UUID()
     let text : String
     
@@ -20,3 +20,13 @@ struct TagViewModel : Identifiable, Equatable{
         self.text = text
     }
 }
+
+
+extension TagViewModel: Equatable {
+    static func == (lhs: TagViewModel, rhs: TagViewModel) -> Bool {
+        return lhs.text == rhs.text
+    }
+}
+
+
+
