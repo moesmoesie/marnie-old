@@ -48,7 +48,7 @@ class DreamViewModel : ObservableObject, Identifiable{
         return formatter.string(from: date)
     }
     
-    private init(id : UUID, title : String, text: String, tags: [TagViewModel], date : Date, isBookmarked : Bool, isNewDream : Bool ){
+    init(id : UUID, title : String, text: String, tags: [TagViewModel], date : Date, isBookmarked : Bool, isNewDream : Bool ){
         self.id = id
         self.title = title
         self.text = text
