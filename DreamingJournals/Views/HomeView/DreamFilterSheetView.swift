@@ -30,10 +30,11 @@ struct DreamFilterSheetView: View {
                                 .frame(minWidth : geo.size.width, minHeight: 200)
                             
                             self.seperatorView
-                            
+                            self.subTitleView
+
                             AvailableFilters()
                                 .padding(.horizontal, self.theme.mediumPadding)
-                                .padding(.top, self.theme.mediumPadding)
+                                .padding(.top, self.theme.smallPadding)
                                 .frame(width : geo.size.width)
                         }
                     }
@@ -60,6 +61,14 @@ struct DreamFilterSheetView: View {
             .font(theme.secundaryLargeFont)
             .foregroundColor(theme.primaryTextColor)
     }
+    
+    private var subTitleView : some View{
+         Text("Available Filters")
+             .font(theme.primaryLargeFont)
+             .foregroundColor(theme.primaryTextColor)
+             .padding(.leading , theme.mediumPadding)
+             .padding(.top, theme.mediumPadding)
+     }
     
     private var closeButtonView : some View{
         Button(action: {
