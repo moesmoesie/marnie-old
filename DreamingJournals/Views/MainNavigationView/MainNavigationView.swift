@@ -19,9 +19,8 @@ struct MainNavigationView: View {
             }else if navigationObserver.currentPage == Pages.settings{
                 SettingsView().padding(.bottom,  navigationObserver.showBottomBar ? getBottomSaveArea() : 0)
             }else if navigationObserver.currentPage == Pages.statistics{
-                theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                StatisticsView().padding(.bottom,  navigationObserver.showBottomBar ? getBottomSaveArea() : 0)
             }
-            
             BottomAppBar()
         }.edgesIgnoringSafeArea(.bottom)
     }
