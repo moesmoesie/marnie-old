@@ -21,7 +21,7 @@ struct ListHeader : View {
         return ZStack{
             NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}.disabled(true).hidden()
             HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
-                title
+                title.padding(.leading, theme.extraSmallPadding)
                 Spacer()
                 filterButton
                 addDreamButton
