@@ -60,22 +60,23 @@ struct SuggestionTags : View {
     
     var body : some View{
         return
-            HStack{
-                ForEach(self.tagsToSuggest.suffix(3)) { (tag : TagViewModel) in
-                    TagView(tag: tag)
-                        .transition(.opacity)
-                        .padding(.trailing, self.theme.smallPadding)
-                        .padding(.bottom, self.theme.extraSmallPadding)
-                        .onTapGesture {
-                            self.dream.tags.append(tag)
+            ScrollView{
+                HStack{
+                    ForEach(self.tagsToSuggest.suffix(3)) { (tag : TagViewModel) in
+                        TagView(tag: tag)
+                            .transition(.opacity)
+                            .padding(.trailing, self.theme.smallPadding)
+                            .padding(.bottom, self.theme.extraSmallPadding)
+                            .onTapGesture {
+                                self.dream.tags.append(tag)
+                        }
                     }
+                    Spacer()
                 }
-                Spacer()
             }
             .animation(.easeInOut)
             .padding(.leading, self.theme.mediumPadding)
             .frame(height: 30)
-        
     }
 }
 
