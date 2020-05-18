@@ -11,7 +11,8 @@ import SwiftUI
 struct DreamDetailView: View {
     let dream : DreamViewModel
     @ObservedObject var editorObserver = EditorObserver()
-    
+    @ObservedObject var suggestionTagsObserver = SuggestionTagsObserver()
+
     init(dream : DreamViewModel) {
         self.dream = dream.getCopy()
     }
@@ -21,8 +22,18 @@ struct DreamDetailView: View {
             .environmentObject(dream)
             .environmentObject(editorObserver)
             .onReceive(editorObserver.$cursorPosition) {(position : Int) in
-                print(position)
-        }
+                var text = String(self.dream.text.prefix(position))
+                if position > 100{
+                    let offSet = text.index(text.endIndex, offsetBy: -100)
+                    let sub = text[offSet...]
+                    text = String(sub)
+                }
+                if let newText = text.split(separator: ".").last{
+                    text = String(newText)
+                }
+                
+                self.suggestionTagsObserver.text = text
+            }
     }
 }
 
