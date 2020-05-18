@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import NaturalLanguage
 private var cancellableSet: Set<AnyCancellable> = []
 
 class SuggestionTagsObserver : ObservableObject{
@@ -15,8 +16,24 @@ class SuggestionTagsObserver : ObservableObject{
     @Published var tags : [TagViewModel] = []
     
     init() {
-        self.$text.sink { (text) in
-            print(text)
+        self.$text.debounce(for: 0.4, scheduler: RunLoop.main)
+            .sink { (text) in
+            let tagger = NLTagger(tagSchemes: [.nameType])
+            tagger.string = text
+            let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace ,.joinNames]
+            let goodTags: [NLTag] = [.personalName, .placeName, .organizationName]
+
+            var tags : [TagViewModel] = []
+            tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
+                if let tag = tag, goodTags.contains(tag) {
+                    let tagText = String(text[tokenRange])
+                    let newTag = TagViewModel(text: tagText)
+                    tags.append(newTag)
+                }
+                return true
+            }
+            
+            self.tags = tags
         }.store(in: &cancellableSet)
     }
 }
