@@ -12,6 +12,8 @@ struct DreamDetailTopBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
+    @EnvironmentObject var editorObserver : EditorObserver
+
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @State var showAlert : Bool = false
@@ -19,9 +21,10 @@ struct DreamDetailTopBar: View {
     
     
     var body: some View {
-        HStack(alignment : .bottom,spacing : self.theme.mediumPadding){
+        HStack(alignment : .center,spacing : self.theme.mediumPadding){
             backView
             Spacer()
+            tagView.padding(.bottom, -theme.extraSmallPadding)
             if dream.isNewDream{
                 saveView
             }else{
@@ -36,6 +39,19 @@ struct DreamDetailTopBar: View {
     }
     
     //MARK: - Helper Views
+    
+    var tagView : some View{
+        Button(action: {
+            if self.editorObserver.isInTagMode{
+                self.editorObserver.currentMode = .regularMode
+            }else{
+                self.editorObserver.currentMode = .tagMode
+            }
+        }){
+            Image(systemName: "tag.fill").foregroundColor(editorObserver.isInTagMode ? theme.selectedAccentColor : theme.unSelectedAccentColor)
+                .padding(.vertical, theme.smallPadding)
+        }
+    }
     
     var saveView : some View{
         Button(action: saveDream){

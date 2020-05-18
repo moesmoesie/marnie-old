@@ -10,10 +10,16 @@ import SwiftUI
 
 struct DreamDetailView: View {
     let dream : DreamViewModel
+    @ObservedObject var editorObserver = EditorObserver()
+    
+    init(dream : DreamViewModel) {
+        self.dream = dream.getCopy()
+    }
     
     var body: some View {
         DreamDetailContentView()
-            .environmentObject(dream.getCopy())
+            .environmentObject(dream)
+            .environmentObject(editorObserver)
     }
 }
 
@@ -22,6 +28,7 @@ struct DreamDetailContentView : View {
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var keyboardObserver : KeyboardObserver
+    @EnvironmentObject var editorObserver : EditorObserver
 
     var body: some View{
         ZStack(alignment: .bottom){
@@ -30,9 +37,13 @@ struct DreamDetailContentView : View {
                 DreamDetailTopBar()
                 DreamDetailMainContentView()
                     .padding(.horizontal, theme.mediumPadding)
-            }
-            .navigationBarTitle("",displayMode: .inline)
+            }.navigationBarTitle("",displayMode: .inline)
             .navigationBarHidden(true)
+                
+            
+            TagEditView()
+           
+       
             
             DreamDetailKeyboardBar()
         }
