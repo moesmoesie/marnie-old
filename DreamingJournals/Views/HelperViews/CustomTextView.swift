@@ -12,16 +12,18 @@ struct CustomTextView : View {
     @State var height : CGFloat = 0
     @Binding var text : String
     @Binding var focus : Bool
+    @Binding var cursorPosition : Int
     let textColor : UIColor
     let backgroundColor : UIColor
     let placeholder : String
     let tintColor : UIColor
     let font : UIFont
     
-    init(text : Binding<String>, placeholder : String, focus : Binding<Bool> = .constant(false), textColor : UIColor = .white,
+    init(text : Binding<String>, placeholder : String, focus : Binding<Bool> = .constant(false), cursorPosition : Binding<Int> = .constant(0), textColor : UIColor = .white,
          backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body)) {
         self._text = text
         self._focus = focus
+        self._cursorPosition = cursorPosition
         self.placeholder = placeholder
         self.textColor = textColor
         self.backgroundColor = backgroundColor
@@ -55,6 +57,7 @@ struct CustomTextView : View {
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
         textView.returnKeyType = .next
+        coordinator.cursorPosition = self.$cursorPosition
         return textView
     }
 }
@@ -94,6 +97,8 @@ private struct UICustomTextView : UIViewRepresentable{
     class Coordinator: NSObject, UITextViewDelegate{
         @Binding var text : String
         @Binding var focus : Bool
+        var cursorPosition : Binding<Int> = .constant(0)
+
 
         init(_ text : Binding<String>, _ focus : Binding <Bool>) {
             self._text = text
@@ -103,14 +108,17 @@ private struct UICustomTextView : UIViewRepresentable{
         
         func textViewDidEndEditing(_ textView: UITextView) {
             focus = false
+            
         }
         
         func textViewDidBeginEditing(_ textView: UITextView) {
             focus = true
+            cursorPosition.wrappedValue = textView.selectedRange.lowerBound
         }
         
         func textViewDidChange(_ textView: UITextView) {
             self.text = textView.text
+            cursorPosition.wrappedValue = textView.selectedRange.lowerBound
         }
     }
 }

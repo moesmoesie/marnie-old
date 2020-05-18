@@ -61,14 +61,17 @@ private struct DreamTitleView : View{
 private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var theme : Theme
-    
+    @EnvironmentObject var editorObserver : EditorObserver
+
     var body: some View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
+            cursorPosition: self.$editorObserver.cursorPosition,
             textColor: theme.primaryTextUIColor,
             tintColor: theme.primaryAccentTextUIColor,
             font: theme.primaryRegularUIFont
+            
         )
     }
 }

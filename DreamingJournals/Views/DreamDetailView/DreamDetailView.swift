@@ -20,9 +20,11 @@ struct DreamDetailView: View {
         DreamDetailContentView()
             .environmentObject(dream)
             .environmentObject(editorObserver)
+            .onReceive(editorObserver.$cursorPosition) {(position : Int) in
+                print(position)
+        }
     }
 }
-
 
 struct DreamDetailContentView : View {
     @EnvironmentObject var dream : DreamViewModel
@@ -43,8 +45,6 @@ struct DreamDetailContentView : View {
             
             TagEditView()
            
-       
-            
             DreamDetailKeyboardBar()
         }
     }

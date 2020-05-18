@@ -12,7 +12,9 @@ import Combine
 
 class EditorObserver : ObservableObject{
     @Published var currentMode : Modes = .regularMode
-    
+    @Published var cursorPosition : Int = 0
+    private var cancellableSet: Set<AnyCancellable> = []
+
     var isInTagMode : Bool{
         currentMode == Modes.tagMode
     }
