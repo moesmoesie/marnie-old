@@ -21,7 +21,7 @@ struct DreamDetailView: View {
         DreamDetailContentView()
             .environmentObject(dream)
             .environmentObject(editorObserver)
-        .   environmentObject(suggestionTagsObserver)
+            .environmentObject(suggestionTagsObserver)
             .onReceive(editorObserver.$cursorPosition) {(position : Int) in
                 var text = String(self.dream.text.prefix(position))
                 if position > 100{
@@ -29,10 +29,11 @@ struct DreamDetailView: View {
                     let sub = text[offSet...]
                     text = String(sub)
                 }
-                if let newText = text.split(separator: ".").last{
-                    text = String(newText)
+                let sentences = text.split(separator: ".").suffix(2)
+                text = ""
+                for sentence in sentences{
+                    text += String(sentence)
                 }
-                
                 self.suggestionTagsObserver.text = text
             }
     }

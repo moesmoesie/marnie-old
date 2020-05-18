@@ -20,15 +20,18 @@ struct DreamDetailKeyboardBar: View {
                     Spacer()
                     HStack{
                         SuggestionTags()
-                       
-
+                        
+                        
                         Spacer()
                         DimissKeyboardButton()
+                            .transition(.slide)
+                            .animation(.easeInOut)
                     }
                 }
             }
             .frame(width: geo.size.width)
-        }.padding(.bottom, keyboardObserver.height)
+        }
+        .padding(.bottom, keyboardObserver.height)
         .opacity(keyboardObserver.isKeyboardShowing && !editorObserver.isInTagMode ? 1 : 0)
         .disabled(!keyboardObserver.isKeyboardShowing)
     }
@@ -53,22 +56,26 @@ struct SuggestionTags : View {
         }
         return tags
     }
-
-
+    
+    
     var body : some View{
-        return ScrollView(.horizontal, showsIndicators: false){
+        return
             HStack{
-                ForEach(self.tagsToSuggest) { (tag : TagViewModel) in
+                ForEach(self.tagsToSuggest.suffix(3)) { (tag : TagViewModel) in
                     TagView(tag: tag)
+                        .transition(.opacity)
                         .padding(.trailing, self.theme.smallPadding)
                         .padding(.bottom, self.theme.extraSmallPadding)
                         .onTapGesture {
                             self.dream.tags.append(tag)
                     }
                 }
-            }.padding(.leading, self.theme.mediumPadding)
+                Spacer()
+            }
+            .animation(.easeInOut)
+            .padding(.leading, self.theme.mediumPadding)
             .frame(height: 30)
-        }
+        
     }
 }
 
@@ -80,9 +87,12 @@ private struct DimissKeyboardButton : View {
         Button(action:{
             self.keyboardObserver.dismissKeyboard()
         }){
-            Image(systemName: "keyboard.chevron.compact.down").foregroundColor(.white)
-                .padding(.vertical, theme.smallPadding * 1.2 )
-                .padding(.horizontal, theme.mediumPadding)
+            Image(systemName: "chevron.down.square.fill")
+                .scaleEffect(1.2)
+                .foregroundColor(theme.secondaryAccentColor)
+                .padding(.trailing, theme.mediumPadding)
+                .padding(.bottom, self.theme.extraSmallPadding)
+                .background(theme.primaryBackgroundColor)
         }
     }
 }
