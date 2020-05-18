@@ -21,6 +21,7 @@ struct DreamDetailView: View {
         DreamDetailContentView()
             .environmentObject(dream)
             .environmentObject(editorObserver)
+        .   environmentObject(suggestionTagsObserver)
             .onReceive(editorObserver.$cursorPosition) {(position : Int) in
                 var text = String(self.dream.text.prefix(position))
                 if position > 100{

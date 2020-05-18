@@ -23,17 +23,30 @@ class SuggestionTagsObserver : ObservableObject{
             let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace ,.joinNames]
             let goodTags: [NLTag] = [.personalName, .placeName, .organizationName]
 
-            var tags : [TagViewModel] = []
+            var tempTags : [TagViewModel] = []
             tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
                 if let tag = tag, goodTags.contains(tag) {
-                    let tagText = String(text[tokenRange])
+                    let tagText = String(text[tokenRange]).capitalized
                     let newTag = TagViewModel(text: tagText)
-                    tags.append(newTag)
+                    tempTags.append(newTag)
                 }
                 return true
             }
-            
-            self.tags = tags
+                                
+            for tag in tempTags{
+                if !self.tags.contains(tag){
+                    self.tags.append(tag)
+                }
+            }
+                
+            for tag in self.tags{
+                if !tempTags.contains(tag){
+                    if let index = self.tags.firstIndex(of: tag){
+                        self.tags.remove(at: index)
+                    }
+                }
+            }
+ 
         }.store(in: &cancellableSet)
     }
 }
