@@ -36,16 +36,18 @@ private struct BottomAppBar : View {
         return
             VStack(spacing: 0){
                 topBorder
+                    .animation(nil)
                 
                 bottomBarcontent
                     .padding(.vertical, theme.smallPadding * 1.2)
                     .padding(.bottom, getBottomSaveArea())
-                    .background(theme.primaryBackgroundColor)
                 
             }
             .offset(x: 0, y: navigationObserver.showBottomBar ? 0 : 100)
             .disabled(!navigationObserver.showBottomBar)
             .animation(.easeInOut)
+            .background(theme.primaryBackgroundColor)
+
     }
     
     var topBorder : some View{

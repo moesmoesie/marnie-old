@@ -15,11 +15,14 @@ struct CustomTextField : View {
     let textColor : UIColor
     let backgroundColor : UIColor
     let placeholder : String
+    let placeholderColor : Color
+
     let tintColor : UIColor
     let font : UIFont
     let onReturn : (UITextField) -> Bool
     
     init(text : Binding<String>, placeholder : String, focus : Bool = false, textColor : UIColor = .white,
+         placeholderColor : Color = .white,
          backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body), onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
         self._text = text
         self.focus = focus
@@ -29,6 +32,7 @@ struct CustomTextField : View {
         self.tintColor = tintColor
         self.font = font
         self.onReturn = onReturn
+        self.placeholderColor = placeholderColor
     }
     
     var body: some View{
@@ -40,7 +44,7 @@ struct CustomTextField : View {
     private func content(width : CGFloat) -> some View{
         ZStack(alignment: .topLeading){
             if text.isEmpty{
-                Text(placeholder).font(.body).opacity(0.2).foregroundColor(.white)
+                Text(placeholder).font(.body).foregroundColor(placeholderColor).opacity(0.3)
             }
             UICustomTextField(text: self.$text, width: width, height: self.$height, focus: focus, onReturn: onReturn, make: self.make)
         }

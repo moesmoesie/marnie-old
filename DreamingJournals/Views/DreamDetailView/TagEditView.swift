@@ -135,7 +135,7 @@ private var placeHolderView : some View {
 }
 
 private var textField : some View{
-    CustomTextField(text: $tagText, placeholder: "Add new tag", focus: true, textColor: self.theme.primaryTextUIColor, tintColor: self.theme.primaryAccentUIColor, font: theme.primaryRegularUIFont){_ in
+    CustomTextField(text: $tagText, placeholder: "Add new tag", focus: true, textColor: self.theme.primaryTextUIColor, placeholderColor : self.theme.placeHolderTextColor, tintColor: self.theme.primaryAccentUIColor ,font: theme.primaryRegularUIFont){_ in
         self.addTag(text: self.tagText)
         self.tagText = ""
         return true

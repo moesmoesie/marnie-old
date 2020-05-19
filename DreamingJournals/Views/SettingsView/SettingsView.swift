@@ -28,15 +28,13 @@ struct SettingsView: View {
                     }.accentColor(theme.primaryAccentColor)
                 }.padding(.horizontal, self.theme.mediumPadding)
             }
-        }.onAppear{
-            UISwitch.appearance().onTintColor = self.theme.primaryAccentUIColor
         }
     }
 }
-
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
+    
+    
+    struct SettingsView_Previews: PreviewProvider {
+        static var previews: some View {
+            SettingsView()
+        }
 }

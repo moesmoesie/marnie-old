@@ -36,6 +36,8 @@
 		11944D7F24695E5F00A8A3B2 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11944D7E24695E5F00A8A3B2 /* CustomTextView.swift */; };
 		11A09224246EAC73003A3F46 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A09223246EAC73003A3F46 /* CollectionView.swift */; };
 		11ABA29B2473FB840091B0AA /* BetterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABA29A2473FB840091B0AA /* BetterButton.swift */; };
+		11ABA2A2247442620091B0AA /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 11ABA2A1247442620091B0AA /* colors.txt */; };
+		11ABA2A4247443020091B0AA /* ThemeGenerator.py in Resources */ = {isa = PBXBuildFile; fileRef = 11ABA2A3247443020091B0AA /* ThemeGenerator.py */; };
 		11AF16C22462D5D4009A150B /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AF16C12462D5D4009A150B /* KeyboardObserver.swift */; };
 		11AF16C62463105B009A150B /* DreamDetailKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AF16C52463105B009A150B /* DreamDetailKeyboardBar.swift */; };
 		11B4E24B246A1501006295B5 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4E24A246A1501006295B5 /* CustomTextField.swift */; };
@@ -98,6 +100,8 @@
 		11944D7E24695E5F00A8A3B2 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		11A09223246EAC73003A3F46 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		11ABA29A2473FB840091B0AA /* BetterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterButton.swift; sourceTree = "<group>"; };
+		11ABA2A1247442620091B0AA /* colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = colors.txt; sourceTree = "<group>"; };
+		11ABA2A3247443020091B0AA /* ThemeGenerator.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ThemeGenerator.py; sourceTree = "<group>"; };
 		11AF16C12462D5D4009A150B /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		11AF16C52463105B009A150B /* DreamDetailKeyboardBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailKeyboardBar.swift; sourceTree = "<group>"; };
 		11B4E24A246A1501006295B5 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -160,9 +164,9 @@
 				11564C102463F59600CDAE93 /* ViewModels */,
 				11AF16C02462D238009A150B /* Utilities */,
 				110F88F224530F6700C7B797 /* AppDelegate.swift */,
+				11ABA2A0247442550091B0AA /* Theme */,
 				110F88F424530F6700C7B797 /* SceneDelegate.swift */,
 				11B8A65F24596D480057D1E6 /* CoreDataStack.swift */,
-				114744DB2461AB4900EF4A36 /* Theme.swift */,
 				110F890024530F6900C7B797 /* LaunchScreen.storyboard */,
 				11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */,
 				110F890324530F6900C7B797 /* Info.plist */,
@@ -295,6 +299,16 @@
 			path = StatisticsView;
 			sourceTree = "<group>";
 		};
+		11ABA2A0247442550091B0AA /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				114744DB2461AB4900EF4A36 /* Theme.swift */,
+				11ABA2A3247443020091B0AA /* ThemeGenerator.py */,
+				11ABA2A1247442620091B0AA /* colors.txt */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		11AF16C02462D238009A150B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,8 +403,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11ABA2A4247443020091B0AA /* ThemeGenerator.py in Resources */,
 				110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */,
 				110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */,
+				11ABA2A2247442620091B0AA /* colors.txt in Resources */,
 				110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,7 +628,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
 				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;
@@ -636,7 +652,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
 				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;
