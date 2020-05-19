@@ -93,7 +93,9 @@ struct AvailableFilters : View {
         CollectionView(data: filterObserver.availableFilters){(filter : FilterViewModel) in
             FilterView(filter: filter)
                 .onTapGesture {
-                    self.filterObserver.filters.append(filter)
+                    withAnimation(){
+                        self.filterObserver.filters.append(filter)
+                    }
             }
         }
     }
@@ -115,8 +117,10 @@ private struct ActiveFilters : View {
                     CollectionView(data: filterObserver.filters){ (filterViewModel : FilterViewModel) in
                         FilterView(filter: filterViewModel)
                             .onTapGesture {
-                                let index = self.filterObserver.filters.firstIndex(where: {$0.id == filterViewModel.id})!
-                                self.filterObserver.filters.remove(at: index)
+                                withAnimation(){
+                                    let index = self.filterObserver.filters.firstIndex(where: {$0.id == filterViewModel.id})!
+                                    self.filterObserver.filters.remove(at: index)
+                                }
                         }
                     }
                         Spacer()

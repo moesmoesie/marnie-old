@@ -50,7 +50,11 @@ class FilterObserver : ObservableObject{
     }
     
     private func onFilteredTagsUpdate(filters : [FilterViewModel]){
-        self.availableFilters = self.allFilters
+        for filter in allFilters{
+            if !self.availableFilters.contains(where: {filter.filter.areEqual(filter: $0.filter)}){
+                self.availableFilters.append(filter)
+            }
+        }
         
         for filter in filters{
             if let index = self.availableFilters.firstIndex(where: {filter.filter.areEqual(filter: $0.filter)}){
