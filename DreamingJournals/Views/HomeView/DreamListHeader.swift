@@ -40,13 +40,13 @@ struct FilterButtonView : View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
-
+    
     var body : some View{
         Button(action: {
             self.showSheet = true
         }){
             Image(systemName: "magnifyingglass.circle.fill")
-                .foregroundColor(self.theme.secondaryAccentColor)
+                .foregroundColor(filterObserver.filters.isEmpty ? theme.unSelectedAccentColor : theme.selectedAccentColor)
                 .font(.largeTitle)
                 .background(self.theme.primaryBackgroundColor)
         }.sheet(isPresented: $showSheet){
