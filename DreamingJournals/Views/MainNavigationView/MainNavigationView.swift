@@ -11,7 +11,7 @@ import SwiftUI
 struct MainNavigationView: View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var navigationObserver : NavigationObserver
-    
+    @State var showBar = true
     var body: some View {
         ZStack(alignment:.bottom){
             if navigationObserver.currentPage == Pages.home{
@@ -22,7 +22,13 @@ struct MainNavigationView: View {
                 StatisticsView().padding(.bottom,  navigationObserver.showBottomBar ? getBottomSaveArea() : 0)
             }
             BottomAppBar()
+                .offset(x: 0, y: showBar ? 0 : 100)
         }.edgesIgnoringSafeArea(.bottom)
+        .onReceive(self.navigationObserver.$showBottomBar) { (shouldBarShow : Bool) in
+            withAnimation{
+                self.showBar = shouldBarShow
+            }
+        }
     }
 }
 
@@ -43,11 +49,8 @@ private struct BottomAppBar : View {
                     .padding(.bottom, getBottomSaveArea())
                 
             }
-            .offset(x: 0, y: navigationObserver.showBottomBar ? 0 : 100)
             .disabled(!navigationObserver.showBottomBar)
-            .animation(.easeInOut)
             .background(theme.primaryBackgroundColor)
-
     }
     
     var topBorder : some View{
