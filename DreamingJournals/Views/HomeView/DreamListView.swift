@@ -16,7 +16,7 @@ struct DreamList : View {
         List{
             ListHeader()
                 .listRowInsets(EdgeInsets())
-                .padding(.horizontal, self.theme.mediumPadding)
+                .padding(.leading, self.theme.mediumPadding)
                 .padding(.bottom, self.theme.smallPadding)
             
             ForEach(self.dreams){ (dream : DreamViewModel) in

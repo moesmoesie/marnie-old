@@ -14,18 +14,13 @@ struct ListHeader : View {
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
     
-    @State var showNewDream : Bool = false
-    @State var showFilterSheet : Bool = false
-    
     var body: some View{
-        return ZStack{
-            NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){EmptyView()}.disabled(true).hidden()
-            HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
+        return
+            HStack(spacing: 0){
                 title.padding(.leading, theme.extraSmallPadding)
                 Spacer()
-                filterButton
-                addDreamButton
-            }
+                FilterButtonView()
+                AddDreamButtonView()
         }
     }
     
@@ -37,33 +32,52 @@ struct ListHeader : View {
             .font(theme.secundaryLargeFont)
             .foregroundColor(theme.primaryTextColor)
     }
-    
-     private var addDreamButton : some View{
-        Image(systemName: "plus.circle.fill")
-            .resizable()
-            .foregroundColor(theme.secondaryAccentColor)
-            .frame(width : theme.largePadding, height: theme.largePadding)
-            .padding(.bottom, -2)
-            .onTapGesture {
-                self.showNewDream = true
-                self.navigationObserver.showBottomBar = false
-        }
-    }
-    
-    private var filterButton : some View{
-        Button(action:{
-            self.showFilterSheet = true
+}
+
+
+struct FilterButtonView : View {
+    @State var showSheet = false
+    @EnvironmentObject var theme : Theme
+    @EnvironmentObject var filterObserver : FilterObserver
+    @Environment(\.managedObjectContext) var moc
+
+    var body : some View{
+        Button(action: {
+            self.showSheet = true
         }){
             Image(systemName: "magnifyingglass.circle.fill")
-                .resizable()
-                .foregroundColor(filterObserver.filters.isEmpty ? theme.unSelectedAccentColor : theme.selectedAccentColor)
-                .frame(width : theme.largePadding, height: theme.largePadding)
-                .padding(.bottom, -2)
-        }.sheet(isPresented: $showFilterSheet) {
-            DreamFilterSheetView()
-                .environmentObject(self.theme)
-                .environmentObject(self.filterObserver)
-                .environment(\.managedObjectContext, self.moc)
+                .foregroundColor(self.theme.secondaryAccentColor)
+                .font(.largeTitle)
+                .background(self.theme.primaryBackgroundColor)
+        }.sheet(isPresented: $showSheet){
+                DreamFilterSheetView()
+                     .environmentObject(self.theme)
+                     .environmentObject(self.filterObserver)
+                     .environment(\.managedObjectContext, self.moc)
+        }.buttonStyle(PlainButtonStyle())
+    }
+}
+
+struct AddDreamButtonView : View {
+    @State var showNewDream = false
+    @EnvironmentObject var theme : Theme
+    var body : some View{
+        ZStack{
+            NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){
+                EmptyView()
+            }.hidden().disabled(true).frame(width:.zero, height: .zero)
+            Button(action: {
+                self.showNewDream = true
+            }){
+                Image(systemName: "plus.circle.fill")
+                    .foregroundColor(self.theme.secondaryAccentColor)
+                    .font(.largeTitle)
+                    .background(self.theme.primaryBackgroundColor)
+                    .padding(self.theme.mediumPadding)
+            }.buttonStyle(PlainButtonStyle())
         }
     }
 }
+
+
+
