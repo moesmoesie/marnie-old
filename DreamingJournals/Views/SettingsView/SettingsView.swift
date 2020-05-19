@@ -22,10 +22,28 @@ struct SettingsView: View {
                             .foregroundColor(theme.primaryTextColor)
                         Spacer()
                     }
-                    Toggle(isOn: self.$theme.darkMode){
+                    HStack{
+                        Button(action:{
+                            self.theme.darkMode.toggle()
+                        }){
+                            ZStack{
+                                Rectangle()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                if self.theme.darkMode{
+                                    Image(systemName: "xmark")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(theme.primaryAccentColor)
+                                }
+                            }
+                        }.buttonStyle(PlainButtonStyle())
                         Text("Darkmode")
-                            .foregroundColor(self.theme.primaryTextColor)
-                    }.accentColor(theme.primaryAccentColor)
+                            .foregroundColor(theme.primaryTextColor)
+                            .font(theme.primaryLargeFont)
+                        Spacer()
+                    }
                 }.padding(.horizontal, self.theme.mediumPadding)
             }
         }
