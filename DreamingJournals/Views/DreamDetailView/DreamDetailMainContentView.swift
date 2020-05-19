@@ -25,6 +25,7 @@ struct DreamDetailMainContentView: View {
                         CollectionView(data: self.dream.tags){(tag : TagViewModel) in
                             TagView(tag: tag)
                                 .onTapGesture {
+                                    mediumFeedback()
                                     let index = self.dream.tags.firstIndex(of: tag)!
                                     self.dream.tags.remove(at: index)
                             }

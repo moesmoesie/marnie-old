@@ -100,6 +100,7 @@ private var availableTagsTitle : some View{
 private var availableTags : some View{
     return  CollectionView(data: tagsToShow){tag in
         TagView(tag: tag).onTapGesture {
+            mediumFeedback()
             self.dream.tags.append(tag)
         }
     }
@@ -117,6 +118,7 @@ private var currentTags : some View{
                 CollectionView(data: self.dream.tags){(tag : TagViewModel) in
                     TagView(tag: tag).onTapGesture {
                         if let index = self.dream.tags.firstIndex(where: {tag.id == $0.id}){
+                            mediumFeedback()
                             self.dream.tags.remove(at: index)
                         }
                     }
@@ -144,6 +146,7 @@ private var textField : some View{
 
 private var closeButtonView : some View{
     Button(action: {
+        mediumFeedback()
         self.editorObserver.currentMode = .regularMode
     }){
         Image(systemName: "xmark.circle.fill")

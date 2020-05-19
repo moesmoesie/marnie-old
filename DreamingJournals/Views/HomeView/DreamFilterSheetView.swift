@@ -73,6 +73,7 @@ struct DreamFilterSheetView: View {
     private var closeButtonView : some View{
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
+            mediumFeedback()
         }){
             Image(systemName: "xmark.circle.fill")
                 .resizable()
@@ -93,6 +94,7 @@ struct AvailableFilters : View {
         CollectionView(data: filterObserver.availableFilters){(filter : FilterViewModel) in
             FilterView(filter: filter)
                 .onTapGesture {
+                    mediumFeedback()
                     withAnimation(){
                         self.filterObserver.filters.append(filter)
                     }
@@ -117,6 +119,7 @@ private struct ActiveFilters : View {
                     CollectionView(data: filterObserver.filters){ (filterViewModel : FilterViewModel) in
                         FilterView(filter: filterViewModel)
                             .onTapGesture {
+                                mediumFeedback()
                                 withAnimation(){
                                     let index = self.filterObserver.filters.firstIndex(where: {$0.id == filterViewModel.id})!
                                     self.filterObserver.filters.remove(at: index)

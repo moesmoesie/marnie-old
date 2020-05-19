@@ -43,6 +43,7 @@ struct FilterButtonView : View {
     
     var body : some View{
         Button(action: {
+            mediumFeedback()
             self.showSheet = true
         }){
             Image(systemName: "magnifyingglass.circle.fill")
@@ -67,6 +68,7 @@ struct AddDreamButtonView : View {
                 EmptyView()
             }.hidden().disabled(true).frame(width:.zero, height: .zero)
             Button(action: {
+                mediumFeedback()
                 self.showNewDream = true
             }){
                 Image(systemName: "plus.circle.fill")

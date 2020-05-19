@@ -42,6 +42,7 @@ struct DreamDetailTopBar: View {
     
     var tagView : some View{
         Button(action: {
+            mediumFeedback()
             if self.editorObserver.isInTagMode{
                 self.editorObserver.currentMode = .regularMode
             }else{
@@ -65,6 +66,7 @@ struct DreamDetailTopBar: View {
     
     var bookmarkedView : some View{
         Button(action:{
+            mediumFeedback()
             self.dream.isBookmarked.toggle()
         }){
             Image(systemName: "heart.fill")
@@ -139,6 +141,7 @@ struct DreamDetailTopBar: View {
     }
     
     func updateDream(){
+        mediumFeedback()
         let dreamService = DreamService(managedObjectContext: self.moc)
         self.showAlert = false
         
@@ -158,8 +161,8 @@ struct DreamDetailTopBar: View {
     
     
     func deleteDream(){
+        heavyFeedback()
         let dreamService = DreamService(managedObjectContext: self.moc)
-        
         do{
             try dreamService.deleteDream(dream)
             presentationMode.wrappedValue.dismiss()
@@ -172,6 +175,7 @@ struct DreamDetailTopBar: View {
     
     
     func saveDream(){
+        mediumFeedback()
         self.showAlert = false
         let dreamService = DreamService(managedObjectContext: self.moc)
         do {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1102AD9124747651005FCB27 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102AD9024747651005FCB27 /* HapticFeedback.swift */; };
 		110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F224530F6700C7B797 /* AppDelegate.swift */; };
 		110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F424530F6700C7B797 /* SceneDelegate.swift */; };
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1102AD9024747651005FCB27 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		110F88EF24530F6700C7B797 /* Dreaming Journals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dreaming Journals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		110F88F224530F6700C7B797 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		110F88F424530F6700C7B797 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				11411C45246CBB3B0031A991 /* FilterObserver.swift */,
 				1187E6312471F68E00320334 /* EditorObserver.swift */,
 				119267A32472D64900696B74 /* SuggestionTagsObserver.swift */,
+				1102AD9024747651005FCB27 /* HapticFeedback.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
 				1187E62F2471AA6C00320334 /* StatisticsView.swift in Sources */,
 				113E891D246BE28D0070F018 /* MainNavigationView.swift in Sources */,
+				1102AD9124747651005FCB27 /* HapticFeedback.swift in Sources */,
 				113E8921246BF31D0070F018 /* NavigationObserver.swift in Sources */,
 				114744DC2461AB4900EF4A36 /* Theme.swift in Sources */,
 			);
@@ -618,7 +622,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
@@ -628,7 +632,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
 				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;
@@ -642,7 +646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
@@ -652,7 +656,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
 				PRODUCT_NAME = "Dreaming Journals";
 				SWIFT_VERSION = 5.0;

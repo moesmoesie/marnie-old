@@ -56,6 +56,7 @@ private struct DimissKeyboardButton : View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     var body: some View{
         BetterButton(scale: 2, action: {
+            mediumFeedback()
             self.keyboardObserver.dismissKeyboard()
         }){
             Image(systemName: "chevron.down.square.fill")

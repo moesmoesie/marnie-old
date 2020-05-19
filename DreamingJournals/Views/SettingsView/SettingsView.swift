@@ -24,6 +24,7 @@ struct SettingsView: View {
                     }
                     HStack{
                         Button(action:{
+                            heavyFeedback()
                             self.theme.darkMode.toggle()
                         }){
                             ZStack{
