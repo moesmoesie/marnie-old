@@ -90,7 +90,7 @@ struct AvailableFilters : View {
     
     
     var body: some View{
-        CollectionView(data: filterObserver.availableFilters, animate: true){(filter : FilterViewModel) in
+        CollectionView(data: filterObserver.availableFilters){(filter : FilterViewModel) in
             FilterView(filter: filter)
                 .onTapGesture {
                     self.filterObserver.filters.append(filter)
@@ -112,7 +112,7 @@ private struct ActiveFilters : View {
                     self.placeHolderView
                 }else{
                     VStack{
-                    CollectionView(data: filterObserver.filters, animate: true){ (filterViewModel : FilterViewModel) in
+                    CollectionView(data: filterObserver.filters){ (filterViewModel : FilterViewModel) in
                         FilterView(filter: filterViewModel)
                             .onTapGesture {
                                 let index = self.filterObserver.filters.firstIndex(where: {$0.id == filterViewModel.id})!

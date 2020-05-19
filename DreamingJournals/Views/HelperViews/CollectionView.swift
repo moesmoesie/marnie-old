@@ -27,13 +27,11 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
     @State var prevDataCount: Int?
     @EnvironmentObject var theme : Theme
     let maxRows : Int
-    let animate : Bool
     
-    init(data: [Data],maxRows : Int = .max, animate : Bool = false , content: @escaping (Data) -> Content) {
+    init(data: [Data],maxRows : Int = .max, content: @escaping (Data) -> Content) {
         self.data =  data
         self.content = content
         self.maxRows = maxRows
-        self.animate = animate
     }
     
     var body: some View{
@@ -112,6 +110,5 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
                 }
             }
         }.frame(height : self.height)
-        .animation(animate ? .easeInOut : nil)
     }
 }
