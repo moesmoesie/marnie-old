@@ -38,11 +38,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if UserDefaults.standard.string(forKey: "isFirstBoot") == nil{
             UserDefaults.standard.set("false", forKey: "isFirstBoot")
-            
+            UserDefaults.standard.set(true, forKey: "isDarkMode")
+
             for dream in sampleData{
                 try? dreamService.saveDream(dreamViewModel: dream)
             }
         }
+        
+        theme.darkMode = UserDefaults.standard.bool(forKey: "isDarkMode")
         
         
         // Use a UIHostingController as window root view controller.

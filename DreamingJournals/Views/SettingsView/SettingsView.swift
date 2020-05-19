@@ -26,6 +26,7 @@ struct SettingsView: View {
                         Button(action:{
                             heavyFeedback()
                             self.theme.darkMode.toggle()
+                            UserDefaults.standard.set(self.theme.darkMode, forKey: "isDarkMode")
                         }){
                             ZStack{
                                 Rectangle()
