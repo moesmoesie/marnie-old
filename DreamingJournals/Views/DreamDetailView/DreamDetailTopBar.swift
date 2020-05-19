@@ -13,7 +13,7 @@ struct DreamDetailTopBar: View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var editorObserver : EditorObserver
-
+    
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @State var showAlert : Bool = false
@@ -47,6 +47,7 @@ struct DreamDetailTopBar: View {
             }else{
                 self.editorObserver.currentMode = .tagMode
             }
+            
         }){
             Image(systemName: "tag.fill").foregroundColor(editorObserver.isInTagMode ? theme.selectedAccentColor : theme.unSelectedAccentColor)
                 .padding(.vertical, theme.smallPadding)
@@ -112,7 +113,7 @@ struct DreamDetailTopBar: View {
     
     func updatingNonExistingDreamAlert() -> Alert{
         let message = "The dream you are tryin to update doesn't exist anymore. You can save it instead."
-
+        
         return Alert(title: Text("Invalid Update"), message: Text(message), primaryButton: .destructive(Text("DELETE"), action: {
             self.moc.reset()
             self.presentationMode.wrappedValue.dismiss()

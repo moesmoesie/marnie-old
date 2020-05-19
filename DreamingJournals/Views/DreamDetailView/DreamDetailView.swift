@@ -12,7 +12,7 @@ struct DreamDetailView: View {
     let dream : DreamViewModel
     @ObservedObject var editorObserver = EditorObserver()
     @ObservedObject var suggestionTagsObserver = SuggestionTagsObserver()
-
+    
     init(dream : DreamViewModel) {
         self.dream = dream.getCopy()
     }
@@ -35,7 +35,7 @@ struct DreamDetailView: View {
                     text += String(sentence)
                 }
                 self.suggestionTagsObserver.text = text
-            }
+        }
     }
 }
 
@@ -44,21 +44,35 @@ struct DreamDetailContentView : View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var editorObserver : EditorObserver
-
+    
     var body: some View{
-        ZStack(alignment: .bottom){
-            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
-            VStack(spacing: theme.smallPadding){
-                DreamDetailTopBar()
-                DreamDetailMainContentView()
-                    .padding(.horizontal, theme.mediumPadding)
-            }.navigationBarTitle("",displayMode: .inline)
-            .navigationBarHidden(true)
+        GeometryReader{ geo in
+            ZStack(alignment: .bottom){
+                self.theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                VStack(spacing: self.theme.smallPadding){
+                    DreamDetailTopBar()
+                    DreamDetailMainContentView()
+                        .padding(.horizontal, self.theme.mediumPadding)
+                }.navigationBarTitle("",displayMode: .inline)
+                    .navigationBarHidden(true)
                 
-            
-            TagEditView()
-           
-            DreamDetailKeyboardBar()
+                DreamDetailKeyboardBar()
+                if self.editorObserver.isInTagMode{
+                    BlurView()
+                    
+                    TagEditView(maxHeight: geo.size.height)
+                        .frame(height : geo.size.height, alignment: .top)
+                    }
+                }
+            }
+        }
+}
+
+
+struct BlurView : View {
+    var body: some View{
+        ZStack{
+            Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)
         }
     }
 }
