@@ -1,0 +1,14 @@
+primaryAccent #FC657D #FC657D
+secondaryAccent #EDEEF2 #EDEEF2
+primaryBackground #02113A #02113A
+secondaryBackground #041642 #041642
+negativeAction #FC657D #FC657D
+positiveAction #EDEEF2 #EDEEF2
+unSelected #5D5D5D #5D5D5D
+selected #EDEEF2 #EDEEF2
+unSelectedAccent #5D5D5D #5D5D5D
+selectedAccent #FC657D #FC657D
+primaryText #EDEEF2 #EDEEF2
+secondaryText #9d9d9d #9d9d9d
+primaryAccentText #FC657D #FC657D
+placeHolderText #5D5D5D #5D5D5D
