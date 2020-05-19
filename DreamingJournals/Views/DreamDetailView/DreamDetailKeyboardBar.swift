@@ -55,16 +55,14 @@ private struct DimissKeyboardButton : View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     var body: some View{
-        Image(systemName: "chevron.down.square.fill")
-            .font(.system(size: 20, weight: .regular, design: .default))
-            .foregroundColor(theme.secondaryAccentColor)
-            .background(theme.primaryBackgroundColor)
-        .overlay(
-            Color.black.opacity(0.0000001).disabled(false).scaleEffect(2).onTapGesture {
-                self.keyboardObserver.dismissKeyboard()
-            }
-        )
-        
+        BetterButton(scale: 2, action: {
+            self.keyboardObserver.dismissKeyboard()
+        }){
+            Image(systemName: "chevron.down.square.fill")
+                .font(.system(size: 20, weight: .regular, design: .default))
+                .foregroundColor(self.theme.secondaryAccentColor)
+                .background(self.theme.primaryBackgroundColor)
+        }
     }
 }
 

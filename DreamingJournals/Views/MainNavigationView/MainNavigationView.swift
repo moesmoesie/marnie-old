@@ -41,7 +41,7 @@ private struct BottomAppBar : View {
                     .padding(.vertical, theme.smallPadding * 1.2)
                     .padding(.bottom, getBottomSaveArea())
                     .background(theme.primaryBackgroundColor)
-                   
+                
             }
             .offset(x: 0, y: navigationObserver.showBottomBar ? 0 : 100)
             .disabled(!navigationObserver.showBottomBar)
@@ -70,11 +70,11 @@ private struct BottomAppBar : View {
     
     func BarButton(page : Pages, iconName: String) -> some View {
         let color = navigationObserver.currentPage == page ? theme.selectedColor : theme.unSelectedColor
-        return Button(action: {
+        return BetterButton(scale: 2, action: {
             if self.navigationObserver.currentPage != page{
                 self.navigationObserver.currentPage = page
             }
-        }){
+        }) {
             Image(systemName: iconName)
                 .foregroundColor(color)
         }
