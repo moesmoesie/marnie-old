@@ -14,69 +14,39 @@ struct DreamDetailKeyboardBar: View {
     
     @EnvironmentObject var theme : Theme
     var body: some View {
-        return GeometryReader{ geo in
-            ZStack(alignment:.bottom){
-                VStack{
-                    Spacer()
-                    HStack{
-                        SuggestionTags()
-                        
-                        
-                        Spacer()
-                        DimissKeyboardButton()
-                            .transition(.slide)
-                            .animation(.easeInOut)
-                    }
-                }
-            }
-            .frame(width: geo.size.width)
+        return HStack(alignment: .bottom){
+            SuggestionTags()
+                .padding(.bottom , self.theme.extraSmallPadding)
+            
+            Spacer()
+            
+            DimissKeyboardButton()
+                .padding(.bottom, theme.extraSmallPadding + 2)
+                .padding(.trailing, theme.mediumPadding)
+            
         }
         .padding(.bottom, keyboardObserver.height)
         .opacity(keyboardObserver.isKeyboardShowing && !editorObserver.isInTagMode ? 1 : 0)
         .disabled(!keyboardObserver.isKeyboardShowing)
+        .animation(.easeIn)
     }
 }
-
-
-
-
-
 
 struct SuggestionTags : View {
     @EnvironmentObject var suggestionTagsObserver : SuggestionTagsObserver
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var dream : DreamViewModel
     
-    var tagsToSuggest : [TagViewModel]{
-        var tags : [TagViewModel] = []
-        for tag in suggestionTagsObserver.tags{
-            if !self.dream.tags.contains(tag){
-                tags.append(tag)
-            }
-        }
-        return tags
-    }
-    
-    
     var body : some View{
+        let tagsToShow = self.suggestionTagsObserver.tags.filter({!self.dream.tags.contains($0)}).suffix(3)
         return
-            ScrollView{
-                HStack{
-                    ForEach(self.tagsToSuggest.suffix(3)) { (tag : TagViewModel) in
-                        TagView(tag: tag)
-                            .transition(.opacity)
-                            .padding(.trailing, self.theme.smallPadding)
-                            .padding(.bottom, self.theme.extraSmallPadding)
-                            .onTapGesture {
-                                self.dream.tags.append(tag)
-                        }
-                    }
-                    Spacer()
-                }
-            }
-            .animation(.easeInOut)
-            .padding(.leading, self.theme.mediumPadding)
-            .frame(height: 30)
+            ForEach(tagsToShow) { (tag : TagViewModel) in
+                TagView(tag: tag)
+                    .transition(.opacity)
+                    .onTapGesture {
+                        self.dream.tags.append(tag)
+                }.padding(.leading , self.theme.mediumPadding)
+        }
     }
 }
 
@@ -85,16 +55,16 @@ private struct DimissKeyboardButton : View {
     @EnvironmentObject var theme : Theme
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     var body: some View{
-        Button(action:{
-            self.keyboardObserver.dismissKeyboard()
-        }){
-            Image(systemName: "chevron.down.square.fill")
-                .scaleEffect(1.2)
-                .foregroundColor(theme.secondaryAccentColor)
-                .padding(.trailing, theme.mediumPadding)
-                .padding(.bottom, self.theme.extraSmallPadding)
-                .background(theme.primaryBackgroundColor)
-        }
+        Image(systemName: "chevron.down.square.fill")
+            .font(.system(size: 20, weight: .regular, design: .default))
+            .foregroundColor(theme.secondaryAccentColor)
+            .background(theme.primaryBackgroundColor)
+        .overlay(
+            Color.black.opacity(0.0000001).disabled(false).scaleEffect(2).onTapGesture {
+                self.keyboardObserver.dismissKeyboard()
+            }
+        )
+        
     }
 }
 
