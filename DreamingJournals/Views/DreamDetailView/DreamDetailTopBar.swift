@@ -24,7 +24,6 @@ struct DreamDetailTopBar: View {
         HStack(alignment : .center,spacing : self.theme.mediumPadding){
             backView
             Spacer()
-            tagView.padding(.bottom, -theme.extraSmallPadding)
             if dream.isNewDream{
                 saveView
             }else{
@@ -34,6 +33,7 @@ struct DreamDetailTopBar: View {
             if !dream.isNewDream{
                 deleteView
             }
+            tagView.padding(.bottom, -theme.extraSmallPadding)
             bookmarkedView
         }
     }
