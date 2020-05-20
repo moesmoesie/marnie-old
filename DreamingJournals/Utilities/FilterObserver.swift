@@ -39,6 +39,7 @@ class FilterObserver : ObservableObject{
         let filterTags = tags.map({self.getTagFilter(tagViewModel: $0)})
         let bookmarkFilter = FilterViewModel(filter : .bookmarked(true))
         self.allFilters.append(contentsOf: filterTags)
+        self.allFilters.append(bookmarkFilter)
         self.availableFilters = allFilters
         for (index,filter) in self.filters.enumerated(){
             if !self.allFilters.contains(where: {filter.filter.areEqual(filter: $0.filter)}){
@@ -46,7 +47,6 @@ class FilterObserver : ObservableObject{
             }
         }
         
-        self.allFilters.append(bookmarkFilter)
     }
     
     private func onFilteredTagsUpdate(filters : [FilterViewModel]){
