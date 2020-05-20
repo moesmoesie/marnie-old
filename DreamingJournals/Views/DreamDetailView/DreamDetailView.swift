@@ -60,19 +60,26 @@ struct DreamDetailContentView : View {
                     .navigationBarHidden(true)
                 
                 DreamDetailKeyboardBar()
-                if self.editorObserver.isInTagMode || self.editorObserver.currentMode == Modes.actionMode{
-                    BlurView()
-                }
                 
-                if self.editorObserver.isInTagMode{
-                    TagEditView(maxHeight: geo.size.height)
-                        .frame(height : geo.size.height, alignment: .top)
-                }
+                BlurView()
+                    .opacity(self.editorObserver.isInTagMode || self.editorObserver.currentMode == Modes.actionMode ? 1 : 0)
+                    .disabled(!(self.editorObserver.isInTagMode || self.editorObserver.currentMode == Modes.actionMode))
+                    .animation(.easeInOut)
+            
+                TagEditView(maxHeight: geo.size.height)
+                    .frame(height : geo.size.height, alignment: .top)
+                    .animation(nil)
+                    .opacity(self.editorObserver.isInTagMode ? 1 : 0)
+                    .offset(x:0, y:self.editorObserver.isInTagMode ? 0 : 30)
+                    .disabled(!self.editorObserver.isInTagMode)
+                    .animation(.easeInOut)
                 
-                if self.editorObserver.currentMode == .actionMode{
-                    ActionAlert(geo : geo)
-                        .frame(height : geo.size.height, alignment: .top)
-                }
+                ActionAlert(geo : geo)
+                    .frame(height : geo.size.height, alignment: .top)
+                    .animation(nil)
+                    .opacity(self.editorObserver.currentMode == .actionMode ? 1 : 0)
+                    .disabled(self.editorObserver.currentMode != .actionMode)
+                    .animation(.easeInOut)
             }
         }
     }
