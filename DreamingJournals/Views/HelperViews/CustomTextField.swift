@@ -44,7 +44,7 @@ struct CustomTextField : View {
     private func content(width : CGFloat) -> some View{
         ZStack(alignment: .topLeading){
             if text.isEmpty{
-                Text(placeholder).font(.body).foregroundColor(placeholderColor).opacity(0.3)
+                Text(placeholder).font(.body).foregroundColor(placeholderColor).opacity(0.5)
             }
             UICustomTextField(text: self.$text, width: width, height: self.$height, focus: focus, onReturn: onReturn, make: self.make)
         }
