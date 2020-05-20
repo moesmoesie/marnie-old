@@ -11,9 +11,12 @@ import SwiftUI
 struct DreamDetailView: View {
     let dream : DreamViewModel
     @ObservedObject var editorObserver = EditorObserver()
-    @ObservedObject var suggestionTagsObserver = SuggestionTagsObserver()
+    @ObservedObject var suggestionTagsObserver : SuggestionTagsObserver
     
     init(dream : DreamViewModel) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
+        let tagService = TagService(managedObjectContext: context)
+        self.suggestionTagsObserver = SuggestionTagsObserver(allTags: tagService.getUniqueTags())
         self.dream = dream.getCopy()
     }
     
