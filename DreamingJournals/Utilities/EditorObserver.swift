@@ -23,4 +23,5 @@ class EditorObserver : ObservableObject{
 enum Modes{
     case regularMode
     case tagMode
+    case actionMode
 }

@@ -24,21 +24,24 @@ struct DreamDetailTopBar: View {
         HStack(alignment : .center,spacing : self.theme.mediumPadding){
             backView
             Spacer()
-            if dream.isNewDream{
-                saveView
-            }else{
-                updateView
-            }
-            
-            if !dream.isNewDream{
-                deleteView
-            }
-            tagView.padding(.bottom, -theme.extraSmallPadding)
+            tagView
             bookmarkedView
+            actionButton
+                .padding(.trailing, theme.mediumPadding)
         }
     }
     
     //MARK: - Helper Views
+    
+    var actionButton : some View{
+        Button(action: {
+            mediumFeedback()
+            self.editorObserver.currentMode = .actionMode
+        }){
+            Image(systemName: "ellipsis").foregroundColor(theme.secondaryAccentColor)
+                .padding(.vertical, theme.smallPadding)
+        }
+    }
     
     var tagView : some View{
         Button(action: {
@@ -50,17 +53,8 @@ struct DreamDetailTopBar: View {
             }
             
         }){
-            Image(systemName: "tag.fill").foregroundColor(editorObserver.isInTagMode ? theme.selectedAccentColor : theme.unSelectedAccentColor)
+            Image(systemName: "tag.fill").foregroundColor(theme.secondaryAccentColor)
                 .padding(.vertical, theme.smallPadding)
-        }
-    }
-    
-    var saveView : some View{
-        Button(action: saveDream){
-            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.positiveActionColor)
-                .padding(.vertical, theme.smallPadding)
-        }.alert(isPresented: $showAlert){
-            self.currentAlert
         }
     }
     
@@ -71,15 +65,6 @@ struct DreamDetailTopBar: View {
         }){
             Image(systemName: "heart.fill")
                 .foregroundColor(self.dream.isBookmarked ? theme.selectedAccentColor : theme.unSelectedAccentColor)
-                .padding(.vertical, theme.smallPadding)
-                .padding(.trailing, theme.mediumPadding)
-        }
-    }
-    
-    var deleteView : some View{
-        Button(action:deleteDream){
-            Image(systemName: "trash.fill")
-                .foregroundColor(theme.negativeActionColor)
                 .padding(.vertical, theme.smallPadding)
         }
     }
@@ -93,15 +78,7 @@ struct DreamDetailTopBar: View {
             self.currentAlert
         }
     }
-    
-    var updateView : some View{
-        Button(action: updateDream){
-            Image(systemName: "tray.and.arrow.down.fill").foregroundColor(theme.positiveActionColor)
-                .padding(.vertical, theme.smallPadding)
-        }.alert(isPresented: $showAlert){
-            self.currentAlert
-        }
-    }
+
     //MARK: - ALERTS
     func unsavedChangesAlert() -> Alert {
         Alert(title: Text("Unsaved Changes"), message: Text("You have made changes without saving!"), primaryButton: .destructive(Text("Discard"), action:{
@@ -109,27 +86,8 @@ struct DreamDetailTopBar: View {
         }), secondaryButton: .cancel())
     }
     
-    func invalidUpdateAlert(message : String) -> Alert{
-        Alert(title: Text("Invalid Update"), message: Text(message), dismissButton: .default(Text("OK")))
-    }
-    
-    func updatingNonExistingDreamAlert() -> Alert{
-        let message = "The dream you are tryin to update doesn't exist anymore. You can save it instead."
-        
-        return Alert(title: Text("Invalid Update"), message: Text(message), primaryButton: .destructive(Text("DELETE"), action: {
-            self.moc.reset()
-            self.presentationMode.wrappedValue.dismiss()
-        }), secondaryButton: .default(Text("Save")) {
-            self.saveDream()
-            })
-    }
-    
-    func invalidSaveAlert(message : String ) -> Alert{
-        Alert(title: Text("Invalid Save"), message: Text(message), dismissButton: .default(Text("OK")))
-    }
-    
     //MARK: - Logic Funtions
-    
+
     func backButtonPress(){
         let dreamService = DreamService(managedObjectContext: self.moc)
         if dreamService.checkForChanges(dream){
@@ -137,55 +95,6 @@ struct DreamDetailTopBar: View {
             self.showAlert = true
         }else{
             self.presentationMode.wrappedValue.dismiss()
-        }
-    }
-    
-    func updateDream(){
-        mediumFeedback()
-        let dreamService = DreamService(managedObjectContext: self.moc)
-        self.showAlert = false
-        
-        do {
-            try dreamService.updateDream(dreamViewModel: dream)
-            presentationMode.wrappedValue.dismiss()
-        } catch DreamService.DreamError.invalidUpdate(let message){
-            self.currentAlert = invalidUpdateAlert(message: message)
-            showAlert = true
-        } catch DreamService.DreamError.updatingNonExistingDream{
-            self.currentAlert =  updatingNonExistingDreamAlert()
-            self.showAlert = true
-        } catch{
-            print("Unexpected error: \(error).")
-        }
-    }
-    
-    
-    func deleteDream(){
-        heavyFeedback()
-        let dreamService = DreamService(managedObjectContext: self.moc)
-        do{
-            try dreamService.deleteDream(dream)
-            presentationMode.wrappedValue.dismiss()
-        }catch DreamService.DreamError.invalidDelete(error: let message){
-            print(message)
-        }catch{
-            print("Unexpected error: \(error).")
-        }
-    }
-    
-    
-    func saveDream(){
-        mediumFeedback()
-        self.showAlert = false
-        let dreamService = DreamService(managedObjectContext: self.moc)
-        do {
-            try dreamService.saveDream(dreamViewModel: dream)
-            presentationMode.wrappedValue.dismiss()
-        } catch DreamService.DreamError.invalidSave(error: let message) {
-            self.currentAlert = invalidSaveAlert(message: message)
-            self.showAlert = true
-        } catch{
-            print("Unexpected error: \(error).")
         }
     }
 }

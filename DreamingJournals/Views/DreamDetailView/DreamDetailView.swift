@@ -57,23 +57,30 @@ struct DreamDetailContentView : View {
                     .navigationBarHidden(true)
                 
                 DreamDetailKeyboardBar()
-                if self.editorObserver.isInTagMode{
+                if self.editorObserver.isInTagMode || self.editorObserver.currentMode == Modes.actionMode{
                     BlurView()
-                    
+                }
+                
+                if self.editorObserver.isInTagMode{
                     TagEditView(maxHeight: geo.size.height)
                         .frame(height : geo.size.height, alignment: .top)
-                    }
+                }
+                
+                if self.editorObserver.currentMode == .actionMode{
+                    ActionAlert(geo : geo)
+                        .frame(height : geo.size.height, alignment: .top)
                 }
             }
         }
-}
-
-
-struct BlurView : View {
-    var body: some View{
-        ZStack{
-            Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)
-        }
     }
+}
+    
+    
+    struct BlurView : View {
+        var body: some View{
+            ZStack{
+                Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
+            }
+        }
 }
 

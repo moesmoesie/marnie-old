@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1102AD9124747651005FCB27 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102AD9024747651005FCB27 /* HapticFeedback.swift */; };
+		1102AD9524749CB3005FCB27 /* ActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102AD9424749CB3005FCB27 /* ActionAlert.swift */; };
 		110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F224530F6700C7B797 /* AppDelegate.swift */; };
 		110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F424530F6700C7B797 /* SceneDelegate.swift */; };
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		1102AD9024747651005FCB27 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
+		1102AD9424749CB3005FCB27 /* ActionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAlert.swift; sourceTree = "<group>"; };
 		110F88EF24530F6700C7B797 /* Dreaming Journals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dreaming Journals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		110F88F224530F6700C7B797 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		110F88F424530F6700C7B797 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */,
 				1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */,
 				1187E6332471FA1D00320334 /* TagEditView.swift */,
+				1102AD9424749CB3005FCB27 /* ActionAlert.swift */,
 			);
 			path = DreamDetailView;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				1182E36024634EDC00C41E3E /* DreamDetailMainContentView.swift in Sources */,
 				11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */,
 				11A09224246EAC73003A3F46 /* CollectionView.swift in Sources */,
+				1102AD9524749CB3005FCB27 /* ActionAlert.swift in Sources */,
 				11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */,
 				1182E35E24634C4800C41E3E /* DreamDetailTopBar.swift in Sources */,
 				11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */,
