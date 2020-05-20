@@ -90,6 +90,7 @@ struct DreamDetailTopBar: View {
 
     func backButtonPress(){
         let dreamService = DreamService(managedObjectContext: self.moc)
+        keyboardObserver.dismissKeyboard()
         if dreamService.checkForChanges(dream){
             self.currentAlert = unsavedChangesAlert()
             self.showAlert = true

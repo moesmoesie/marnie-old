@@ -12,7 +12,8 @@ struct DreamDetailView: View {
     let dream : DreamViewModel
     @ObservedObject var editorObserver = EditorObserver()
     @ObservedObject var suggestionTagsObserver : SuggestionTagsObserver
-    
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+
     init(dream : DreamViewModel) {
         let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
         let tagService = TagService(managedObjectContext: context)
@@ -25,6 +26,11 @@ struct DreamDetailView: View {
             .environmentObject(dream)
             .environmentObject(editorObserver)
             .environmentObject(suggestionTagsObserver)
+            .onReceive(editorObserver.$currentMode, perform: { (mode) in
+                if mode == .actionMode{
+                    self.keyboardObserver.dismissKeyboard()
+                }
+            })
             .onReceive(editorObserver.$cursorPosition) {(position : Int) in
                 var text = String(self.dream.text.prefix(position))
                 if position > 100{
