@@ -22,7 +22,6 @@
 		114D1563245CB5FB0042A38B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1562245CB5FB0042A38B /* TagView.swift */; };
 		114F4B85246C537600C7811C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F4B84246C537600C7811C /* SettingsView.swift */; };
 		114F4B88246C8CB600C7811C /* DreamFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F4B87246C8CB600C7811C /* DreamFilterSheetView.swift */; };
-		114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F65762459C7250056EB4C /* DreamServiceTests.swift */; };
 		11559B2F245A2A5D00025F9F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B2E245A2A5D00025F9F /* HomeView.swift */; };
 		11559B31245A2AB900025F9F /* DreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* DreamListView.swift */; };
 		11564C122463F5AF00CDAE93 /* DreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11564C112463F5AF00CDAE93 /* DreamViewModel.swift */; };
@@ -54,18 +53,7 @@
 		11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */; };
 		11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */; };
 		11F5ED33245B3D0100667B4E /* TagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED32245B3D0100667B4E /* TagService.swift */; };
-		11F5ED35245B3F6500667B4E /* TagServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED34245B3F6500667B4E /* TagServiceTest.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		114F65712459C70A0056EB4C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 110F88E724530F6700C7B797 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 110F88EE24530F6700C7B797;
-			remoteInfo = DreamBook;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1102AD9024747651005FCB27 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
@@ -86,9 +74,6 @@
 		114D1562245CB5FB0042A38B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		114F4B84246C537600C7811C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		114F4B87246C8CB600C7811C /* DreamFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamFilterSheetView.swift; sourceTree = "<group>"; };
-		114F656C2459C70A0056EB4C /* DreamingJournalsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DreamingJournalsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		114F65702459C70A0056EB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		114F65762459C7250056EB4C /* DreamServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamServiceTests.swift; sourceTree = "<group>"; };
 		11559B2E245A2A5D00025F9F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		11559B30245A2AB900025F9F /* DreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListView.swift; sourceTree = "<group>"; };
 		11564C112463F5AF00CDAE93 /* DreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamViewModel.swift; sourceTree = "<group>"; };
@@ -120,18 +105,10 @@
 		11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F5ED32245B3D0100667B4E /* TagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagService.swift; sourceTree = "<group>"; };
-		11F5ED34245B3F6500667B4E /* TagServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagServiceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		110F88EC24530F6700C7B797 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		114F65692459C70A0056EB4C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -145,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				110F88F124530F6700C7B797 /* DreamingJournals */,
-				114F656D2459C70A0056EB4C /* DreamingJournalsTest */,
 				110F88F024530F6700C7B797 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -154,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				110F88EF24530F6700C7B797 /* Dreaming Journals.app */,
-				114F656C2459C70A0056EB4C /* DreamingJournalsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,16 +191,6 @@
 				114F4B84246C537600C7811C /* SettingsView.swift */,
 			);
 			path = SettingsView;
-			sourceTree = "<group>";
-		};
-		114F656D2459C70A0056EB4C /* DreamingJournalsTest */ = {
-			isa = PBXGroup;
-			children = (
-				11F5ED34245B3F6500667B4E /* TagServiceTest.swift */,
-				114F65762459C7250056EB4C /* DreamServiceTests.swift */,
-				114F65702459C70A0056EB4C /* Info.plist */,
-			);
-			path = DreamingJournalsTest;
 			sourceTree = "<group>";
 		};
 		11559B2D245A29B800025F9F /* HomeView */ = {
@@ -348,24 +313,6 @@
 			productReference = 110F88EF24530F6700C7B797 /* Dreaming Journals.app */;
 			productType = "com.apple.product-type.application";
 		};
-		114F656B2459C70A0056EB4C /* DreamingJournalsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamingJournalsTests" */;
-			buildPhases = (
-				114F65682459C70A0056EB4C /* Sources */,
-				114F65692459C70A0056EB4C /* Frameworks */,
-				114F656A2459C70A0056EB4C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				114F65722459C70A0056EB4C /* PBXTargetDependency */,
-			);
-			name = DreamingJournalsTests;
-			productName = DreamBookTests;
-			productReference = 114F656C2459C70A0056EB4C /* DreamingJournalsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -378,10 +325,6 @@
 				TargetAttributes = {
 					110F88EE24530F6700C7B797 = {
 						CreatedOnToolsVersion = 11.4.1;
-					};
-					114F656B2459C70A0056EB4C = {
-						CreatedOnToolsVersion = 11.4.1;
-						TestTargetID = 110F88EE24530F6700C7B797;
 					};
 				};
 			};
@@ -399,7 +342,6 @@
 			projectRoot = "";
 			targets = (
 				110F88EE24530F6700C7B797 /* DreamingJournals */,
-				114F656B2459C70A0056EB4C /* DreamingJournalsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -414,13 +356,6 @@
 				110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */,
 				11ABA2A2247442620091B0AA /* colors.txt in Resources */,
 				110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		114F656A2459C70A0056EB4C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,24 +410,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		114F65682459C70A0056EB4C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				11F5ED35245B3F6500667B4E /* TagServiceTest.swift in Sources */,
-				114F65772459C7250056EB4C /* DreamServiceTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		114F65722459C70A0056EB4C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 110F88EE24530F6700C7B797 /* DreamingJournals */;
-			targetProxy = 114F65712459C70A0056EB4C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		110F890024530F6900C7B797 /* LaunchScreen.storyboard */ = {
@@ -668,46 +586,6 @@
 			};
 			name = Release;
 		};
-		114F65732459C70A0056EB4C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C342Q22M8Y;
-				INFOPLIST_FILE = DreamBookTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.DreamBookTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamingJournals.app/DreamingJournals";
-			};
-			name = Debug;
-		};
-		114F65742459C70A0056EB4C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C342Q22M8Y;
-				INFOPLIST_FILE = DreamBookTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.DreamBookTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DreamingJournals.app/DreamingJournals";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -725,15 +603,6 @@
 			buildConfigurations = (
 				110F890724530F6900C7B797 /* Debug */,
 				110F890824530F6900C7B797 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		114F65752459C70A0056EB4C /* Build configuration list for PBXNativeTarget "DreamingJournalsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				114F65732459C70A0056EB4C /* Debug */,
-				114F65742459C70A0056EB4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

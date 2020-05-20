@@ -26,7 +26,6 @@ class SuggestionTagsObserver : ObservableObject{
                 var tempTags : [TagViewModel] = self.nlpTagCheck(text: text)
                 tempTags.append(contentsOf: self.manualTagCheck(text: String(text.suffix(20))))
                 
-                
                 for tag in tempTags{
                     if !self.tags.contains(tag){
                         self.tags.append(tag)
