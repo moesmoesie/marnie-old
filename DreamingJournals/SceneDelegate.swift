@@ -95,9 +95,9 @@ class CustomHostingController<Content>: UIHostingController<Content> where Conte
 private let sampleData = [
     DreamViewModel(id: UUID(),
                    title: "The battle of Q42",
-                   text: "Ik ben aan het lopen door de straten van Den Haag. Opeens zie ik Lukas van Driel battelen met een een grote zombie. Ik merk gelijk op dat het geen regulieren zombie is, hij heeft namelijk het armor van een ridder aan. Op het armor staat de tekst: 'DEATH TO Q42'. Ik hoor Lukas schreeuwen 'Q42 FOR LIFE'. De battle wordt steeds heviger en Lukas loopt meer en meer schade op. De Q42 merchandise die hij aan heeft staan hem heel goed, maar bieden hem weinig portection. Ik besluit om hem een handje te helpen. Uit het niets heb ik een staff in mijn hand en voel ik me als een level 99 priest. Ik heal Lukas tot die full health is en geef hem daarna ook nog een paar attack buffs. Na nog enkele minute verslaat Lukas de Zombie. Hij laat een oerkreet uit en loopt daarna rustig mijn richting op. Hij komt dichtbij en zegt tegen me. 'Johhh jij moet echt bij Q42 soliciteren!'",
+                   text: "Donec eu pellentesque elit. Duis non dignissim nibh, elementum sollicitudin felis. Vestibulum accumsan libero diam, nec varius orci iaculis vitae. Phasellus mattis scelerisque tortor, at dapibus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed sed metus nec sapien facilisis fringilla eu at turpis. Sed tempor vehicula dignissim. In lobortis dolor quis eros varius, quis consectetur dolor feugiat. Cras imperdiet venenatis felis, in blandit lectus ultrices vitae.",
                    tags: [TagViewModel(text: "Q42"),
-                          TagViewModel(text: "Oorlog"),
+                          TagViewModel(text: "War"),
                           TagViewModel(text: "Lukas"),
                           TagViewModel(text: "Zombies")
                     ],
