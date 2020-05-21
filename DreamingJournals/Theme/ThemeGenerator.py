@@ -73,8 +73,8 @@ lines = []
 with open(theme, "r") as f:
     lines = f.readlines()
 with open(theme, "w") as f:
-    for lineNumber in range(len(lines)):
-        if lineNumber == 37:
+    for line in lines:
+        f.write(line)
+        if "PYTHON GENERATED" in line:
             f.write(text)
-        elif lineNumber < 37:
-            f.write(lines[lineNumber])
+            break

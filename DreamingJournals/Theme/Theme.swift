@@ -34,7 +34,7 @@ class Theme : ObservableObject {
     @Published var mediumPadding : CGFloat = 20
     @Published var largePadding : CGFloat = 30
     
-    //MARK: - PYTHON GENERATED
+    //MARK: - PYTHON GENERATED (DONT EDIT THIS LINE)
 private var primaryAccentDarkModeUIColor = UIColor(red: 252 / 255.0, green: 101 / 255.0, blue: 125 / 255.0, alpha: 1)
 private var primaryAccentLightModeUIColor = UIColor(red: 240 / 255.0, green: 36 / 255.0, blue: 35 / 255.0, alpha: 1)
 private var secondaryAccentDarkModeUIColor = UIColor(red: 237 / 255.0, green: 238 / 255.0, blue: 242 / 255.0, alpha: 1)
