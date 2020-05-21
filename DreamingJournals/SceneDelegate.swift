@@ -39,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if UserDefaults.standard.string(forKey: "isFirstBoot") == nil{
             UserDefaults.standard.set("false", forKey: "isFirstBoot")
             UserDefaults.standard.set(true, forKey: "isDarkMode")
-
+            
             for dream in sampleData{
                 try? dreamService.saveDream(dreamViewModel: dream)
             }
@@ -94,33 +94,29 @@ class CustomHostingController<Content>: UIHostingController<Content> where Conte
 
 private let sampleData = [
     DreamViewModel(id: UUID(),
-                   title: "The battle of Q42",
-                   text: "Donec eu pellentesque elit. Duis non dignissim nibh, elementum sollicitudin felis. Vestibulum accumsan libero diam, nec varius orci iaculis vitae. Phasellus mattis scelerisque tortor, at dapibus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed sed metus nec sapien facilisis fringilla eu at turpis. Sed tempor vehicula dignissim. In lobortis dolor quis eros varius, quis consectetur dolor feugiat. Cras imperdiet venenatis felis, in blandit lectus ultrices vitae.",
-                   tags: [TagViewModel(text: "Q42"),
-                          TagViewModel(text: "War"),
-                          TagViewModel(text: "Lukas"),
-                          TagViewModel(text: "Zombies")
-                    ],
+                   title: "Sample Dream 1",
+                   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae pharetra diam. Aliquam et ultrices ipsum. In faucibus, velit at tincidunt gravida, tortor diam tincidunt sem, vitae suscipit dolor ex eu felis. Ut consequat pulvinar nibh, ornare euismod libero tempor vitae. Nullam dapibus metus ac neque porttitor aliquam. Mauris rhoncus lacinia sem vel pellentesque. Suspendisse elementum, dolor quis tincidunt blandit, mi turpis euismod nulla, nec consequat metus enim a ipsum. Donec posuere metus vel faucibus mattis. Cras neque arcu, accumsan vulputate dolor quis, cursus vestibulum metus. ",
+                   tags: [TagViewModel(text: "Joy"),TagViewModel(text: "Zombies"), TagViewModel(text: "Happiness"),TagViewModel(text: "Anger")],
                    date: Date(),
-                   isBookmarked: true,
+                   isBookmarked: false,
                    isNewDream: false
     ),
     
     DreamViewModel(id: UUID(),
                    title: "Sample Dream 2",
                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae pharetra diam. Aliquam et ultrices ipsum. In faucibus, velit at tincidunt gravida, tortor diam tincidunt sem, vitae suscipit dolor ex eu felis. Ut consequat pulvinar nibh, ornare euismod libero tempor vitae. Nullam dapibus metus ac neque porttitor aliquam. Mauris rhoncus lacinia sem vel pellentesque. Suspendisse elementum, dolor quis tincidunt blandit, mi turpis euismod nulla, nec consequat metus enim a ipsum. Donec posuere metus vel faucibus mattis. Cras neque arcu, accumsan vulputate dolor quis, cursus vestibulum metus. ",
-                   tags: [TagViewModel(text: "Tea"),TagViewModel(text: "Zombies"), TagViewModel(text: "Happiness") ],
+                   tags: [TagViewModel(text: "Tea"),TagViewModel(text: "Jeremy"), TagViewModel(text: "KFC"), TagViewModel(text: "Milk")  ],
                    date: Date(timeInterval: -123120, since: Date()),
                    isBookmarked: false,
                    isNewDream: false
     ),
     
     DreamViewModel(id: UUID(),
-                      title: "Sample Dream 3",
-                      text: "Donec eu pellentesque elit. Duis non dignissim nibh, elementum sollicitudin felis. Vestibulum accumsan libero diam, nec varius orci iaculis vitae. Phasellus mattis scelerisque tortor, at dapibus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed sed metus nec sapien facilisis fringilla eu at turpis. Sed tempor vehicula dignissim. In lobortis dolor quis eros varius, quis consectetur dolor feugiat. Cras imperdiet venenatis felis, in blandit lectus ultrices vitae.",
-                      tags: [TagViewModel(text: "Death"),TagViewModel(text: "Sadness"), TagViewModel(text: "Grief")],
-                      date: Date(timeInterval: -1000000, since: Date()),
-                      isBookmarked: true,
-                      isNewDream: false
-       ),
+                   title: "Sample Dream 3",
+                   text: "Donec eu pellentesque elit. Duis non dignissim nibh, elementum sollicitudin felis. Vestibulum accumsan libero diam, nec varius orci iaculis vitae. Phasellus mattis scelerisque tortor, at dapibus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed sed metus nec sapien facilisis fringilla eu at turpis. Sed tempor vehicula dignissim. In lobortis dolor quis eros varius, quis consectetur dolor feugiat. Cras imperdiet venenatis felis, in blandit lectus ultrices vitae.",
+                   tags: [TagViewModel(text: "Death"),TagViewModel(text: "Sadness"), TagViewModel(text: "Grief"), TagViewModel(text: "Killer Robot")],
+                   date: Date(timeInterval: -1000000, since: Date()),
+                   isBookmarked: true,
+                   isNewDream: false
+    ),
 ]
