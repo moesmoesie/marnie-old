@@ -46,10 +46,12 @@ struct DreamDetailTopBar: View {
     var tagView : some View{
         Button(action: {
             mediumFeedback()
-            if self.editorObserver.isInTagMode{
-                self.editorObserver.currentMode = .regularMode
-            }else{
-                self.editorObserver.currentMode = .tagMode
+            withAnimation{
+                if self.editorObserver.isInTagMode{
+                    self.editorObserver.currentMode = .regularMode
+                }else{
+                    self.editorObserver.currentMode = .tagMode
+                }
             }
             
         }){

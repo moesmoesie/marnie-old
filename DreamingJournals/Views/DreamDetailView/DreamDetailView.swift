@@ -13,7 +13,7 @@ struct DreamDetailView: View {
     @ObservedObject var editorObserver = EditorObserver()
     @ObservedObject var suggestionTagsObserver : SuggestionTagsObserver
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-
+    
     init(dream : DreamViewModel) {
         let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
         let tagService = TagService(managedObjectContext: context)
@@ -72,31 +72,30 @@ struct DreamDetailContentView : View {
                     .disabled(!(self.editorObserver.isInTagMode || self.editorObserver.currentMode == Modes.actionMode))
                     .animation(.easeInOut)
             
-                TagEditView(maxHeight: geo.size.height)
+                TagEditView(geo: geo)
                     .frame(height : geo.size.height, alignment: .top)
-                    .animation(nil)
                     .opacity(self.editorObserver.isInTagMode ? 1 : 0)
-                    .offset(x:0, y:self.editorObserver.isInTagMode ? 0 : 30)
+                    .offset(x : 0, y : self.editorObserver.isInTagMode ? 0 : -30)
                     .disabled(!self.editorObserver.isInTagMode)
-                    .animation(.easeInOut)
                 
                 ActionAlert(geo : geo)
-                    .frame(height : geo.size.height, alignment: .top)
+                    .frame(height : geo.size.height, alignment: .bottom)
                     .animation(nil)
                     .opacity(self.editorObserver.currentMode == .actionMode ? 1 : 0)
+                    .offset(x:0, y:self.editorObserver.currentMode == .actionMode ? 0 : 200)
                     .disabled(self.editorObserver.currentMode != .actionMode)
                     .animation(.easeInOut)
             }
         }
     }
 }
-    
-    
-    struct BlurView : View {
-        var body: some View{
-            ZStack{
-                Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
-            }
+
+
+struct BlurView : View {
+    var body: some View{
+        ZStack{
+            Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
         }
+    }
 }
 

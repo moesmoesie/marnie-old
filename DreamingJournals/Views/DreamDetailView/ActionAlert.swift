@@ -36,10 +36,9 @@ struct ActionAlert: View {
             Text(message)
             Spacer()
         }
-        .frame(width: geo.size.width - theme.mediumPadding, height: geo.size.height / 3)
-        .background(theme.primaryBackgroundColor)
+        .frame(width: geo.size.width, height: geo.size.height / 3)
+        .background(theme.secondaryBackgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .padding(.top, geo.size.height / 5)
     }
     
     private var closeButtonView : some View{
@@ -59,15 +58,17 @@ struct ActionAlert: View {
             self.deleteDream()
         }){
             HStack(alignment: .center){
+                Spacer()
                 Image(systemName: "trash.fill").font(.headline).foregroundColor(theme.primaryTextColor)
                 Text("Delete").font(theme.primaryLargeFont).foregroundColor(theme.primaryTextColor)
+                Spacer()
             }
             
         }
-        .frame(width: 150)
         .padding(.vertical, theme.smallPadding)
         .background(Color.red)
         .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.horizontal, theme.mediumPadding)
     }
     
     private var saveButton : some View{
@@ -79,15 +80,18 @@ struct ActionAlert: View {
             }
         }){
             HStack(alignment: .center){
+                Spacer()
                 Image(systemName: "tray.and.arrow.down.fill").font(.headline).foregroundColor(theme.primaryTextColor)
                 Text(self.dream.isNewDream ? "Save" : "Update").font(theme.primaryLargeFont).foregroundColor(theme.primaryTextColor)
+                Spacer()
             }
         }
-        .frame(width: 150)
         .padding(.vertical, theme.smallPadding)
-        .background(self.theme.primaryAccentColor)
+        .background(self.theme.primaryBackgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .padding(.bottom, theme.mediumPadding)
+        .padding(.horizontal, theme.mediumPadding)
+
         
     }
     
