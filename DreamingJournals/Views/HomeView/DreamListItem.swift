@@ -12,7 +12,7 @@ struct DreamListItem : View {
     
     let dream : DreamViewModel
     @State var showDream : Bool = false
-    @EnvironmentObject var navigationObserver : NavigationObserver
+    
     
     var body: some View{
         ZStack{
@@ -36,7 +36,6 @@ struct DreamListItem : View {
     // MARK: - LOGIC FUNCTIONS
     
     private func onItemTap(){
-        self.navigationObserver.showBottomBar = false
         self.showDream = true
     }
     

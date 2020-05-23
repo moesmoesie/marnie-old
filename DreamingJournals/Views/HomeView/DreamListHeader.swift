@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ListHeader : View {
     
-    @EnvironmentObject var navigationObserver : NavigationObserver
+    
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
     
@@ -61,8 +61,6 @@ struct FilterButtonView : View {
 struct AddDreamButtonView : View {
     @State var showNewDream = false
     
-    @EnvironmentObject var navigationObserver : NavigationObserver
-
     var body : some View{
         ZStack{
             NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: self.$showNewDream){
@@ -71,7 +69,6 @@ struct AddDreamButtonView : View {
             Button(action: {
                 mediumFeedback()
                 self.showNewDream = true
-                self.navigationObserver.showBottomBar = false
             }){
                 Image(systemName: "plus.circle.fill")
                     .foregroundColor(.accent2)

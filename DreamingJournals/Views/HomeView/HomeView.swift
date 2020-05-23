@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    
-    @EnvironmentObject var navigationObserver : NavigationObserver
     @EnvironmentObject var filterObserver : FilterObserver
     @FetchRequest(entity: Dream.entity(),sortDescriptors: [NSSortDescriptor(keyPath: \Dream.date, ascending: false)])var fetchedDreams: FetchedResults<Dream>
     
@@ -25,19 +23,13 @@ struct HomeView: View {
                 Color.background1.edgesIgnoringSafeArea(.all)
                 DreamList(dreams: filteredDreams)
             }
-            .onAppear(perform: viewSetup)
+            .onAppear(perform: styleUITableView)
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
         }
     }
     
-    private func viewSetup(){
-        if !self.navigationObserver.showBottomBar{
-            self.navigationObserver.showBottomBar = true
-        }
-        styleUITableView()
-    }
-    
+
     private func styleUITableView(){
         UITableView.appearance().backgroundColor = .clear
         UITableView.appearance().separatorStyle = .none
