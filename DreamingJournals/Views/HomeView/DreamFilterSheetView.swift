@@ -59,12 +59,12 @@ struct DreamFilterSheetView: View {
     private var titleView : some View{
         Text("Filters")
             .font(Font.secondaryLarge)
-            .foregroundColor(.primary)
+            .foregroundColor(.main1)
     }
     
     private var subTitleView : some View{
          Text("Available Filters")
-             .font(Font.primaryLarge)             .foregroundColor(.primary)
+             .font(Font.primaryLarge)             .foregroundColor(.main1)
              .padding(.leading , .medium)
              .padding(.top, .medium)
      }
@@ -77,7 +77,7 @@ struct DreamFilterSheetView: View {
             Image(systemName: "xmark.circle.fill")
                 .resizable()
                 .frame(width : .large, height: .large)
-                .foregroundColor(.primary)
+                .foregroundColor(.main1)
         }
     }
 }
@@ -134,7 +134,7 @@ private struct ActiveFilters : View {
     
     private var placeHolderView : some View {
         Text("No Active Filters")
-            .foregroundColor(.secondary)
+            .foregroundColor(.main2)
             .opacity(0.5)
             .offset(x: 0, y: -.small)
     }

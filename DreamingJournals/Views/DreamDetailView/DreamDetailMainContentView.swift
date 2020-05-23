@@ -47,7 +47,7 @@ private struct DreamTitleView : View{
         CustomTextField(
             text: $dream.title,
             placeholder: "Title",
-            textColor: .primary, placeholderColor: .secondary,
+            textColor: .main1, placeholderColor: .secondary,
             tintColor: .accent1,
             font: .primaryLarge
         ){textView in
@@ -69,7 +69,7 @@ private struct DreamTextView : View{
             placeholder: "Begin your journey..",
             placeholderColor: .secondary,
             cursorPosition: self.$editorObserver.cursorPosition,
-            textColor: .primary,
+            textColor: .main1,
             tintColor: .accent1,
             font: .primaryRegular
         )

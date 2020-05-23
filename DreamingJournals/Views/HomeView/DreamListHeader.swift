@@ -30,7 +30,7 @@ struct ListHeader : View {
     private var title : some View{
         Text("Dreams")
             .font(Font.secondaryLarge)
-            .foregroundColor(.primary)
+            .foregroundColor(.main1)
     }
 }
 
@@ -47,7 +47,7 @@ struct FilterButtonView : View {
             self.showSheet = true
         }){
             Image(systemName: "magnifyingglass.circle.fill")
-                .foregroundColor(filterObserver.filters.isEmpty ? Color.secondary : Color.accent1)
+                .foregroundColor(filterObserver.filters.isEmpty ? Color.main2 : Color.accent1)
                 .font(.largeTitle)
                 .background(Color.background1)
         }.sheet(isPresented: $showSheet){

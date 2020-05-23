@@ -141,7 +141,7 @@ struct TagEditView: View {
     }
     
     private var textField : some View{
-        CustomTextField(text: $tagText, placeholder: "Add new tag", focus: true, textColor: UIColor(named: "primary")!, placeholderColor : .secondary, tintColor: .primary ,font: .primaryRegular){_ in
+        CustomTextField(text: $tagText, placeholder: "Add new tag", focus: true, textColor: UIColor(named: "primary")!, placeholderColor : .secondary, tintColor: .main1 ,font: .primaryRegular){_ in
             self.addTag(text: self.tagText)
             self.tagText = ""
             return true

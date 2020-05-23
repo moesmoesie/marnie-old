@@ -44,14 +44,14 @@ struct DreamListItem : View {
     private var titleView: some View{
         Text(dream.title)
             .font(Font.primaryLarge)
-            .foregroundColor(.primary)
+            .foregroundColor(.main1)
     }
     
     private var textView : some View {
         let textToShow = dream.text.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
             .lineLimit(6)
-            .foregroundColor(.primary)
+            .foregroundColor(.main1)
     }
     
     private var topBarView : some View{

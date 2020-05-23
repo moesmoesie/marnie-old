@@ -9,8 +9,8 @@
 import SwiftUI
 
 extension Color{
-    static var primary = Color("primary")
-    static var secondary = Color("secondary")
+    static var main1 = Color("main1")
+    static var main2 = Color("main2")
     static var background1 = Color("background1")
     static var background2 = Color("background2")
     static var accent1 = Color("accent1")
@@ -18,8 +18,8 @@ extension Color{
 }
 
 extension UIColor{
-    static var primary = UIColor(named: "primary")!
-    static var secondary = UIColor(named: "secondary")!
+    static var main1 = UIColor(named: "main1")!
+    static var main2 = UIColor(named: "main2")!
     static var background1 = UIColor(named: "background1")!
     static var background2 = UIColor(named: "background2")!
     static var accent1 = UIColor(named: "accent1")!
