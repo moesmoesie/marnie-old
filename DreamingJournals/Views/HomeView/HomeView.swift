@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var navigationObserver : NavigationObserver
     @EnvironmentObject var filterObserver : FilterObserver
     @FetchRequest(entity: Dream.entity(),sortDescriptors: [NSSortDescriptor(keyPath: \Dream.date, ascending: false)])var fetchedDreams: FetchedResults<Dream>
@@ -22,7 +22,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView{
             ZStack(alignment: .topLeading){
-                theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                Color.background1.edgesIgnoringSafeArea(.all)
                 DreamList(dreams: filteredDreams)
             }
             .onAppear(perform: viewSetup)

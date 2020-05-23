@@ -23,13 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let theme = Theme()
         let navigationObserver = NavigationObserver()
         let keyboardObserver = KeyboardObserver()
         let filterObserver = FilterObserver(managedObjectContext: context)
         let contentView = MainNavigationView()
             .environment(\.managedObjectContext, context)
-            .environmentObject(theme)
             .environmentObject(keyboardObserver)
             .environmentObject(navigationObserver)
             .environmentObject(filterObserver)
@@ -38,14 +36,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if UserDefaults.standard.string(forKey: "isFirstBoot") == nil{
             UserDefaults.standard.set("false", forKey: "isFirstBoot")
-            UserDefaults.standard.set(true, forKey: "isDarkMode")
             
             for dream in sampleData{
                 try? dreamService.saveDream(dreamViewModel: dream)
             }
         }
         
-        theme.darkMode = UserDefaults.standard.bool(forKey: "isDarkMode")
         
         
         // Use a UIHostingController as window root view controller.

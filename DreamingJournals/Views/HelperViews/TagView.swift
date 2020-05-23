@@ -9,16 +9,15 @@
 import SwiftUI
 
 struct TagView: View {
-    @EnvironmentObject var theme : Theme
     let tag : TagViewModel
     var body: some View {
         Text(tag.text)
-            .font(theme.secundaryRegularFont)
+            .font(.secondaryRegular)
             .bold()
             .padding(.horizontal)
             .padding(.vertical,2)
-            .background(theme.primaryAccentColor)
-            .foregroundColor(theme.primaryTextColor)
+            .background(Color.accent1)
+            .foregroundColor(.primary)
             .clipShape(Capsule())
     }
 }

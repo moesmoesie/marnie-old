@@ -50,18 +50,18 @@ struct DreamDetailView: View {
 
 struct DreamDetailContentView : View {
     @EnvironmentObject var dream : DreamViewModel
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var editorObserver : EditorObserver
     
     var body: some View{
         GeometryReader{ geo in
             ZStack(alignment: .bottom){
-                self.theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
-                VStack(spacing: self.theme.smallPadding){
+                Color.background1.edgesIgnoringSafeArea(.all)
+                VStack(spacing: .small){
                     DreamDetailTopBar()
                     DreamDetailMainContentView()
-                        .padding(.horizontal, self.theme.mediumPadding)
+                        .padding(.horizontal, .medium)
                 }.navigationBarTitle("",displayMode: .inline)
                     .navigationBarHidden(true)
                 

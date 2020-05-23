@@ -26,10 +26,10 @@ struct FilterView : View {
 }
 
 struct BookmarkedFilterView: View {
-     @EnvironmentObject var theme : Theme
+     
      let isBookmarked : Bool
      var body: some View {
-        Image(systemName: "heart.fill").foregroundColor(theme.selectedAccentColor)
+        Image(systemName: "heart.fill").foregroundColor(.accent1)
         .offset(x: 0, y: 3)
      }
  }

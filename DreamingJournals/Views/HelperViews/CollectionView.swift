@@ -25,7 +25,7 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
     @State var height : CGFloat = 0
     @State var itemCount : Int?
     @State var prevDataCount: Int?
-    @EnvironmentObject var theme : Theme
+    
     let maxRows : Int
     
     init(data: [Data],maxRows : Int = .max, content: @escaping (Data) -> Content) {
@@ -61,7 +61,7 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
                 ForEach(self.data.prefix(self.itemCount ?? self.data.count)){ element in
                     if currentRowCount <= self.maxRows{
                         self.content(element)
-                            .padding([.trailing], self.theme.smallPadding)
+                            .padding([.trailing], .small)
                             .alignmentGuide(.leading) { (d) -> CGFloat in
                                 if element.id == self.data.first!.id{
                                     currentHeight = .zero
@@ -78,12 +78,12 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
                                 
                                 if -endPosition > geo.size.width{
                                     currentWidth = .zero
-                                    currentHeight -= (d.height + self.theme.smallPadding)
+                                    currentHeight -= (d.height + .small)
                                     position = .zero
                                     endPosition = position - d.width
                                     currentRowCount += 1
                                     if currentRowCount <= self.maxRows{
-                                        currentFrameHeight += (d.height + self.theme.smallPadding)
+                                        currentFrameHeight += (d.height + .small)
                                     }
                                 }
                                 

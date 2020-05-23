@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DreamDetailMainContentView: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var navigationObserver : NavigationObserver
     
@@ -18,7 +18,7 @@ struct DreamDetailMainContentView: View {
     var body: some View {
         GeometryReader{ geo in
             ScrollView(.vertical, showsIndicators: false){
-                VStack(alignment : .leading, spacing: self.theme.smallPadding * 0.8){
+                VStack(alignment : .leading, spacing: .small * 0.8){
                     DreamDateView()
                     DreamTitleView()
                     if !self.dream.tags.isEmpty{
@@ -41,16 +41,16 @@ struct DreamDetailMainContentView: View {
 }
 
 private struct DreamTitleView : View{
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
         CustomTextField(
             text: $dream.title,
             placeholder: "Title",
-            textColor: theme.primaryTextUIColor, placeholderColor: theme.placeHolderTextColor,
-            tintColor: theme.primaryAccentUIColor,
-            font: theme.primaryLargeUIFont
+            textColor: .primary, placeholderColor: .secondary,
+            tintColor: .accent1,
+            font: .primaryLarge
         ){textView in
             textView.resignFirstResponder()
             return true
@@ -61,30 +61,29 @@ private struct DreamTitleView : View{
 
 private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var editorObserver : EditorObserver
 
     var body: some View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
-            placeholderColor: theme.placeHolderTextColor,
+            placeholderColor: .secondary,
             cursorPosition: self.$editorObserver.cursorPosition,
-            textColor: theme.primaryTextUIColor,
-            tintColor: theme.primaryAccentTextUIColor,
-            font: theme.primaryRegularUIFont
-            
+            textColor: .primary,
+            tintColor: .accent1,
+            font: .primaryRegular
         )
     }
 }
 
 private struct DreamDateView : View{
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
         Text(dream.wrapperDateString)
-            .font(theme.primarySmallFont)
-            .foregroundColor(theme.primaryAccentTextColor)
+            .font(.primarySmall)
+            .foregroundColor(.accent1)
     }
 }

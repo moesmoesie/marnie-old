@@ -9,52 +9,50 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var theme : Theme
+    
     
     var body: some View {
         ZStack{
-            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+            Color.background1.edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment : .center, spacing: 10){
-                    HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
+                    HStack(alignment:.firstTextBaseline, spacing: .medium){
                         Text("Settings")
-                            .font(theme.secundaryLargeFont)
-                            .foregroundColor(theme.primaryTextColor)
+                            .font(Font.secondaryLarge)
+                            .foregroundColor(.primary)
                         Spacer()
                     }
                     HStack{
                         Button(action:{
                             heavyFeedback()
-                            self.theme.darkMode.toggle()
-                            UserDefaults.standard.set(self.theme.darkMode, forKey: "isDarkMode")
+                            print("Hello World")
                         }){
                             ZStack{
                                 Rectangle()
                                     .frame(width: 30, height: 30)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
-                                if self.theme.darkMode{
-                                    Image(systemName: "xmark")
+                                Image(systemName: "xmark")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                    .foregroundColor(theme.primaryAccentColor)
-                                }
+                                    .foregroundColor(.accent1)
+                                
                             }
                         }.buttonStyle(PlainButtonStyle())
                         Text("Darkmode")
-                            .foregroundColor(theme.primaryTextColor)
-                            .font(theme.primaryLargeFont)
+                            .foregroundColor(.accent1)
+                            .font(Font.primaryLarge)
                         Spacer()
                     }
-                }.padding(.horizontal, self.theme.mediumPadding)
+                }.padding(.horizontal, .medium)
             }
         }
     }
 }
-    
-    
-    struct SettingsView_Previews: PreviewProvider {
-        static var previews: some View {
-            SettingsView()
-        }
+
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+    }
 }

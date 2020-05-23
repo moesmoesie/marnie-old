@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ListHeader : View {
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var navigationObserver : NavigationObserver
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
@@ -17,7 +17,7 @@ struct ListHeader : View {
     var body: some View{
         return
             HStack(spacing: 0){
-                title.padding(.leading, theme.extraSmallPadding)
+                title.padding(.leading, .extraSmall)
                 Spacer()
                 FilterButtonView()
                 AddDreamButtonView()
@@ -29,15 +29,15 @@ struct ListHeader : View {
     
     private var title : some View{
         Text("Dreams")
-            .font(theme.secundaryLargeFont)
-            .foregroundColor(theme.primaryTextColor)
+            .font(Font.secondaryLarge)
+            .foregroundColor(.primary)
     }
 }
 
 
 struct FilterButtonView : View {
     @State var showSheet = false
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
     
@@ -47,12 +47,11 @@ struct FilterButtonView : View {
             self.showSheet = true
         }){
             Image(systemName: "magnifyingglass.circle.fill")
-                .foregroundColor(filterObserver.filters.isEmpty ? theme.unSelectedAccentColor : theme.selectedAccentColor)
+                .foregroundColor(filterObserver.filters.isEmpty ? Color.secondary : Color.accent1)
                 .font(.largeTitle)
-                .background(self.theme.primaryBackgroundColor)
+                .background(Color.background1)
         }.sheet(isPresented: $showSheet){
                 DreamFilterSheetView()
-                     .environmentObject(self.theme)
                      .environmentObject(self.filterObserver)
                      .environment(\.managedObjectContext, self.moc)
         }.buttonStyle(PlainButtonStyle())
@@ -61,7 +60,7 @@ struct FilterButtonView : View {
 
 struct AddDreamButtonView : View {
     @State var showNewDream = false
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var navigationObserver : NavigationObserver
 
     var body : some View{
@@ -75,10 +74,10 @@ struct AddDreamButtonView : View {
                 self.navigationObserver.showBottomBar = false
             }){
                 Image(systemName: "plus.circle.fill")
-                    .foregroundColor(self.theme.secondaryAccentColor)
+                    .foregroundColor(.accent2)
                     .font(.largeTitle)
-                    .background(self.theme.primaryBackgroundColor)
-                    .padding(self.theme.mediumPadding)
+                    .background(Color.background2)
+                    .padding(.medium)
             }.buttonStyle(PlainButtonStyle())
         }
     }

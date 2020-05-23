@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ActionAlert: View {
     @EnvironmentObject var editorObserver : EditorObserver
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var dream : DreamViewModel
     
     @State var showAlert : Bool = false
@@ -26,7 +26,7 @@ struct ActionAlert: View {
             HStack{
                 Spacer()
                 closeButtonView
-                    .padding([.top,.trailing], theme.mediumPadding)
+                    .padding([.top,.trailing], .medium)
             }
             Spacer()
             saveButton
@@ -37,7 +37,7 @@ struct ActionAlert: View {
             Spacer()
         }
         .frame(width: geo.size.width, height: geo.size.height / 3)
-        .background(theme.secondaryBackgroundColor)
+        .background(Color.background2)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
     
@@ -48,8 +48,9 @@ struct ActionAlert: View {
         }){
             Image(systemName: "xmark.circle.fill")
                 .resizable()
-                .frame(width : theme.largePadding, height: theme.largePadding)
-                .foregroundColor(theme.secondaryAccentColor)
+                .frame(width : .large, height: .large)
+                .foregroundColor(.accent2)
+            
         }
     }
     
@@ -59,16 +60,18 @@ struct ActionAlert: View {
         }){
             HStack(alignment: .center){
                 Spacer()
-                Image(systemName: "trash.fill").font(.headline).foregroundColor(theme.primaryTextColor)
-                Text("Delete").font(theme.primaryLargeFont).foregroundColor(theme.primaryTextColor)
+                Image(systemName: "trash.fill").font(.headline).foregroundColor(.primary)
+                Text("Delete")
+                    .font(Font.primaryLarge)
+                    .foregroundColor(.primary)
                 Spacer()
             }
             
         }
-        .padding(.vertical, theme.smallPadding)
+        .padding(.vertical, .small)
         .background(Color.red)
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .padding(.horizontal, theme.mediumPadding)
+        .padding(.horizontal, .medium)
     }
     
     private var saveButton : some View{
@@ -81,16 +84,16 @@ struct ActionAlert: View {
         }){
             HStack(alignment: .center){
                 Spacer()
-                Image(systemName: "tray.and.arrow.down.fill").font(.headline).foregroundColor(theme.primaryTextColor)
-                Text(self.dream.isNewDream ? "Save" : "Update").font(theme.primaryLargeFont).foregroundColor(theme.primaryTextColor)
+                Image(systemName: "tray.and.arrow.down.fill").font(.headline).foregroundColor(.primary)
+                Text(self.dream.isNewDream ? "Save" : "Update").font(Font.primaryLarge).foregroundColor(.primary)
                 Spacer()
             }
         }
-        .padding(.vertical, theme.smallPadding)
-        .background(self.theme.primaryBackgroundColor)
+        .padding(.vertical, .small)
+        .background(Color.background1)
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .padding(.bottom, theme.mediumPadding)
-        .padding(.horizontal, theme.mediumPadding)
+        .padding(.bottom, .medium)
+        .padding(.horizontal, .medium)
 
         
     }

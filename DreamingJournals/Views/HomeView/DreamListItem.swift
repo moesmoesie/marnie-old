@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DreamListItem : View {
-    @EnvironmentObject var theme : Theme
+    
     let dream : DreamViewModel
     @State var showDream : Bool = false
     @EnvironmentObject var navigationObserver : NavigationObserver
@@ -19,17 +19,17 @@ struct DreamListItem : View {
             NavigationLink(destination: DreamDetailView(dream: dream), isActive: self.$showDream){EmptyView()}.disabled(true).hidden()
             VStack(alignment: .leading, spacing: 0){
                 topBarView
-                    .padding(.bottom, theme.extraSmallPadding * 0.8)
+                    .padding(.bottom, .extraSmall * 0.8)
                 titleView
-                    .padding(.bottom, theme.extraSmallPadding)
+                    .padding(.bottom, .extraSmall)
                 if !dream.tags.isEmpty{
                     CollectionView(data: dream.tags, maxRows: 1){ (tag : TagViewModel) in
                         TagView(tag: tag)
-                    }.padding(.bottom, theme.extraSmallPadding)
+                    }.padding(.bottom, .extraSmall)
                 }
                 textView
             }
-        }.overlay(theme.primaryBackgroundColor.opacity(0.0000001)) //getto fix
+        }.overlay(Color.background1.opacity(0.001)) //getto fix
             .onTapGesture(perform: onItemTap)
     }
     
@@ -44,15 +44,15 @@ struct DreamListItem : View {
     
     private var titleView: some View{
         Text(dream.title)
-            .font(theme.primaryLargeFont)
-            .foregroundColor(theme.primaryTextColor)
+            .font(Font.primaryLarge)
+            .foregroundColor(.primary)
     }
     
     private var textView : some View {
         let textToShow = dream.text.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
             .lineLimit(6)
-            .foregroundColor(theme.primaryTextColor)
+            .foregroundColor(.primary)
     }
     
     private var topBarView : some View{
@@ -67,11 +67,11 @@ struct DreamListItem : View {
     
     private var dateView : some View{
         Text(dream.wrapperDateString)
-            .font(theme.primarySmallFont)
-            .foregroundColor(theme.primaryAccentTextColor)
+            .font(.primarySmall)
+            .foregroundColor(.accent1)
     }
     
     private var isBookmarkedView : some View{
-        Image(systemName: "heart.fill").foregroundColor(theme.selectedAccentColor)
+        Image(systemName: "heart.fill").foregroundColor(.accent1)
     }
 }

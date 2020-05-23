@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TagEditView: View {
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var editorObserver : EditorObserver
     @EnvironmentObject var keyboarObserver : KeyboardObserver
     @EnvironmentObject var dream : DreamViewModel
@@ -32,15 +32,15 @@ struct TagEditView: View {
     @State var tagText : String = ""
     var body: some View {
         VStack(spacing: 0){
-            theme.secondaryBackgroundColor.frame(height: getTopSaveArea())
+            Color.background1.frame(height: getTopSaveArea())
             ScrollView{
                 VStack(alignment : .leading, spacing: 0){
                     topBar
-                        .padding(.bottom, theme.smallPadding)
+                        .padding(.bottom, .small)
                     textField
-                        .padding(.bottom, theme.smallPadding)
+                        .padding(.bottom, .small)
                     currentTagsTitle
-                        .padding(.bottom, theme.extraSmallPadding)
+                        .padding(.bottom, .extraSmall)
 
 
                     if dream.tags.isEmpty{
@@ -49,29 +49,26 @@ struct TagEditView: View {
                         currentTags
                     }
                     availableTagsTitle
-                        .padding(.bottom, theme.extraSmallPadding)
-                        .padding(.top, theme.smallPadding)
+                        .padding(.bottom, .extraSmall)
+                        .padding(.top, .small)
                     availableTags
                 }
             }
-            .padding(.horizontal, theme.mediumPadding)
-            .frame(maxHeight : geo.size.height - self.keyboarObserver.height - theme.largePadding * 2)
-            .background(theme.secondaryBackgroundColor)
+            .padding(.horizontal, .medium)
+            .frame(maxHeight : geo.size.height - self.keyboarObserver.height - .large * 2)
+            .background(Color.background1)
             .cornerRadius(30, corners: [.bottomLeft,.bottomRight])
         }.edgesIgnoringSafeArea(.all)
     }
-    
-    
-    
     
     //MARK:- HELPER VIEWS
     
     private var topBar : some View{
         HStack{
             Text("Tags")
-                .foregroundColor(self.theme.primaryTextColor)
-                .font(self.theme.secundaryLargeFont)
-                .padding(.top, self.theme.smallPadding)
+                .foregroundColor(.primary)
+                .font(Font.secondaryLarge)
+                .padding(.top, .small)
             Spacer()
             self.closeButtonView
         }
@@ -80,14 +77,14 @@ struct TagEditView: View {
     private var currentTagsTitle : some View{
         HStack(alignment: .firstTextBaseline){
             Text("Current Tags")
-                .font(self.theme.primaryLargeFont)
-                .foregroundColor(self.theme.primaryTextColor)
-                .padding(.bottom, self.theme.extraSmallPadding)
+                .font(Font.primaryLarge)
+                .foregroundColor(.primary)
+                .padding(.bottom, .extraSmall)
             
             if !self.dream.tags.isEmpty{
                 Text("Tap to delete")
-                    .font(self.theme.primarySmallFont)
-                    .foregroundColor(self.theme.placeHolderTextColor)
+                    .font(.primarySmall)
+                    .foregroundColor(.secondary)
             }
         }
     }
@@ -95,12 +92,12 @@ struct TagEditView: View {
     private var availableTagsTitle : some View{
         HStack{
             Text("Tag History")
-                .font(self.theme.primaryLargeFont)
-                .foregroundColor(self.theme.primaryTextColor)
-                .padding(.bottom, self.theme.extraSmallPadding)
+                .font(Font.primaryLarge)
+                .foregroundColor(.primary)
+                .padding(.bottom, .extraSmall)
             Text("Tap to Add")
-                .font(self.theme.primarySmallFont)
-                .foregroundColor(self.theme.placeHolderTextColor)
+                .font(.primarySmall)
+                .foregroundColor(.secondary)
         }
     }
     
@@ -117,7 +114,7 @@ struct TagEditView: View {
         VStack(alignment:.center){
             ZStack(alignment: .leading){
                 self.placeHolderView
-                    .padding(.top, theme.smallPadding)
+                    .padding(.top, .small)
                     .opacity(self.dream.tags.isEmpty ? 1 : 0)
                     .disabled(true)
                 
@@ -138,13 +135,13 @@ struct TagEditView: View {
     
     private var placeHolderView : some View {
         Text("No Active Tags")
-            .foregroundColor(theme.placeHolderTextColor)
+            .foregroundColor(.secondary)
             .opacity(0.5)
-            .offset(x: 0, y: -theme.smallPadding)
+            .offset(x: 0, y: -.small)
     }
     
     private var textField : some View{
-        CustomTextField(text: $tagText, placeholder: "Add new tag", focus: true, textColor: self.theme.primaryTextUIColor, placeholderColor : self.theme.placeHolderTextColor, tintColor: self.theme.primaryAccentUIColor ,font: theme.primaryRegularUIFont){_ in
+        CustomTextField(text: $tagText, placeholder: "Add new tag", focus: true, textColor: UIColor(named: "primary")!, placeholderColor : .secondary, tintColor: .primary ,font: .primaryRegular){_ in
             self.addTag(text: self.tagText)
             self.tagText = ""
             return true
@@ -158,8 +155,8 @@ struct TagEditView: View {
         }){
             Image(systemName: "xmark.circle.fill")
                 .resizable()
-                .frame(width : theme.largePadding, height: theme.largePadding)
-                .foregroundColor(theme.secondaryAccentColor)
+                .frame(width : .large, height: .large)
+                .foregroundColor(.accent2)
         }
     }
     

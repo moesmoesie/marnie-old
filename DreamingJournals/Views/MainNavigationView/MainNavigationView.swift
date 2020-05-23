@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct MainNavigationView: View {
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var navigationObserver : NavigationObserver
     @State var showBar = true
     var body: some View {
@@ -35,7 +35,7 @@ struct MainNavigationView: View {
 //MARK: - BOTTOM APP BAR
 
 private struct BottomAppBar : View {
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var navigationObserver : NavigationObserver
     
     var body : some View{
@@ -45,18 +45,18 @@ private struct BottomAppBar : View {
                     .animation(nil)
                 
                 bottomBarcontent
-                    .padding(.vertical, theme.smallPadding * 1.2)
+                    .padding(.vertical, .small * 1.2)
                     .padding(.bottom, getBottomSaveArea())
                 
             }
             .disabled(!navigationObserver.showBottomBar)
-            .background(theme.primaryBackgroundColor)
+            .background(Color.background1)
     }
     
     var topBorder : some View{
         Rectangle()
             .frame(height: 0.2)
-            .foregroundColor(theme.secondaryBackgroundColor)
+            .foregroundColor(.background2)
     }
     
     var bottomBarcontent : some View{
@@ -74,7 +74,7 @@ private struct BottomAppBar : View {
     }
     
     func BarButton(page : Pages, iconName: String) -> some View {
-        let color = navigationObserver.currentPage == page ? theme.selectedColor : theme.unSelectedColor
+        let color : Color  = navigationObserver.currentPage == page ? .primary : .secondary
         return BetterButton(scale: 2, action: {
             if self.navigationObserver.currentPage != page{
                 self.navigationObserver.currentPage = page

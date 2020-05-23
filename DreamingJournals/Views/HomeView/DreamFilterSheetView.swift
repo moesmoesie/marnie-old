@@ -9,32 +9,32 @@
 import SwiftUI
 import Combine
 struct DreamFilterSheetView: View {
-    @EnvironmentObject var theme : Theme
+    
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         return
             GeometryReader{ geo in
                 ZStack(alignment:.top){
-                    self.theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+                    Color.background1.edgesIgnoringSafeArea(.all)
                     ScrollView{
                         VStack(alignment: .leading, spacing: 0){
                             
                             self.topBarView
-                                .padding(.horizontal, self.theme.mediumPadding)
-                                .padding(.top, self.theme.mediumPadding)
+                                .padding(.horizontal, .medium)
+                                .padding(.top, .medium)
                             
                             ActiveFilters()
-                                .padding(.horizontal, self.theme.mediumPadding)
-                                .padding(.top,self.theme.smallPadding)
+                                .padding(.horizontal, .medium)
+                                .padding(.top,.small)
                                 .frame(minWidth : geo.size.width, minHeight: 200)
                             
                             self.seperatorView
                             self.subTitleView
 
                             AvailableFilters()
-                                .padding(.horizontal, self.theme.mediumPadding)
-                                .padding(.top, self.theme.smallPadding)
+                                .padding(.horizontal, .medium)
+                                .padding(.top, .small)
                                 .frame(width : geo.size.width)
                         }
                     }
@@ -45,11 +45,11 @@ struct DreamFilterSheetView: View {
     private var seperatorView : some View{
         Rectangle()
             .frame(height: 1)
-            .foregroundColor(theme.secondaryBackgroundColor)
+            .foregroundColor(.background2)
     }
     
     private var topBarView : some View{
-        HStack(alignment:.center, spacing: theme.mediumPadding){
+        HStack(alignment:.center, spacing: .medium){
             titleView
             Spacer()
             closeButtonView
@@ -58,16 +58,15 @@ struct DreamFilterSheetView: View {
     
     private var titleView : some View{
         Text("Filters")
-            .font(theme.secundaryLargeFont)
-            .foregroundColor(theme.primaryTextColor)
+            .font(Font.secondaryLarge)
+            .foregroundColor(.primary)
     }
     
     private var subTitleView : some View{
          Text("Available Filters")
-             .font(theme.primaryLargeFont)
-             .foregroundColor(theme.primaryTextColor)
-             .padding(.leading , theme.mediumPadding)
-             .padding(.top, theme.mediumPadding)
+             .font(Font.primaryLarge)             .foregroundColor(.primary)
+             .padding(.leading , .medium)
+             .padding(.top, .medium)
      }
     
     private var closeButtonView : some View{
@@ -77,8 +76,8 @@ struct DreamFilterSheetView: View {
         }){
             Image(systemName: "xmark.circle.fill")
                 .resizable()
-                .frame(width : theme.largePadding, height: theme.largePadding)
-                .foregroundColor(theme.secondaryAccentColor)
+                .frame(width : .large, height: .large)
+                .foregroundColor(.primary)
         }
     }
 }
@@ -86,7 +85,7 @@ struct DreamFilterSheetView: View {
 // MARK: - Available Filters
 
 struct AvailableFilters : View {
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var filterObserver : FilterObserver
     
     
@@ -107,7 +106,7 @@ struct AvailableFilters : View {
 
 private struct ActiveFilters : View {
     @EnvironmentObject var filterObserver : FilterObserver
-    @EnvironmentObject var theme : Theme
+    
     
     var body: some View{
         VStack{
@@ -135,8 +134,8 @@ private struct ActiveFilters : View {
     
     private var placeHolderView : some View {
         Text("No Active Filters")
-            .foregroundColor(theme.placeHolderTextColor)
+            .foregroundColor(.secondary)
             .opacity(0.5)
-            .offset(x: 0, y: -theme.smallPadding)
+            .offset(x: 0, y: -.small)
     }
 }

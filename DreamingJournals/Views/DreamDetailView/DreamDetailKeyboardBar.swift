@@ -11,20 +11,20 @@ import SwiftUI
 struct DreamDetailKeyboardBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var editorObserver : EditorObserver
-    @EnvironmentObject var theme : Theme
+    
     @State var hideKeyboard : Bool = false
     @State var prevState : Modes = .regularMode
 
     var body: some View {
         return HStack(alignment: .bottom){
             SuggestionTags()
-                .padding(.bottom , self.theme.extraSmallPadding)
+                .padding(.bottom , .extraSmall)
             
             Spacer()
             
             DimissKeyboardButton()
-                .padding(.bottom, theme.extraSmallPadding + 2)
-                .padding(.trailing, theme.mediumPadding)
+                .padding(.bottom, .extraSmall)
+                .padding(.trailing, .medium)
             
         }
         .padding(.bottom, keyboardObserver.height)
@@ -45,7 +45,7 @@ struct DreamDetailKeyboardBar: View {
 
 struct SuggestionTags : View {
     @EnvironmentObject var suggestionTagsObserver : SuggestionTagsObserver
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var dream : DreamViewModel
     
     var body : some View{
@@ -56,14 +56,14 @@ struct SuggestionTags : View {
                     .transition(.opacity)
                     .onTapGesture {
                         self.dream.tags.append(tag)
-                }.padding(.leading , self.theme.mediumPadding)
+                }.padding(.leading , .medium)
         }
     }
 }
 
 
 private struct DimissKeyboardButton : View {
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     var body: some View{
         BetterButton(scale: 2, action: {
@@ -72,8 +72,8 @@ private struct DimissKeyboardButton : View {
         }){
             Image(systemName: "chevron.down.square.fill")
                 .font(.system(size: 20, weight: .regular, design: .default))
-                .foregroundColor(self.theme.secondaryAccentColor)
-                .background(self.theme.primaryBackgroundColor)
+                .foregroundColor(.accent2)
+                .background(Color.background1)
         }
     }
 }
@@ -82,7 +82,7 @@ private struct DimissKeyboardButton : View {
 private struct MenuView : View {
     @Environment(\.managedObjectContext) var moc
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{

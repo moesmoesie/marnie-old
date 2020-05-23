@@ -9,19 +9,19 @@
 import SwiftUI
 
 struct StatisticsView: View {
-    @EnvironmentObject var theme : Theme
+    
     
     var body: some View {
         ZStack{
-            theme.primaryBackgroundColor.edgesIgnoringSafeArea(.all)
+            Color.background1.edgesIgnoringSafeArea(.all)
             ScrollView{
-                HStack(alignment:.firstTextBaseline, spacing: theme.mediumPadding){
+                HStack(alignment:.firstTextBaseline, spacing: .medium){
                     Text("Statistics")
-                        .font(theme.secundaryLargeFont)
-                        .foregroundColor(theme.primaryTextColor)
+                        .font(Font.secondaryLarge)
+                        .foregroundColor(Color.primary)
                     Spacer()
                 }
-            }.padding(.horizontal, self.theme.mediumPadding)
+            }.padding(.horizontal, .medium)
         }
     }
 }

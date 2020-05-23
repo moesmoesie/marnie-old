@@ -10,25 +10,25 @@ import SwiftUI
 
 struct DreamList : View {
     var dreams: [DreamViewModel]
-    @EnvironmentObject var theme : Theme
+    
     
     var body: some View{
         List{
             ListHeader()
                 .listRowInsets(EdgeInsets())
-                .padding(.leading, self.theme.mediumPadding)
-                .padding(.bottom, self.theme.smallPadding)
+                .padding(.leading, .medium)
+                .padding(.bottom, .small)
             
             ForEach(self.dreams){ (dream : DreamViewModel) in
                 DreamListItem(dream: dream)
                     .listRowInsets(EdgeInsets())
-                    .padding(self.theme.mediumPadding)
-                    .background(self.theme.secondaryBackgroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: self.theme.mediumPadding))
-                    .padding(.horizontal, self.theme.mediumPadding)
-                    .padding(.bottom, self.theme.mediumPadding)
+                    .padding(.medium)
+                    .background(Color.background2)
+                    .clipShape(RoundedRectangle(cornerRadius: .medium))
+                    .padding(.horizontal, .medium)
+                    .padding(.bottom, .medium)
             }
-            Spacer().frame(height : theme.largePadding + getBottomSaveArea())
+            Spacer().frame(height : .large + getBottomSaveArea())
         }
     }
 }

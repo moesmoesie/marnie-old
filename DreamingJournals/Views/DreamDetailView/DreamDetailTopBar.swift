@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DreamDetailTopBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-    @EnvironmentObject var theme : Theme
+    
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var editorObserver : EditorObserver
     
@@ -21,13 +21,13 @@ struct DreamDetailTopBar: View {
     
     
     var body: some View {
-        HStack(alignment : .center,spacing : self.theme.mediumPadding){
+        HStack(alignment : .center,spacing : .medium){
             backView
             Spacer()
             tagView
             bookmarkedView
             actionButton
-                .padding(.trailing, theme.mediumPadding)
+                .padding(.trailing, .medium)
         }
     }
     
@@ -38,8 +38,8 @@ struct DreamDetailTopBar: View {
             mediumFeedback()
             self.editorObserver.currentMode = .actionMode
         }){
-            Image(systemName: "ellipsis").foregroundColor(theme.secondaryAccentColor)
-                .padding(.vertical, theme.smallPadding)
+            Image(systemName: "ellipsis").foregroundColor(.accent2)
+                .padding(.vertical, .small)
         }
     }
     
@@ -55,8 +55,8 @@ struct DreamDetailTopBar: View {
             }
             
         }){
-            Image(systemName: "tag.fill").foregroundColor(theme.secondaryAccentColor)
-                .padding(.vertical, theme.smallPadding)
+            Image(systemName: "tag.fill").foregroundColor(.accent2)
+                .padding(.vertical, .small)
         }
     }
     
@@ -66,16 +66,16 @@ struct DreamDetailTopBar: View {
             self.dream.isBookmarked.toggle()
         }){
             Image(systemName: "heart.fill")
-                .foregroundColor(self.dream.isBookmarked ? theme.selectedAccentColor : theme.unSelectedAccentColor)
-                .padding(.vertical, theme.smallPadding)
+                .foregroundColor(self.dream.isBookmarked ? .accent1 : .secondary)
+                .padding(.vertical, .small)
         }
     }
     
     var backView : some View{
         Button(action:backButtonPress){
-            Image(systemName: "chevron.left").foregroundColor(theme.secondaryAccentColor)
-                .padding(.vertical, theme.smallPadding)
-                .padding(.horizontal, theme.mediumPadding)
+            Image(systemName: "chevron.left").foregroundColor(.accent2)
+                .padding(.vertical, .small)
+                .padding(.horizontal, .medium)
         }.alert(isPresented: $showAlert) {
             self.currentAlert
         }
