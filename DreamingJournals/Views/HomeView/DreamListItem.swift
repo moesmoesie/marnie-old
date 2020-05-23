@@ -9,68 +9,108 @@
 import SwiftUI
 
 struct DreamListItem : View {
-    
-    let dream : DreamViewModel
-    @State var showDream : Bool = false
-    
+    let dreamListItem : DreamListItemModel
+    @State var showDetail = false
     
     var body: some View{
-        ZStack{
-            NavigationLink(destination: DreamDetailView(dream: dream), isActive: self.$showDream){EmptyView()}.disabled(true).hidden()
-            VStack(alignment: .leading, spacing: 0){
-                topBarView
-                    .padding(.bottom, .extraSmall * 0.8)
-                titleView
-                    .padding(.bottom, .extraSmall)
-                if !dream.tags.isEmpty{
-                    CollectionView(data: dream.tags, maxRows: 1){ (tag : TagViewModel) in
-                        TagView(tag: tag)
-                    }.padding(.bottom, .extraSmall)
-                }
-                textView
-            }
-        }.overlay(Color.background1.opacity(0.001)) //getto fix
-            .onTapGesture(perform: onItemTap)
-    }
-    
-    // MARK: - LOGIC FUNCTIONS
-    
-    private func onItemTap(){
-        self.showDream = true
+        VStack(alignment : .leading, spacing: 0){
+            naviagationLink
+            
+            titleView
+            
+            dateView
+                .padding(.bottom, .extraSmall)
+            
+            tags
+                .padding(.bottom, .extraSmall)
+            
+            textView
+                .padding(.bottom, .small)
+            
+            seperator
+                .padding(.bottom,.small)
+            
+            details
+        }
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .padding(.medium)
+        .background(Color.background1)
+        .cornerRadius(30)
+        .shadow(radius: 12)
+        .onTapGesture {
+            self.showDetail = true
+        }
     }
     
     // MARK: - HELPER VIEWS
     
+    private var naviagationLink : some View{
+        NavigationLink(destination: DreamDetailView(dream: dreamListItem.dream), isActive: $showDetail){
+            EmptyView()
+        }.hidden()
+    }
+    
+    private var details : some View{
+        HStack(spacing: .medium){
+            ForEach(dreamListItem.details){(detail : DreamListItemModel.Detail) in
+                detail.icon
+                    .imageScale(.medium)
+                    .foregroundColor(.main1)
+                    .frame(width: .extraLarge, height: .extraLarge)
+                    .background(Color.background1)
+                    .cornerRadius(10)
+                    .shadow(color: Color.black.opacity(0.5), radius: 6, x: 2, y: 5)
+            }
+        }
+    }
+    
+    private var tags : some View{
+        CollectionView(data: dreamListItem.dream.tags, maxRows: 1) { tag in
+            TagView(tag: tag)
+                .shadow(color: Color.black.opacity(0.4), radius: 6, x: 2, y: 5)
+        }
+    }
+    
+    private var seperator : some View{
+        Rectangle()
+            .foregroundColor(Color.main1)
+            .frame(maxWidth :.infinity)
+            .frame(height: 1)
+            .opacity(0.1)
+    }
+    
     private var titleView: some View{
-        Text(dream.title)
+        Text(dreamListItem.dream.title)
             .font(Font.primaryLarge)
             .foregroundColor(.main1)
     }
     
     private var textView : some View {
-        let textToShow = dream.text.replacingOccurrences(of: "\n", with: "")
+        let textToShow = dreamListItem.dream.text.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
-            .lineLimit(6)
+            .lineLimit(5)
             .foregroundColor(.main1)
-    }
-    
-    private var topBarView : some View{
-        HStack{
-            dateView
-            Spacer()
-            if dream.isBookmarked{
-                isBookmarkedView
-            }
-        }
+            .lineSpacing(.extraSmall)
     }
     
     private var dateView : some View{
-        Text(dream.wrapperDateString)
+        Text(dreamListItem.dream.wrapperDateString)
             .font(.primarySmall)
-            .foregroundColor(.accent1)
+            .foregroundColor(.main2)
     }
-    
-    private var isBookmarkedView : some View{
-        Image(systemName: "heart.fill").foregroundColor(.accent1)
+}
+
+struct DreamListItem_Previews: PreviewProvider {
+    static var previews: some View {
+        return ZStack{
+            Color.background1.edgesIgnoringSafeArea(.all)
+            VStack(spacing: .medium){
+                DreamListItem(dreamListItem: DreamListItemModel(sampleData[0]))
+                    .padding(.horizontal, .medium)
+                
+                DreamListItem(dreamListItem: DreamListItemModel(sampleData[2]))
+                    .padding(.horizontal, .medium)
+            }
+        }
     }
 }

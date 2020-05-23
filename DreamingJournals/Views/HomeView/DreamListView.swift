@@ -11,7 +11,6 @@ import SwiftUI
 struct DreamList : View {
     var dreams: [DreamViewModel]
     
-    
     var body: some View{
         List{
             ListHeader()
@@ -19,16 +18,36 @@ struct DreamList : View {
                 .padding(.leading, .medium)
                 .padding(.bottom, .small)
             
-            ForEach(self.dreams){ (dream : DreamViewModel) in
-                DreamListItem(dream: dream)
+            ForEach(self.dreams.map({DreamListItemModel($0)})){ (dream : DreamListItemModel) in
+                DreamListItem(dreamListItem: dream)
                     .listRowInsets(EdgeInsets())
-                    .padding(.medium)
-                    .background(Color.background2)
-                    .clipShape(RoundedRectangle(cornerRadius: .medium))
-                    .padding(.horizontal, .medium)
                     .padding(.bottom, .medium)
+                    .padding(.horizontal, .medium)
             }
             Spacer().frame(height : .large + getBottomSaveArea())
         }
+    }
+}
+
+
+struct DreamListItemModel : Identifiable {
+    var id = UUID()
+    var showDream = false
+    var dream : DreamViewModel
+    var details : [Self.Detail]
+    
+    init(_ dream : DreamViewModel) {
+        self.dream = dream
+        self.details = []
+        if dream.isBookmarked{
+            self.details.append(Detail(icon: Image(systemName: "heart")))
+        }
+        
+        self.details.append(Detail(icon: Image(systemName: "eye")))
+    }
+    
+    struct Detail : Identifiable{
+        var id = UUID()
+        var icon : Image
     }
 }
