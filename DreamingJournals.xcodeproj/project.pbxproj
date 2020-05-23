@@ -17,7 +17,6 @@
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
-		113E891D246BE28D0070F018 /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E891C246BE28D0070F018 /* MainNavigationView.swift */; };
 		113E891F246BE7460070F018 /* SaveAreaObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E891E246BE7460070F018 /* SaveAreaObserver.swift */; };
 		113E8921246BF31D0070F018 /* NavigationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E8920246BF31D0070F018 /* NavigationObserver.swift */; };
 		11411C46246CBB3B0031A991 /* FilterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11411C45246CBB3B0031A991 /* FilterObserver.swift */; };
@@ -69,7 +68,6 @@
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dreaming Journals.entitlements"; sourceTree = "<group>"; };
-		113E891C246BE28D0070F018 /* MainNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationView.swift; sourceTree = "<group>"; };
 		113E891E246BE7460070F018 /* SaveAreaObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAreaObserver.swift; sourceTree = "<group>"; };
 		113E8920246BF31D0070F018 /* NavigationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationObserver.swift; sourceTree = "<group>"; };
 		11411C45246CBB3B0031A991 /* FilterObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterObserver.swift; sourceTree = "<group>"; };
@@ -164,14 +162,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		113E891B246BE2750070F018 /* MainNavigationView */ = {
-			isa = PBXGroup;
-			children = (
-				113E891C246BE28D0070F018 /* MainNavigationView.swift */,
-			);
-			path = MainNavigationView;
-			sourceTree = "<group>";
-		};
 		114D155F245CB58C0042A38B /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,7 +232,6 @@
 			children = (
 				1187E62D2471AA3A00320334 /* StatisticsView */,
 				114F4B83246C536300C7811C /* SettingsView */,
-				113E891B246BE2750070F018 /* MainNavigationView */,
 				114D155F245CB58C0042A38B /* HelperViews */,
 				11559B32245A2D9200025F9F /* DreamDetailView */,
 				11559B2D245A29B800025F9F /* HomeView */,
@@ -404,7 +393,6 @@
 				11019FE324797C1B005591C3 /* Sizes.swift in Sources */,
 				110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */,
 				1187E62F2471AA6C00320334 /* StatisticsView.swift in Sources */,
-				113E891D246BE28D0070F018 /* MainNavigationView.swift in Sources */,
 				1102AD9124747651005FCB27 /* HapticFeedback.swift in Sources */,
 				113E8921246BF31D0070F018 /* NavigationObserver.swift in Sources */,
 			);

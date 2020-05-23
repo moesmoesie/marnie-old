@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationObserver = NavigationObserver()
         let keyboardObserver = KeyboardObserver()
         let filterObserver = FilterObserver(managedObjectContext: context)
-        let contentView = MainNavigationView()
+        let contentView = HomeView()
             .environment(\.managedObjectContext, context)
             .environmentObject(keyboardObserver)
             .environmentObject(navigationObserver)
