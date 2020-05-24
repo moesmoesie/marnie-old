@@ -12,6 +12,7 @@ import CoreData
 struct ListHeader : View {
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.colorScheme) var colorScheme
     @State var showFilterSheet = false
     
     let lucidFilter = FilterViewModel(filter: .lucid(true))
@@ -34,11 +35,16 @@ struct ListHeader : View {
     var body: some View{
         return
             ZStack(alignment:.bottom){
+                
                 Image("art1")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .edgesIgnoringSafeArea(.all)
                     .frame(maxWidth : UIScreen.main.bounds.width)
+                    .background(
+                        LinearGradient(gradient: .skyGradient(isDarkMode: colorScheme == .dark), startPoint: .bottom, endPoint: .top)
+                )
+                
                 VStack(alignment: .leading, spacing: 0){
                     
                     HStack(spacing: 0){
@@ -76,9 +82,6 @@ struct ListHeader : View {
                     }.padding(.horizontal, .medium)
                 }
             }.padding(.bottom, .medium)
-        
-        
-        
     }
     
     func onFilterPress(filter: FilterViewModel){
