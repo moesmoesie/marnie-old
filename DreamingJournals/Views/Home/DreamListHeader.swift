@@ -12,10 +12,24 @@ import CoreData
 struct ListHeader : View {
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
+    @State var showFilterSheet = false
+
     let lucidFilter = FilterViewModel(filter: .lucid(true))
     let nightmareFilter = FilterViewModel(filter: .nightmare(true))
     let bookmarkedFilter = FilterViewModel(filter: .bookmarked(true))
-    @State var showFilterSheet = false
+    
+    var isLucidFilterActive : Bool {
+        isFilterActive(filter: lucidFilter)
+    }
+    
+    var isNightmareFilterActive : Bool {
+        isFilterActive(filter: lucidFilter)
+    }
+    
+    var isBookmarkedFilterActive : Bool {
+        isFilterActive(filter: lucidFilter)
+    }
+
     
     var body: some View{
         return
@@ -26,38 +40,26 @@ struct ListHeader : View {
                 }
                 HStack{
                     
-                    FilterButton(iconName: "heart") {
-                                       if let index = self.getFilterIndex(filter: self.bookmarkedFilter){
-                                           self.filterObserver.filters.remove(at: index)
-                                       }else{
-                                           self.filterObserver.filters.append(self.bookmarkedFilter)
-                                       }
-                                   }
-                    
-                    Spacer()
-                    
-                    FilterButton(iconName: "eye") {
-                        if let index = self.getFilterIndex(filter: self.lucidFilter){
-                            self.filterObserver.filters.remove(at: index)
-                        }else{
-                            self.filterObserver.filters.append(self.lucidFilter)
-                        }
-                    }
-                                
-                    
-                    Spacer()
-                    
-                    FilterButton(iconName: "tropicalstorm") {
-                        if let index = self.getFilterIndex(filter: self.nightmareFilter){
-                            self.filterObserver.filters.remove(at: index)
-                        }else{
-                            self.filterObserver.filters.append(self.nightmareFilter)
-                        }
+                    FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive) {
+                        self.onFilterPress(filter: self.bookmarkedFilter)
                     }
                     
                     Spacer()
                     
-                    FilterButton(iconName: "tag") {
+                    FilterButton(iconName: "eye", isActive: isLucidFilterActive) {
+                        self.onFilterPress(filter: self.lucidFilter)
+                    }
+                    
+                    
+                    Spacer()
+                    
+                    FilterButton(iconName: "tropicalstorm", isActive: isNightmareFilterActive) {
+                        self.onFilterPress(filter: self.nightmareFilter)
+                    }
+                    
+                    Spacer()
+                    
+                    FilterButton(iconName: "tag", isActive: false) {
                         self.showFilterSheet = true
                     }.sheet(isPresented: self.$showFilterSheet){
                         DreamFilterSheetView()
@@ -71,6 +73,14 @@ struct ListHeader : View {
         
     }
     
+    func onFilterPress(filter: FilterViewModel){
+        if let index = self.getFilterIndex(filter: filter){
+            self.filterObserver.filters.remove(at: index)
+        }else{
+            self.filterObserver.filters.append(filter)
+        }
+    }
+    
     func getFilterIndex(filter : FilterViewModel) -> Int?{
         if let index = self.filterObserver.filters.firstIndex(where: { (checkFilter : FilterViewModel) in
             checkFilter.filter.areEqual(filter: filter.filter)
@@ -78,6 +88,14 @@ struct ListHeader : View {
             return index
         }
         return nil
+    }
+    
+    func isFilterActive(filter : FilterViewModel) -> Bool{
+        if getFilterIndex(filter: filter) == nil{
+            return false
+        }else{
+            return true
+        }
     }
     
     //MARK: - HELPER VIEWS
@@ -90,12 +108,14 @@ struct ListHeader : View {
 }
 
 struct FilterButton : View{
+    let isActive : Bool
     let action : () -> ()
     let iconName : String
     
-    init(iconName : String, action : @escaping () -> ()) {
+    init(iconName : String, isActive: Bool, action : @escaping () -> ()) {
         self.action = action
         self.iconName = iconName
+        self.isActive = isActive
     }
     
     var body: some View{
