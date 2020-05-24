@@ -13,30 +13,16 @@ import Combine
 class FilterObserver : ObservableObject{
     @Published var filters : [FilterViewModel] = []
     @Published var availableFilters : [FilterViewModel] = []
-    private let managedObjectContext : NSManagedObjectContext
-    private var cancellableSet: Set<AnyCancellable> = []
-
     private var allFilters : [FilterViewModel] = []
     
-    init(managedObjectContext : NSManagedObjectContext) {
-        self.managedObjectContext = managedObjectContext
-        self.onTagsUpdate()
-        NotificationCenter.default
-            .publisher(for: .NSManagedObjectContextDidSave, object: self.managedObjectContext)
-            .sink(receiveValue: { _ in
-                self.onTagsUpdate()
-            }).store(in: &cancellableSet)
-        
-        self.$filters.sink(receiveValue: onFilteredTagsUpdate)
-            .store(in: &cancellableSet)
-    }
-    
-    private func onTagsUpdate(){
-        let tagService = TagService(managedObjectContext: managedObjectContext)
-        tagService.deleteDreamlessTags()
-        self.allFilters = []
-        let tags = tagService.getUniqueTags()
-        let filterTags = tags.map({self.getTagFilter(tagViewModel: $0)})
+    func onTagsUpdate(tags : [TagViewModel]){
+        var uniqueTags : [TagViewModel] = []
+        for tag in tags{
+            if !uniqueTags.contains(tag){
+                uniqueTags.append(tag)
+            }
+        }
+        let filterTags = uniqueTags.map({self.getTagFilter(tagViewModel: $0)})
         let bookmarkFilter = FilterViewModel(filter : .bookmarked(true))
         self.allFilters.append(contentsOf: filterTags)
         self.allFilters.append(bookmarkFilter)
@@ -46,10 +32,9 @@ class FilterObserver : ObservableObject{
                 self.filters.remove(at: index)
             }
         }
-        
     }
     
-    private func onFilteredTagsUpdate(filters : [FilterViewModel]){
+    func onFilteredTagsUpdate(filters : [FilterViewModel]){
         for filter in allFilters{
             if !self.availableFilters.contains(where: {filter.filter.areEqual(filter: $0.filter)}){
                 self.availableFilters.append(filter)

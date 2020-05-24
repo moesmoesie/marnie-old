@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct DreamList : View {
     var dreams: [DreamViewModel]
@@ -16,6 +17,7 @@ struct DreamList : View {
     
     var body: some View{
         return List{
+            ListHeader()
             ForEach(dreamListItems){ (dream : DreamListItemModel) in
                 DreamListItemView(dreamListItem: dream)
                     .listRowInsets(EdgeInsets())
@@ -50,12 +52,13 @@ struct DreamListItemModel : Identifiable {
 }
 
 struct DreamListView_Previews: PreviewProvider {
-    
+    static var context = InMemoryCoreDataStack().managedObjectContext
     static var previews: some View {
         removeTableViewBackground()
         return ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
             DreamList(dreams: sampleData)
-        }
+        }.environment(\.managedObjectContext, context)
+        .environmentObject(FilterObserver())
     }
 }
