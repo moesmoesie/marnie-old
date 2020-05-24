@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let keyboardObserver = KeyboardObserver()
         let filterObserver = FilterObserver(managedObjectContext: context)
-        let contentView = HomeView()
+        let contentView = HomeContainer()
             .environment(\.managedObjectContext, context)
             .environmentObject(keyboardObserver)
             .environmentObject(filterObserver)

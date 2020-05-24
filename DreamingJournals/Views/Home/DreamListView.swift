@@ -10,21 +10,18 @@ import SwiftUI
 
 struct DreamList : View {
     var dreams: [DreamViewModel]
+    var dreamListItems : [DreamListItemModel]{
+        dreams.map({DreamListItemModel($0)})
+    }
     
     var body: some View{
-        List{
-            ListHeader()
-                .listRowInsets(EdgeInsets())
-                .padding(.leading, .medium)
-                .padding(.bottom, .small)
-            
-            ForEach(self.dreams.map({DreamListItemModel($0)})){ (dream : DreamListItemModel) in
-                DreamListItem(dreamListItem: dream)
+        return List{
+            ForEach(dreamListItems){ (dream : DreamListItemModel) in
+                DreamListItemView(dreamListItem: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(.bottom, .medium)
                     .padding(.horizontal, .medium)
             }
-            Spacer().frame(height : .large + getBottomSaveArea())
         }
     }
 }
@@ -49,5 +46,16 @@ struct DreamListItemModel : Identifiable {
     struct Detail : Identifiable{
         var id = UUID()
         var icon : Image
+    }
+}
+
+struct DreamListView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        removeTableViewBackground()
+        return ZStack{
+            Color.background1.edgesIgnoringSafeArea(.all)
+            DreamList(dreams: sampleData)
+        }
     }
 }

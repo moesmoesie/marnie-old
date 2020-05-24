@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DreamListItem : View {
+struct DreamListItemView : View {
     let dreamListItem : DreamListItemModel
     @State var showDetail = false
     
@@ -105,10 +105,10 @@ struct DreamListItem_Previews: PreviewProvider {
         return ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
             VStack(spacing: .medium){
-                DreamListItem(dreamListItem: DreamListItemModel(sampleData[0]))
+                DreamListItemView(dreamListItem: DreamListItemModel(sampleData[0]))
                     .padding(.horizontal, .medium)
                 
-                DreamListItem(dreamListItem: DreamListItemModel(sampleData[2]))
+                DreamListItemView(dreamListItem: DreamListItemModel(sampleData[2]))
                     .padding(.horizontal, .medium)
             }
         }
