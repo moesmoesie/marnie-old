@@ -24,6 +24,7 @@ class FilterObserver : ObservableObject{
         }
         let filterTags = uniqueTags.map({self.getTagFilter(tagViewModel: $0)})
         let bookmarkFilter = FilterViewModel(filter : .bookmarked(true))
+        self.allFilters = []
         self.allFilters.append(contentsOf: filterTags)
         self.allFilters.append(bookmarkFilter)
         self.availableFilters = allFilters
