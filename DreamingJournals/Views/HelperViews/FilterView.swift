@@ -21,6 +21,10 @@ struct FilterView : View {
             return AnyView(BookmarkedFilterView(isBookmarked: isBookmarked))
         case .tag(let tag):
             return AnyView(TagView(tag: tag))
+        case .lucid(let isLucid):
+            return AnyView(LucidFilterView(isLucid: isLucid))
+        case .nightmare(let isNightmare):
+            return AnyView(NightmareFilterView(isNightmare: isNightmare))
         }
     }
 }
@@ -33,3 +37,21 @@ struct BookmarkedFilterView: View {
         .offset(x: 0, y: 3)
      }
  }
+
+struct LucidFilterView: View {
+    
+    let isLucid : Bool
+    var body: some View {
+       Image(systemName: "heart.fill").foregroundColor(.accent1)
+       .offset(x: 0, y: 3)
+    }
+}
+
+struct NightmareFilterView: View {
+    
+    let isNightmare : Bool
+    var body: some View {
+       Image(systemName: "heart.fill").foregroundColor(.accent1)
+       .offset(x: 0, y: 3)
+    }
+}

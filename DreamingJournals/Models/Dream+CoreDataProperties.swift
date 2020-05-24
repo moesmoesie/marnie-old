@@ -1,8 +1,8 @@
 //
 //  Dream+CoreDataProperties.swift
-//  DreamBook
+//  DreamingJournals
 //
-//  Created by moesmoesie on 07/05/2020.
+//  Created by moesmoesie on 24/05/2020.
 //  Copyright © 2020 moesmoesie. All rights reserved.
 //
 //
@@ -22,6 +22,8 @@ extension Dream {
     @NSManaged public var isBookmarked: Bool
     @NSManaged public var text: String?
     @NSManaged public var title: String?
+    @NSManaged public var isLucid: Bool
+    @NSManaged public var isNightmare: Bool
     @NSManaged public var tags: NSOrderedSet?
     
     var wrappedTags : [Tag]{

@@ -4,6 +4,8 @@
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="609876060" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isBookmarked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isLucid" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isNightmare" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String" minValueString="1" maxValueString="40"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Tag" inverseName="dream" inverseEntity="Tag"/>
@@ -13,7 +15,7 @@
         <relationship name="dream" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Dream" inverseName="tags" inverseEntity="Dream"/>
     </entity>
     <elements>
-        <element name="Dream" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Dream" positionX="-63" positionY="-18" width="128" height="163"/>
         <element name="Tag" positionX="354.55859375" positionY="41.93359375" width="128" height="73"/>
     </elements>
 </model>

@@ -25,6 +25,8 @@ extension DreamService{
         dream.date = dreamViewModel.date
         dream.title = dreamViewModel.title
         dream.text = dreamViewModel.text
+        dream.isNightmare = dreamViewModel.isNightmare
+        dream.isLucid = dreamViewModel.isLucid
         
         for tagViewModel in dreamViewModel.tags {
             let tag = Tag(context: self.managedObjectContext)
@@ -52,6 +54,8 @@ extension DreamService{
         dream.text = dreamViewModel.text
         dream.isBookmarked = dreamViewModel.isBookmarked
         dream.date = dreamViewModel.date
+        dream.isNightmare = dreamViewModel.isNightmare
+        dream.isLucid = dreamViewModel.isLucid
         dream.tags = []
         for tagViewModel in dreamViewModel.tags {
             let tag = Tag(context: self.managedObjectContext)

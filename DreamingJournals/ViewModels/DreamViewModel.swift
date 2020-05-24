@@ -15,6 +15,8 @@ class DreamViewModel : ObservableObject, Identifiable{
     @Published var tags : [TagViewModel]
     @Published var date : Date
     @Published var isBookmarked : Bool
+    @Published var isLucid : Bool
+    @Published var isNightmare : Bool
     @Published var isNewDream : Bool
     
     init(dream : Dream){
@@ -24,8 +26,9 @@ class DreamViewModel : ObservableObject, Identifiable{
         self.date = dream.wrapperDate
         self.isNewDream = false
         self.isBookmarked = dream.isBookmarked
+        self.isLucid = dream.isLucid
+        self.isNightmare = dream.isNightmare
         self.tags = []
-        
         for tag in dream.wrappedTags{
             self.tags.append(TagViewModel(tag: tag))
         }
@@ -39,6 +42,8 @@ class DreamViewModel : ObservableObject, Identifiable{
         self.date = Date()
         self.id = UUID()
         self.isBookmarked = false
+        self.isNightmare = false
+        self.isLucid = false
         isNewDream = true
     }
     
@@ -48,7 +53,7 @@ class DreamViewModel : ObservableObject, Identifiable{
         return formatter.string(from: date)
     }
     
-    init(id : UUID, title : String, text: String, tags: [TagViewModel], date : Date, isBookmarked : Bool, isNewDream : Bool ){
+    init(id : UUID, title : String, text: String, tags: [TagViewModel], date : Date, isBookmarked : Bool, isNewDream : Bool, isNightmare : Bool = false, isLucid : Bool = false){
         self.id = id
         self.title = title
         self.text = text
@@ -56,6 +61,8 @@ class DreamViewModel : ObservableObject, Identifiable{
         self.date = date
         self.isBookmarked = isBookmarked
         self.isNewDream = isNewDream
+        self.isNightmare = isNightmare
+        self.isLucid = isLucid
     }
     
     func isEqualTo(_ dreamViewModel : DreamViewModel) -> Bool{
@@ -64,6 +71,9 @@ class DreamViewModel : ObservableObject, Identifiable{
             self.text == dreamViewModel.text &&
             self.tags == dreamViewModel.tags &&
             self.date == dreamViewModel.date &&
+            self.date == dreamViewModel.date &&
+            self.isNightmare == dreamViewModel.isNightmare &&
+            self.isLucid == dreamViewModel.isLucid &&
             self.isBookmarked == dreamViewModel.isBookmarked){
             return true
         }

@@ -16,12 +16,18 @@ struct FilterViewModel : Identifiable{
 enum Filter{
     case tag(TagViewModel)
     case bookmarked(Bool)
+    case lucid(Bool)
+    case nightmare(Bool)
     
     public func areEqual(filter : Self) -> Bool{
         switch (self,filter) {
         case let (.tag(a), .tag(b)):
             return a.text == b.text
         case let (.bookmarked(a), .bookmarked(b)):
+            return a == b
+        case let (.lucid(a), .lucid(b)):
+            return a == b
+        case let (.nightmare(a), .nightmare(b)):
             return a == b
         default:
             return false
@@ -41,10 +47,14 @@ enum Filter{
     
     static private func filterDream(_ dream : DreamViewModel, _ filter : Filter) -> Bool{
         switch filter {
-        case .bookmarked(let isBookmarked):
-            return bookmarkFilter(dream, isBookmarked)
-        case .tag(let tag):
-            return tagFilter(dream, tag)
+            case .bookmarked(let isBookmarked):
+                return bookmarkFilter(dream, isBookmarked)
+            case .lucid(let isLucid):
+                return lucidFilter(dream, isLucid)
+            case .nightmare(let isNightmare):
+                return lucidFilter(dream, isNightmare)
+            case .tag(let tag):
+                return tagFilter(dream, tag)
         }
     }
     
@@ -57,5 +67,19 @@ enum Filter{
             return true
         }
         return dream.isBookmarked
+    }
+    
+    static private func lucidFilter(_ dream : DreamViewModel, _ isLucid: Bool) -> Bool{
+        if !isLucid{
+            return true
+        }
+        return dream.isLucid
+    }
+    
+    static private func nightmareFilter(_ dream : DreamViewModel, _ isNightmare: Bool) -> Bool{
+        if !isNightmare{
+            return true
+        }
+        return dream.isNightmare
     }
 }
