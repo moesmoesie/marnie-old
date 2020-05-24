@@ -36,7 +36,7 @@ struct DreamListItemView : View {
         .padding(.medium)
         .background(Color.background1)
         .cornerRadius(30)
-        .shadow(radius: 12)
+        .primaryShadow()
         .onTapGesture {
             self.showDetail = true
         }
@@ -59,7 +59,7 @@ struct DreamListItemView : View {
                     .frame(width: .extraLarge, height: .extraLarge)
                     .background(Color.background1)
                     .cornerRadius(10)
-                    .shadow(color: Color.black.opacity(0.5), radius: 6, x: 2, y: 5)
+                    .secondaryShadow()
             }
         }
     }
@@ -67,7 +67,6 @@ struct DreamListItemView : View {
     private var tags : some View{
         CollectionView(data: dreamListItem.dream.tags, maxRows: 1) { tag in
             TagView(tag: tag)
-                .shadow(color: Color.black.opacity(0.4), radius: 6, x: 2, y: 5)
         }
     }
     

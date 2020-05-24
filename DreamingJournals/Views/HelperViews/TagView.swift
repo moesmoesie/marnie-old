@@ -19,5 +19,12 @@ struct TagView: View {
             .background(Color.background1)
             .foregroundColor(.main1)
             .clipShape(Capsule())
+            .secondaryShadow()
+    }
+}
+
+struct TagView_Previews: PreviewProvider {
+    static var previews: some View {
+        TagView(tag: TagViewModel(text: "Hello"))
     }
 }
