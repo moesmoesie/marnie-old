@@ -18,13 +18,14 @@ struct DreamList : View {
     var body: some View{
         return List{
             ListHeader()
+                .listRowInsets(EdgeInsets())
             ForEach(dreamListItems){ (dream : DreamListItemModel) in
                 DreamListItemView(dreamListItem: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
             }
-        }
+        }.edgesIgnoringSafeArea(.all)
     }
 }
 

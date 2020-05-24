@@ -16,10 +16,9 @@ struct TagView: View {
             .bold()
             .padding(.horizontal)
             .padding(.vertical,2)
-            .background(Color.background1)
+            .background(Color.background3)
             .foregroundColor(.main1)
             .clipShape(Capsule())
-            .secondaryShadow()
     }
 }
 

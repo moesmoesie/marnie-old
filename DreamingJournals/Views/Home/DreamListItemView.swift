@@ -57,9 +57,8 @@ struct DreamListItemView : View {
                     .imageScale(.medium)
                     .foregroundColor(.main1)
                     .frame(width: .extraLarge, height: .extraLarge)
-                    .background(Color.background1)
+                    .background(Color.background2)
                     .cornerRadius(10)
-                    .secondaryShadow()
             }
         }
     }

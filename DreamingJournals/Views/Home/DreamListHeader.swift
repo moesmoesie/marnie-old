@@ -13,7 +13,7 @@ struct ListHeader : View {
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
     @State var showFilterSheet = false
-
+    
     let lucidFilter = FilterViewModel(filter: .lucid(true))
     let nightmareFilter = FilterViewModel(filter: .nightmare(true))
     let bookmarkedFilter = FilterViewModel(filter: .bookmarked(true))
@@ -23,51 +23,59 @@ struct ListHeader : View {
     }
     
     var isNightmareFilterActive : Bool {
-        isFilterActive(filter: lucidFilter)
+        isFilterActive(filter: nightmareFilter)
     }
     
     var isBookmarkedFilterActive : Bool {
-        isFilterActive(filter: lucidFilter)
+        isFilterActive(filter: bookmarkedFilter)
     }
-
+    
     
     var body: some View{
         return
-            VStack(alignment: .leading, spacing: 0){
-                HStack(spacing: 0){
-                    title.padding(.leading, .extraSmall)
-                    Spacer()
+            ZStack(alignment:.bottom){
+                Image("art1")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(maxWidth : UIScreen.main.bounds.width)
+                VStack(alignment: .leading, spacing: 0){
+                    
+                    HStack(spacing: 0){
+                        title.padding(.leading, .medium)
+                        Spacer()
+                    }.offset(y : -.extraLarge)
+                    HStack{
+                        
+                        FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive, filterText: "Liked") {
+                            self.onFilterPress(filter: self.bookmarkedFilter)
+                        }
+                        
+                        Spacer()
+                        
+                        FilterButton(iconName: "eye", isActive: isLucidFilterActive, filterText: "Lucid") {
+                            self.onFilterPress(filter: self.lucidFilter)
+                        }
+                        
+                        
+                        Spacer()
+                        
+                        FilterButton(iconName: "tropicalstorm", isActive: isNightmareFilterActive, filterText: "Nightmare") {
+                            self.onFilterPress(filter: self.nightmareFilter)
+                        }
+                        
+                        Spacer()
+                        
+                        FilterButton(iconName: "tag", isActive: false, filterText: "tags") {
+                            self.showFilterSheet = true
+                        }.sheet(isPresented: self.$showFilterSheet){
+                            DreamFilterSheetView()
+                                .environmentObject(self.filterObserver)
+                                .environment(\.managedObjectContext, self.moc)
+                        }
+                    }.padding(.horizontal, .medium)
                 }
-                HStack{
-                    
-                    FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive) {
-                        self.onFilterPress(filter: self.bookmarkedFilter)
-                    }
-                    
-                    Spacer()
-                    
-                    FilterButton(iconName: "eye", isActive: isLucidFilterActive) {
-                        self.onFilterPress(filter: self.lucidFilter)
-                    }
-                    
-                    
-                    Spacer()
-                    
-                    FilterButton(iconName: "tropicalstorm", isActive: isNightmareFilterActive) {
-                        self.onFilterPress(filter: self.nightmareFilter)
-                    }
-                    
-                    Spacer()
-                    
-                    FilterButton(iconName: "tag", isActive: false) {
-                        self.showFilterSheet = true
-                    }.sheet(isPresented: self.$showFilterSheet){
-                        DreamFilterSheetView()
-                            .environmentObject(self.filterObserver)
-                            .environment(\.managedObjectContext, self.moc)
-                    }
-                }.padding(.horizontal, .small)
-        }
+            }.padding(.bottom, .medium)
         
         
         
@@ -102,7 +110,7 @@ struct ListHeader : View {
     
     private var title : some View{
         Text("Dreams")
-            .font(Font.secondaryLarge)
+            .font(.system(size: 60, weight: .regular, design: .serif))
             .foregroundColor(.main1)
     }
 }
@@ -111,22 +119,29 @@ struct FilterButton : View{
     let isActive : Bool
     let action : () -> ()
     let iconName : String
+    let filterText : String
     
-    init(iconName : String, isActive: Bool, action : @escaping () -> ()) {
+    init(iconName : String, isActive: Bool,filterText: String, action : @escaping () -> ()) {
         self.action = action
         self.iconName = iconName
         self.isActive = isActive
+        self.filterText = filterText
     }
     
     var body: some View{
-        Image(systemName: iconName)
-            .imageScale(.large)
-            .foregroundColor(.main1)
-            .frame(width: .extraLarge + 20, height: .extraLarge + 20)
-            .background(Color.background1)
-            .cornerRadius(10)
-            .secondaryShadow()
-            .onTapGesture(perform: action)
+        VStack {
+            Image(systemName: iconName)
+                .imageScale(.large)
+                .foregroundColor(isActive ? .accent1 : .main1 )
+                .shadow(color: isActive ? Color.accent1.opacity(0.3) : .clear, radius: 10, x: 0, y: 0)
+                .frame(width: .extraLarge + 20, height: .extraLarge + 20)
+                .background(Color.background3)
+                .cornerRadius(10)
+                .onTapGesture(perform: action)
+                .primaryShadow()
+            
+            Text(filterText).font(.caption).foregroundColor(Color.main1.opacity(0.7))
+        }
     }
 }
 
