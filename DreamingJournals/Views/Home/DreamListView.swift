@@ -19,7 +19,7 @@ struct DreamList : View {
             ForEach(dreamListItems){ (dream : DreamListItemModel) in
                 DreamListItemView(dreamListItem: dream)
                     .listRowInsets(EdgeInsets())
-                    .padding(.bottom, .medium)
+                    .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
             }
         }
