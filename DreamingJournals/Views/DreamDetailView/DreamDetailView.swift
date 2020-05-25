@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DreamDetailView: View {
     let dream : DreamViewModel
+    let oldDream : OldDream
     @ObservedObject var editorObserver = EditorObserver()
     @ObservedObject var suggestionTagsObserver : SuggestionTagsObserver
     @EnvironmentObject var keyboardObserver : KeyboardObserver
@@ -18,6 +19,7 @@ struct DreamDetailView: View {
         let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
         let tagService = TagService(managedObjectContext: context)
         self.suggestionTagsObserver = SuggestionTagsObserver(allTags: tagService.getUniqueTags())
+        self.oldDream = OldDream(dream)
         self.dream = dream.getCopy()
     }
     
@@ -25,6 +27,7 @@ struct DreamDetailView: View {
         DreamDetailContentView()
             .environmentObject(dream)
             .environmentObject(editorObserver)
+            .environmentObject(oldDream)
             .environmentObject(suggestionTagsObserver)
             .onReceive(editorObserver.$currentMode, perform: { (mode) in
                 if mode == .actionMode{
@@ -77,6 +80,14 @@ struct BlurView : View {
         ZStack{
             Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
         }
+    }
+}
+
+class OldDream : ObservableObject{
+    let dream : DreamViewModel
+    
+    init(_ oldDream : DreamViewModel) {
+        self.dream = oldDream
     }
 }
 

@@ -9,11 +9,28 @@
 import SwiftUI
 
 struct DreamDetailTopBar: View {
+    @EnvironmentObject var dream : DreamViewModel
+    @EnvironmentObject var oldDream : OldDream
+    @State var showSaveButton = false
     var body: some View {
+        onViewUpdate()
         return HStack(alignment : .center,spacing : .medium){
             BackButton()
             Spacer()
-            SaveButton()
+            if showSaveButton{
+                SaveButton()
+                    .transition(.offset(x: .extraLarge * 2))
+                    .animation(.easeInOut)
+            }
+        }
+    }
+    
+    func onViewUpdate(){
+        let isDreamChanged = dream.isEqualTo(oldDream.dream)
+        if showSaveButton == isDreamChanged{
+            DispatchQueue.main.async {
+                self.showSaveButton.toggle()
+            }
         }
     }
 }
