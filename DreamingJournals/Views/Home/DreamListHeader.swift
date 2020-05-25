@@ -19,23 +19,6 @@ struct ListHeader : View {
     let nightmareFilter = FilterViewModel(filter: .nightmare(true))
     let bookmarkedFilter = FilterViewModel(filter: .bookmarked(true))
     
-    var isLucidFilterActive : Bool {
-        isFilterActive(filter: lucidFilter)
-    }
-    
-    var isNightmareFilterActive : Bool {
-        isFilterActive(filter: nightmareFilter)
-    }
-    
-    var isBookmarkedFilterActive : Bool {
-        isFilterActive(filter: bookmarkedFilter)
-    }
-    
-    var isTagsFilterActive : Bool {
-        filterObserver.filters.contains(where: {$0.filter.areEqualType(filter: .tag(TagViewModel(text: "")))})
-    }
-    
-    
     var body: some View{
         let headerHeight = UIScreen.main.bounds.height / 2
         
@@ -71,14 +54,6 @@ struct ListHeader : View {
         return nil
     }
     
-    func isFilterActive(filter : FilterViewModel) -> Bool{
-        if getFilterIndex(filter: filter) == nil{
-            return false
-        }else{
-            return true
-        }
-    }
-    
     //MARK: - HELPER VIEWS
     
     private var title : some View{
@@ -90,26 +65,38 @@ struct ListHeader : View {
     private var filterButtons : some View{
         HStack{
             
-            FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive, filterText: "Liked") {
+            FilterButton(
+                iconName: "heart",
+                isActive: filterObserver.isFilterTypeActive(filter: bookmarkedFilter),
+                filterText: "Liked") {
                 self.onFilterPress(filter: self.bookmarkedFilter)
             }
             
             Spacer()
             
-            FilterButton(iconName: "eye", isActive: isLucidFilterActive, filterText: "Lucid") {
+            FilterButton(
+                iconName: "eye",
+                isActive: filterObserver.isFilterTypeActive(filter: lucidFilter),
+                filterText: "Lucid") {
                 self.onFilterPress(filter: self.lucidFilter)
             }
             
             
             Spacer()
             
-            FilterButton(iconName: "tropicalstorm", isActive: isNightmareFilterActive, filterText: "Nightmare") {
+            FilterButton(
+                iconName: "tropicalstorm",
+                isActive: filterObserver.isFilterTypeActive(filter: nightmareFilter),
+                filterText: "Nightmare") {
                 self.onFilterPress(filter: self.nightmareFilter)
             }
             
             Spacer()
             
-            FilterButton(iconName: "tag", isActive: isTagsFilterActive, filterText: "tags") {
+            FilterButton(
+                iconName: "tag",
+                isActive: filterObserver.isFilterTypeActive(filter: FilterViewModel(filter: .tag(TagViewModel(text: "")))),
+                filterText: "tags") {
                 self.showFilterSheet = true
             }.sheet(isPresented: self.$showFilterSheet){
                 DreamFilterSheetView()

@@ -15,6 +15,36 @@ class FilterObserver : ObservableObject{
     @Published var availableFilters : [FilterViewModel] = []
     private var allFilters : [FilterViewModel] = []
     
+    var containsTagFilter : Bool{
+        filters.contains(where: {$0.filter.areEqualType(filter: .tag(TagViewModel(text: "")))})
+    }
+    
+    var containsBookmarkFilter : Bool{
+        filters.contains(where: {$0.filter.areEqualType(filter: .bookmarked(false))})
+    }
+    
+    var containsNightmareFilter : Bool{
+        filters.contains(where: {$0.filter.areEqualType(filter: .nightmare(false))})
+    }
+    
+    var containsLucidFilter : Bool{
+        filters.contains(where: {$0.filter.areEqualType(filter: .lucid(false))})
+    }
+    
+    
+    func isFilterTypeActive(filter : FilterViewModel) -> Bool{
+        switch filter.filter {
+        case .bookmarked(_):
+            return containsBookmarkFilter
+        case .lucid(_):
+            return containsLucidFilter
+        case .nightmare(_):
+            return containsNightmareFilter
+        case .tag(_):
+            return containsTagFilter
+        }
+    }
+    
     func onTagsUpdate(tags : [TagViewModel]){
         var uniqueTags : [TagViewModel] = []
         for tag in tags{

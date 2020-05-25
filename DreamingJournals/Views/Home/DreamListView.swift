@@ -40,21 +40,22 @@ struct DreamListItemModel : Identifiable {
         self.dream = dream
         self.details = []
            if dream.isBookmarked{
-            self.details.append(Detail(icon: "heart"))
+            self.details.append(Detail(icon: "heart", filter: .bookmarked(false)))
         }
         
         if dream.isLucid{
-            self.details.append(Detail(icon: "eye"))
+            self.details.append(Detail(icon: "eye", filter: .lucid(false)))
         }
         
         if dream.isNightmare{
-            self.details.append(Detail(icon: "tropicalstorm"))
+            self.details.append(Detail(icon: "tropicalstorm", filter: .nightmare(false)))
         }
     }
     
     struct Detail : Identifiable{
         var id = UUID()
         var icon : String
+        var filter : Filter
     }
 }
 

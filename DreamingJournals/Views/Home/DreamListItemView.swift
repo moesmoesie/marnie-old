@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct DreamListItemView : View {
+    @EnvironmentObject var filterObserver : FilterObserver
     let dreamListItem : DreamListItemModel
     @State var showDetail = false
     
@@ -55,7 +56,10 @@ struct DreamListItemView : View {
     private var details : some View{
         HStack(spacing: .medium){
             ForEach(dreamListItem.details){(detail : DreamListItemModel.Detail) in
-                CustomIconButton(iconName: detail.icon, iconSize: .small)
+                CustomIconButton(
+                    iconName: detail.icon,
+                    iconSize: .small,
+                    isActive: self.filterObserver.isFilterTypeActive(filter: FilterViewModel(filter: detail.filter)))
             }
         }
     }
