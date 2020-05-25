@@ -12,6 +12,7 @@ import CoreData
 struct ListHeader : View {
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.colorScheme) var colorScheme
     @State var showFilterSheet = false
     
     let lucidFilter = FilterViewModel(filter: .lucid(true))
@@ -32,19 +33,21 @@ struct ListHeader : View {
     
     
     var body: some View{
+        let headerHeight = UIScreen.main.bounds.height / 2
+        
         return
             ZStack(alignment:.bottom){
-                Mountains()
-                
+                Sky(mainHeight: headerHeight)
+                Mountains(height: headerHeight)
                 VStack(alignment: .leading, spacing: 0){
-                    title
+                    self.title
                         .padding(.leading, .medium)
                         .padding(.bottom, .extraLarge)
                     
-                    filterButtons
+                    self.filterButtons
                         .padding(.horizontal, .medium)
-                }.padding(.bottom, .medium)
-            }
+                }
+            }.frame(height  : headerHeight, alignment: .bottom)
     }
     
     func onFilterPress(filter: FilterViewModel){
@@ -111,10 +114,6 @@ struct ListHeader : View {
             }
         }
     }
-    
-    
-    
-    
 }
 
 struct FilterButton : View{
@@ -141,23 +140,35 @@ struct FilterButton : View{
                 .cornerRadius(10)
                 .onTapGesture(perform: action)
                 .primaryShadow()
-            
             Text(filterText).font(.caption).foregroundColor(Color.main1.opacity(0.7))
         }
     }
 }
 
-struct Mountains : View {
+struct Sky : View {
     @Environment(\.colorScheme) var colorScheme
+    let mainHeight : CGFloat
+    var body: some View{
+        let totalHeight = mainHeight * 10
+        let isDarkmode = colorScheme == .dark
+        return LinearGradient(
+            gradient: Gradient.skyGradient(darkMode: isDarkmode,
+                                            totalHeight: totalHeight,
+                                            mainHeight: mainHeight),
+            startPoint: .bottom,
+            endPoint: .top)
+            .frame(height : totalHeight)
+    }
+}
+
+struct Mountains : View {
+    let height : CGFloat
     var body: some View{
         Image("art1")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .edgesIgnoringSafeArea(.all)
-            .frame(maxWidth : UIScreen.main.bounds.width)
-            .background(
-                LinearGradient(gradient: .skyGradient(isDarkMode: colorScheme == .dark), startPoint: .bottom, endPoint: .top)
-        )
+            .frame(maxWidth:UIScreen.main.bounds.width)
     }
 }
 
