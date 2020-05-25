@@ -53,7 +53,7 @@ class DreamViewModel : ObservableObject, Identifiable{
         return formatter.string(from: date)
     }
     
-    init(id : UUID, title : String, text: String, tags: [TagViewModel], date : Date, isBookmarked : Bool, isNewDream : Bool, isNightmare : Bool = false, isLucid : Bool = false){
+    init(id : UUID, title : String, text: String, tags: [TagViewModel], date : Date, isBookmarked : Bool, isNewDream : Bool, isNightmare : Bool, isLucid : Bool){
         self.id = id
         self.title = title
         self.text = text
@@ -81,6 +81,6 @@ class DreamViewModel : ObservableObject, Identifiable{
     }
     
     func getCopy() -> DreamViewModel{
-        DreamViewModel(id: self.id, title: self.title, text: self.text, tags: self.tags, date: self.date, isBookmarked: self.isBookmarked, isNewDream: self.isNewDream)
+        DreamViewModel(id: self.id, title: self.title, text: self.text, tags: self.tags, date: self.date, isBookmarked: self.isBookmarked, isNewDream: self.isNewDream, isNightmare: self.isNightmare, isLucid: self.isLucid)
     }
 }

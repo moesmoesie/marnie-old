@@ -93,7 +93,9 @@ class CustomHostingController<Content>: UIHostingController<Content> where Conte
                    tags: [TagViewModel(text: "Joy"),TagViewModel(text: "Zombies"), TagViewModel(text: "Happiness"),TagViewModel(text: "Anger")],
                    date: Date(),
                    isBookmarked: false,
-                   isNewDream: false
+                   isNewDream: false,
+                   isNightmare: false,
+                   isLucid:  true
     ),
     
     DreamViewModel(id: UUID(),
@@ -102,7 +104,9 @@ class CustomHostingController<Content>: UIHostingController<Content> where Conte
                    tags: [TagViewModel(text: "Tea"),TagViewModel(text: "Jeremy"), TagViewModel(text: "KFC"), TagViewModel(text: "Milk")  ],
                    date: Date(timeInterval: -123120, since: Date()),
                    isBookmarked: false,
-                   isNewDream: false
+                   isNewDream: false,
+                   isNightmare: true,
+                   isLucid:false
     ),
     
     DreamViewModel(id: UUID(),
@@ -111,6 +115,8 @@ class CustomHostingController<Content>: UIHostingController<Content> where Conte
                    tags: [TagViewModel(text: "Death"),TagViewModel(text: "Sadness"), TagViewModel(text: "Grief"), TagViewModel(text: "Killer Robot")],
                    date: Date(timeInterval: -1000000, since: Date()),
                    isBookmarked: true,
-                   isNewDream: false
+                   isNewDream: false,
+                   isNightmare: false,
+                  isLucid:  false
     ),
 ]
