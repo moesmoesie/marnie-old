@@ -55,38 +55,19 @@ struct DreamDetailContentView : View {
     @EnvironmentObject var editorObserver : EditorObserver
     
     var body: some View{
-        GeometryReader{ geo in
-            ZStack(alignment: .bottom){
-                Color.background1.edgesIgnoringSafeArea(.all)
-                VStack(spacing: .small){
-                    DreamDetailTopBar()
-                    DreamDetailMainContentView()
-                        .padding(.horizontal, .medium)
-                }.navigationBarTitle("",displayMode: .inline)
-                    .navigationBarHidden(true)
-                
-                DreamDetailKeyboardBar()
-                
-                BlurView()
-                    .opacity(self.editorObserver.isInTagMode || self.editorObserver.currentMode == Modes.actionMode ? 1 : 0)
-                    .disabled(!(self.editorObserver.isInTagMode || self.editorObserver.currentMode == Modes.actionMode))
-                    .animation(.easeInOut)
+        ZStack(alignment: .bottom){
+            Color.background1
+            VStack(spacing: .small){
+                DreamDetailTopBar()
+                DreamDetailMainContentView()
+                    .padding(.horizontal, .medium)
+            }.padding(.top, getTopSaveArea())
             
-                TagEditView(geo: geo)
-                    .frame(height : geo.size.height, alignment: .top)
-                    .opacity(self.editorObserver.isInTagMode ? 1 : 0)
-                    .offset(x : 0, y : self.editorObserver.isInTagMode ? 0 : -30)
-                    .disabled(!self.editorObserver.isInTagMode)
-                
-                ActionAlert(geo : geo)
-                    .frame(height : geo.size.height, alignment: .bottom)
-                    .animation(nil)
-                    .opacity(self.editorObserver.currentMode == .actionMode ? 1 : 0)
-                    .offset(x:0, y:self.editorObserver.currentMode == .actionMode ? 0 : 200)
-                    .disabled(self.editorObserver.currentMode != .actionMode)
-                    .animation(.easeInOut)
-            }
-        }
+            DreamDetailBottomBar()
+            DreamDetailKeyboardBar()
+        }.edgesIgnoringSafeArea(.all)
+        .navigationBarTitle("",displayMode: .inline)
+        .navigationBarHidden(true)
     }
 }
 
