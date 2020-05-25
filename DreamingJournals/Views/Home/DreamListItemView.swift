@@ -27,8 +27,10 @@ struct DreamListItemView : View {
             textView
                 .padding(.bottom, .small)
             
-            seperator
-                .padding(.bottom,.small)
+            if !dreamListItem.details.isEmpty{
+                seperator
+                    .padding(.bottom,.small)
+            }
             
             details
         }
@@ -53,12 +55,7 @@ struct DreamListItemView : View {
     private var details : some View{
         HStack(spacing: .medium){
             ForEach(dreamListItem.details){(detail : DreamListItemModel.Detail) in
-                detail.icon
-                    .imageScale(.medium)
-                    .foregroundColor(.main1)
-                    .frame(width: .extraLarge, height: .extraLarge)
-                    .background(Color.background2)
-                    .cornerRadius(10)
+                CustomIconButton(iconName: detail.icon, iconSize: .small)
             }
         }
     }

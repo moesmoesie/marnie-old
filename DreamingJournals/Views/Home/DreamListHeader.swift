@@ -31,6 +31,10 @@ struct ListHeader : View {
         isFilterActive(filter: bookmarkedFilter)
     }
     
+    var isTagsFilterActive : Bool {
+        !filterObserver.filters.isEmpty
+    }
+    
     
     var body: some View{
         let headerHeight = UIScreen.main.bounds.height / 2
@@ -88,6 +92,7 @@ struct ListHeader : View {
             
             FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive, filterText: "Liked") {
                 self.onFilterPress(filter: self.bookmarkedFilter)
+                print(self.isBookmarkedFilterActive)
             }
             
             Spacer()
@@ -105,7 +110,7 @@ struct ListHeader : View {
             
             Spacer()
             
-            FilterButton(iconName: "tag", isActive: false, filterText: "tags") {
+            FilterButton(iconName: "tag", isActive: isTagsFilterActive, filterText: "tags") {
                 self.showFilterSheet = true
             }.sheet(isPresented: self.$showFilterSheet){
                 DreamFilterSheetView()
@@ -131,15 +136,7 @@ struct FilterButton : View{
     
     var body: some View{
         VStack {
-            Image(systemName: iconName)
-                .imageScale(.large)
-                .foregroundColor(isActive ? .accent1 : .main1 )
-                .shadow(color: isActive ? Color.accent1.opacity(0.3) : .clear, radius: 10, x: 0, y: 0)
-                .frame(width: .extraLarge + 20, height: .extraLarge + 20)
-                .background(Color.background3)
-                .cornerRadius(10)
-                .onTapGesture(perform: action)
-                .primaryShadow()
+            CustomIconButton(iconName: iconName, iconSize: .large,isActive: isActive, action: action)
             Text(filterText).font(.caption).foregroundColor(Color.main1.opacity(0.7))
         }
     }

@@ -23,29 +23,29 @@ struct DreamDetailBottomBar: View {
             HStack{
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "heart", isActive: dream.isBookmarked){
+                    CustomIconButton(iconName: "heart", iconSize: .medium, isActive: dream.isBookmarked) {
                         self.toggle(value: self.$dream.isBookmarked)
                     }
                 }
                 
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "eye", isActive: dream.isLucid){
+                    CustomIconButton(iconName: "eye", iconSize: .medium, isActive:  dream.isLucid) {
                         self.toggle(value: self.$dream.isLucid)
                     }
                 }
                 
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "tropicalstorm", isActive: dream.isNightmare){
+                    CustomIconButton(iconName: "tropicalstorm", iconSize: .medium, isActive: dream.isNightmare) {
                         self.toggle(value: self.$dream.isNightmare)
                     }
                 }
                 
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "tag", isActive: false){
-                        self.editorObserver.currentMode = Modes.tagMode
+                    CustomIconButton(iconName: "tag", iconSize: .medium){
+                        self.toggle(value: self.$dream.isNightmare)
                     }.sheet(isPresented: $showSheet, onDismiss: {
                         self.editorObserver.currentMode = Modes.regularMode
                     }){
@@ -56,7 +56,7 @@ struct DreamDetailBottomBar: View {
                 }
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "trash", isActive: false, action: self.deleteDream)
+                    CustomIconButton(iconName: "trash", iconSize: .medium, action: self.deleteDream)
                     Spacer()
                 }
             }.padding(.top, .medium)
