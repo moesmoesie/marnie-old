@@ -16,21 +16,27 @@ struct DreamDetailKeyboardBar: View {
     @State var prevState : Modes = .regularMode
 
     var body: some View {
-        return HStack(alignment: .bottom){
+        return HStack(alignment: .center){
             SuggestionTags()
                 .padding(.bottom , .extraSmall)
             
             Spacer()
             
-            DimissKeyboardButton()
-                .padding(.bottom, .extraSmall)
-                .padding(.trailing, .medium)
+            CustomIconButton(iconName: "tag", iconSize: .small, isActive: false) {
+                self.editorObserver.currentMode = Modes.tagMode
+            }.padding(.trailing, .medium)
+            .padding(.bottom, .small)
+            
+            CustomIconButton(iconName: "chevron.down.square", iconSize: .small, isActive: false) {
+                self.keyboardObserver.dismissKeyboard()
+            }.padding(.trailing, .medium)
+            .padding(.bottom, .small)
             
         }
-        .padding(.bottom, keyboardObserver.height)
+        .padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.height : 100)
         .opacity(keyboardObserver.isKeyboardShowing && !editorObserver.isInTagMode && !hideKeyboard ? 1 : 0)
         .disabled(!keyboardObserver.isKeyboardShowing)
-        .animation(.easeIn)
+        .animation(.easeOut(duration: 0.4))
         .onReceive(editorObserver.$currentMode) { (mode) in
             if self.prevState == .tagMode{
                 self.hideKeyboard = true
@@ -49,7 +55,7 @@ struct SuggestionTags : View {
     @EnvironmentObject var dream : DreamViewModel
     
     var body : some View{
-        let tagsToShow = self.suggestionTagsObserver.tags.filter({!self.dream.tags.contains($0)}).suffix(3)
+        let tagsToShow = self.suggestionTagsObserver.tags.filter({!self.dream.tags.contains($0)}).suffix(2)
         return
             ForEach(tagsToShow) { (tag : TagViewModel) in
                 TagView(tag: tag)
