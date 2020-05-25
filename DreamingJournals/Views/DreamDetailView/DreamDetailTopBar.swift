@@ -27,7 +27,7 @@ private struct SaveButton : View{
     @State var message = ""
     
     var body: some View{
-        Button(action:saveDream){
+        Button(action: dream.isNewDream ? saveDream : updateDream){
             Text(dream.isNewDream ?  "Save" : "Update")
                 .foregroundColor(.main1)
                 .font(.primaryLarge)
@@ -35,6 +35,8 @@ private struct SaveButton : View{
         }.buttonStyle(PlainButtonStyle())
             .alert(isPresented: $showAlert, content: InvalidSaveAlert)
     }
+    
+    
     
     func saveDream(){
         mediumFeedback()
@@ -53,6 +55,23 @@ private struct SaveButton : View{
     
     func InvalidSaveAlert() -> Alert{
         Alert(title: Text(self.dream.isNewDream ? "Invalid Save" : "Invalid Update"), message: Text(self.message), dismissButton: .default(Text("OK")))
+    }
+    
+    func updateDream(){
+        mediumFeedback()
+        let dreamService = DreamService(managedObjectContext: self.moc)
+        self.showAlert = false
+        
+        do {
+            try dreamService.updateDream(dreamViewModel: dream)
+            presentationMode.wrappedValue.dismiss()
+        } catch DreamService.DreamError.invalidUpdate(let message){
+            self.message = message
+        } catch DreamService.DreamError.updatingNonExistingDream{
+            self.saveDream()
+        } catch{
+            print("Unexpected error: \(error).")
+        }
     }
 }
 
