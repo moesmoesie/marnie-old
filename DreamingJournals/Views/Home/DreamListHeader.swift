@@ -12,7 +12,6 @@ import CoreData
 struct ListHeader : View {
     @EnvironmentObject var filterObserver : FilterObserver
     @Environment(\.managedObjectContext) var moc
-    @Environment(\.colorScheme) var colorScheme
     @State var showFilterSheet = false
     
     let lucidFilter = FilterViewModel(filter: .lucid(true))
@@ -35,53 +34,17 @@ struct ListHeader : View {
     var body: some View{
         return
             ZStack(alignment:.bottom){
-                
-                Image("art1")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .edgesIgnoringSafeArea(.all)
-                    .frame(maxWidth : UIScreen.main.bounds.width)
-                    .background(
-                        LinearGradient(gradient: .skyGradient(isDarkMode: colorScheme == .dark), startPoint: .bottom, endPoint: .top)
-                )
+                Mountains()
                 
                 VStack(alignment: .leading, spacing: 0){
+                    title
+                        .padding(.leading, .medium)
+                        .padding(.bottom, .extraLarge)
                     
-                    HStack(spacing: 0){
-                        title.padding(.leading, .medium)
-                        Spacer()
-                    }.offset(y : -.extraLarge)
-                    HStack{
-                        
-                        FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive, filterText: "Liked") {
-                            self.onFilterPress(filter: self.bookmarkedFilter)
-                        }
-                        
-                        Spacer()
-                        
-                        FilterButton(iconName: "eye", isActive: isLucidFilterActive, filterText: "Lucid") {
-                            self.onFilterPress(filter: self.lucidFilter)
-                        }
-                        
-                        
-                        Spacer()
-                        
-                        FilterButton(iconName: "tropicalstorm", isActive: isNightmareFilterActive, filterText: "Nightmare") {
-                            self.onFilterPress(filter: self.nightmareFilter)
-                        }
-                        
-                        Spacer()
-                        
-                        FilterButton(iconName: "tag", isActive: false, filterText: "tags") {
-                            self.showFilterSheet = true
-                        }.sheet(isPresented: self.$showFilterSheet){
-                            DreamFilterSheetView()
-                                .environmentObject(self.filterObserver)
-                                .environment(\.managedObjectContext, self.moc)
-                        }
-                    }.padding(.horizontal, .medium)
-                }
-            }.padding(.bottom, .medium)
+                    filterButtons
+                        .padding(.horizontal, .medium)
+                }.padding(.bottom, .medium)
+            }
     }
     
     func onFilterPress(filter: FilterViewModel){
@@ -116,6 +79,42 @@ struct ListHeader : View {
             .font(.system(size: 60, weight: .regular, design: .serif))
             .foregroundColor(.main1)
     }
+    
+    private var filterButtons : some View{
+        HStack{
+            
+            FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive, filterText: "Liked") {
+                self.onFilterPress(filter: self.bookmarkedFilter)
+            }
+            
+            Spacer()
+            
+            FilterButton(iconName: "eye", isActive: isLucidFilterActive, filterText: "Lucid") {
+                self.onFilterPress(filter: self.lucidFilter)
+            }
+            
+            
+            Spacer()
+            
+            FilterButton(iconName: "tropicalstorm", isActive: isNightmareFilterActive, filterText: "Nightmare") {
+                self.onFilterPress(filter: self.nightmareFilter)
+            }
+            
+            Spacer()
+            
+            FilterButton(iconName: "tag", isActive: false, filterText: "tags") {
+                self.showFilterSheet = true
+            }.sheet(isPresented: self.$showFilterSheet){
+                DreamFilterSheetView()
+                    .environmentObject(self.filterObserver)
+                    .environment(\.managedObjectContext, self.moc)
+            }
+        }
+    }
+    
+    
+    
+    
 }
 
 struct FilterButton : View{
@@ -145,6 +144,20 @@ struct FilterButton : View{
             
             Text(filterText).font(.caption).foregroundColor(Color.main1.opacity(0.7))
         }
+    }
+}
+
+struct Mountains : View {
+    @Environment(\.colorScheme) var colorScheme
+    var body: some View{
+        Image("art1")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .edgesIgnoringSafeArea(.all)
+            .frame(maxWidth : UIScreen.main.bounds.width)
+            .background(
+                LinearGradient(gradient: .skyGradient(isDarkMode: colorScheme == .dark), startPoint: .bottom, endPoint: .top)
+        )
     }
 }
 
