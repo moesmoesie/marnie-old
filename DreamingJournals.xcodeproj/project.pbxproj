@@ -11,7 +11,6 @@
 		11019FE324797C1B005591C3 /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11019FE224797C1B005591C3 /* Sizes.swift */; };
 		11019FE52479888B005591C3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11019FE42479888B005591C3 /* Colors.swift */; };
 		1102AD9124747651005FCB27 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102AD9024747651005FCB27 /* HapticFeedback.swift */; };
-		1102AD9524749CB3005FCB27 /* ActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1102AD9424749CB3005FCB27 /* ActionAlert.swift */; };
 		110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F224530F6700C7B797 /* AppDelegate.swift */; };
 		110F88F524530F6700C7B797 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F88F424530F6700C7B797 /* SceneDelegate.swift */; };
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
@@ -32,7 +31,6 @@
 		1182E35E24634C4800C41E3E /* DreamDetailTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */; };
 		1182E36024634EDC00C41E3E /* DreamDetailMainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */; };
 		1187E6322471F68E00320334 /* EditorObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1187E6312471F68E00320334 /* EditorObserver.swift */; };
-		1187E6342471FA1D00320334 /* TagEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1187E6332471FA1D00320334 /* TagEditView.swift */; };
 		118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118EA0E62453286900A2446F /* DreamDetailView.swift */; };
 		119267A42472D64900696B74 /* SuggestionTagsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119267A32472D64900696B74 /* SuggestionTagsObserver.swift */; };
 		11944D7F24695E5F00A8A3B2 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11944D7E24695E5F00A8A3B2 /* CustomTextView.swift */; };
@@ -61,7 +59,6 @@
 		11019FE224797C1B005591C3 /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		11019FE42479888B005591C3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		1102AD9024747651005FCB27 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
-		1102AD9424749CB3005FCB27 /* ActionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAlert.swift; sourceTree = "<group>"; };
 		110F88EF24530F6700C7B797 /* Dreaming Journals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dreaming Journals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		110F88F224530F6700C7B797 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		110F88F424530F6700C7B797 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +82,6 @@
 		1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailTopBar.swift; sourceTree = "<group>"; };
 		1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailMainContentView.swift; sourceTree = "<group>"; };
 		1187E6312471F68E00320334 /* EditorObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorObserver.swift; sourceTree = "<group>"; };
-		1187E6332471FA1D00320334 /* TagEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditView.swift; sourceTree = "<group>"; };
 		118EA0E62453286900A2446F /* DreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailView.swift; sourceTree = "<group>"; };
 		119267A32472D64900696B74 /* SuggestionTagsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTagsObserver.swift; sourceTree = "<group>"; };
 		11944D7E24695E5F00A8A3B2 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -199,8 +195,6 @@
 				11AF16C52463105B009A150B /* DreamDetailKeyboardBar.swift */,
 				1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */,
 				1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */,
-				1187E6332471FA1D00320334 /* TagEditView.swift */,
-				1102AD9424749CB3005FCB27 /* ActionAlert.swift */,
 				11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */,
 			);
 			path = DreamDetailView;
@@ -362,7 +356,6 @@
 				1182E36024634EDC00C41E3E /* DreamDetailMainContentView.swift in Sources */,
 				11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */,
 				11A09224246EAC73003A3F46 /* CollectionView.swift in Sources */,
-				1102AD9524749CB3005FCB27 /* ActionAlert.swift in Sources */,
 				11C45B4E2479F99C00E98DCC /* Shadows.swift in Sources */,
 				1182E35E24634C4800C41E3E /* DreamDetailTopBar.swift in Sources */,
 				11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */,
@@ -380,7 +373,6 @@
 				11ABA29B2473FB840091B0AA /* BetterButton.swift in Sources */,
 				11019FE52479888B005591C3 /* Colors.swift in Sources */,
 				11D2E598246D963A006F2706 /* DreamListHeader.swift in Sources */,
-				1187E6342471FA1D00320334 /* TagEditView.swift in Sources */,
 				114F4B88246C8CB600C7811C /* DreamFilterSheetView.swift in Sources */,
 				1187E6322471F68E00320334 /* EditorObserver.swift in Sources */,
 				119267A42472D64900696B74 /* SuggestionTagsObserver.swift in Sources */,
