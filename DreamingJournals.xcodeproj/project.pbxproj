@@ -47,6 +47,7 @@
 		11D3068E246F45860086C615 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D3068D246F45860086C615 /* FilterViewModel.swift */; };
 		11D30690246F46370086C615 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D3068F246F46370086C615 /* FilterView.swift */; };
 		11D568F4247BD1AC00618ECF /* DreamDetailBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */; };
+		11D568F6247C000700618ECF /* DreamDetailTagsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D568F5247C000700618ECF /* DreamDetailTagsSheet.swift */; };
 		11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */; };
 		11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */; };
 		11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */; };
@@ -98,6 +99,7 @@
 		11D3068D246F45860086C615 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		11D3068F246F46370086C615 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailBottomBar.swift; sourceTree = "<group>"; };
+		11D568F5247C000700618ECF /* DreamDetailTagsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailTagsSheet.swift; sourceTree = "<group>"; };
 		11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */,
 				1182E35F24634EDC00C41E3E /* DreamDetailMainContentView.swift */,
 				11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */,
+				11D568F5247C000700618ECF /* DreamDetailTagsSheet.swift */,
 			);
 			path = DreamDetailView;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11D568F6247C000700618ECF /* DreamDetailTagsSheet.swift in Sources */,
 				11D3068E246F45860086C615 /* FilterViewModel.swift in Sources */,
 				11564C122463F5AF00CDAE93 /* DreamViewModel.swift in Sources */,
 				11AF16C62463105B009A150B /* DreamDetailKeyboardBar.swift in Sources */,

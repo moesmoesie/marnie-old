@@ -49,7 +49,9 @@ struct DreamDetailBottomBar: View {
                     }.sheet(isPresented: $showSheet, onDismiss: {
                         self.editorObserver.currentMode = Modes.regularMode
                     }){
-                        Text("Hello World")
+                        DreamDetailTagsSheet()
+                            .environmentObject(self.dream)
+                            .environment(\.managedObjectContext, self.managedObjectContext)
                     }
                 }
                 Group{
