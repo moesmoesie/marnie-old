@@ -11,9 +11,6 @@ import SwiftUI
 struct DreamDetailKeyboardBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var editorObserver : EditorObserver
-    
-    @State var hideKeyboard : Bool = false
-    @State var prevState : Modes = .regularMode
 
     var body: some View {
         return HStack(alignment: .center){
@@ -34,18 +31,9 @@ struct DreamDetailKeyboardBar: View {
             
         }
         .padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.height : 100)
-        .opacity(keyboardObserver.isKeyboardShowing && !editorObserver.isInTagMode && !hideKeyboard ? 1 : 0)
+        .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
         .disabled(!keyboardObserver.isKeyboardShowing)
         .animation(.easeOut(duration: 0.4))
-        .onReceive(editorObserver.$currentMode) { (mode) in
-            if self.prevState == .tagMode{
-                self.hideKeyboard = true
-                DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
-                    self.hideKeyboard = false
-                }
-            }
-            self.prevState = mode
-        }
     }
 }
 
