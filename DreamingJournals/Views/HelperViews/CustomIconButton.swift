@@ -24,10 +24,10 @@ struct CustomIconButton: View {
     var body: some View {
         return Image(systemName: iconName)
             .imageScale(iconSize.getIconSize())
-            .foregroundColor(isActive ? .accent1 : .main1 )
+            .foregroundColor(isActive ? Color.main1 : Color.main1.opacity(0.7) )
             .shadow(color: isActive ? Color.accent1.opacity(0.3) : .clear, radius: 10, x: 0, y: 0)
             .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
-            .background(Color.background3)
+            .background(isActive ? Color.accent1 : Color.background3)
             .cornerRadius(iconSize.getCornerRadius())
             .onTapGesture(perform: action)
             .primaryShadow()
