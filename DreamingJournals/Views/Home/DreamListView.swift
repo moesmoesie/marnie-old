@@ -26,7 +26,8 @@ struct DreamList : View {
                     .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
             }
-        }.edgesIgnoringSafeArea(.all)
+            }.id(UUID())
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
