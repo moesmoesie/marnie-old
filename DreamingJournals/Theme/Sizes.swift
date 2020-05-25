@@ -28,4 +28,8 @@ extension CGFloat{
     static var extraLarge : CGFloat{
         40
     }
+    
+    static var cardSize : CGFloat{
+        250
+    }
 }

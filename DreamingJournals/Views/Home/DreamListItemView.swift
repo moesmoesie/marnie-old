@@ -23,11 +23,12 @@ struct DreamListItemView : View {
                 .padding(.bottom, .extraSmall)
             
             tags
-                .padding(.bottom, .extraSmall)
+            Spacer(minLength: .extraSmall)
             
             textView
-                .padding(.bottom, .small)
             
+            Spacer(minLength: .extraSmall)
+
             if !dreamListItem.details.isEmpty{
                 seperator
                     .padding(.bottom,.small)
@@ -36,6 +37,7 @@ struct DreamListItemView : View {
             details
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
+        .frame(height: .cardSize, alignment: .top)
         .padding(.medium)
         .background(Color.background1)
         .cornerRadius(30)
@@ -87,7 +89,6 @@ struct DreamListItemView : View {
     private var textView : some View {
         let textToShow = dreamListItem.dream.text.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
-            .lineLimit(5)
             .foregroundColor(.main1)
             .lineSpacing(.extraSmall)
     }
