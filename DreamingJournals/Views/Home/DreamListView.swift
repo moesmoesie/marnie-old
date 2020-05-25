@@ -43,7 +43,7 @@ struct DreamListItemModel : Identifiable {
             self.details.append(Detail(icon: "heart"))
         }
         
-        if dream.isBookmarked{
+        if dream.isLucid{
             self.details.append(Detail(icon: "eye"))
         }
         
