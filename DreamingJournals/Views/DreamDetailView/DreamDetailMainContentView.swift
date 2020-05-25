@@ -15,25 +15,25 @@ struct DreamDetailMainContentView: View {
     
     
     var body: some View {
-        GeometryReader{ geo in
-            ScrollView(.vertical, showsIndicators: false){
-                VStack(alignment : .leading, spacing: .small * 0.8){
-                    DreamDateView()
-                    DreamTitleView()
-                    if !self.dream.tags.isEmpty{
-                        CollectionView(data: self.dream.tags){(tag : TagViewModel) in
-                            TagView(tag: tag)
-                                .onTapGesture {
-                                    mediumFeedback()
-                                    let index = self.dream.tags.firstIndex(of: tag)!
-                                    self.dream.tags.remove(at: index)
-                            }
+        ScrollView(.vertical, showsIndicators: false){
+            VStack(alignment : .leading, spacing:0){
+                DreamTitleView()
+                    .padding(.top, .extraSmall)
+                DreamDateView()
+                    .padding(.bottom, .extraSmall)
+                if !self.dream.tags.isEmpty{
+                    CollectionView(data: self.dream.tags){(tag : TagViewModel) in
+                        TagView(tag: tag)
+                            .onTapGesture {
+                                mediumFeedback()
+                                let index = self.dream.tags.firstIndex(of: tag)!
+                                self.dream.tags.remove(at: index)
                         }
-                    }
-                    DreamTextView()
-                    Spacer()
-                        .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)
+                    }.padding(.bottom, .extraSmall)
                 }
+                DreamTextView()
+                Spacer()
+                    .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)
             }
         }
     }
@@ -62,7 +62,7 @@ private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
     
     @EnvironmentObject var editorObserver : EditorObserver
-
+    
     var body: some View{
         CustomTextView(
             text: self.$dream.text,
@@ -83,6 +83,6 @@ private struct DreamDateView : View{
     var body: some View{
         Text(dream.wrapperDateString)
             .font(.primarySmall)
-            .foregroundColor(.accent1)
+            .foregroundColor(.main2)
     }
 }
