@@ -9,6 +9,12 @@
 import SwiftUI
 
 struct DreamDetailBottomBar: View {
+    @EnvironmentObject var dream : DreamViewModel
+    @EnvironmentObject var editorObserver : EditorObserver
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.presentationMode) var presentationMode
+    @State var showSheet = false
+
     var body: some View {
         ZStack(alignment: .top){
             Rectangle()
@@ -17,27 +23,38 @@ struct DreamDetailBottomBar: View {
             HStack{
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "heart")
+                    BottomBarIcon(iconName: "heart", isActive: dream.isBookmarked){
+                        self.toggle(value: self.$dream.isBookmarked)
+                    }
                 }
                 
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "eye")
+                    BottomBarIcon(iconName: "eye", isActive: dream.isLucid){
+                        self.toggle(value: self.$dream.isLucid)
+                    }
                 }
                 
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "tropicalstorm")
+                    BottomBarIcon(iconName: "tropicalstorm", isActive: dream.isNightmare){
+                        self.toggle(value: self.$dream.isNightmare)
+                    }
                 }
                 
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "tag")
+                    BottomBarIcon(iconName: "tag", isActive: false){
+                        self.editorObserver.currentMode = Modes.tagMode
+                    }.sheet(isPresented: $showSheet, onDismiss: {
+                        self.editorObserver.currentMode = Modes.regularMode
+                    }){
+                        Text("Hello World")
+                    }
                 }
-                
                 Group{
                     Spacer()
-                    BottomBarIcon(iconName: "trash")
+                    BottomBarIcon(iconName: "trash", isActive: false, action: self.deleteDream)
                     Spacer()
                 }
             }.padding(.top, .medium)
@@ -45,15 +62,36 @@ struct DreamDetailBottomBar: View {
         }
         .padding(.bottom, getBottomSaveArea())
         .background(Color.background1)
+        .onReceive(editorObserver.$currentMode) { (mode : Modes) in
+            if mode == .tagMode{
+                self.showSheet = true
+            }else{
+                self.showSheet = false
+            }
+        }
+    }
+    
+    func toggle(value : Binding<Bool>){
+        value.wrappedValue.toggle()
+    }
+    
+    func deleteDream(){
+        heavyFeedback()
+        let dreamService = DreamService(managedObjectContext: self.managedObjectContext)
+        try? dreamService.deleteDream(dream)
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct BottomBarIcon: View{
-    @State var isActive = false
     let iconName : String
+    let isActive : Bool
+    let action : () -> ()
     
-    init(iconName : String) {
+    init(iconName: String, isActive : Bool, action : @escaping () -> ()) {
         self.iconName = iconName
+        self.isActive = isActive
+        self.action = action
     }
     
     var body: some View{
@@ -65,6 +103,7 @@ struct BottomBarIcon: View{
             .background(Color.background3)
             .cornerRadius(10)
             .primaryShadow()
+            .onTapGesture(perform: action)
     }
 }
 
