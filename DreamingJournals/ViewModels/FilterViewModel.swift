@@ -34,6 +34,21 @@ enum Filter{
         }
     }
     
+    public func areEqualType(filter : Self) -> Bool{
+        switch (self,filter) {
+        case (.tag(_), .tag(_)):
+            return true
+        case (.bookmarked(_), .bookmarked(_)):
+            return true
+        case (.lucid(_), .lucid(_)):
+            return true
+        case (.nightmare(_), .nightmare(_)):
+            return true
+        default:
+            return false
+        }
+    }
+    
     static func dreams(_ allDreams : [DreamViewModel],filters: [Self]) -> [DreamViewModel]{
         allDreams.filter({ dream in
             for filter in filters{

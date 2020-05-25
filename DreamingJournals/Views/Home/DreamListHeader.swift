@@ -32,7 +32,7 @@ struct ListHeader : View {
     }
     
     var isTagsFilterActive : Bool {
-        !filterObserver.filters.isEmpty
+        filterObserver.filters.contains(where: {$0.filter.areEqualType(filter: .tag(TagViewModel(text: "")))})
     }
     
     
@@ -92,7 +92,6 @@ struct ListHeader : View {
             
             FilterButton(iconName: "heart", isActive: isBookmarkedFilterActive, filterText: "Liked") {
                 self.onFilterPress(filter: self.bookmarkedFilter)
-                print(self.isBookmarkedFilterActive)
             }
             
             Spacer()
