@@ -67,6 +67,7 @@ private struct SaveButton : View{
             presentationMode.wrappedValue.dismiss()
         } catch DreamService.DreamError.invalidUpdate(let message){
             self.message = message
+            self.showAlert = true
         } catch DreamService.DreamError.updatingNonExistingDream{
             self.saveDream()
         } catch{
