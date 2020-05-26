@@ -12,9 +12,10 @@ import CoreData
 struct HomeView: View {
     let dreams : [DreamViewModel]
     var body: some View {
-        ZStack{
+        ZStack(alignment: .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)
             DreamList(dreams: dreams)
+            MainNavigationBar()
         }.navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
     }

@@ -26,6 +26,7 @@ struct DreamList : View {
                     .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
             }
+            Spacer(minLength: .navigationBarHeight * 1.5)
             }.id(UUID())
         .edgesIgnoringSafeArea(.all)
     }
