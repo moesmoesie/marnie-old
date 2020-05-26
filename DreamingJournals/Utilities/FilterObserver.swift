@@ -56,9 +56,11 @@ class FilterObserver : ObservableObject{
         self.allFilters = []
         self.allFilters.append(contentsOf: filterTags)
         self.availableFilters = allFilters
-        for (index,filter) in self.filters.enumerated(){
+        for (filter) in self.filters{
             if !self.allFilters.contains(where: {filter.filter.areEqual(filter: $0.filter)}){
-                self.filters.remove(at: index)
+                if let index = self.filters.firstIndex(where: {filter.filter.areEqual(filter: $0.filter)}){
+                    self.filters.remove(at: index)
+                }
             }
         }
     }
