@@ -52,7 +52,6 @@ struct DreamFilterSheetView: View {
         HStack(alignment:.center, spacing: .medium){
             titleView
             Spacer()
-            closeButtonView
         }
     }
     
