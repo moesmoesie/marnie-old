@@ -115,7 +115,7 @@ struct ConstructionPage : View {
                 VStack{
                     
                     Text(message)
-                        .font(.secondaryLarge)
+                        .font(.primaryLarge)
                         .foregroundColor(.main1)
                     
                     Spacer()
