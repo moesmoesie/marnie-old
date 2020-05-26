@@ -14,11 +14,13 @@ struct TagView: View {
         Text(tag.text)
             .font(.secondaryRegular)
             .bold()
+            .lineLimit(1)
             .padding(.horizontal)
             .padding(.vertical,2)
             .background(Color.background3)
             .foregroundColor(.main1)
             .clipShape(Capsule())
+            .truncationMode(.tail)
     }
 }
 

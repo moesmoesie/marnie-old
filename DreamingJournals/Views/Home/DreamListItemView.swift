@@ -40,8 +40,12 @@ struct DreamListItemView : View {
                 .padding(.bottom, .small)
             
             if !dreamListItem.dream.tags.isEmpty{
-                tags
-                    .padding(.bottom, .small)
+                HStack{
+                    ForEach(self.dreamListItem.dream.tags.prefix(2)){ tag in
+                        TagView(tag: tag)
+                            .padding(.bottom, .small)
+                    }
+                }
             }
             
             textView
