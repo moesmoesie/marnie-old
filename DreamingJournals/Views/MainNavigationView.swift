@@ -14,18 +14,8 @@ struct MainNavigationView: View {
         ZStack(alignment: .bottom){
             if navigationObserver.currentPage == Pages.home{
                 HomeContainer()
-            }
-            
-            if navigationObserver.currentPage == .settings{
-                SettingsPage()
-            }
-            
-            if navigationObserver.currentPage == Pages.statistics{
-                StatisticsPage()
-            }
-            
-            if navigationObserver.currentPage == Pages.profile{
-                ProfilePage()
+            }else{
+                ConstructionPage()
             }
         }.environmentObject(navigationObserver)
     }
@@ -101,35 +91,41 @@ struct MainNavigationBar: View {
 }
 
 
-struct StatisticsPage : View {
+struct ConstructionPage : View {
+    @EnvironmentObject var navigationObserver : NavigationObserver
+    var message : String{
+        switch navigationObserver.currentPage {
+        case .profile:
+            return "Profile"
+        case .settings:
+            return "Settings"
+        case .statistics:
+            return "Statistics"
+        default:
+            return "Construction"
+        }
+    }
+
+
     var body: some View{
         NavigationView{
             ZStack(alignment: .bottom){
                 Color.background1.edgesIgnoringSafeArea(.all)
+                VStack{
+                    
+                    Text(message)
+                        .font(.secondaryLarge)
+                        .foregroundColor(.main1)
+                    
+                    Spacer()
+                }
+                LottieView(fileName: "construction")
+                    .frame(maxWidth: .infinity)
+                    .padding(.large)
                 MainNavigationBar()
             }
         }
     }
 }
 
-struct SettingsPage : View {
-    var body: some View{
-        NavigationView{
-            ZStack(alignment: .bottom){
-                Color.background1.edgesIgnoringSafeArea(.all)
-                MainNavigationBar()
-            }
-        }
-    }
-}
 
-struct ProfilePage : View {
-    var body: some View{
-        NavigationView{
-            ZStack(alignment: .bottom){
-                Color.background1.edgesIgnoringSafeArea(.all)
-                MainNavigationBar()
-            }
-        }
-    }
-}

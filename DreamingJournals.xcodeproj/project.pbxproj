@@ -55,6 +55,7 @@
 		11E48F7D247D815A00F1D89F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 11E48F7C247D815A00F1D89F /* Lottie */; };
 		11E48F7F247D81BD00F1D89F /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E48F7E247D81BD00F1D89F /* LottieView.swift */; };
 		11E48F89247D9FA200F1D89F /* spaceman.json in Resources */ = {isa = PBXBuildFile; fileRef = 11E48F88247D9FA100F1D89F /* spaceman.json */; };
+		11E48F8B247DA4A100F1D89F /* construction.json in Resources */ = {isa = PBXBuildFile; fileRef = 11E48F8A247DA4A100F1D89F /* construction.json */; };
 		11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */; };
 		11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */; };
 		11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */; };
@@ -113,6 +114,7 @@
 		11E48F79247D6D3800F1D89F /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		11E48F7E247D81BD00F1D89F /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		11E48F88247D9FA100F1D89F /* spaceman.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spaceman.json; sourceTree = "<group>"; };
+		11E48F8A247DA4A100F1D89F /* construction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = construction.json; sourceTree = "<group>"; };
 		11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				11E48F88247D9FA100F1D89F /* spaceman.json */,
+				11E48F8A247DA4A100F1D89F /* construction.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11E48F89247D9FA200F1D89F /* spaceman.json in Resources */,
+				11E48F8B247DA4A100F1D89F /* construction.json in Resources */,
 				110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */,
 				110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */,
 				110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */,
