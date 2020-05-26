@@ -53,10 +53,8 @@ class FilterObserver : ObservableObject{
             }
         }
         let filterTags = uniqueTags.map({self.getTagFilter(tagViewModel: $0)})
-        let bookmarkFilter = FilterViewModel(filter : .bookmarked(true))
         self.allFilters = []
         self.allFilters.append(contentsOf: filterTags)
-        self.allFilters.append(bookmarkFilter)
         self.availableFilters = allFilters
         for (index,filter) in self.filters.enumerated(){
             if !self.allFilters.contains(where: {filter.filter.areEqual(filter: $0.filter)}){
