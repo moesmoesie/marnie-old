@@ -10,35 +10,41 @@ import SwiftUI
 
 struct DreamDetailTagsSheet: View {
     @FetchRequest(entity: Tag.entity(),sortDescriptors: []) var fetchedTags: FetchedResults<Tag>
-
+    
     var body: some View {
         ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
-            VStack(spacing : 0){
-                title
-                    .padding(.bottom, .small)
-                    .padding(.top, .medium)
-                
-                
-                CurrentTags()
-                    .frame(minHeight : 200, alignment: .top)
-                    .padding(.horizontal, .medium)
-                
-                
-                seperator
-                
-                tagSuggestionsTitle
-                    .padding(.leading, .medium)
-                    .padding(.top, .medium)
-                    .padding(.bottom, .small)
-                
-                TagSuggestions(allTags: fetchedTags.map({TagViewModel(tag: $0)}))
-                    .padding(.leading, .medium)
-                
-                
-                Spacer()
+            ScrollView(.vertical,showsIndicators: false){
+                VStack(spacing : 0){
+                    title
+                        .padding(.bottom, .small)
+                        .padding(.top, .medium)
+                    
+                    NewTagTextField()
+                        .padding(.horizontal, .medium)
+                        .padding(.bottom, .medium)
+                    
+                    
+                    CurrentTags()
+                        .frame(minHeight : 200, alignment: .top)
+                        .padding(.horizontal, .medium)
+                    
+                    
+                    seperator
+                    
+                    tagSuggestionsTitle
+                        .padding(.leading, .medium)
+                        .padding(.top, .medium)
+                        .padding(.bottom, .small)
+                    
+                    TagSuggestions(allTags: fetchedTags.map({TagViewModel(tag: $0)}))
+                        .padding(.leading, .medium)
+                    
+                    
+                    Spacer(minLength: UIScreen.main.bounds.height / 2)
+                }
             }
-        }
+        }.frame(maxHeight: .infinity)
     }
     
     var seperator : some View{
@@ -71,6 +77,37 @@ struct DreamDetailTagsSheet_Previews: PreviewProvider {
     }
 }
 
+
+struct NewTagTextField : View{
+    @State var text : String = ""
+    @EnvironmentObject var dream : DreamViewModel
+    
+    var body: some View{
+        CustomTextField(text: $text, placeholder: "New Tag", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, font: .primaryRegular) { (view) -> Bool in
+            let result = self.addTag(text: self.text)
+            self.text = ""
+            return result
+        }.padding(.small)
+            .background(Color.background2)
+            .cornerRadius(.small)
+    }
+    
+    func addTag(text : String) -> Bool{
+        if text.isEmpty{
+            return false
+        }
+        
+        let tag = TagViewModel(text: text)
+        
+        if self.dream.tags.contains(where: {$0.text == tag.text}){
+            return false
+        }
+        
+        self.dream.tags.append(tag)
+        return true
+    }
+}
+
 struct CurrentTags : View {
     @EnvironmentObject var dream : DreamViewModel
     
@@ -81,7 +118,6 @@ struct CurrentTags : View {
                     .font(.secondarySmall)
                     .foregroundColor(.main2)
                     .frame(height: 150, alignment: .center)
-                    .offset(y : -20)
             }
             if !dream.tags.isEmpty{
                 CollectionView(data: dream.tags) {(tag : TagViewModel) in
