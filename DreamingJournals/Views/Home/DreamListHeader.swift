@@ -24,8 +24,10 @@ struct ListHeader : View {
         
         return
             ZStack(alignment:.bottom){
+                
                 Sky(mainHeight: headerHeight)
                 Mountains(height: headerHeight)
+                Spaceman(height: headerHeight * 2)
                 VStack(alignment: .leading, spacing: 0){
                     self.title
                         .padding(.leading, .medium)
@@ -55,6 +57,9 @@ struct ListHeader : View {
     }
     
     //MARK: - HELPER VIEWS
+    
+ 
+    
     
     private var title : some View{
         Text("Dreams")
@@ -104,6 +109,15 @@ struct ListHeader : View {
                     .environment(\.managedObjectContext, self.moc)
             }
         }
+    }
+}
+
+struct Spaceman : View {
+    let height : CGFloat
+    var body: some View{
+        LottieView(fileName: "spaceman")
+            .frame(height : UIScreen.main.bounds.height * 0.4)
+            .offset(x: UIScreen.main.bounds.width / 6, y : -height)
     }
 }
 
