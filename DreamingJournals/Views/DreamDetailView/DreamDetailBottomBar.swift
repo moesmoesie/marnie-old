@@ -45,7 +45,7 @@ struct DreamDetailBottomBar: View {
                 Group{
                     Spacer()
                     CustomIconButton(iconName: "tag", iconSize: .medium){
-                        self.toggle(value: self.$dream.isNightmare)
+                        self.editorObserver.currentMode = Modes.tagMode
                     }.sheet(isPresented: $showSheet, onDismiss: {
                         self.editorObserver.currentMode = Modes.regularMode
                     }){
