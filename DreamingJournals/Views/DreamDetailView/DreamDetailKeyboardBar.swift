@@ -30,7 +30,7 @@ struct DreamDetailKeyboardBar: View {
             .padding(.bottom, .small)
             
         }
-        .padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.height : 100)
+        .padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.heightWithoutSaveArea : 100)
         .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
         .disabled(!keyboardObserver.isKeyboardShowing)
         .animation(.easeOut(duration: 0.4))
