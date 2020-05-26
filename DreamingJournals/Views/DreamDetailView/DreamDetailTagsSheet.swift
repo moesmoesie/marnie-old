@@ -70,7 +70,7 @@ struct NewTagTextField : View{
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        CustomTextField(text: $text, placeholder: "New Tag", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, font: .primaryRegular) { (view) -> Bool in
+        CustomTextField(text: $text, placeholder: "New Tag", textColor: .main1, placeholderColor: .main2,tintColor: .accent1, maxCharacters: 25, font: .primaryRegular) { (view) -> Bool in
             let result = self.addTag(text: self.text)
             self.text = ""
             return result

@@ -15,14 +15,14 @@ struct CustomTextField : View {
     let backgroundColor : UIColor
     let placeholder : String
     let placeholderColor : Color
-
     let tintColor : UIColor
     let font : UIFont
+    let maxCharacters : Int
     let onReturn : (UITextField) -> Bool
     
     init(text : Binding<String>, placeholder : String, textColor : UIColor = .white,
          placeholderColor : Color = .white,
-         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body), onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
+         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, maxCharacters : Int = .max, font : UIFont = UIFont.preferredFont(forTextStyle: .body), onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
         self._text = text
         self.placeholder = placeholder
         self.textColor = textColor
@@ -31,6 +31,7 @@ struct CustomTextField : View {
         self.font = font
         self.onReturn = onReturn
         self.placeholderColor = placeholderColor
+        self.maxCharacters = maxCharacters
     }
     
     var body: some View{
@@ -57,6 +58,7 @@ struct CustomTextField : View {
         textField.textColor = self.textColor
         textField.font = self.font
         textField.returnKeyType = .done
+        coordinator.maxCharacters = self.maxCharacters
         textField.addTarget(coordinator,
             action: #selector(coordinator.textFieldDidChange),
             for: .editingChanged)
@@ -70,9 +72,8 @@ private struct UICustomTextField : UIViewRepresentable{
     @Binding var text : String
     let width : CGFloat
     @Binding var height : CGFloat
-    let onReturn : (UITextField) -> Bool    
+    let onReturn : (UITextField) -> Bool
     let make: (Coordinator) -> UIViewType
-    
     func makeUIView(context: Context) -> UITextField {
         make(context.coordinator)
     }
@@ -91,11 +92,19 @@ private struct UICustomTextField : UIViewRepresentable{
     
     class Coordinator: NSObject, UITextFieldDelegate{
         @Binding var text : String
+        var maxCharacters : Int = .max
         let onReturn : (UITextField) -> Bool
 
         init(_ text : Binding<String>, onReturn : @escaping (UITextField) -> Bool) {
             self._text = text
             self.onReturn = onReturn
+        }
+        
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString =
+                currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= self.maxCharacters
         }
         
         @objc func textFieldDidChange(_ textField: UITextField) {
