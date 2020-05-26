@@ -57,13 +57,14 @@ struct DreamFilterSheetView: View {
     
     private var titleView : some View{
         Text("Filters")
-            .font(Font.secondaryLarge)
+            .font(Font.primaryLarge)
             .foregroundColor(.main1)
     }
     
     private var subTitleView : some View{
          Text("Available Filters")
-             .font(Font.primaryLarge)             .foregroundColor(.main1)
+             .font(Font.secondaryLarge)
+             .foregroundColor(.main1)
              .padding(.leading , .medium)
              .padding(.top, .medium)
      }

@@ -30,7 +30,7 @@ extension CGFloat{
     }
     
     static var cardSize : CGFloat{
-        250
+        300
     }
     
     static var navigationBarHeight : CGFloat{

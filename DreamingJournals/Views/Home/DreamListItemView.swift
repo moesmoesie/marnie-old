@@ -34,10 +34,14 @@ struct DreamListItemView : View {
         VStack(alignment : .leading, spacing: 0){
             naviagationLink
             
-            titleView
-            
             dateView
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.bottom, .extraSmall)
+
+            
+            titleView
                 .padding(.bottom, .small)
+
         
             if !dreamListItem.dream.tags.isEmpty{
                 tags
@@ -57,7 +61,9 @@ struct DreamListItemView : View {
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .frame(height: calculateCardSize(text: dreamListItem.dream.text, hasDetails: !dreamListItem.details.isEmpty, hasTags: !dreamListItem.dream.tags.isEmpty), alignment: .top)
-        .padding(.medium)
+        .padding(.horizontal,.medium)
+        .padding(.bottom, .medium)
+        .padding(.top,.small)
         .background(Color.background1)
         .cornerRadius(30)
         .primaryShadow()
@@ -103,8 +109,9 @@ struct DreamListItemView : View {
     
     private var titleView: some View{
         Text(dreamListItem.dream.title)
-            .font(Font.primaryLarge)
+            .font(.primaryLarge)
             .foregroundColor(.main1)
+            .lineLimit(1)
     }
     
     private var textView : some View {

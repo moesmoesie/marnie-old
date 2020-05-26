@@ -14,13 +14,16 @@ struct DreamDetailTopBar: View {
     @State var showSaveButton = false
     var body: some View {
         onViewUpdate()
-        return HStack(alignment : .center,spacing : .medium){
-            BackButton()
-            Spacer()
-            if showSaveButton{
-                SaveButton()
-                    .transition(.offset(x: .extraLarge * 2))
-                    .animation(.easeInOut)
+        return ZStack{
+            DreamDateView()
+            HStack(alignment : .center,spacing : .medium){
+                BackButton()
+                Spacer()
+                if showSaveButton{
+                    SaveButton()
+                        .transition(.offset(x: .extraLarge * 2))
+                        .animation(.easeInOut)
+                }
             }
         }
     }
@@ -32,6 +35,17 @@ struct DreamDetailTopBar: View {
                 self.showSaveButton.toggle()
             }
         }
+    }
+}
+
+private struct DreamDateView : View{
+    
+    @EnvironmentObject var dream : DreamViewModel
+    
+    var body: some View{
+        Text(dream.wrapperDateString)
+            .font(.primarySmall)
+            .foregroundColor(.main2)
     }
 }
 
@@ -47,7 +61,7 @@ private struct SaveButton : View{
         Button(action: dream.isNewDream ? saveDream : updateDream){
             Text(dream.isNewDream ?  "Save" : "Update")
                 .foregroundColor(.main1)
-                .font(.primaryLarge)
+                .font(.secondaryLarge)
                 .padding(.trailing, .medium)
         }.buttonStyle(PlainButtonStyle())
             .alert(isPresented: $showAlert, content: InvalidSaveAlert)
@@ -104,7 +118,7 @@ private struct BackButton : View{
     var body: some View{
         Button(action:backButtonPress){
             Image(systemName: "chevron.left").foregroundColor(.accent2)
-                .padding(.vertical, .small)
+                .padding(.vertical, .extraSmall)
                 .padding(.horizontal, .medium)
         }.alert(isPresented: $showAlert, content: unsavedChangesAlert)
     }

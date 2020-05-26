@@ -49,7 +49,7 @@ struct DreamDetailTagsSheet: View {
     
     var title : some View{
         Text("Tags")
-            .font(.secondaryLarge)
+            .font(.primaryLarge)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, .medium)
             .foregroundColor(.main1)
@@ -127,7 +127,7 @@ struct CurrentTags : View {
     var currentTagsTitle : some View{
         HStack(alignment: .lastTextBaseline){
             Text("Current Tags")
-                .font(.primaryLarge)
+                .font(.secondaryLarge)
                 .foregroundColor(.main1)
             
             if !dream.tags.isEmpty{
@@ -180,7 +180,7 @@ struct TagSuggestions : View {
     var tagSuggestionsTitle : some View{
         HStack(alignment: .lastTextBaseline){
             Text("Tag Suggestions")
-                .font(.primaryLarge)
+                .font(.secondaryLarge)
                 .foregroundColor(.main1)
             
             Text("Tap to add")

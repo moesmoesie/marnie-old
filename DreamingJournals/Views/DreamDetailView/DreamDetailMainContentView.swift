@@ -19,7 +19,6 @@ struct DreamDetailMainContentView: View {
             VStack(alignment : .leading, spacing:0){
                 DreamTitleView()
                     .padding(.top, .extraSmall)
-                DreamDateView()
                     .padding(.bottom, .extraSmall)
                 if !self.dream.tags.isEmpty{
                     CollectionView(data: self.dream.tags){(tag : TagViewModel) in
@@ -44,16 +43,7 @@ private struct DreamTitleView : View{
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        CustomTextField(
-            text: $dream.title,
-            placeholder: "Title",
-            textColor: .main1, placeholderColor: .secondary,
-            tintColor: .accent1,
-            font: .primaryLarge
-        ){textView in
-            textView.resignFirstResponder()
-            return true
-        }
+        CustomTextView(text: $dream.title, placeholder: "Title", placeholderColor: .main1, placeholderFont: .primaryLarge, textColor: .main1, tintColor: .accent1, font: .primaryLarge)
     }
 }
 
@@ -67,7 +57,7 @@ private struct DreamTextView : View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
-            placeholderColor: .secondary,
+            placeholderColor: Color.main1.opacity(0.7),
             cursorPosition: self.$editorObserver.cursorPosition,
             textColor: .main1,
             tintColor: .accent1,

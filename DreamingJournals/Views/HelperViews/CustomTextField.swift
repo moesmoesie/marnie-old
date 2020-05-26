@@ -19,8 +19,9 @@ struct CustomTextField : View {
     let font : UIFont
     let maxCharacters : Int
     let onReturn : (UITextField) -> Bool
+    let placeholderFont : Font
     
-    init(text : Binding<String>, placeholder : String, textColor : UIColor = .white,
+    init(text : Binding<String>, placeholder : String, placeholderFont : Font = Font.primaryRegular, textColor : UIColor = .white,
          placeholderColor : Color = .white,
          backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, maxCharacters : Int = .max, font : UIFont = UIFont.preferredFont(forTextStyle: .body), onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
         self._text = text
@@ -32,6 +33,7 @@ struct CustomTextField : View {
         self.onReturn = onReturn
         self.placeholderColor = placeholderColor
         self.maxCharacters = maxCharacters
+        self.placeholderFont = placeholderFont
     }
     
     var body: some View{
@@ -43,7 +45,9 @@ struct CustomTextField : View {
     private func content(width : CGFloat) -> some View{
         ZStack(alignment: .topLeading){
             if text.isEmpty{
-                Text(placeholder).font(.body).foregroundColor(placeholderColor).opacity(0.5)
+                Text(placeholder)
+                    .font(placeholderFont)
+                    .foregroundColor(placeholderColor)
             }
             UICustomTextField(text: self.$text, width: width, height: self.$height, onReturn: onReturn, make: self.make)
         }

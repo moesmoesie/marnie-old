@@ -19,8 +19,9 @@ struct CustomTextView : View {
     let placeholderColor : Color
     let tintColor : UIColor
     let font : UIFont
+    let placeholderFont : Font
     
-    init(text : Binding<String>, placeholder : String, placeholderColor : Color, focus : Binding<Bool> = .constant(false), cursorPosition : Binding<Int> = .constant(0), textColor : UIColor = .white,
+    init(text : Binding<String>, placeholder : String, placeholderColor : Color, placeholderFont : Font = .body, focus : Binding<Bool> = .constant(false), cursorPosition : Binding<Int> = .constant(0), textColor : UIColor = .white,
          backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body)) {
         self._text = text
         self._focus = focus
@@ -31,6 +32,7 @@ struct CustomTextView : View {
         self.tintColor = tintColor
         self.placeholderColor = placeholderColor
         self.font = font
+        self.placeholderFont = placeholderFont
     }
     
     var body: some View{
@@ -42,7 +44,9 @@ struct CustomTextView : View {
     private func content(width : CGFloat) -> some View{
         ZStack(alignment: .topLeading){
             if text.isEmpty{
-                Text(placeholder).font(.body).foregroundColor(placeholderColor).opacity(0.5)
+                Text(placeholder)
+                    .font(placeholderFont)
+                    .foregroundColor(placeholderColor)
             }
             UICustomTextView(text: self.$text, width: width, height: self.$height, focus: $focus, make: self.make)
         }
