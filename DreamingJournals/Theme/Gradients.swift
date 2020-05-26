@@ -21,6 +21,7 @@ extension Gradient{
             return Gradient(stops: [
                 Stop(color: Color(red: 214 / 255.0, green: 182 / 255.0, blue: 48 / 255.0), location: 0.0),
                 Stop(color: Color(red: 219 / 255.0, green: 84 / 255.0, blue: 97 / 255.0), location: endMainLocation),
+                Stop(color: Color(red: 0 / 255.0, green: 0 / 255.0, blue: 5 / 255.0), location: endMainLocation * 2.8)
             ])
         }
     }
