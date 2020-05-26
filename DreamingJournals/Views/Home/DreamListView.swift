@@ -20,7 +20,7 @@ struct DreamList : View {
             ListHeader()
                 .listRowInsets(EdgeInsets())
                 .padding(.bottom, .medium)
-            ForEach(dreamListItems){ (dream : DreamListItemModel) in
+            ForEach(dreamListItems, id : \.dream.id){ (dream : DreamListItemModel) in
                 DreamListItemView(dreamListItem: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, .medium / 2)
@@ -33,8 +33,7 @@ struct DreamList : View {
 }
 
 
-struct DreamListItemModel : Identifiable {
-    var id = UUID()
+struct DreamListItemModel {
     var showDream = false
     var dream : DreamViewModel
     var details : [Self.Detail]
