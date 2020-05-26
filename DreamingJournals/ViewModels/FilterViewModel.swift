@@ -67,7 +67,7 @@ enum Filter{
             case .lucid(let isLucid):
                 return lucidFilter(dream, isLucid)
             case .nightmare(let isNightmare):
-                return lucidFilter(dream, isNightmare)
+                return nightmareFilter(dream, isNightmare)
             case .tag(let tag):
                 return tagFilter(dream, tag)
         }
