@@ -17,7 +17,7 @@ struct TagView: View {
             .lineLimit(1)
             .padding(.horizontal)
             .padding(.vertical,2)
-            .background(Color.background3)
+            .background(Color.background2)
             .foregroundColor(.main1)
             .clipShape(Capsule())
             .truncationMode(.tail)

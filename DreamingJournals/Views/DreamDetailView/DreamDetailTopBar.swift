@@ -117,7 +117,7 @@ private struct BackButton : View{
     
     var body: some View{
         Button(action:backButtonPress){
-            Image(systemName: "chevron.left").foregroundColor(.accent2)
+            Image(systemName: "chevron.left").foregroundColor(.main1)
                 .padding(.vertical, .extraSmall)
                 .padding(.horizontal, .medium)
         }.alert(isPresented: $showAlert, content: unsavedChangesAlert)

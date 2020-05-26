@@ -27,7 +27,7 @@ struct CustomIconButton: View {
             .foregroundColor(isActive ? Color.main1 : Color.main1.opacity(0.7) )
             .shadow(color: isActive ? Color.accent1.opacity(0.3) : .clear, radius: 10, x: 0, y: 0)
             .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
-            .background(isActive ? Color.accent1 : Color.background3)
+            .background(isActive ? Color.accent1 : Color.background2)
             .cornerRadius(iconSize.getCornerRadius())
             .onTapGesture{
                 self.action()

@@ -139,7 +139,7 @@ struct FilterButton : View{
     var body: some View{
         VStack {
             CustomIconButton(iconName: iconName, iconSize: .large,isActive: isActive, action: action)
-            Text(filterText).font(.caption).foregroundColor(isActive ? Color.main1 : Color.main1.opacity(0.7))
+            Text(filterText).font(.caption).foregroundColor(isActive ? Color.main1 : Color.main2)
         }
     }
 }

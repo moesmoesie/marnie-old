@@ -43,7 +43,7 @@ private struct DreamTitleView : View{
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        CustomTextView(text: $dream.title, placeholder: "Title", placeholderColor: .main1, placeholderFont: .primaryLarge, textColor: .main1, tintColor: .accent1, font: .primaryLarge)
+        CustomTextView(text: $dream.title, placeholder: "Title", placeholderColor: .main2, placeholderFont: .primaryLarge, textColor: .main1, tintColor: .accent1, font: .primaryLarge)
     }
 }
 
@@ -57,7 +57,7 @@ private struct DreamTextView : View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
-            placeholderColor: Color.main1.opacity(0.7),
+            placeholderColor: .main2,
             cursorPosition: self.$editorObserver.cursorPosition,
             textColor: .main1,
             tintColor: .accent1,
