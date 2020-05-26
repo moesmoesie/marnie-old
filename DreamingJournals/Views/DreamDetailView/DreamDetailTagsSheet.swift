@@ -10,7 +10,6 @@ import SwiftUI
 
 struct DreamDetailTagsSheet: View {
     @FetchRequest(entity: Tag.entity(),sortDescriptors: []) var fetchedTags: FetchedResults<Tag>
-    
     var body: some View {
         ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
@@ -22,23 +21,18 @@ struct DreamDetailTagsSheet: View {
                     
                     NewTagTextField()
                         .padding(.horizontal, .medium)
-                        .padding(.bottom, .medium)
-                    
+                        .padding(.bottom, .small)
                     
                     CurrentTags()
                         .frame(minHeight : 200, alignment: .top)
                         .padding(.horizontal, .medium)
                     
-                    
                     seperator
                     
-                    tagSuggestionsTitle
-                        .padding(.leading, .medium)
-                        .padding(.top, .medium)
-                        .padding(.bottom, .small)
                     
                     TagSuggestions(allTags: fetchedTags.map({TagViewModel(tag: $0)}))
                         .padding(.leading, .medium)
+                        .padding(.top, .small)
                     
                     
                     Spacer(minLength: UIScreen.main.bounds.height / 2)
@@ -59,13 +53,6 @@ struct DreamDetailTagsSheet: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, .medium)
             .foregroundColor(.main1)
-    }
-    
-    var tagSuggestionsTitle : some View{
-        Text("Tag Suggestions")
-            .font(.primaryLarge)
-            .foregroundColor(.main1)
-            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -112,23 +99,43 @@ struct CurrentTags : View {
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
-        ZStack{
-            if dream.tags.isEmpty{
-                Text("Your dream has no tags")
-                    .font(.secondarySmall)
-                    .foregroundColor(.main2)
-                    .frame(height: 150, alignment: .center)
-            }
-            if !dream.tags.isEmpty{
-                CollectionView(data: dream.tags) {(tag : TagViewModel) in
-                    TagView(tag: tag)
-                        .onTapGesture {
-                            if let index = self.dream.tags.firstIndex(of: tag){
-                                self.dream.tags.remove(at: index)
-                            }
+        VStack(spacing : 0){
+            currentTagsTitle
+                .padding(.bottom, .small)
+            
+            ZStack{
+                if dream.tags.isEmpty{
+                    Text("Your dream has no tags")
+                        .font(.secondarySmall)
+                        .foregroundColor(.main2)
+                        .frame(height: 150, alignment: .center)
+                }
+                if !dream.tags.isEmpty{
+                    CollectionView(data: dream.tags) {(tag : TagViewModel) in
+                        TagView(tag: tag)
+                            .onTapGesture {
+                                if let index = self.dream.tags.firstIndex(of: tag){
+                                    self.dream.tags.remove(at: index)
+                                }
+                        }
                     }
                 }
             }
+        }
+    }
+    
+    var currentTagsTitle : some View{
+        HStack(alignment: .lastTextBaseline){
+            Text("Current Tags")
+                .font(.primaryLarge)
+                .foregroundColor(.main1)
+            
+            if !dream.tags.isEmpty{
+                Text("Tap to delete")
+                    .font(.primarySmall)
+                    .foregroundColor(Color.main1.opacity(0.3))
+            }
+            Spacer()
         }
     }
 }
@@ -151,14 +158,36 @@ struct TagSuggestions : View {
     }
     
     var body: some View{
-        CollectionView(data: tagSuggestions){(tag: TagViewModel) in
-            TagView(tag: tag)
-                .onTapGesture {
-                    self.dream.tags.append(tag)
+        VStack (spacing : 0){
+            if !tagSuggestions.isEmpty{
+                tagSuggestionsTitle
+                    .padding(.bottom, .small)
             }
+            
+            CollectionView(data: tagSuggestions){(tag: TagViewModel) in
+                TagView(tag: tag)
+                    .onTapGesture {
+                        self.dream.tags.append(tag)
+                }
+            }
+            
         }.onAppear(){self.onUpdate()}
             .onReceive(dream.$tags){ _ in
                 self.onUpdate()
+        }
+    }
+    
+    var tagSuggestionsTitle : some View{
+        HStack(alignment: .lastTextBaseline){
+            Text("Tag Suggestions")
+                .font(.primaryLarge)
+                .foregroundColor(.main1)
+            
+            Text("Tap to add")
+                .font(.primarySmall)
+                .foregroundColor(Color.main1.opacity(0.3))
+            
+            Spacer()
         }
     }
     
