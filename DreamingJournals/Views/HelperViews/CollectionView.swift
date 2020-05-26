@@ -24,6 +24,7 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
     var data : [Data]
     @State var height : CGFloat = 0
     
+    
     init(data: [Data], content: @escaping (Data) -> Content) {
         self.data =  data
         self.content = content
@@ -33,6 +34,14 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
         var currentHeight : CGFloat = .zero
         var currentWidth : CGFloat = .zero
         var currentFrameHeight : CGFloat = .zero
+        
+        
+        
+        if data.isEmpty{
+            DispatchQueue.main.async {
+                self.height = 0
+            }
+        }
         
         return GeometryReader{ geo in
             return ZStack(alignment: .topLeading){
@@ -49,7 +58,9 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
                             
                             var position = currentWidth
                             var endPosition = position - d.width
-    
+                            
+                            
+                            
                             if -endPosition > geo.size.width{
                                 currentWidth = .zero
                                 currentHeight -= (d.height + .small)
@@ -58,19 +69,22 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
                                 currentFrameHeight += (d.height + .small)
                             }
                             
+  
+                            
                             currentWidth = endPosition
                             return position
                     }
                     .alignmentGuide(.top) { (d) -> CGFloat in
+                        if element.id == self.data.last!.id{
+                            DispatchQueue.main.async {
+                                self.height = currentFrameHeight
+                            }
+                        }
                         return currentHeight
                     }
+                    
                 }
             }
         }.frame(height : self.height)
-        .onAppear{
-            DispatchQueue.main.async {
-                self.height = currentFrameHeight
-            }
-        }
     }
 }
