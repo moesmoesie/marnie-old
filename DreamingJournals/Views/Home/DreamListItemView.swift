@@ -37,7 +37,7 @@ struct DreamListItemView : View {
             details
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .frame(height: .cardSize, alignment: .top)
+        .frame(height: dreamListItem.details.isEmpty ? .cardSize * 0.8 : .cardSize, alignment: .top)
         .padding(.medium)
         .background(Color.background1)
         .cornerRadius(30)
