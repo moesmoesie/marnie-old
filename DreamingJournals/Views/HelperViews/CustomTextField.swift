@@ -11,7 +11,6 @@ import SwiftUI
 struct CustomTextField : View {
     @State var height : CGFloat = 0
     @Binding var text : String
-    var focus : Bool
     let textColor : UIColor
     let backgroundColor : UIColor
     let placeholder : String
@@ -21,11 +20,10 @@ struct CustomTextField : View {
     let font : UIFont
     let onReturn : (UITextField) -> Bool
     
-    init(text : Binding<String>, placeholder : String, focus : Bool = false, textColor : UIColor = .white,
+    init(text : Binding<String>, placeholder : String, textColor : UIColor = .white,
          placeholderColor : Color = .white,
          backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body), onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
         self._text = text
-        self.focus = focus
         self.placeholder = placeholder
         self.textColor = textColor
         self.backgroundColor = backgroundColor
@@ -46,7 +44,7 @@ struct CustomTextField : View {
             if text.isEmpty{
                 Text(placeholder).font(.body).foregroundColor(placeholderColor).opacity(0.5)
             }
-            UICustomTextField(text: self.$text, width: width, height: self.$height, focus: focus, onReturn: onReturn, make: self.make)
+            UICustomTextField(text: self.$text, width: width, height: self.$height, onReturn: onReturn, make: self.make)
         }
     }
     
@@ -72,11 +70,7 @@ private struct UICustomTextField : UIViewRepresentable{
     @Binding var text : String
     let width : CGFloat
     @Binding var height : CGFloat
-    var focus : Bool
-    let onReturn : (UITextField) -> Bool
-    @State var initialFocus : Bool = false
-
-    
+    let onReturn : (UITextField) -> Bool    
     let make: (Coordinator) -> UIViewType
     
     func makeUIView(context: Context) -> UITextField {
@@ -88,13 +82,6 @@ private struct UICustomTextField : UIViewRepresentable{
         uiView.text = self.text
         DispatchQueue.main.async {
             self.height = uiView.sizeThatFits(CGSize(width: self.width, height: .infinity)).height
-        }
-        
-        if focus && !initialFocus{
-            uiView.becomeFirstResponder()
-            DispatchQueue.main.async {
-                self.initialFocus = false
-            }
         }
     }
     
