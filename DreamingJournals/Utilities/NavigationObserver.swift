@@ -14,6 +14,7 @@ class NavigationObserver : ObservableObject{
     func setPage(page : Pages){
         if currentPage != page{
             currentPage = page
+            mediumFeedback()
         }
     }
 }

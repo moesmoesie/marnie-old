@@ -110,6 +110,7 @@ private struct BackButton : View{
     }
     
     func backButtonPress(){
+        mediumFeedback()
         let dreamService = DreamService(managedObjectContext: self.moc)
         keyboardObserver.dismissKeyboard()
         if dreamService.checkForChanges(dream){

@@ -78,30 +78,6 @@ struct DreamDetailBottomBar: View {
     }
 }
 
-struct BottomBarIcon: View{
-    let iconName : String
-    let isActive : Bool
-    let action : () -> ()
-    
-    init(iconName: String, isActive : Bool, action : @escaping () -> ()) {
-        self.iconName = iconName
-        self.isActive = isActive
-        self.action = action
-    }
-    
-    var body: some View{
-        Image(systemName: iconName)
-            .imageScale(.medium)
-            .foregroundColor(isActive ? .accent1 : .main1 )
-            .shadow(color: isActive ? Color.accent1.opacity(0.3) : .clear, radius: 10, x: 0, y: 0)
-            .frame(width: .extraLarge, height: .extraLarge)
-            .background(Color.background3)
-            .cornerRadius(10)
-            .primaryShadow()
-            .onTapGesture(perform: action)
-    }
-}
-
 struct DreamDetailBottomBar_Previews: PreviewProvider {
     static var previews: some View {
         DreamDetailBottomBar()

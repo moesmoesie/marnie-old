@@ -83,6 +83,7 @@ struct MainNavigationBar: View {
                     .foregroundColor(.main1)
                     .clipShape(Circle())
                     .onTapGesture {
+                        mediumFeedback()
                         self.showNewDream = true
                 }
             }.frame(width :size ,height: size)

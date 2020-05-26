@@ -40,6 +40,7 @@ struct ListHeader : View {
     }
     
     func onFilterPress(filter: FilterViewModel){
+        mediumFeedback()
         if let index = self.getFilterIndex(filter: filter){
             self.filterObserver.filters.remove(at: index)
         }else{
@@ -102,6 +103,7 @@ struct ListHeader : View {
                 iconName: "tag",
                 isActive: filterObserver.isFilterTypeActive(filter: FilterViewModel(filter: .tag(TagViewModel(text: "")))),
                 filterText: "tags") {
+                mediumFeedback()
                 self.showFilterSheet = true
             }.sheet(isPresented: self.$showFilterSheet){
                 DreamFilterSheetView()
