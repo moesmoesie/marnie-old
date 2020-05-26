@@ -23,92 +23,54 @@ struct CollectionView<Data: Identifiable,Content: View>: View {
     let content : (Data) -> Content
     var data : [Data]
     @State var height : CGFloat = 0
-    @State var itemCount : Int?
-    @State var prevDataCount: Int?
     
-    let maxRows : Int
-    
-    init(data: [Data],maxRows : Int = .max, content: @escaping (Data) -> Content) {
+    init(data: [Data], content: @escaping (Data) -> Content) {
         self.data =  data
         self.content = content
-        self.maxRows = maxRows
     }
     
     var body: some View{
         var currentHeight : CGFloat = .zero
         var currentWidth : CGFloat = .zero
         var currentFrameHeight : CGFloat = .zero
-        var currentItemCount : Int = 0
-        var currentRowCount : Int = 0
-        
-        if let dataCount = prevDataCount{
-            if dataCount != data.count{
-                DispatchQueue.main.async {
-                    self.itemCount = nil
-                }
-            }
-        }
-        
-        if data.isEmpty{
-            DispatchQueue.main.async {
-                self.height = 0
-            }
-        }
         
         return GeometryReader{ geo in
             return ZStack(alignment: .topLeading){
                 Color.clear
-                ForEach(self.data.prefix(self.itemCount ?? self.data.count)){ element in
-                    if currentRowCount <= self.maxRows{
-                        self.content(element)
-                            .padding([.trailing], .small)
-                            .alignmentGuide(.leading) { (d) -> CGFloat in
-                                if element.id == self.data.first!.id{
-                                    currentHeight = .zero
-                                    currentWidth = .zero
-                                    currentFrameHeight = d.height
-                                    currentRowCount = 1
-                                    currentItemCount = 0
-                                }
-                                
-                                var position = currentWidth
-                                var endPosition = position - d.width
-                                
-                                
-                                
-                                if -endPosition > geo.size.width{
-                                    currentWidth = .zero
-                                    currentHeight -= (d.height + .small)
-                                    position = .zero
-                                    endPosition = position - d.width
-                                    currentRowCount += 1
-                                    if currentRowCount <= self.maxRows{
-                                        currentFrameHeight += (d.height + .small)
-                                    }
-                                }
-                                
-                                if currentRowCount <= self.maxRows{
-                                    currentItemCount += 1
-                                }
-                                
-                                currentWidth = endPosition
-                                return position
-                        }
-                        .alignmentGuide(.top) { (d) -> CGFloat in
-                            if element.id == self.data.last!.id{
-                                DispatchQueue.main.async {
-                                    self.height = currentFrameHeight
-                                    if self.itemCount == nil{
-                                        self.prevDataCount = self.data.count
-                                    }
-                                    self.itemCount = currentItemCount
-                                }
+                ForEach(self.data){ element in
+                    self.content(element)
+                        .padding([.trailing], .small)
+                        .alignmentGuide(.leading) { (d) -> CGFloat in
+                            if element.id == self.data.first!.id{
+                                currentHeight = .zero
+                                currentWidth = .zero
+                                currentFrameHeight = d.height
                             }
-                            return currentHeight
-                        }
+                            
+                            var position = currentWidth
+                            var endPosition = position - d.width
+    
+                            if -endPosition > geo.size.width{
+                                currentWidth = .zero
+                                currentHeight -= (d.height + .small)
+                                position = .zero
+                                endPosition = position - d.width
+                                currentFrameHeight += (d.height + .small)
+                            }
+                            
+                            currentWidth = endPosition
+                            return position
+                    }
+                    .alignmentGuide(.top) { (d) -> CGFloat in
+                        return currentHeight
                     }
                 }
             }
         }.frame(height : self.height)
+        .onAppear{
+            DispatchQueue.main.async {
+                self.height = currentFrameHeight
+            }
+        }
     }
 }

@@ -38,16 +38,12 @@ struct DreamListItemView : View {
             
             dateView
                 .padding(.bottom, .small)
-            
+        
             if !dreamListItem.dream.tags.isEmpty{
-                HStack{
-                    ForEach(self.dreamListItem.dream.tags.prefix(2)){ tag in
-                        TagView(tag: tag)
-                            .padding(.bottom, .small)
-                    }
-                }
+                tags
+                    .padding(.bottom, .small)
             }
-            
+
             textView
             
             Spacer()
@@ -90,8 +86,10 @@ struct DreamListItemView : View {
     }
     
     private var tags : some View{
-        CollectionView(data: dreamListItem.dream.tags, maxRows: 1) { tag in
-            TagView(tag: tag)
+        HStack{
+            ForEach(self.dreamListItem.dream.tags.prefix(2)){ tag in
+                TagView(tag: tag)
+            }
         }
     }
     
