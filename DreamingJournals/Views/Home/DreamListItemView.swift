@@ -13,6 +13,23 @@ struct DreamListItemView : View {
     let dreamListItem : DreamListItemModel
     @State var showDetail = false
     
+    func calculateCardSize(text: String, hasDetails : Bool, hasTags : Bool) -> CGFloat{
+        var size : CGFloat = .cardSize * 0.9
+        if text.count < 50{
+            size *= 0.6
+        }
+        
+        if !hasTags{
+            size -= .large
+        }
+        
+        if !hasDetails{
+            size *= 0.8
+        }
+        
+        return size
+    }
+    
     var body: some View{
         VStack(alignment : .leading, spacing: 0){
             naviagationLink
@@ -20,14 +37,16 @@ struct DreamListItemView : View {
             titleView
             
             dateView
-                .padding(.bottom, .extraSmall)
+                .padding(.bottom, .small)
             
-            tags
-            Spacer(minLength: .extraSmall)
+            if !dreamListItem.dream.tags.isEmpty{
+                tags
+                    .padding(.bottom, .small)
+            }
             
             textView
             
-            Spacer(minLength: .extraSmall)
+            Spacer()
 
             if !dreamListItem.details.isEmpty{
                 seperator
@@ -37,7 +56,7 @@ struct DreamListItemView : View {
             details
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .frame(height: dreamListItem.details.isEmpty ? .cardSize * 0.8 : .cardSize, alignment: .top)
+        .frame(height: calculateCardSize(text: dreamListItem.dream.text, hasDetails: !dreamListItem.details.isEmpty, hasTags: !dreamListItem.dream.tags.isEmpty), alignment: .top)
         .padding(.medium)
         .background(Color.background1)
         .cornerRadius(30)
