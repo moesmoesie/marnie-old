@@ -14,62 +14,55 @@ struct DreamDetailBottomBar: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
     @State var showSheet = false
-
+    
     var body: some View {
-        ZStack(alignment: .top){
-            Rectangle()
-                .foregroundColor(.background2)
-                .frame(height: 1).opacity(0.3)
-            HStack{
-                Group{
-                    Spacer()
-                    CustomIconButton(iconName: "heart", iconSize: .medium, isActive: dream.isBookmarked) {
-                        self.toggle(value: self.$dream.isBookmarked)
-                    }
+        HStack{
+            Group{
+                Spacer()
+                CustomIconButton(iconName: "heart", iconSize: .medium, isActive: dream.isBookmarked) {
+                    self.toggle(value: self.$dream.isBookmarked)
                 }
-                
-                Group{
-                    Spacer()
-                    CustomIconButton(iconName: "eye", iconSize: .medium, isActive:  dream.isLucid) {
-                        self.toggle(value: self.$dream.isLucid)
-                    }
-                }
-                
-                Group{
-                    Spacer()
-                    CustomIconButton(iconName: "tropicalstorm", iconSize: .medium, isActive: dream.isNightmare) {
-                        self.toggle(value: self.$dream.isNightmare)
-                    }
-                }
-                
-                Group{
-                    Spacer()
-                    CustomIconButton(iconName: "tag", iconSize: .medium){
-                        self.editorObserver.currentMode = Modes.tagMode
-                    }.sheet(isPresented: $showSheet, onDismiss: {
-                        self.editorObserver.currentMode = Modes.regularMode
-                    }){
-                        DreamDetailTagsSheet()
-                            .environmentObject(self.dream)
-                            .environment(\.managedObjectContext, self.managedObjectContext)
-                    }
-                }
-                Group{
-                    Spacer()
-                    CustomIconButton(iconName: "trash", iconSize: .medium, action: self.deleteDream)
-                    Spacer()
-                }
-            }.padding(.top, .medium)
-            .padding(.bottom, getBottomSaveArea() > 0 ? .small : .medium)
-        }
-        .padding(.bottom, getBottomSaveArea())
-        .background(Color.background1)
-        .onReceive(editorObserver.$currentMode) { (mode : Modes) in
-            if mode == .tagMode{
-                self.showSheet = true
-            }else{
-                self.showSheet = false
             }
+            
+            Group{
+                Spacer()
+                CustomIconButton(iconName: "eye", iconSize: .medium, isActive:  dream.isLucid) {
+                    self.toggle(value: self.$dream.isLucid)
+                }
+            }
+            
+            Group{
+                Spacer()
+                CustomIconButton(iconName: "tropicalstorm", iconSize: .medium, isActive: dream.isNightmare) {
+                    self.toggle(value: self.$dream.isNightmare)
+                }
+            }
+            
+            Group{
+                Spacer()
+                CustomIconButton(iconName: "tag", iconSize: .medium){
+                    self.editorObserver.currentMode = Modes.tagMode
+                }.sheet(isPresented: $showSheet, onDismiss: {
+                    self.editorObserver.currentMode = Modes.regularMode
+                }){
+                    DreamDetailTagsSheet()
+                        .environmentObject(self.dream)
+                        .environment(\.managedObjectContext, self.managedObjectContext)
+                }
+            }
+            Group{
+                Spacer()
+                CustomIconButton(iconName: "trash", iconSize: .medium, action: self.deleteDream)
+                Spacer()
+            }
+            
+        }
+            .onReceive(editorObserver.$currentMode) { (mode : Modes) in
+                if mode == .tagMode{
+                    self.showSheet = true
+                }else{
+                    self.showSheet = false
+                }
         }
     }
     

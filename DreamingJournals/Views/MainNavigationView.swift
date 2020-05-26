@@ -33,9 +33,6 @@ struct MainNavigationView: View {
 
 
 struct MainNavigationBar: View {
-    var isSaveArea : Bool{
-        getBottomSaveArea() > 0
-    }
     
     var body: some View {
             HStack{
@@ -60,12 +57,7 @@ struct MainNavigationBar: View {
                 BarButton(iconName: "person.circle", page: .profile)
                 Spacer()
             }
-            .frame(height: .navigationBarHeight)
-            .frame(maxWidth : .infinity)
-            .padding(.bottom, isSaveArea ? getBottomSaveArea() : .small)
-            .background(Color.background1.opacity(0.98))
-            .cornerRadius(.medium)
-            .offset(y : isSaveArea ? getBottomSaveArea()  * 1.5 : .small)
+            .modifier(BottomBarStyling())
     }
     
     

@@ -59,16 +59,17 @@ struct DreamDetailContentView : View {
     
     var body: some View{
         ZStack(alignment: .bottom){
-            Color.background1
+            Color.background1.edgesIgnoringSafeArea(.all)
             VStack(spacing: .small){
                 DreamDetailTopBar()
                 DreamDetailMainContentView()
                     .padding(.horizontal, .medium)
-            }.padding(.top, getTopSaveArea())
+            }
             
             DreamDetailBottomBar()
+                .modifier(BottomBarStyling())
             DreamDetailKeyboardBar()
-        }.edgesIgnoringSafeArea(.all)
+        }
         .navigationBarTitle("",displayMode: .inline)
         .navigationBarHidden(true)
     }
