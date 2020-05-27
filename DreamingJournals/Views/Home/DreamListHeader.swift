@@ -10,14 +10,7 @@ import SwiftUI
 import CoreData
 
 struct ListHeader : View {
-    @EnvironmentObject var filterObserver : FilterObserver
-    @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
-    @State var showFilterSheet = false
-    
-    let lucidFilter = FilterViewModel(filter: .lucid(true))
-    let nightmareFilter = FilterViewModel(filter: .nightmare(true))
-    let bookmarkedFilter = FilterViewModel(filter: .bookmarked(true))
     
     var body: some View{
         let headerHeight = UIScreen.main.bounds.height / 2
@@ -26,112 +19,46 @@ struct ListHeader : View {
             ZStack(alignment:.bottom){
                 Sky(mainHeight: headerHeight)
                 Mountains(height: headerHeight)
-                VStack(alignment: .leading, spacing: 0){
-                    self.title
-                        .padding(.leading, .medium)
-                        .padding(.bottom, .extraLarge)
-                    
-                    self.filterButtons
-                        .padding(.horizontal, .medium)
-                }
+                FilterButton()
+                    .frame(maxWidth : .infinity, alignment: .trailing)
+                    .padding(.trailing, .medium)
             }.frame(height  : headerHeight, alignment: .bottom)
     }
     
-    func onFilterPress(filter: FilterViewModel){
-        mediumFeedback()
-        if let index = self.getFilterIndex(filter: filter){
-            self.filterObserver.filters.remove(at: index)
-        }else{
-            self.filterObserver.filters.append(filter)
-        }
-    }
+
     
-    func getFilterIndex(filter : FilterViewModel) -> Int?{
-        if let index = self.filterObserver.filters.firstIndex(where: { (checkFilter : FilterViewModel) in
-            checkFilter.filter.areEqual(filter: filter.filter)
+}
+
+struct FilterButton : View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @EnvironmentObject var filterObserver : FilterObserver
+    @State var showFilterSheet  = false
+    var body: some View{
+        Button(action: {
+            mediumFeedback()
+            self.showFilterSheet = true
         }){
-            return index
+            HStack{
+                Image(systemName: "magnifyingglass")
+                    .imageScale(.medium)
+                    .foregroundColor(.main2)
+                Text("Filter")
+                    .foregroundColor(.main2)
+            }
         }
-        return nil
-    }
-    
-    //MARK: - HELPER VIEWS
-    
- 
-    
-    
-    private var title : some View{
-        Text("Dreams")
-            .font(.system(size: 60, weight: .regular, design: .serif))
-            .foregroundColor(.main1)
-    }
-    
-    private var filterButtons : some View{
-        HStack{
-            
-            FilterButton(
-                iconName: "heart",
-                isActive: filterObserver.isFilterTypeActive(filter: bookmarkedFilter),
-                filterText: "Liked") {
-                self.onFilterPress(filter: self.bookmarkedFilter)
-            }
-            
-            Spacer()
-            
-            FilterButton(
-                iconName: "eye",
-                isActive: filterObserver.isFilterTypeActive(filter: lucidFilter),
-                filterText: "Lucid") {
-                self.onFilterPress(filter: self.lucidFilter)
-            }
-            
-            
-            Spacer()
-            
-            FilterButton(
-                iconName: "tropicalstorm",
-                isActive: filterObserver.isFilterTypeActive(filter: nightmareFilter),
-                filterText: "Nightmare") {
-                self.onFilterPress(filter: self.nightmareFilter)
-            }
-            
-            Spacer()
-            
-            FilterButton(
-                iconName: "tag",
-                isActive: filterObserver.isFilterTypeActive(filter: FilterViewModel(filter: .tag(TagViewModel(text: "")))),
-                filterText: "tags") {
-                mediumFeedback()
-                self.showFilterSheet = true
-            }.sheet(isPresented: self.$showFilterSheet){
-                DreamFilterSheetView()
-                    .environmentObject(self.filterObserver)
-                    .environment(\.managedObjectContext, self.moc)
-            }
+        .padding(.horizontal, .medium)
+        .padding(.vertical,.small)
+        .background(Color.background1)
+        .cornerRadius(.medium)
+        .primaryShadow()
+        .sheet(isPresented: self.$showFilterSheet){
+            LazyView(DreamFilterSheetView())
+                .environment(\.managedObjectContext, self.managedObjectContext)
+                .environmentObject(self.filterObserver)
         }
     }
 }
 
-struct FilterButton : View{
-    let isActive : Bool
-    let action : () -> ()
-    let iconName : String
-    let filterText : String
-    
-    init(iconName : String, isActive: Bool,filterText: String, action : @escaping () -> ()) {
-        self.action = action
-        self.iconName = iconName
-        self.isActive = isActive
-        self.filterText = filterText
-    }
-    
-    var body: some View{
-        VStack {
-            CustomIconButton(iconName: iconName, iconSize: .large,isActive: isActive, action: action)
-            Text(filterText).font(.caption).foregroundColor(isActive ? Color.main1 : Color.main2)
-        }
-    }
-}
 
 struct Sky : View {
     @Environment(\.colorScheme) var colorScheme
@@ -141,8 +68,8 @@ struct Sky : View {
         let isDarkmode = colorScheme == .dark
         return LinearGradient(
             gradient: Gradient.skyGradient(darkMode: isDarkmode,
-                                            totalHeight: totalHeight,
-                                            mainHeight: mainHeight),
+                                           totalHeight: totalHeight,
+                                           mainHeight: mainHeight),
             startPoint: .bottom,
             endPoint: .top)
             .frame(height : totalHeight)
