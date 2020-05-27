@@ -75,7 +75,7 @@ struct DreamListItemView : View {
     // MARK: - HELPER VIEWS
     
     private var naviagationLink : some View{
-        NavigationLink(destination: DreamDetailView(dream: dreamListItem.dream), isActive: $showDetail){
+        NavigationLink(destination: LazyView(DreamDetailView(dream: self.dreamListItem.dream)), isActive: $showDetail){
             EmptyView()
         }.hidden()
     }

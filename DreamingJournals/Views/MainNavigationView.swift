@@ -73,7 +73,7 @@ struct MainNavigationBar: View {
 
         var body: some View{
             ZStack{
-                NavigationLink(destination: DreamDetailView(dream: DreamViewModel()), isActive: $showNewDream){
+                NavigationLink(destination: LazyView(DreamDetailView(dream: DreamViewModel())), isActive: $showNewDream){
                     EmptyView()
                 }.hidden()
                 Image(systemName: "plus")
