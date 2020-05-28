@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct DreamListItemView : View {
-    @EnvironmentObject var filterObserver : FilterObserver
     let dreamListItem : DreamListItemModel
     @State var showDetail = false
     
@@ -86,7 +85,7 @@ struct DreamListItemView : View {
                 CustomIconButton(
                     iconName: detail.icon,
                     iconSize: .small,
-                    isActive: self.filterObserver.isFilterTypeActive(filter: FilterViewModel(filter: detail.filter)))
+                    isActive: false)
             }
         }
     }

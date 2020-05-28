@@ -24,11 +24,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let keyboardObserver = KeyboardObserver()
+        let dreamStore = DreamStore(managedObjectContext: context)
         let filterObserver = FilterObserver()
         let contentView = MainNavigationView()
             .environment(\.managedObjectContext, context)
             .environmentObject(keyboardObserver)
+            .environmentObject(dreamStore)
             .environmentObject(filterObserver)
+
         
         let dreamService = DreamService(managedObjectContext: context)
         

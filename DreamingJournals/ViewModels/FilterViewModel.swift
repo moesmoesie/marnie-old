@@ -7,27 +7,45 @@
 //
 
 import Foundation
+import CoreData
 
-struct FilterViewModel : Identifiable{
+struct FilterViewModel : Identifiable, Equatable{
+    static func == (lhs: FilterViewModel, rhs: FilterViewModel) -> Bool {
+        lhs.filter.areEqual(filter: rhs.filter)
+    }
+    
     let id = UUID()
     var filter : Filter
 }
 
 enum Filter{
+    case isBookmarked(Bool)
+    case isLucid(Bool)
+    case isNightmare(Bool)
     case tag(TagViewModel)
-    case bookmarked(Bool)
-    case lucid(Bool)
-    case nightmare(Bool)
+
+    func getPredicate() -> NSPredicate{
+        switch self {
+        case let .isBookmarked(isBookmarked):
+            return isBookmarkedPredicate(isBookmarked)
+        case let .isLucid(isLucid):
+            return isLucidPredicate(isLucid)
+        case let .isNightmare(isNightmare):
+            return isNightmarePredicate(isNightmare)
+        case let .tag(text):
+            return getTagPredicate(text)
+        }
+    }
     
     public func areEqual(filter : Self) -> Bool{
         switch (self,filter) {
         case let (.tag(a), .tag(b)):
             return a.text == b.text
-        case let (.bookmarked(a), .bookmarked(b)):
+        case let (.isBookmarked(a), .isBookmarked(b)):
             return a == b
-        case let (.lucid(a), .lucid(b)):
+        case let (.isLucid(a), .isLucid(b)):
             return a == b
-        case let (.nightmare(a), .nightmare(b)):
+        case let (.isNightmare(a), .isNightmare(b)):
             return a == b
         default:
             return false
@@ -38,63 +56,42 @@ enum Filter{
         switch (self,filter) {
         case (.tag(_), .tag(_)):
             return true
-        case (.bookmarked(_), .bookmarked(_)):
+        case (.isBookmarked(_), .isBookmarked(_)):
             return true
-        case (.lucid(_), .lucid(_)):
+        case (.isLucid(_), .isLucid(_)):
             return true
-        case (.nightmare(_), .nightmare(_)):
+        case (.isNightmare(_), .isNightmare(_)):
             return true
         default:
             return false
         }
     }
     
-    static func dreams(_ allDreams : [DreamViewModel],filters: [Self]) -> [DreamViewModel]{
-        allDreams.filter({ dream in
-            for filter in filters{
-                if !Self.filterDream(dream,filter){
-                    return false
-                }
-            }
-            return true
-        })
+    private func getTagPredicate(_ tag : TagViewModel) -> NSPredicate{
+        NSPredicate(
+            format: "ANY %K.text = %@",
+            argumentArray: [#keyPath(Dream.tags), tag.text]
+        )
     }
     
-    static private func filterDream(_ dream : DreamViewModel, _ filter : Filter) -> Bool{
-        switch filter {
-            case .bookmarked(let isBookmarked):
-                return bookmarkFilter(dream, isBookmarked)
-            case .lucid(let isLucid):
-                return lucidFilter(dream, isLucid)
-            case .nightmare(let isNightmare):
-                return nightmareFilter(dream, isNightmare)
-            case .tag(let tag):
-                return tagFilter(dream, tag)
-        }
+    private func isBookmarkedPredicate(_ isBookmarked : Bool) -> NSPredicate{
+        NSPredicate(
+            format: "%K = %@",
+            argumentArray: [#keyPath(Dream.isBookmarked), isBookmarked]
+        )
     }
     
-    static private func tagFilter(_ dream : DreamViewModel, _ tag : TagViewModel) -> Bool{
-          return dream.tags.contains(where: {$0.text == tag.text})
+    private func isLucidPredicate(_ isLucid : Bool) -> NSPredicate{
+        NSPredicate(
+            format: "%K = %@",
+            argumentArray: [#keyPath(Dream.isLucid), isLucid]
+        )
     }
     
-    static private func bookmarkFilter(_ dream : DreamViewModel, _ isBookmarked: Bool) -> Bool{
-        if !isBookmarked{
-            return true
-        }
-        return dream.isBookmarked
-    }
-    
-    static private func lucidFilter(_ dream : DreamViewModel, _ isLucid: Bool) -> Bool{
-        if !isLucid{
-            return true
-        }
-        return dream.isLucid
-    }
-    
-    static private func nightmareFilter(_ dream : DreamViewModel, _ isNightmare: Bool) -> Bool{
-        if !isNightmare{
-            return true
-        }
-        return dream.isNightmare
+    private func isNightmarePredicate(_ isNightmare : Bool) -> NSPredicate{
+        NSPredicate(
+            format: "%K = %@",
+            argumentArray: [#keyPath(Dream.isNightmare), isNightmare]
+        )
     }
 }

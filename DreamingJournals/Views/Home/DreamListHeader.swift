@@ -29,9 +29,11 @@ struct ListHeader : View {
     
 }
 
-struct FilterButton : View {
+private struct FilterButton : View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var filterObserver : FilterObserver
+    @EnvironmentObject var dreamStore : DreamStore
+
     @State var showFilterSheet  = false
     var body: some View{
         Button(action: {
@@ -52,9 +54,11 @@ struct FilterButton : View {
         .cornerRadius(.medium)
         .primaryShadow()
         .sheet(isPresented: self.$showFilterSheet){
-            LazyView(DreamFilterSheetView())
+            LazyView(FilterSheet())
                 .environment(\.managedObjectContext, self.managedObjectContext)
                 .environmentObject(self.filterObserver)
+                .environmentObject(self.dreamStore)
+
         }
     }
 }
@@ -94,7 +98,6 @@ struct DreamListHeader_Previews: PreviewProvider {
             Color.background1.edgesIgnoringSafeArea(.all)
             VStack {
                 ListHeader()
-                    .environmentObject(FilterObserver())
                     .environment(\.managedObjectContext, context)
                 Spacer()
             }

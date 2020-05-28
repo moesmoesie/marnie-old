@@ -18,6 +18,9 @@ struct HomeView: View {
             MainNavigationBar()
         }.navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
+        .onAppear{
+            removeTableViewBackground()
+        }
     }
 }
 

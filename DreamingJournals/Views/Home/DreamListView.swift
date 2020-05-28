@@ -42,22 +42,21 @@ struct DreamListItemModel {
         self.dream = dream
         self.details = []
            if dream.isBookmarked{
-            self.details.append(Detail(icon: "heart", filter: .bookmarked(false)))
+            self.details.append(Detail(icon: "heart"))
         }
         
         if dream.isLucid{
-            self.details.append(Detail(icon: "eye", filter: .lucid(false)))
+            self.details.append(Detail(icon: "eye"))
         }
         
         if dream.isNightmare{
-            self.details.append(Detail(icon: "tropicalstorm", filter: .nightmare(false)))
+            self.details.append(Detail(icon: "tropicalstorm"))
         }
     }
     
     struct Detail : Identifiable{
         var id = UUID()
         var icon : String
-        var filter : Filter
     }
 }
 
@@ -69,6 +68,5 @@ struct DreamListView_Previews: PreviewProvider {
             Color.background1.edgesIgnoringSafeArea(.all)
             DreamList(dreams: sampleData)
         }.environment(\.managedObjectContext, context)
-        .environmentObject(FilterObserver())
     }
 }
