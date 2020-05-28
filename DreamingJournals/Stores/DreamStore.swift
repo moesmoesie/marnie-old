@@ -11,28 +11,40 @@ import CoreData
 
 class DreamStore : ObservableObject{
     @Published var dreams : [DreamViewModel] = []
-
+    
     let managedObjectContext : NSManagedObjectContext
     
     init(managedObjectContext : NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
-        self.loadDreams()
+        loadDreams(filterViewModels: [FilterViewModel(filter: .isLucid(true))])
     }
     
     func loadDreams(filterViewModels : [FilterViewModel] = []){
-        let fetch : NSFetchRequest<Dream> = Dream.fetchRequest()
-        fetch.sortDescriptors = [NSSortDescriptor(keyPath: \Dream.date, ascending: false)]
-        var predicates  : [NSPredicate] = []
+        let fetch = Dream.customFetchRequest(filterViewModels: filterViewModels)
         
-        for filterViewModel in filterViewModels{
-            predicates.append(filterViewModel.filter.getPredicate())
+        do {
+            let fetchedDreams =  try managedObjectContext.fetch(fetch)
+            self.dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+        }  catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
+    
+    func asyncLoadDreams(filterViewModels : [FilterViewModel] = [] ,onComplete: @escaping () -> ()){
+        let fetch = Dream.customFetchRequest(filterViewModels: filterViewModels)
+        let asyncFetch = NSAsynchronousFetchRequest<Dream>(fetchRequest: fetch) { (results : NSAsynchronousFetchResult) in
+            guard let fetchedDreams = results.finalResult else{
+                return
+            }
+            
+            self.dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+            onComplete()
         }
         
-        let compoundPredicate =  NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-        
-        fetch.predicate = NSPredicate(format: compoundPredicate.predicateFormat)
-            if let fetchedDreams = try? self.managedObjectContext.fetch(fetch){
-            self.dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+        do {
+            try managedObjectContext.execute(asyncFetch)
+        }  catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
         }
     }
 }

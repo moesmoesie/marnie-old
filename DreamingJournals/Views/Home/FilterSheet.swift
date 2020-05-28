@@ -11,20 +11,26 @@ import SwiftUI
 struct FilterSheet: View {
     @EnvironmentObject var filterObserver : FilterObserver
     @EnvironmentObject var dreamStore : DreamStore
+    @State var isLoading = false
     var body: some View {
         return VStack{
             FilterButton(iconName: "eye", filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
             Button("Activate"){
-
                 self.activateFilters()
             }
-        
+            
+            if isLoading{
+                Text("We are loading...").foregroundColor(.main1)
+            }
         }
     }
     
     
     func activateFilters(){
-        self.dreamStore.loadDreams(filterViewModels: self.filterObserver.filters)
+        isLoading = true
+        self.dreamStore.asyncLoadDreams {
+            self.isLoading = false
+        }
     }
 }
 
