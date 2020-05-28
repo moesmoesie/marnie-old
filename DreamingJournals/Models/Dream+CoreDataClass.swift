@@ -25,4 +25,23 @@ public class Dream: NSManagedObject {
         fetch.predicate = NSPredicate(format : compoundPredicate.predicateFormat)
         return fetch
     }
+    
+    @nonobjc class func getDream(from dreamViewModel : DreamViewModel, context : NSManagedObjectContext) -> Dream{
+        let dream = Dream(entity: Dream.entity(), insertInto: context)
+        dream.id = dreamViewModel.id
+        dream.isBookmarked = dreamViewModel.isBookmarked
+        dream.date = dreamViewModel.date
+        dream.title = dreamViewModel.title
+        dream.text = dreamViewModel.text
+        dream.isNightmare = dreamViewModel.isNightmare
+        dream.isLucid = dreamViewModel.isLucid
+        
+        for tagViewModel in dreamViewModel.tags {
+            let tag = Tag(context: context)
+            tag.text = tagViewModel.text
+            dream.addToTags(tag)
+        }
+        
+        return dream
+    }
 }

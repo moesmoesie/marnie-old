@@ -54,7 +54,7 @@ private struct FilterButton : View {
         .cornerRadius(.medium)
         .primaryShadow()
         .sheet(isPresented: self.$showFilterSheet){
-            LazyView(FilterSheet())
+            FilterSheet()
                 .environment(\.managedObjectContext, self.managedObjectContext)
                 .environmentObject(self.filterObserver)
                 .environmentObject(self.dreamStore)
