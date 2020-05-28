@@ -10,24 +10,21 @@ import SwiftUI
 import CoreData
 
 struct DreamList : View {
-    var dreams: [DreamViewModel]
-    var dreamListItems : [DreamListItemModel]{
-        dreams.map({DreamListItemModel($0)})
-    }
+    var dreams: [Dream]
     
     var body: some View{
         return List{
             ListHeader()
                 .listRowInsets(EdgeInsets())
                 .padding(.bottom, .medium)
-            ForEach(dreamListItems, id : \.dream.id){ (dream : DreamListItemModel) in
-                DreamListItemView(dreamListItem: dream)
+            ForEach(dreams, id : \.self){ (dream : Dream) in
+                DreamListItemView(dream: dream)
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
             }
             Spacer(minLength: .navigationBarHeight * 1.5)
-            }.id(UUID())
+            }
         .edgesIgnoringSafeArea(.all)
     }
 }
@@ -35,11 +32,11 @@ struct DreamList : View {
 
 struct DreamListItemModel {
     var showDream = false
-    var dream : DreamViewModel
     var details : [Self.Detail]
+    let dream : DreamViewModel
     
-    init(_ dream : DreamViewModel) {
-        self.dream = dream
+    init(_ dream : Dream) {
+        self.dream = DreamViewModel(dream: dream)
         self.details = []
            if dream.isBookmarked{
             self.details.append(Detail(icon: "heart"))
@@ -57,16 +54,5 @@ struct DreamListItemModel {
     struct Detail : Identifiable{
         var id = UUID()
         var icon : String
-    }
-}
-
-struct DreamListView_Previews: PreviewProvider {
-    static var context = InMemoryCoreDataStack().managedObjectContext
-    static var previews: some View {
-        removeTableViewBackground()
-        return ZStack{
-            Color.background1.edgesIgnoringSafeArea(.all)
-            DreamList(dreams: sampleData)
-        }.environment(\.managedObjectContext, context)
     }
 }

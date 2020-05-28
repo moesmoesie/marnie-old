@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 class DreamStore : ObservableObject{
-    @Published var dreams : [DreamViewModel] = []
+    @Published var dreams : [Dream] = []
     
     let managedObjectContext : NSManagedObjectContext
     
@@ -29,7 +29,7 @@ extension DreamStore{
         
         do {
             let fetchedDreams =  try managedObjectContext.fetch(fetch)
-            self.dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+            self.dreams = fetchedDreams
         }  catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -42,7 +42,7 @@ extension DreamStore{
                 return
             }
             
-            self.dreams = fetchedDreams.map({DreamViewModel(dream: $0)})
+            self.dreams = fetchedDreams
             onComplete()
         }
         

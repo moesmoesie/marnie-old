@@ -12,6 +12,10 @@ struct DreamListItemView : View {
     let dreamListItem : DreamListItemModel
     @State var showDetail = false
     
+    init(dream : Dream) {
+        self.dreamListItem = DreamListItemModel(dream)
+    }
+    
     func calculateCardSize(text: String, hasDetails : Bool, hasTags : Bool) -> CGFloat{
         var size : CGFloat = .cardSize * 0.9
         if text.count < 50{
@@ -124,20 +128,5 @@ struct DreamListItemView : View {
         Text(dreamListItem.dream.wrapperDateString)
             .font(.primarySmall)
             .foregroundColor(.main2)
-    }
-}
-
-struct DreamListItem_Previews: PreviewProvider {
-    static var previews: some View {
-        return ZStack{
-            Color.background1.edgesIgnoringSafeArea(.all)
-            VStack(spacing: .medium){
-                DreamListItemView(dreamListItem: DreamListItemModel(sampleData[0]))
-                    .padding(.horizontal, .medium)
-                
-                DreamListItemView(dreamListItem: DreamListItemModel(sampleData[2]))
-                    .padding(.horizontal, .medium)
-            }
-        }
     }
 }

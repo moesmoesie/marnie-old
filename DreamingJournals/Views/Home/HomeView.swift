@@ -10,7 +10,7 @@ import SwiftUI
 import CoreData
 
 struct HomeView: View {
-    let dreams : [DreamViewModel]
+    let dreams : [Dream]
     var body: some View {
         ZStack(alignment: .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)
@@ -21,12 +21,5 @@ struct HomeView: View {
         .onAppear{
             removeTableViewBackground()
         }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        removeTableViewBackground()
-        return HomeView(dreams: sampleData)
     }
 }
