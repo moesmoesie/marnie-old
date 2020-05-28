@@ -9,12 +9,8 @@
 import SwiftUI
 
 struct DreamListItemView : View {
-    let dreamListItem : DreamListItemModel
     @State var showDetail = false
-    
-    init(dream : Dream) {
-        self.dreamListItem = DreamListItemModel(dream)
-    }
+    let dream : Dream
     
     func calculateCardSize(text: String, hasDetails : Bool, hasTags : Bool) -> CGFloat{
         var size : CGFloat = .cardSize * 0.9
@@ -43,27 +39,19 @@ struct DreamListItemView : View {
 
             
             titleView
-                .padding(.bottom, .small)
-
-        
-            if !dreamListItem.dream.tags.isEmpty{
+            
+            if !dream.wrappedTags.isEmpty{
                 tags
-                    .padding(.bottom, .small)
+                    .padding(.vertical, .extraSmall)
             }
-
+        
             textView
             
             Spacer()
 
-            if !dreamListItem.details.isEmpty{
-                seperator
-                    .padding(.bottom,.small)
-            }
-            
             details
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .frame(height: calculateCardSize(text: dreamListItem.dream.text, hasDetails: !dreamListItem.details.isEmpty, hasTags: !dreamListItem.dream.tags.isEmpty), alignment: .top)
         .padding(.horizontal,.medium)
         .padding(.bottom, .medium)
         .padding(.top,.small)
@@ -78,26 +66,31 @@ struct DreamListItemView : View {
     // MARK: - HELPER VIEWS
     
     private var naviagationLink : some View{
-        NavigationLink(destination: LazyView(DreamDetailView(dream: self.dreamListItem.dream)), isActive: $showDetail){
+        NavigationLink(destination: LazyView(DreamDetailView(dream: self.dream)), isActive: $showDetail){
             EmptyView()
         }.hidden()
     }
     
     private var details : some View{
         HStack(spacing: .medium){
-            ForEach(dreamListItem.details){(detail : DreamListItemModel.Detail) in
-                CustomIconButton(
-                    iconName: detail.icon,
-                    iconSize: .small,
-                    isActive: false)
+            if dream.isBookmarked{
+                CustomIconButton(iconName: "heart", iconSize: .medium)
+            }
+            
+            if dream.isLucid{
+                CustomIconButton(iconName: "eye", iconSize: .medium)
+            }
+            
+            if dream.isNightmare{
+                CustomIconButton(iconName: "tropicalstorm", iconSize: .medium)
             }
         }
     }
     
     private var tags : some View{
         HStack{
-            ForEach(self.dreamListItem.dream.tags.prefix(2)){ tag in
-                TagView(tag: tag)
+            ForEach(self.dream.wrappedTags.prefix(2), id: \.self ){ tag in
+                TagView(tag: TagViewModel(tag: tag))
             }
         }
     }
@@ -111,21 +104,22 @@ struct DreamListItemView : View {
     }
     
     private var titleView: some View{
-        Text(dreamListItem.dream.title)
+        Text(dream.wrappedTitle)
             .font(.primaryLarge)
             .foregroundColor(.main1)
             .lineLimit(1)
     }
     
     private var textView : some View {
-        let textToShow = dreamListItem.dream.text.replacingOccurrences(of: "\n", with: "")
+        let textToShow = dream.wrappedText.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
             .foregroundColor(.main1)
             .lineSpacing(.extraSmall)
+            .frame(maxHeight: 100)
     }
     
     private var dateView : some View{
-        Text(dreamListItem.dream.wrapperDateString)
+        Text(dream.wrapperDateString)
             .font(.primarySmall)
             .foregroundColor(.main2)
     }

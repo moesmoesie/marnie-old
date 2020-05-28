@@ -23,7 +23,7 @@ struct MainNavigationView: View {
 
 
 struct MainNavigationBar: View {
-    
+
     var body: some View {
             HStack{
                 Spacer()
@@ -73,7 +73,7 @@ struct MainNavigationBar: View {
 
         var body: some View{
             ZStack{
-                NavigationLink(destination: LazyView(DreamDetailView(dream: DreamViewModel())), isActive: $showNewDream){
+                NavigationLink(destination: LazyView(DreamDetailView() ), isActive: $showNewDream){
                     EmptyView()
                 }.hidden()
                 Image(systemName: "plus")

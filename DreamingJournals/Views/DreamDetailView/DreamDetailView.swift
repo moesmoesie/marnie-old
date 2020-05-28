@@ -15,13 +15,23 @@ struct DreamDetailView: View {
     @ObservedObject var suggestionTagsObserver : SuggestionTagsObserver
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     
-    init(dream : DreamViewModel) {
+    init(dream : Dream) {
         let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
         let tagService = TagService(managedObjectContext: context)
         self.suggestionTagsObserver = SuggestionTagsObserver(allTags: tagService.getUniqueTags())
-        self.oldDream = OldDream(dream)
-        self.dream = dream.getCopy()
+        self.oldDream = OldDream(DreamViewModel(dream: dream))
+        self.dream = DreamViewModel(dream: dream)
     }
+    
+    init() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
+        let tagService = TagService(managedObjectContext: context)
+        self.suggestionTagsObserver = SuggestionTagsObserver(allTags: tagService.getUniqueTags())
+        self.oldDream = OldDream(DreamViewModel())
+        self.dream = DreamViewModel()
+    }
+    
+    
     
     var body: some View {
         DreamDetailContentView()
