@@ -32,7 +32,6 @@ struct ListHeader : View {
 private struct FilterButton : View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var filterObserver : FilterObserver
-    @EnvironmentObject var dreamStore : DreamStore
 
     @State var showFilterSheet  = false
     var body: some View{
@@ -57,7 +56,6 @@ private struct FilterButton : View {
             FilterSheet()
                 .environment(\.managedObjectContext, self.managedObjectContext)
                 .environmentObject(self.filterObserver)
-                .environmentObject(self.dreamStore)
 
         }
     }

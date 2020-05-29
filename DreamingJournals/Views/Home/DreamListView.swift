@@ -10,7 +10,8 @@ import SwiftUI
 import CoreData
 
 struct DreamList : View {
-    var dreams: [Dream]
+    @EnvironmentObject var fetchObserver : FetchObserver
+    var dreams: FetchedResults<Dream>
     
     var body: some View{
         return List{
@@ -22,6 +23,15 @@ struct DreamList : View {
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
+                    .onAppear{
+                        if let lastDream = self.fetchObserver.lastDream{
+                            if dream == lastDream{
+                                DispatchQueue.main.async {
+                                    self.fetchObserver.incrementLimit()
+                                }
+                            }
+                        }
+                }
             }
             Spacer(minLength: .navigationBarHeight * 1.5)
             }

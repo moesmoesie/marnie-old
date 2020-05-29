@@ -10,7 +10,6 @@ import SwiftUI
 
 struct FilterSheet: View {
     @EnvironmentObject var filterObserver : FilterObserver
-    @EnvironmentObject var dreamStore : DreamStore
     @State var isLoading = false
     var body: some View {
         return VStack{
@@ -28,9 +27,6 @@ struct FilterSheet: View {
     
     func activateFilters(){
         isLoading = true
-        self.dreamStore.asyncLoadDreams {
-            self.isLoading = false
-        }
     }
 }
 

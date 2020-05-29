@@ -10,7 +10,7 @@ import SwiftUI
 import CoreData
 
 struct HomeView: View {
-    let dreams : [Dream]
+    let dreams : FetchedResults<Dream>
     var body: some View {
         ZStack(alignment: .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)

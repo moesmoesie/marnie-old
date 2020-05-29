@@ -31,7 +31,6 @@ struct CustomIconButton: View {
             .cornerRadius(iconSize.getCornerRadius())
             .onTapGesture{
                 self.action()
-                mediumFeedback()
         }
             .primaryShadow()
     }

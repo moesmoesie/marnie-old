@@ -10,23 +10,10 @@ import SwiftUI
 
 struct DreamListItemView : View {
     @State var showDetail = false
-    let dream : Dream
+    let dream : DreamViewModel
     
-    func calculateCardSize(text: String, hasDetails : Bool, hasTags : Bool) -> CGFloat{
-        var size : CGFloat = .cardSize * 0.9
-        if text.count < 50{
-            size *= 0.6
-        }
-        
-        if !hasTags{
-            size -= .large
-        }
-        
-        if !hasDetails{
-            size *= 0.8
-        }
-        
-        return size
+    init(dream : Dream) {
+        self.dream = DreamViewModel(dream: dream)
     }
     
     var body: some View{
@@ -40,7 +27,7 @@ struct DreamListItemView : View {
             
             titleView
             
-            if !dream.wrappedTags.isEmpty{
+            if !dream.tags.isEmpty{
                 tags
                     .padding(.vertical, .extraSmall)
             }
@@ -89,8 +76,8 @@ struct DreamListItemView : View {
     
     private var tags : some View{
         HStack{
-            ForEach(self.dream.wrappedTags.prefix(2), id: \.self ){ tag in
-                TagView(tag: TagViewModel(tag: tag))
+            ForEach(self.dream.tags.prefix(2)){ tag in
+                TagView(tag: tag)
             }
         }
     }
@@ -104,14 +91,14 @@ struct DreamListItemView : View {
     }
     
     private var titleView: some View{
-        Text(dream.wrappedTitle)
+        Text(dream.title)
             .font(.primaryLarge)
             .foregroundColor(.main1)
             .lineLimit(1)
     }
     
     private var textView : some View {
-        let textToShow = dream.wrappedText.replacingOccurrences(of: "\n", with: "")
+        let textToShow = dream.text.replacingOccurrences(of: "\n", with: "")
         return Text(textToShow)
             .foregroundColor(.main1)
             .lineSpacing(.extraSmall)

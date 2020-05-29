@@ -58,7 +58,6 @@
 		11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */; };
 		11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */; };
 		11F5ED33245B3D0100667B4E /* TagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED32245B3D0100667B4E /* TagService.swift */; };
-		11FE3E1E247F254600E84469 /* DreamStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FE3E1D247F254600E84469 /* DreamStore.swift */; };
 		11FE3E20247F3D6500E84469 /* FilterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FE3E1F247F3D6500E84469 /* FilterObserver.swift */; };
 		11FE3E22247F3EAA00E84469 /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FE3E21247F3EAA00E84469 /* FilterSheet.swift */; };
 /* End PBXBuildFile section */
@@ -117,7 +116,6 @@
 		11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F5ED32245B3D0100667B4E /* TagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagService.swift; sourceTree = "<group>"; };
-		11FE3E1D247F254600E84469 /* DreamStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamStore.swift; sourceTree = "<group>"; };
 		11FE3E1F247F3D6500E84469 /* FilterObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterObserver.swift; sourceTree = "<group>"; };
 		11FE3E21247F3EAA00E84469 /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,7 +151,6 @@
 		110F88F124530F6700C7B797 /* DreamingJournals */ = {
 			isa = PBXGroup;
 			children = (
-				11FE3E1C247F253400E84469 /* Stores */,
 				11E48F81247D83C500F1D89F /* Animations */,
 				1166455E2459B4FA000F2DC0 /* Views */,
 				1166455B24599EFA000F2DC0 /* Services */,
@@ -300,14 +297,6 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
-		11FE3E1C247F253400E84469 /* Stores */ = {
-			isa = PBXGroup;
-			children = (
-				11FE3E1D247F254600E84469 /* DreamStore.swift */,
-			);
-			path = Stores;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -417,7 +406,6 @@
 				113E891F246BE7460070F018 /* SaveAreaObserver.swift in Sources */,
 				11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */,
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
-				11FE3E1E247F254600E84469 /* DreamStore.swift in Sources */,
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
 				11FE3E22247F3EAA00E84469 /* FilterSheet.swift in Sources */,
 				11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */,
