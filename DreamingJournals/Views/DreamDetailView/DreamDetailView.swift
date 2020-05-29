@@ -20,8 +20,9 @@ struct DreamDetailView: View {
     }
     
     init() {
-        self.oldDream = OldDream(DreamViewModel())
-        self.dream = DreamViewModel()
+        let newDream = DreamViewModel()
+        self.oldDream = OldDream(newDream)
+        self.dream = newDream.getCopy()
     }
     
     var body: some View {
