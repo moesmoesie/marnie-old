@@ -27,8 +27,9 @@ private struct HomeFetchContainer: View {
         return
             HomeContent(filters: filters, limit: fetchObserver.fetchlimit)
                 .environmentObject(fetchObserver)
-        
-        
+                .onAppear{
+                    self.fetchObserver.update = false
+                }
     }
 }
 
