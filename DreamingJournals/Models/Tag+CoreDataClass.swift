@@ -12,5 +12,10 @@ import CoreData
 
 @objc(Tag)
 public class Tag: NSManagedObject {
-
+    
+    @nonobjc class func createTag(from tagViewModel : TagViewModel, context managedObjectContext : NSManagedObjectContext) -> Tag{
+        let tag = Tag(entity: Tag.entity(), insertInto: managedObjectContext)
+        tag.text = tagViewModel.text
+        return tag
+    }
 }

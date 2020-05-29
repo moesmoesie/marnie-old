@@ -72,8 +72,7 @@ struct DreamDetailBottomBar: View {
     
     func deleteDream(){
         heavyFeedback()
-        let dreamService = DreamService(managedObjectContext: self.managedObjectContext)
-        try? dreamService.deleteDream(dream)
+        try? Dream.deleteDream(dream, context: managedObjectContext)
         presentationMode.wrappedValue.dismiss()
     }
 }

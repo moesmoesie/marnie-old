@@ -52,7 +52,7 @@ private struct DreamDateView : View{
 private struct SaveButton : View{
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
     @State var showAlert = false
     @State var message = ""
@@ -67,16 +67,13 @@ private struct SaveButton : View{
             .alert(isPresented: $showAlert, content: InvalidSaveAlert)
     }
     
-    
-    
     func saveDream(){
         mediumFeedback()
         self.showAlert = false
-        let dreamService = DreamService(managedObjectContext: self.moc)
         do {
-            try dreamService.saveDream(dreamViewModel: dream)
+            try Dream.saveDream(dream, context: managedObjectContext)
             presentationMode.wrappedValue.dismiss()
-        } catch DreamService.DreamError.invalidSave(error: let message) {
+        } catch Dream.DreamError.invalidSave(error: let message) {
             self.message = message
             self.showAlert = true
         } catch{
@@ -90,16 +87,15 @@ private struct SaveButton : View{
     
     func updateDream(){
         mediumFeedback()
-        let dreamService = DreamService(managedObjectContext: self.moc)
         self.showAlert = false
         
         do {
-            try dreamService.updateDream(dreamViewModel: dream)
+            try Dream.updateDream(dream, context: managedObjectContext)
             presentationMode.wrappedValue.dismiss()
-        } catch DreamService.DreamError.invalidUpdate(let message){
+        } catch Dream.DreamError.invalidUpdate(let message){
             self.message = message
             self.showAlert = true
-        } catch DreamService.DreamError.updatingNonExistingDream{
+        } catch Dream.DreamError.updatingNonExistingDream{
             self.saveDream()
         } catch{
             print("Unexpected error: \(error).")
@@ -110,6 +106,7 @@ private struct SaveButton : View{
 
 private struct BackButton : View{
     @EnvironmentObject var dream : DreamViewModel
+    @EnvironmentObject var oldDream : OldDream
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
@@ -125,9 +122,9 @@ private struct BackButton : View{
     
     func backButtonPress(){
         mediumFeedback()
-        let dreamService = DreamService(managedObjectContext: self.moc)
         keyboardObserver.dismissKeyboard()
-        if dreamService.checkForChanges(dream){
+        
+        if !oldDream.dream.isEqualTo(dream){
             self.showAlert = true
         }else{
             self.presentationMode.wrappedValue.dismiss()

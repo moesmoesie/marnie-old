@@ -30,15 +30,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(keyboardObserver)
             .environmentObject(filterObserver)
 
-        
-        let dreamService = DreamService(managedObjectContext: context)
-        
         if UserDefaults.standard.string(forKey: "isFirstBoot") == nil{
             UserDefaults.standard.set("false", forKey: "isFirstBoot")
             
             for dream in sampleData{
                 print(dream.title)
-                try? dreamService.saveDream(dreamViewModel: dream)
+                try? Dream.saveDream(dream, context: context)
             }
         }
         
@@ -90,7 +87,7 @@ class CustomHostingController<Content>: UIHostingController<Content> where Conte
 
 var sampleData : [DreamViewModel]{
     var temp : [DreamViewModel] = []
-    for index in 1...100000{
+    for index in 1...100{
         let dream = DreamViewModel(id: UUID(),
         title: "Sample Dream \(index)",
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae pharetra diam. Aliquam et ultrices ipsum. In faucibus, velit at tincidunt gravida, tortor diam tincidunt sem, vitae suscipit dolor ex eu felis. Ut consequat pulvinar nibh, ornare euismod libero tempor vitae. Nullam dapibus metus ac neque porttitor aliquam. Mauris rhoncus lacinia sem vel pellentesque. Suspendisse elementum, dolor quis tincidunt blandit, mi turpis euismod nulla, nec consequat metus enim a ipsum. Donec posuere metus vel faucibus mattis. Cras neque arcu, accumsan vulputate dolor quis, cursus vestibulum metus. ",
