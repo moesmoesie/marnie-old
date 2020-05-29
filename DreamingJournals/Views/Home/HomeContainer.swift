@@ -42,11 +42,18 @@ private struct HomeContent : View{
     var body: some View{
         fetchObserver.lastDream = fetchRequest.last
         return HomeView(dreams: fetchRequest)
+            .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { (_) in
+                if self.fetchObserver.update == false{
+                    self.fetchObserver.update = true
+                }
+            }
     }
 }
 
 class FetchObserver: ObservableObject {
     @Published var fetchlimit : Int = 100
+    @Published var update : Bool = false
+
     var lastDream : Dream?
     func incrementLimit(amount : Int = 100){
         fetchlimit += amount
