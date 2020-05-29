@@ -23,6 +23,7 @@ public class Dream: NSManagedObject {
         
         if let fetchLimit = limit{
             fetch.fetchLimit = fetchLimit
+            fetch.fetchBatchSize = fetchLimit / 2
         }
         
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)

@@ -46,9 +46,9 @@ private struct HomeContent : View{
 }
 
 class FetchObserver: ObservableObject {
-    @Published var fetchlimit : Int = 50
+    @Published var fetchlimit : Int = 100
     var lastDream : Dream?
-    func incrementLimit(amount : Int = 50){
+    func incrementLimit(amount : Int = 100){
         fetchlimit += amount
     }
 }
