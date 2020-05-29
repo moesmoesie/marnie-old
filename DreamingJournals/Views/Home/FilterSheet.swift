@@ -21,27 +21,30 @@ struct FilterSheet: View {
     var body: some View {
         return ZStack {
             Color.background1.edgesIgnoringSafeArea(.all)
-            VStack(alignment : .leading, spacing: 0){
-                Text(("Filters"))
-                    .padding(.horizontal, .medium)
-                    .padding(.top, .medium)
-                    .foregroundColor(.main1)
-                    .font(.primaryLarge)
-                    .padding(.bottom, .small)
-                FilterButtonRow()
-                    .padding(.bottom, .medium)
-                TagSearchField()
-                    .padding(.bottom, .medium)
-                Tags()
-                    .padding(.horizontal, .medium)
-                Spacer()
-            }
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment : .leading, spacing: 0){
+                    Text(("Filters"))
+                        .padding(.horizontal, .medium)
+                        .padding(.top, .medium)
+                        .foregroundColor(.main1)
+                        .font(.primaryLarge)
+                        .padding(.bottom, .small)
+                    FilterButtonRow()
+                        .padding(.bottom, .medium)
+                    TagSearchField()
+                        .padding(.bottom, .medium)
+                    Tags()
+                        .padding(.horizontal, .medium)
+                    Spacer()
+                }
+                
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
             
             ActivateFiltersButton()
                 .padding(.horizontal, .medium)
                 .frame(maxHeight : .infinity,alignment: .bottom)
-        }
-        .environmentObject(filterSheetObserver)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            .environmentObject(filterSheetObserver)
     }
 }
 
@@ -80,7 +83,7 @@ private struct Tags : View {
                     self.filterSheetObserver.activeFilters.append(filter)
                 }
             }
-        }
+        }.animation(.easeInOut)
     }
 }
 
@@ -88,7 +91,7 @@ private struct Tags : View {
 struct TagSearchField : View{
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var filterSheetObserver : FilterSheetObserver
-
+    
     var body: some View{
         CustomTextField(
             text: $filterSheetObserver.tagSuggestionText,
@@ -111,26 +114,24 @@ struct TagSearchField : View{
 private struct ActivateFiltersButton : View{
     @EnvironmentObject var filterSheetObserver : FilterSheetObserver
     @EnvironmentObject var filterObserver : FilterObserver
-
+    
     var body: some View{
         Button(action:{
             self.filterObserver.filters = self.filterSheetObserver.activeFilters
-          }){
-              HStack{
-                  Text("Activate Filters")
+        }){
+            HStack{
+                Text("Activate Filters")
                     .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
-              }
-          }
-          .buttonStyle(PlainButtonStyle())
-          .frame(maxWidth : .infinity)
-          .padding(.medium)
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .frame(maxWidth : .infinity)
+        .padding(.medium)
         .background(filterObserver.filters.isEmpty ? Color.background2 : Color.accent1)
-          .cornerRadius(12.5)
-          .primaryShadow()
+        .cornerRadius(12.5)
+        .primaryShadow()
     }
 }
-
-
 
 private struct FilterButtonRow : View {
     var body: some View{
@@ -171,7 +172,7 @@ class FilterSheetObserver : ObservableObject{
     @Published var tagSuggestionText = ""
     var managedObjectContext : NSManagedObjectContext
     private var cancellableSet: Set<AnyCancellable> = []
-
+    
     init() {
         self.managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
         self.tagSuggestions = getUniqueTags(text: "")
@@ -183,8 +184,6 @@ class FilterSheetObserver : ObservableObject{
         }.store(in: &cancellableSet)
     }
     
-    
-    
     func getUniqueTags(text : String) -> [TagViewModel]{
         let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
         fetch.fetchLimit = 50
@@ -193,7 +192,7 @@ class FilterSheetObserver : ObservableObject{
             let predicate = NSPredicate(format: "text contains %@", text)
             fetch.predicate = predicate
         }
-
+        
         do {
             let fetchedTags = try self.managedObjectContext.fetch(fetch)
             return fetchedTags.map({TagViewModel(text: $0["text"] as! String)})
@@ -202,13 +201,4 @@ class FilterSheetObserver : ObservableObject{
             return []
         }
     }
-    
-    
 }
-
-//struct FilterSheet_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FilterSheet()
-//            .environmentObject(FilterObserver())
-//    }
-//}
