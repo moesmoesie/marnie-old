@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TagView: View {
     let tag : TagViewModel
+    var isActive : Bool = false
     var body: some View {
         Text(tag.text)
             .font(.secondaryRegular)
@@ -17,7 +18,7 @@ struct TagView: View {
             .lineLimit(1)
             .padding(.horizontal)
             .padding(.vertical,2)
-            .background(Color.background2)
+            .background(isActive ? Color.accent1 : Color.background2)
             .foregroundColor(.main1)
             .clipShape(Capsule())
             .truncationMode(.tail)

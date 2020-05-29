@@ -42,21 +42,20 @@ private struct FilterButton : View {
             HStack{
                 Image(systemName: "magnifyingglass")
                     .imageScale(.medium)
-                    .foregroundColor(.main2)
+                    .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
                 Text("Filter")
-                    .foregroundColor(.main2)
+                    .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
             }
         }
         .padding(.horizontal, .medium)
         .padding(.vertical,.small)
-        .background(Color.background1)
+        .background(filterObserver.filters.isEmpty ? Color.background1 : .accent1)
         .cornerRadius(.medium)
         .primaryShadow()
         .sheet(isPresented: self.$showFilterSheet){
-            FilterSheet()
+            FilterSheet(filters: self.filterObserver.filters)
                 .environment(\.managedObjectContext, self.managedObjectContext)
                 .environmentObject(self.filterObserver)
-
         }
     }
 }

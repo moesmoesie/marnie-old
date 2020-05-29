@@ -18,4 +18,14 @@ public class Tag: NSManagedObject {
         tag.text = tagViewModel.text
         return tag
     }
+    
+    
+    @nonobjc class func uniqueTagTextFetch() -> NSFetchRequest<NSDictionary>{
+        let fetch : NSFetchRequest<NSDictionary> = NSFetchRequest<NSDictionary>(entityName: "Tag")
+        fetch.sortDescriptors = []
+        fetch.resultType = .dictionaryResultType
+        fetch.propertiesToFetch = ["text"]
+        fetch.returnsDistinctResults = true
+        return fetch
+    }
 }
