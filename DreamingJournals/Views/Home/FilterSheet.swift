@@ -76,14 +76,15 @@ private struct Tags : View {
                     isActive: self.filterSheetObserver.activeFilters.contains(FilterViewModel(filter: .tag(tagViewModel)))
             ).onTapGesture {
                 let filter = FilterViewModel(filter: .tag(tagViewModel))
-                
-                if let index = self.filterSheetObserver.activeFilters.firstIndex(of: filter){
-                    self.filterSheetObserver.activeFilters.remove(at: index)
-                }else{
-                    self.filterSheetObserver.activeFilters.append(filter)
+                withAnimation(){
+                    if let index = self.filterSheetObserver.activeFilters.firstIndex(of: filter){
+                        self.filterSheetObserver.activeFilters.remove(at: index)
+                    }else{
+                        self.filterSheetObserver.activeFilters.append(filter)
+                    }
                 }
             }
-        }.animation(.easeInOut)
+        }
     }
 }
 
@@ -180,7 +181,9 @@ class FilterSheetObserver : ObservableObject{
         self.$tagSuggestionText
             .debounce(for: 0.1, scheduler: RunLoop.main)
             .sink { (text) in
-                self.tagSuggestions = self.getUniqueTags(text: text)
+                withAnimation(){
+                    self.tagSuggestions = self.getUniqueTags(text: text)
+                }
         }.store(in: &cancellableSet)
     }
     
