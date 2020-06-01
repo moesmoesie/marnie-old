@@ -24,10 +24,10 @@ struct CustomIconButton: View {
     var body: some View {
         return Image(systemName: iconName)
             .imageScale(iconSize.getIconSize())
-            .foregroundColor(isActive ? Color.accent1 : Color.main2 )
+            .foregroundColor(isActive ? Color.main1 : Color.main2 )
             .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
-            .background(isActive ? Color.background2 : Color.clear)
-            .clipShape(Circle())
+            .background(isActive ? Color.accent1 : Color.clear)
+            .clipShape(RoundedRectangle(cornerRadius: 12.5))
             .onTapGesture{
                 self.action()
         }
