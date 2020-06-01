@@ -31,12 +31,23 @@ struct DreamDetailBottomBar: View {
                 }
             }
             
+      
+            
             Group{
                 Spacer()
                 CustomIconButton(iconName: "tropicalstorm", iconSize: .medium, isActive: dream.isNightmare) {
                     self.toggle(value: self.$dream.isNightmare)
                 }
             }
+            
+            Spacer()
+            
+            RoundedRectangle(cornerRadius: 2)
+              .frame(maxHeight: .infinity)
+              .frame(width : 0.5)
+              .padding(.vertical, .medium)
+              .foregroundColor(.main2)
+            
             
             Group{
                 Spacer()
