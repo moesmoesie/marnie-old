@@ -29,7 +29,7 @@ struct DreamDetailTagsSheet: View {
                 VStack(alignment: .leading,spacing : 0){
                     title
                         .padding(.top, .medium)
-                        .padding(.bottom,.small)
+                        .padding(.bottom,.medium)
                     
                     TagCreationField(text: $creationText, currentTags: $currentTags, onChange: {
                         withAnimation{
@@ -43,9 +43,23 @@ struct DreamDetailTagsSheet: View {
                         }
                         
                         self.currentTags = self.activeTags
-
+                        
                     }.padding(.bottom, .medium)
                     
+                    if !activeTags.isEmpty{
+                        HStack(alignment:.bottom){
+                            Text("Active Tags")
+                                .foregroundColor(.main1)
+                                .font(.secondaryLarge)
+                            
+                            Text("Tap to add")
+                                .foregroundColor(.main2)
+                                .font(.primarySmall)
+                        }.padding(.bottom, .extraSmall)
+                        
+                        ActiveTags(currentTags: $currentTags, activeTags :$activeTags)
+                            .padding(.bottom, .large)
+                    }
                     
                     if !suggestionTags.filter({!activeTags.contains($0)}).isEmpty ||
                         (creationText.isEmpty && activeTags.isEmpty){
@@ -55,29 +69,16 @@ struct DreamDetailTagsSheet: View {
                                 .font(.secondaryLarge)
                             
                             Text("Tap to add")
-                            .foregroundColor(.main2)
-                            .font(.primarySmall)
+                                .foregroundColor(.main2)
+                                .font(.primarySmall)
                         }.padding(.bottom, .extraSmall)
-
-                       
+                        
+                        
                         SuggestionTags(currentTags: $currentTags, activeTags: $activeTags, suggestionTags: $suggestionTags)
                             .frame(minHeight: .extraLarge * 2, alignment: .top)
                     }
                     
-                    if !activeTags.isEmpty{
-                        HStack(alignment:.bottom){
-                        Text("Active Tags")
-                            .foregroundColor(.main1)
-                            .font(.secondaryLarge)
-                            
-                            Text("Tap to add")
-                            .foregroundColor(.main2)
-                            .font(.primarySmall)
-                        }.padding(.bottom, .extraSmall)
-
-                        ActiveTags(currentTags: $currentTags, activeTags :$activeTags)
-                            .padding(.bottom, .large)
-                    }
+                    
                     
                     
                     
