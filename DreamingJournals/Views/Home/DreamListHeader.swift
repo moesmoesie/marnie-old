@@ -32,6 +32,7 @@ struct ListHeader : View {
 private struct FilterButton : View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var filterObserver : FilterObserver
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
 
     @State var showFilterSheet  = false
     var body: some View{
@@ -55,6 +56,7 @@ private struct FilterButton : View {
         .sheet(isPresented: self.$showFilterSheet){
             FilterSheet(initialFilters: self.$filterObserver.filters)
                 .environment(\.managedObjectContext, self.managedObjectContext)
+                .environmentObject(self.keyboardObserver)
         }
     }
 }

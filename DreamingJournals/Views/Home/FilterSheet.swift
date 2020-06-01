@@ -12,6 +12,8 @@ import Combine
 
 struct FilterSheet: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+
     @Binding var currentFilters : [FilterViewModel]
     @State var activeFilters : [FilterViewModel]
     @State var suggestionsTags : [TagViewModel] = []
@@ -83,6 +85,7 @@ struct FilterSheet: View {
         }
         .animation(.easeInOut)
         .padding(.horizontal,.medium)
+        .padding(.bottom, keyboardObserver.isKeyboardShowing ?  keyboardObserver.heightWithoutSaveArea + .small : 0)
         .frame(maxHeight: .infinity, alignment: .bottom)
     }
     
