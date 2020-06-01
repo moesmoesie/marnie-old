@@ -24,7 +24,7 @@ struct DreamDetailTopBar: View {
                         .transition(.offset(x: .extraLarge * 2))
                         .animation(.easeInOut)
                 }
-            }
+            }.padding(.vertical, .extraSmall)
         }
     }
     
