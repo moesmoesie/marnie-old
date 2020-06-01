@@ -158,6 +158,7 @@ private struct Tags : View {
                 isActive: self.activeFilters.contains(FilterViewModel(filter: .tag(tag)))
             )
                 .onTapGesture {
+                    mediumFeedback()
                     withAnimation{
                         if let index = self.activeFilters.firstIndex(of: FilterViewModel(filter: .tag(tag))){
                             self.activeFilters.remove(at: index)
