@@ -16,12 +16,12 @@ struct DreamDetailKeyboardBar: View {
         return HStack(alignment: .center){
             Spacer()
             
-            CustomIconButton(iconName: "tag", iconSize: .small, isActive: false) {
+            CustomPassiveIconButton(iconName: "tag", iconSize: .small) {
                 self.editorObserver.currentMode = Modes.tagMode
             }.padding(.trailing, .medium)
             .padding(.bottom, .small)
             
-            CustomIconButton(iconName: "chevron.down.square", iconSize: .small, isActive: false) {
+            CustomPassiveIconButton(iconName: "chevron.down.square", iconSize: .small) {
                 self.keyboardObserver.dismissKeyboard()
             }.padding(.trailing, .medium)
             .padding(.bottom, .small)

@@ -34,6 +34,31 @@ struct CustomIconButton: View {
     }
 }
 
+
+struct CustomPassiveIconButton: View {
+    let iconName : String
+    let action : () -> ()
+    let iconSize : IconSize
+    
+    init(iconName : String,iconSize : IconSize, isActive : Bool = false, action: @escaping () -> () = {}) {
+        self.iconName = iconName
+        self.action = action
+        self.iconSize = iconSize
+    }
+    
+    var body: some View {
+        return Image(systemName: iconName)
+            .imageScale(iconSize.getIconSize())
+            .foregroundColor(Color.main2 )
+            .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
+            .background(Color.background2)
+            .clipShape(RoundedRectangle(cornerRadius: 12.5))
+            .onTapGesture{
+                self.action()
+        }
+    }
+}
+
 struct CustomIconButton_Previews: PreviewProvider {
     static var previews: some View {
         HStack{
