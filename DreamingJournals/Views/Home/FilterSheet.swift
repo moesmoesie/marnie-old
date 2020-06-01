@@ -46,7 +46,7 @@ struct FilterSheet: View {
     }
     
     var boolFilterButtons : some View{
-        HStack{
+        HStack (spacing : .medium){
             FilterButton(activeFilters: $activeFilters, iconName: "heart", filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
             FilterButton(activeFilters: $activeFilters, iconName: "eye", filterViewModel: FilterViewModel(filter: .isLucid(true)))
             FilterButton(activeFilters: $activeFilters, iconName: "tropicalstorm", filterViewModel: FilterViewModel(filter: .isNightmare(true)))
@@ -60,10 +60,12 @@ struct FilterSheet: View {
             }else{
                 if currentFilters.isEmpty{
                     SaveFiltersButton(text: "Activate Filters"){
+                        mediumFeedback()
                         self.currentFilters = self.activeFilters
                     }.transition(.offset(x: -UIScreen.main.bounds.width))
                 }else{
                     SaveFiltersButton(text: "Update Filters"){
+                        mediumFeedback()
                         self.currentFilters = self.activeFilters
                     }.transition(.offset(x: -UIScreen.main.bounds.width))
                 }
@@ -71,6 +73,7 @@ struct FilterSheet: View {
             
             if !currentFilters.isEmpty{
                 DeleteFiltersButton{
+                    mediumFeedback()
                     withAnimation{
                         self.activeFilters = []
                     }
@@ -118,6 +121,7 @@ private struct FilterButton : View {
             iconSize: .medium,
             isActive: activeFilters.contains(filterViewModel))
         {
+            mediumFeedback()
             if let index = self.activeFilters.firstIndex(of: self.filterViewModel){
                 self.activeFilters.remove(at: index)
             }else{

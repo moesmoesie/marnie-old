@@ -128,6 +128,7 @@ private struct ActiveTags : View {
                 tag: tag
             )
                 .onTapGesture {
+                    mediumFeedback()
                     withAnimation{
                         if let index = self.activeTags.firstIndex(of: tag){
                             self.activeTags.remove(at: index)
@@ -152,6 +153,7 @@ private struct SuggestionTags : View {
                 tag: tag
             )
                 .onTapGesture {
+                    mediumFeedback()
                     withAnimation{
                         if let index = self.activeTags.firstIndex(of: tag){
                             self.activeTags.remove(at: index)

@@ -20,6 +20,7 @@ struct DreamDetailBottomBar: View {
             Group{
                 Spacer()
                 CustomIconButton(iconName: "heart", iconSize: .medium, isActive: dream.isBookmarked) {
+                    mediumFeedback()
                     self.toggle(value: self.$dream.isBookmarked)
                 }
             }
@@ -27,6 +28,7 @@ struct DreamDetailBottomBar: View {
             Group{
                 Spacer()
                 CustomIconButton(iconName: "eye", iconSize: .medium, isActive:  dream.isLucid) {
+                    mediumFeedback()
                     self.toggle(value: self.$dream.isLucid)
                 }
             }
@@ -36,6 +38,7 @@ struct DreamDetailBottomBar: View {
             Group{
                 Spacer()
                 CustomIconButton(iconName: "tropicalstorm", iconSize: .medium, isActive: dream.isNightmare) {
+                    mediumFeedback()
                     self.toggle(value: self.$dream.isNightmare)
                 }
             }
@@ -52,6 +55,7 @@ struct DreamDetailBottomBar: View {
             Group{
                 Spacer()
                 CustomIconButton(iconName: "tag", iconSize: .medium){
+                    mediumFeedback()
                     self.editorObserver.currentMode = Modes.tagMode
                 }.sheet(isPresented: $showSheet, onDismiss: {
                     self.editorObserver.currentMode = Modes.regularMode
