@@ -45,7 +45,7 @@ struct DreamDetailBottomBar: View {
                 }.sheet(isPresented: $showSheet, onDismiss: {
                     self.editorObserver.currentMode = Modes.regularMode
                 }){
-                    DreamDetailTagsSheet()
+                    DreamDetailTagsSheet(currentTags: self.$dream.tags)
                         .environmentObject(self.dream)
                         .environment(\.managedObjectContext, self.managedObjectContext)
                 }
