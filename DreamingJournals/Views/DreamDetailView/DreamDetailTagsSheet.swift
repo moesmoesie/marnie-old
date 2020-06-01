@@ -30,13 +30,58 @@ struct DreamDetailTagsSheet: View {
                     title
                         .padding(.top, .medium)
                         .padding(.bottom,.small)
-            
-                    TagCreationField(text: $creationText, currentTags: $currentTags) {
-                        self.suggestionTags =  self.getUniqueTags(text: self.creationText)
+                    
+                    TagCreationField(text: $creationText, currentTags: $currentTags, onChange: {
+                        withAnimation{
+                            self.suggestionTags =  self.getUniqueTags(text: self.creationText)
+                        }
+                    }) {
+                        withAnimation{
+                            self.activeTags.append(TagViewModel(text: self.creationText))
+                            self.creationText = ""
+                            self.suggestionTags =  self.getUniqueTags(text: "")
+                        }
+                        
+                        self.currentTags = self.activeTags
+
                     }.padding(.bottom, .medium)
                     
-                    Tags(currentTags: $currentTags, activeTags :$activeTags,suggestionTags: $suggestionTags)
-                
+                    
+                    if !suggestionTags.filter({!activeTags.contains($0)}).isEmpty ||
+                        (creationText.isEmpty && activeTags.isEmpty){
+                        HStack{
+                            Text("Tag Suggestions")
+                                .foregroundColor(.main1)
+                                .font(.secondaryLarge)
+                            
+                            Text("Tap to add")
+                            .foregroundColor(.main2)
+                            .font(.primarySmall)
+                        }.padding(.bottom, .extraSmall)
+
+                       
+                        SuggestionTags(currentTags: $currentTags, activeTags: $activeTags, suggestionTags: $suggestionTags)
+                            .frame(minHeight: .extraLarge * 2, alignment: .top)
+                    }
+                    
+                    if !activeTags.isEmpty{
+                        HStack(alignment:.bottom){
+                        Text("Active Tags")
+                            .foregroundColor(.main1)
+                            .font(.secondaryLarge)
+                            
+                            Text("Tap to add")
+                            .foregroundColor(.main2)
+                            .font(.primarySmall)
+                        }.padding(.bottom, .extraSmall)
+
+                        ActiveTags(currentTags: $currentTags, activeTags :$activeTags)
+                            .padding(.bottom, .large)
+                    }
+                    
+                    
+                    
+                    
                     
                 }.padding(.horizontal, .medium)
             }
@@ -45,7 +90,7 @@ struct DreamDetailTagsSheet: View {
         }
     }
     
-
+    
     
     var title : some View{
         Text("Tags")
@@ -54,39 +99,32 @@ struct DreamDetailTagsSheet: View {
     }
     
     func getUniqueTags(text : String) -> [TagViewModel]{
-         let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
-         fetch.fetchLimit = 50
-         
-         if !text.isEmpty{
-             let predicate = NSPredicate(format: "text contains %@", text)
-             fetch.predicate = predicate
-         }
-         
-         do {
-             let fetchedTags = try self.managedObjectContext.fetch(fetch)
-             return fetchedTags.map({TagViewModel(text: $0["text"] as! String)})
-         } catch {
-             print("Error")
-             return []
-         }
-     }
+        let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
+        fetch.fetchLimit = 50
+        
+        if !text.isEmpty{
+            let predicate = NSPredicate(format: "text contains %@", text)
+            fetch.predicate = predicate
+        }
+        
+        do {
+            let fetchedTags = try self.managedObjectContext.fetch(fetch)
+            return fetchedTags.map({TagViewModel(text: $0["text"] as! String)})
+        } catch {
+            print("Error")
+            return []
+        }
+    }
 }
 
-private struct Tags : View {
+private struct ActiveTags : View {
     @Binding var currentTags : [TagViewModel]
     @Binding var activeTags : [TagViewModel]
-    @Binding var suggestionTags : [TagViewModel]
-    var tagsToShow : [TagViewModel]{
-        var tags : [TagViewModel] = activeTags
-        tags.append(contentsOf: suggestionTags.filter({!tags.contains($0)}))
-        return tags
-    }
-
+    
     var body: some View{
-        CollectionView(data: tagsToShow){ tag in
+        CollectionView(data: activeTags){ tag in
             TagView(
-                tag: tag,
-                isActive: self.activeTags.contains(tag)
+                tag: tag
             )
                 .onTapGesture {
                     withAnimation{
@@ -97,7 +135,31 @@ private struct Tags : View {
                         }
                     }
                     self.currentTags = self.activeTags
-                }
+            }
+        }
+    }
+}
+
+private struct SuggestionTags : View {
+    @Binding var currentTags : [TagViewModel]
+    @Binding var activeTags : [TagViewModel]
+    @Binding var suggestionTags : [TagViewModel]
+    
+    var body: some View{
+        CollectionView(data: suggestionTags.filter({!activeTags.contains($0)})){ tag in
+            TagView(
+                tag: tag
+            )
+                .onTapGesture {
+                    withAnimation{
+                        if let index = self.activeTags.firstIndex(of: tag){
+                            self.activeTags.remove(at: index)
+                        }else{
+                            self.activeTags.append(tag)
+                        }
+                    }
+                    self.currentTags = self.activeTags
+            }
         }
     }
 }
@@ -107,16 +169,16 @@ private struct TagCreationField : View{
     @Binding var text : String
     @Binding var currentTags : [TagViewModel]
     let onChange : () -> ()
+    let onReturn : () -> ()
     
     var body: some View{
         CustomTextField(text: $text, placeholder: "Create new tag", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, maxCharacters: 25, font: .primaryRegular,
                         onChange: { (textField) in
                             self.onChange()
-                        }){ (textField) in
-                            self.currentTags.append(TagViewModel(text: self.text))
-                            self.text = ""
-                            return true
-                        }
+        }){ (textField) in
+            self.onReturn()
+            return true
+        }
         .padding(.horizontal,.small)
         .padding(.vertical, .small)
         .background(Color.background2)
