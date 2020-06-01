@@ -19,11 +19,13 @@ struct CustomTextField : View {
     let font : UIFont
     let maxCharacters : Int
     let onReturn : (UITextField) -> Bool
+    let onChange : (UITextField) -> ()
+
     let placeholderFont : Font
     
     init(text : Binding<String>, placeholder : String, placeholderFont : Font = Font.primaryRegular, textColor : UIColor = .white,
          placeholderColor : Color = .white,
-         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, maxCharacters : Int = .max, font : UIFont = UIFont.preferredFont(forTextStyle: .body), onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
+         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, maxCharacters : Int = .max, font : UIFont = UIFont.preferredFont(forTextStyle: .body),onChange: @escaping (UITextField) -> () = {_ in },  onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
         self._text = text
         self.placeholder = placeholder
         self.textColor = textColor
@@ -34,6 +36,7 @@ struct CustomTextField : View {
         self.placeholderColor = placeholderColor
         self.maxCharacters = maxCharacters
         self.placeholderFont = placeholderFont
+        self.onChange = onChange
     }
     
     var body: some View{
@@ -49,7 +52,7 @@ struct CustomTextField : View {
                     .font(placeholderFont)
                     .foregroundColor(placeholderColor)
             }
-            UICustomTextField(text: self.$text, width: width, height: self.$height, onReturn: onReturn, make: self.make)
+            UICustomTextField(text: self.$text, width: width, height: self.$height, onReturn: onReturn, onChange: self.onChange, make: self.make)
         }
     }
     
@@ -77,6 +80,8 @@ private struct UICustomTextField : UIViewRepresentable{
     let width : CGFloat
     @Binding var height : CGFloat
     let onReturn : (UITextField) -> Bool
+    let onChange : (UITextField) -> ()
+
     let make: (Coordinator) -> UIViewType
     func makeUIView(context: Context) -> UITextField {
         make(context.coordinator)
@@ -91,17 +96,19 @@ private struct UICustomTextField : UIViewRepresentable{
     }
     
     func makeCoordinator() -> UICustomTextField.Coordinator {
-        return Coordinator($text,onReturn: onReturn)
+        return Coordinator($text,onChange: onChange, onReturn: onReturn)
     }
     
     class Coordinator: NSObject, UITextFieldDelegate{
         @Binding var text : String
         var maxCharacters : Int = .max
         let onReturn : (UITextField) -> Bool
+        let onChange : (UITextField) -> ()
 
-        init(_ text : Binding<String>, onReturn : @escaping (UITextField) -> Bool) {
+        init(_ text : Binding<String>, onChange : @escaping (UITextField) -> () ,onReturn : @escaping (UITextField) -> Bool) {
             self._text = text
             self.onReturn = onReturn
+            self.onChange = onChange
         }
         
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -113,6 +120,7 @@ private struct UICustomTextField : UIViewRepresentable{
         
         @objc func textFieldDidChange(_ textField: UITextField) {
             text = textField.text ?? ""
+            onChange(textField)
          }
         
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -53,9 +53,8 @@ private struct FilterButton : View {
         .cornerRadius(.medium)
         .primaryShadow()
         .sheet(isPresented: self.$showFilterSheet){
-            FilterSheet(filters: self.filterObserver.filters)
+            FilterSheet(initialFilters: self.$filterObserver.filters)
                 .environment(\.managedObjectContext, self.managedObjectContext)
-                .environmentObject(self.filterObserver)
         }
     }
 }

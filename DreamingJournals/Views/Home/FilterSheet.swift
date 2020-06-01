@@ -11,197 +11,201 @@ import CoreData
 import Combine
 
 struct FilterSheet: View {
-    @EnvironmentObject var filterObserver : FilterObserver
-    @ObservedObject var filterSheetObserver : FilterSheetObserver = FilterSheetObserver()
-    init(filters : [FilterViewModel]) {
-        filterSheetObserver.activeFilters = filters
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Binding var currentFilters : [FilterViewModel]
+    @State var activeFilters : [FilterViewModel]
+    @State var suggestionsTags : [TagViewModel] = []
+    @State var searchText : String = ""
+    
+    init(initialFilters : Binding<[FilterViewModel]>) {
+        _activeFilters = .init(initialValue: initialFilters.wrappedValue)
+        self._currentFilters = initialFilters
     }
     
-    @State var isLoading = false
     var body: some View {
-        return ZStack {
+        return ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment : .leading, spacing: 0){
-                    Text(("Filters"))
-                        .padding(.horizontal, .medium)
+            ScrollView{
+                VStack(alignment: .leading,spacing : 0){
+                    title
                         .padding(.top, .medium)
-                        .foregroundColor(.main1)
-                        .font(.primaryLarge)
-                        .padding(.bottom, .small)
-                    FilterButtonRow()
-                        .padding(.bottom, .medium)
-                    TagSearchField()
-                        .padding(.bottom, .medium)
-                    Tags()
-                        .padding(.horizontal, .medium)
-                    Spacer()
-                }
-                
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            ActivateFiltersButton()
-                .padding(.horizontal, .medium)
-                .frame(maxHeight : .infinity,alignment: .bottom)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            .environmentObject(filterSheetObserver)
-    }
-}
-
-private struct Tags : View {
-    @EnvironmentObject var filterSheetObserver : FilterSheetObserver
-    var tagsToShow : [TagViewModel]{
-        var tags : [TagViewModel] = []
-        for filter in filterSheetObserver.activeFilters{
-            switch filter.filter {
-            case let .tag(filterTag):
-                tags.append(filterTag)
-            default: break
+                        .padding(.bottom,.small)
+                    boolFilterButtons
+                        .padding(.bottom,.small)
+                    TagSearchTextField(text: $searchText, onChange: {
+                        self.suggestionsTags = self.getUniqueTags(text: self.searchText)
+                    })
+                    Tags(activeFilters: $activeFilters, suggestionTags: $suggestionsTags)
+                        .padding(.top, .medium)
+                }.padding(.horizontal, .medium)
             }
+            buttonsBar
+        }.onAppear{
+            self.suggestionsTags = self.getUniqueTags(text: "")
         }
-        
-        for tag in filterSheetObserver.tagSuggestions{
-            if !tags.contains(tag){
-                tags.append(tag)
-            }
-        }
-        
-        return tags
     }
     
-    
-    var body: some View{
-        return CollectionView(data: tagsToShow) { (tagViewModel :TagViewModel) in
-            TagView(tag: tagViewModel,
-                    isActive: self.filterSheetObserver.activeFilters.contains(FilterViewModel(filter: .tag(tagViewModel)))
-            ).onTapGesture {
-                let filter = FilterViewModel(filter: .tag(tagViewModel))
-                withAnimation(){
-                    if let index = self.filterSheetObserver.activeFilters.firstIndex(of: filter){
-                        self.filterSheetObserver.activeFilters.remove(at: index)
-                    }else{
-                        self.filterSheetObserver.activeFilters.append(filter)
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-struct TagSearchField : View{
-    @EnvironmentObject var dream : DreamViewModel
-    @EnvironmentObject var filterSheetObserver : FilterSheetObserver
-    
-    var body: some View{
-        CustomTextField(
-            text: $filterSheetObserver.tagSuggestionText,
-            placeholder: "Search For Tags",
-            textColor: .main1,
-            placeholderColor: .main2,
-            tintColor: .accent1,
-            maxCharacters: 25,
-            font: .primaryRegular) { (view) -> Bool in
-                self.filterSheetObserver.tagSuggestionText = ""
-                return true
-        }
-        .padding(.small)
-        .background(Color.background2)
-        .cornerRadius(.small)
-        .padding(.horizontal, .medium)
-    }
-}
-
-private struct ActivateFiltersButton : View{
-    @EnvironmentObject var filterSheetObserver : FilterSheetObserver
-    @EnvironmentObject var filterObserver : FilterObserver
-    
-    var body: some View{
-        Button(action:{
-            self.filterObserver.filters = self.filterSheetObserver.activeFilters
-        }){
-            HStack{
-                Text("Activate Filters")
-                    .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
-            }
-        }
-        .buttonStyle(PlainButtonStyle())
-        .frame(maxWidth : .infinity)
-        .padding(.medium)
-        .background(filterObserver.filters.isEmpty ? Color.background2 : Color.accent1)
-        .cornerRadius(12.5)
-        .primaryShadow()
-    }
-}
-
-private struct FilterButtonRow : View {
-    var body: some View{
+    var boolFilterButtons : some View{
         HStack{
-            FilterButton(iconName: "heart", filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
-            Spacer()
-            FilterButton(iconName: "eye", filterViewModel: FilterViewModel(filter: .isLucid(true)))
-            Spacer()
-            FilterButton(iconName: "tropicalstorm", filterViewModel: FilterViewModel(filter: .isNightmare(true)))
-        }.padding(.horizontal, .medium)
+            FilterButton(activeFilters: $activeFilters, iconName: "heart", filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
+            FilterButton(activeFilters: $activeFilters, iconName: "eye", filterViewModel: FilterViewModel(filter: .isLucid(true)))
+            FilterButton(activeFilters: $activeFilters, iconName: "tropicalstorm", filterViewModel: FilterViewModel(filter: .isNightmare(true)))
+        }
     }
+    
+    var buttonsBar : some View{
+        HStack{
+            if activeFilters.isEmpty || activeFilters == currentFilters{
+                Spacer()
+            }else{
+                if currentFilters.isEmpty{
+                    SaveFiltersButton(text: "Activate Filters"){
+                        self.currentFilters = self.activeFilters
+                    }.transition(.offset(x: -UIScreen.main.bounds.width))
+                }else{
+                    SaveFiltersButton(text: "Update Filters"){
+                        self.currentFilters = self.activeFilters
+                    }.transition(.offset(x: -UIScreen.main.bounds.width))
+                }
+            }
+            
+            if !currentFilters.isEmpty{
+                DeleteFiltersButton{
+                    withAnimation{
+                        self.activeFilters = []
+                    }
+                    self.currentFilters = []
+                }.transition(.offset(x: 200))
+            }
+        }
+        .animation(.easeInOut)
+        .padding(.horizontal,.medium)
+        .frame(maxHeight: .infinity, alignment: .bottom)
+    }
+    
+    var title : some View{
+        Text("Filters")
+            .font(.primaryLarge)
+            .foregroundColor(.main1)
+    }
+    
+    func getUniqueTags(text : String) -> [TagViewModel]{
+         let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
+         fetch.fetchLimit = 50
+         
+         if !text.isEmpty{
+             let predicate = NSPredicate(format: "text contains %@", text)
+             fetch.predicate = predicate
+         }
+         
+         do {
+             let fetchedTags = try self.managedObjectContext.fetch(fetch)
+             return fetchedTags.map({TagViewModel(text: $0["text"] as! String)})
+         } catch {
+             print("Error")
+             return []
+         }
+     }
 }
-
 
 private struct FilterButton : View {
-    @EnvironmentObject var filterSheetObserver : FilterSheetObserver
+    @Binding var activeFilters : [FilterViewModel]
     let iconName : String
     let filterViewModel : FilterViewModel
     var body: some View{
         CustomIconButton(
             iconName: iconName,
             iconSize: .medium,
-            isActive: filterSheetObserver.activeFilters.contains(filterViewModel))
+            isActive: activeFilters.contains(filterViewModel))
         {
-            if let index = self.filterSheetObserver.activeFilters.firstIndex(of: self.filterViewModel){
-                self.filterSheetObserver.activeFilters.remove(at: index)
+            if let index = self.activeFilters.firstIndex(of: self.filterViewModel){
+                self.activeFilters.remove(at: index)
             }else{
-                self.filterSheetObserver.activeFilters.append(self.filterViewModel)
+                self.activeFilters.append(self.filterViewModel)
             }
         }
     }
 }
 
 
-class FilterSheetObserver : ObservableObject{
-    @Published var activeFilters : [FilterViewModel] = []
-    @Published var tagSuggestions : [TagViewModel] = []
-    @Published var tagSuggestionText = ""
-    var managedObjectContext : NSManagedObjectContext
-    private var cancellableSet: Set<AnyCancellable> = []
-    
-    init() {
-        self.managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
-        self.tagSuggestions = getUniqueTags(text: "")
-        
-        self.$tagSuggestionText
-            .debounce(for: 0.1, scheduler: RunLoop.main)
-            .sink { (text) in
-                withAnimation(){
-                    self.tagSuggestions = self.getUniqueTags(text: text)
-                }
-        }.store(in: &cancellableSet)
+private struct Tags : View {
+    @Binding var activeFilters : [FilterViewModel]
+    @Binding var suggestionTags : [TagViewModel]
+    var tagsToShow : [TagViewModel]{
+        var tags : [TagViewModel] = []
+        for filter in activeFilters{
+            switch filter.filter {
+            case let .tag(tag):
+                tags.append(tag)
+            default: break
+            }
+        }
+        tags.append(contentsOf: suggestionTags.filter({!tags.contains($0)}))
+        return tags
     }
+
+    var body: some View{
+        CollectionView(data: tagsToShow){ tag in
+            TagView(
+                tag: tag,
+                isActive: self.activeFilters.contains(FilterViewModel(filter: .tag(tag)))
+            )
+                .onTapGesture {
+                    withAnimation{
+                        if let index = self.activeFilters.firstIndex(of: FilterViewModel(filter: .tag(tag))){
+                            self.activeFilters.remove(at: index)
+                        }else{
+                            self.activeFilters.append(FilterViewModel(filter: .tag(tag)))
+                        }
+                    }
+                }
+        }
+    }
+}
+
+private struct SaveFiltersButton : View{
+    let text : String
+    let onPress : () -> ()
+    var body: some View{
+        Button(action: onPress){
+            Text(text)
+                .foregroundColor(.main2)
+        }
+        .frame(maxWidth : .infinity)
+        .frame(height: .extraLarge)
+        .background(Color.background2)
+        .cornerRadius(12.5)
+    }
+}
+
+private struct DeleteFiltersButton : View{
+    let onPress : () -> ()
+
+    var body: some View{
+        Button(action: onPress){
+            Image(systemName: "trash")
+                .foregroundColor(.red)
+                .imageScale(.medium)
+        }
+        .frame(height: .extraLarge)
+        .padding(.horizontal,.large)
+        .background(Color.background1)
+        .cornerRadius(12.5)
+        .overlay(RoundedRectangle(cornerRadius: 12.5).stroke(Color.red, lineWidth: 1))
+    }
+}
+
+private struct TagSearchTextField : View{
+    @Binding var text : String
+    let onChange : () -> ()
     
-    func getUniqueTags(text : String) -> [TagViewModel]{
-        let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
-        fetch.fetchLimit = 50
-        
-        if !text.isEmpty{
-            let predicate = NSPredicate(format: "text contains %@", text)
-            fetch.predicate = predicate
-        }
-        
-        do {
-            let fetchedTags = try self.managedObjectContext.fetch(fetch)
-            return fetchedTags.map({TagViewModel(text: $0["text"] as! String)})
-        } catch {
-            print("Error")
-            return []
-        }
+    var body: some View{
+        CustomTextField(text: $text, placeholder: "Search for Tags", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, maxCharacters: 25, font: .primaryRegular, onChange: { (textField) in
+            self.onChange()
+        })
+        .padding(.horizontal,.medium)
+        .padding(.vertical, .small)
+        .background(Color.background2)
+        .cornerRadius(12.5)
     }
 }
