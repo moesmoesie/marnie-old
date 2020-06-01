@@ -52,7 +52,7 @@ struct DreamDetailTagsSheet: View {
                                 .foregroundColor(.main1)
                                 .font(.secondaryLarge)
                             
-                            Text("Tap to add")
+                            Text("Tap to delete")
                                 .foregroundColor(.main2)
                                 .font(.primarySmall)
                         }.padding(.bottom, .extraSmall)
