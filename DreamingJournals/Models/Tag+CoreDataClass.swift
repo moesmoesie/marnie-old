@@ -28,4 +28,18 @@ public class Tag: NSManagedObject {
         fetch.returnsDistinctResults = true
         return fetch
     }
+    
+    
+    @nonobjc class  func deleteDreamlessTags(context managedObjectContext: NSManagedObjectContext ){
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tag")
+        fetchRequest.predicate = NSPredicate(
+            format: "dream == nil"
+        )
+        do{
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            try managedObjectContext.execute(batchDeleteRequest)
+        }catch{
+            print("error fetching tags to delete")
+        }
+    }
 }

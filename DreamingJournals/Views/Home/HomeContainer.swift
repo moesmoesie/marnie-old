@@ -36,6 +36,7 @@ private struct HomeFetchContainer: View {
 private struct HomeContent : View{
     @FetchRequest var fetchRequest : FetchedResults<Dream>
     @EnvironmentObject var fetchObserver : FetchObserver
+    @Environment(\.managedObjectContext) var managedObjectContext
     init(filters:[FilterViewModel], limit : Int) {
         self._fetchRequest = FetchRequest(fetchRequest: Dream.customFetchRequest(filterViewModels: filters, limit: limit))
     }
@@ -44,6 +45,7 @@ private struct HomeContent : View{
         fetchObserver.lastDream = fetchRequest.last
         return HomeView(dreams: fetchRequest)
             .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { (_) in
+                Tag.deleteDreamlessTags(context: self.managedObjectContext)
                 if self.fetchObserver.update == false{
                     self.fetchObserver.update = true
                 }
