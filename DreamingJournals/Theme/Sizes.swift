@@ -9,28 +9,30 @@
 import SwiftUI
 
 extension CGFloat{
+    static let screen = UIScreen.main.bounds
+    static let iphoneXWidth : CGFloat = 414
     static var extraSmall : CGFloat{
-        5
+        5 * (screen.width / iphoneXWidth)
     }
     
     static var small : CGFloat{
-        10
+        10 * (screen.width / iphoneXWidth)
     }
     
     static var medium : CGFloat{
-        20
+        20 * (screen.width / iphoneXWidth)
     }
     
     static var large : CGFloat{
-        30
+        30 * (screen.width / iphoneXWidth)
     }
     
     static var extraLarge : CGFloat{
-        40
+        40 * (screen.width / iphoneXWidth)
     }
     
     static var cardSize : CGFloat{
-        300
+        300 * (screen.width / iphoneXWidth)
     }
     
     static var navigationBarHeight : CGFloat{
