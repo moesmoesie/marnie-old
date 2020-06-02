@@ -37,9 +37,7 @@ struct DreamDetailTagsSheet: View {
                         }
                     }) {
                         withAnimation{
-                            self.activeTags.append(TagViewModel(text: self.creationText))
-                            self.creationText = ""
-                            self.suggestionTags =  self.getUniqueTags(text: "")
+                            self.addTag()
                         }
                         
                         self.currentTags = self.activeTags
@@ -77,13 +75,6 @@ struct DreamDetailTagsSheet: View {
                         SuggestionTags(currentTags: $currentTags, activeTags: $activeTags, suggestionTags: $suggestionTags)
                             .frame(minHeight: .extraLarge * 2, alignment: .top)
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                 }.padding(.horizontal, .medium)
             }
         }.onAppear{
@@ -97,6 +88,20 @@ struct DreamDetailTagsSheet: View {
         Text("Tags")
             .font(.primaryLarge)
             .foregroundColor(.main1)
+    }
+    
+    func addTag(){
+        if self.creationText.isEmpty{
+            return
+        }
+        
+        let tag = TagViewModel(text: self.creationText)
+        self.creationText = ""
+        self.suggestionTags = getUniqueTags(text: "")
+        if currentTags.contains(tag) || creationText.count > 25 {
+            return
+        }
+        self.activeTags.append(tag)
     }
     
     func getUniqueTags(text : String) -> [TagViewModel]{
