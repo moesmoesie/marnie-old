@@ -145,10 +145,10 @@
 		110F88F124530F6700C7B797 /* DreamingJournals */ = {
 			isa = PBXGroup;
 			children = (
-				11E48F81247D83C500F1D89F /* Animations */,
 				1166455E2459B4FA000F2DC0 /* Views */,
 				1168B0242454593D00E9E186 /* Models */,
 				11564C102463F59600CDAE93 /* ViewModels */,
+				11D1556024865F6C005AAEDD /* Observers */,
 				11AF16C02462D238009A150B /* Utilities */,
 				11ABA2A0247442550091B0AA /* Theme */,
 				110F88F424530F6700C7B797 /* SceneDelegate.swift */,
@@ -159,6 +159,7 @@
 				110F890324530F6900C7B797 /* Info.plist */,
 				110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */,
 				110F88FD24530F6900C7B797 /* Preview Content */,
+				11E48F81247D83C500F1D89F /* Animations */,
 				110F88FB24530F6900C7B797 /* Assets.xcassets */,
 			);
 			path = DreamingJournals;
@@ -261,15 +262,22 @@
 		11AF16C02462D238009A150B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				1102AD9024747651005FCB27 /* HapticFeedback.swift */,
+				111BA7262479F5B2000E48DF /* StyleHelper.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		11D1556024865F6C005AAEDD /* Observers */ = {
+			isa = PBXGroup;
+			children = (
 				11AF16C12462D5D4009A150B /* KeyboardObserver.swift */,
 				113E891E246BE7460070F018 /* SaveAreaObserver.swift */,
 				1187E6312471F68E00320334 /* EditorObserver.swift */,
-				1102AD9024747651005FCB27 /* HapticFeedback.swift */,
-				111BA7262479F5B2000E48DF /* StyleHelper.swift */,
 				11E48F77247D535700F1D89F /* NavigationObserver.swift */,
 				11FE3E1F247F3D6500E84469 /* FilterObserver.swift */,
 			);
-			path = Utilities;
+			path = Observers;
 			sourceTree = "<group>";
 		};
 		11E48F81247D83C500F1D89F /* Animations */ = {
