@@ -10,7 +10,7 @@ import SwiftUI
 
 extension CGFloat{
     static let screen = UIScreen.main.bounds
-    static let iphoneXWidth : CGFloat = 414
+    static let iphoneXWidth : CGFloat = 375
     static var extraSmall : CGFloat{
         5 * (screen.width / iphoneXWidth)
     }
