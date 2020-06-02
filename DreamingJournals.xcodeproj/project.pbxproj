@@ -25,6 +25,9 @@
 		11559B31245A2AB900025F9F /* DreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* DreamListView.swift */; };
 		11564C122463F5AF00CDAE93 /* DreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11564C112463F5AF00CDAE93 /* DreamViewModel.swift */; };
 		11564C1824641FBC00CDAE93 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11564C1724641FBC00CDAE93 /* TagViewModel.swift */; };
+		117726BD248671AF008FBB3E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117726BC248671AF008FBB3E /* OnboardingView.swift */; };
+		117726C124867EC7008FBB3E /* sleeping_animal.json in Resources */ = {isa = PBXBuildFile; fileRef = 117726C024867EC6008FBB3E /* sleeping_animal.json */; };
+		117726C7248695DD008FBB3E /* milk_and_cookie.json in Resources */ = {isa = PBXBuildFile; fileRef = 117726C6248695DD008FBB3E /* milk_and_cookie.json */; };
 		117749AF247D40C300DBA937 /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117749AE247D40C300DBA937 /* MainNavigationView.swift */; };
 		117F5677247AB39E00F72434 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117F5676247AB39E00F72434 /* Gradients.swift */; };
 		1182E35E24634C4800C41E3E /* DreamDetailTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */; };
@@ -81,6 +84,9 @@
 		11559B30245A2AB900025F9F /* DreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListView.swift; sourceTree = "<group>"; };
 		11564C112463F5AF00CDAE93 /* DreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamViewModel.swift; sourceTree = "<group>"; };
 		11564C1724641FBC00CDAE93 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
+		117726BC248671AF008FBB3E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		117726C024867EC6008FBB3E /* sleeping_animal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sleeping_animal.json; sourceTree = "<group>"; };
+		117726C6248695DD008FBB3E /* milk_and_cookie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = milk_and_cookie.json; sourceTree = "<group>"; };
 		117749AE247D40C300DBA937 /* MainNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationView.swift; sourceTree = "<group>"; };
 		117F5676247AB39E00F72434 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		1182E35D24634C4800C41E3E /* DreamDetailTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailTopBar.swift; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 		1166455E2459B4FA000F2DC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				117726BB2486717B008FBB3E /* OnboardingView */,
 				114D155F245CB58C0042A38B /* HelperViews */,
 				11559B32245A2D9200025F9F /* DreamDetailView */,
 				11559B2D245A29B800025F9F /* Home */,
@@ -244,6 +251,14 @@
 				11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		117726BB2486717B008FBB3E /* OnboardingView */ = {
+			isa = PBXGroup;
+			children = (
+				117726BC248671AF008FBB3E /* OnboardingView.swift */,
+			);
+			path = OnboardingView;
 			sourceTree = "<group>";
 		};
 		11ABA2A0247442550091B0AA /* Theme */ = {
@@ -283,7 +298,9 @@
 		11E48F81247D83C500F1D89F /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				117726C6248695DD008FBB3E /* milk_and_cookie.json */,
 				11E48F8A247DA4A100F1D89F /* construction.json */,
+				117726C024867EC6008FBB3E /* sleeping_animal.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -354,7 +371,9 @@
 			files = (
 				11E48F8B247DA4A100F1D89F /* construction.json in Resources */,
 				110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */,
+				117726C7248695DD008FBB3E /* milk_and_cookie.json in Resources */,
 				110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */,
+				117726C124867EC7008FBB3E /* sleeping_animal.json in Resources */,
 				110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +406,7 @@
 				1128C173247EC86100F08CA4 /* LazyView.swift in Sources */,
 				11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */,
 				11A09224246EAC73003A3F46 /* CollectionView.swift in Sources */,
+				117726BD248671AF008FBB3E /* OnboardingView.swift in Sources */,
 				11E48F7A247D6D3800F1D89F /* Modifiers.swift in Sources */,
 				11E48F7F247D81BD00F1D89F /* LottieView.swift in Sources */,
 				11C45B4E2479F99C00E98DCC /* Shadows.swift in Sources */,

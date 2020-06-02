@@ -24,4 +24,5 @@ enum Pages{
     case settings
     case statistics
     case profile
+    case onboarding
 }

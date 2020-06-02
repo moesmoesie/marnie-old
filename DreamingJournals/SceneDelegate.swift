@@ -25,21 +25,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let keyboardObserver = KeyboardObserver()
         let filterObserver = FilterObserver()
+        let navigationObserver = NavigationObserver()
         let contentView = MainNavigationView()
             .environment(\.managedObjectContext, context)
             .environmentObject(keyboardObserver)
             .environmentObject(filterObserver)
+            .environmentObject(navigationObserver)
 
         if UserDefaults.standard.string(forKey: "isFirstBoot") == nil{
             UserDefaults.standard.set("false", forKey: "isFirstBoot")
-            
+            navigationObserver.currentPage = .onboarding
             for dream in sampleData{
                 print(dream.title)
                 try? Dream.saveDream(dream, context: context)
             }
         }
-        
-        
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

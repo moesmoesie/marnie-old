@@ -9,15 +9,19 @@
 import SwiftUI
 
 struct MainNavigationView: View {
-    @ObservedObject var navigationObserver = NavigationObserver()
+    @EnvironmentObject var navigationObserver : NavigationObserver
     var body: some View {
         ZStack(alignment: .bottom){
             if navigationObserver.currentPage == Pages.home{
                 HomeContainer()
+            }
+            else if navigationObserver.currentPage == Pages.onboarding{
+                OnboardingView()
+                    .transition(.opacity)
             }else{
                 ConstructionPage()
             }
-        }.environmentObject(navigationObserver)
+        }
     }
 }
 
