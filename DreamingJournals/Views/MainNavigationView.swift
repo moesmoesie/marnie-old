@@ -36,20 +36,15 @@ struct MainNavigationBar: View {
                 
                 Spacer()
                 
-                BarButton(iconName: "chart.bar", page: Pages.statistics)
+                NewDreamButton(size: .extraLarge * 1.2)
                 
-                Group{
-                    Spacer()
-                    NewDreamButton(size: 50)
-                    Spacer()
-                }
-                
+                Spacer()
+            
                 BarButton(iconName: "gear", page: .settings)
                 
                 Spacer()
                 
-                BarButton(iconName: "person.circle", page: .profile)
-                Spacer()
+              
             }
             .modifier(BottomBarStyling())
     }
