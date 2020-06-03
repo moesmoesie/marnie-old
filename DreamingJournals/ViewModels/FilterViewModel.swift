@@ -23,6 +23,7 @@ enum Filter{
     case isLucid(Bool)
     case isNightmare(Bool)
     case tag(TagViewModel)
+    case containsWord(String)
 
     func getPredicate() -> NSPredicate{
         switch self {
@@ -34,6 +35,8 @@ enum Filter{
             return isNightmarePredicate(isNightmare)
         case let .tag(text):
             return getTagPredicate(text)
+        case let .containsWord(text):
+            return containsWordPredicate(text)
         }
     }
     
@@ -46,6 +49,8 @@ enum Filter{
         case let (.isLucid(a), .isLucid(b)):
             return a == b
         case let (.isNightmare(a), .isNightmare(b)):
+            return a == b
+        case let (.containsWord(a), .containsWord(b)):
             return a == b
         default:
             return false
@@ -62,9 +67,18 @@ enum Filter{
             return true
         case (.isNightmare(_), .isNightmare(_)):
             return true
+        case (.containsWord(_), .containsWord(_)):
+            return true
         default:
             return false
         }
+    }
+    
+    private func containsWordPredicate(_ word : String) -> NSPredicate{
+        NSPredicate(
+            format: "%K contains %@",
+            argumentArray: [#keyPath(Dream.text.localizedLowercase), word.lowercased()]
+        )
     }
     
     private func getTagPredicate(_ tag : TagViewModel) -> NSPredicate{

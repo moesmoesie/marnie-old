@@ -19,13 +19,25 @@ struct FilterSheet: View {
     @State var suggestionsTags : [TagViewModel] = []
     @State var searchText : String = ""
     
+    var wordsFilters : [TagViewModel]{
+        var tags : [TagViewModel] = []
+        for filter in activeFilters{
+            switch filter.filter {
+            case let .containsWord(word):
+                tags.append(TagViewModel(text: word))
+            default: break
+            }
+        }
+        return tags
+    }
+    
     init(initialFilters : Binding<[FilterViewModel]>) {
         _activeFilters = .init(initialValue: initialFilters.wrappedValue)
         self._currentFilters = initialFilters
     }
     
     var body: some View {
-        return ZStack{
+        return ZStack(alignment : .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment: .leading,spacing : 0){
@@ -36,6 +48,14 @@ struct FilterSheet: View {
                     }
                     boolFilterButtons
                         .padding(.bottom,.small)
+                    
+                    WordFilterTextField(activeFilter: $activeFilters)
+                        .padding(.bottom,.medium)
+                    
+                    WordCollectionView(activeFilters: $activeFilters)
+                        .padding(.bottom,.medium)
+                    
+                    
                     TagSearchTextField(text: $searchText, onChange: {
                         self.suggestionsTags = self.getUniqueTags(text: self.searchText)
                     })
@@ -43,6 +63,7 @@ struct FilterSheet: View {
                         .padding(.top, .medium)
                 }.padding(.horizontal, .medium)
             }
+            FilterSheetKeyboardBar()
             buttonsBar
         }.onAppear{
             self.suggestionsTags = self.getUniqueTags(text: "")
@@ -61,7 +82,7 @@ struct FilterSheet: View {
         VStack(spacing : .small){
             HStack{
                 Spacer()
-        
+                
                 if activeFilters != currentFilters{
                     Text("New Count : \(Dream.dreamCount(with: activeFilters, context: managedObjectContext)) ")
                         .frame(height : .extraLarge)
@@ -109,7 +130,6 @@ struct FilterSheet: View {
         }
         .animation(.easeInOut)
         .padding(.horizontal,.medium)
-        .padding(.bottom, keyboardObserver.isKeyboardShowing ?  keyboardObserver.heightWithoutSaveArea + .small : 0)
         .frame(maxHeight: .infinity, alignment: .bottom)
     }
     
@@ -239,5 +259,69 @@ private struct TagSearchTextField : View{
             .padding(.vertical, .small)
             .background(Color.background2)
             .cornerRadius(12.5)
+    }
+}
+
+private struct WordFilterTextField : View{
+    @State var text : String = ""
+    @Binding var activeFilter : [FilterViewModel]
+    var body: some View{
+        CustomTextField(text: $text, placeholder: "Create a word filter", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, maxCharacters: 25, font: .primaryRegular, onReturn: { (textField) in
+            self.activeFilter.append(FilterViewModel(filter: .containsWord(self.text)))
+            self.text = ""
+            return true
+        })
+            .padding(.horizontal,.medium)
+            .padding(.vertical, .small)
+            .background(Color.background2)
+            .cornerRadius(12.5)
+    }
+}
+
+struct WordCollectionView: View {
+    @Binding var activeFilters : [FilterViewModel]
+    
+    var wordsFilters : [TagViewModel]{
+        var tags : [TagViewModel] = []
+        for filter in activeFilters{
+            switch filter.filter {
+            case let .containsWord(word):
+                tags.append(TagViewModel(text: word))
+            default: break
+            }
+        }
+        return tags
+    }
+    
+    var body: some View {
+        return CollectionView(data: wordsFilters) { (wordTag : TagViewModel) in
+            TagView(tag: wordTag, isActive:  true)
+                .onTapGesture {
+                    if let index = self.activeFilters.firstIndex(of: FilterViewModel(filter: .containsWord(wordTag.text))){
+                        self.activeFilters.remove(at: index)
+                    }
+                }
+            }
+        }
+    }
+
+
+
+struct FilterSheetKeyboardBar: View {
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+    @EnvironmentObject var editorObserver : EditorObserver
+    
+    var body: some View {
+        return HStack(alignment: .center){
+            Spacer()
+            CustomPassiveIconButton(iconName: "chevron.down.square", iconSize: .small) {
+                self.keyboardObserver.dismissKeyboard()
+            }.padding(.trailing, .medium)
+                .padding(.bottom, .small)
+        }
+        .padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.heightWithoutSaveArea : 100)
+        .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
+        .disabled(!keyboardObserver.isKeyboardShowing)
+        .animation(.easeOut(duration: 0.4))
     }
 }
