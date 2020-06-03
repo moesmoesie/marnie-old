@@ -96,6 +96,7 @@ struct HomeFilterSheet: View {
         }
         .animation(.easeInOut)
         .padding(.horizontal,.medium)
+        .padding(.bottom, getBottomSaveArea() > 0 ? 0 : .medium )
         .frame(maxHeight: .infinity, alignment: .bottom)
     }
     
