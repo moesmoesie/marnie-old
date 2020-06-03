@@ -22,7 +22,7 @@
 		1128C173247EC86100F08CA4 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1128C172247EC86100F08CA4 /* LazyView.swift */; };
 		113E891F246BE7460070F018 /* SaveAreaObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E891E246BE7460070F018 /* SaveAreaObserver.swift */; };
 		114D1563245CB5FB0042A38B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1562245CB5FB0042A38B /* TagView.swift */; };
-		11559B31245A2AB900025F9F /* DreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* DreamListView.swift */; };
+		11559B31245A2AB900025F9F /* HomeDreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11559B30245A2AB900025F9F /* HomeDreamListView.swift */; };
 		11564C122463F5AF00CDAE93 /* DreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11564C112463F5AF00CDAE93 /* DreamViewModel.swift */; };
 		11564C1824641FBC00CDAE93 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11564C1724641FBC00CDAE93 /* TagViewModel.swift */; };
 		117726BD248671AF008FBB3E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117726BC248671AF008FBB3E /* OnboardingView.swift */; };
@@ -46,8 +46,8 @@
 		11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */; };
 		11B8A66024596D480057D1E6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B8A65F24596D480057D1E6 /* CoreDataStack.swift */; };
 		11C45B4E2479F99C00E98DCC /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C45B4D2479F99C00E98DCC /* Shadows.swift */; };
-		11D2E598246D963A006F2706 /* DreamListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2E597246D963A006F2706 /* DreamListHeader.swift */; };
-		11D2E59A246D9678006F2706 /* DreamListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2E599246D9678006F2706 /* DreamListItemView.swift */; };
+		11D2E598246D963A006F2706 /* HomeDreamListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2E597246D963A006F2706 /* HomeDreamListHeaderView.swift */; };
+		11D2E59A246D9678006F2706 /* HomeDreamListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D2E599246D9678006F2706 /* HomeDreamListItemView.swift */; };
 		11D3068E246F45860086C615 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D3068D246F45860086C615 /* FilterViewModel.swift */; };
 		11D568F4247BD1AC00618ECF /* DreamDetailBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */; };
 		11D568F6247C000700618ECF /* DreamDetailTagsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D568F5247C000700618ECF /* DreamDetailTagsSheet.swift */; };
@@ -62,7 +62,7 @@
 		11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */; };
 		11F5ED31245B3BC500667B4E /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */; };
 		11FE3E20247F3D6500E84469 /* FilterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FE3E1F247F3D6500E84469 /* FilterObserver.swift */; };
-		11FE3E22247F3EAA00E84469 /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FE3E21247F3EAA00E84469 /* FilterSheet.swift */; };
+		11FE3E22247F3EAA00E84469 /* HomeFilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FE3E21247F3EAA00E84469 /* HomeFilterSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,7 +94,7 @@
 		1128C172247EC86100F08CA4 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		113E891E246BE7460070F018 /* SaveAreaObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAreaObserver.swift; sourceTree = "<group>"; };
 		114D1562245CB5FB0042A38B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
-		11559B30245A2AB900025F9F /* DreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListView.swift; sourceTree = "<group>"; };
+		11559B30245A2AB900025F9F /* HomeDreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDreamListView.swift; sourceTree = "<group>"; };
 		11564C112463F5AF00CDAE93 /* DreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamViewModel.swift; sourceTree = "<group>"; };
 		11564C1724641FBC00CDAE93 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
 		117726BC248671AF008FBB3E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -120,8 +120,8 @@
 		11B8A65D24596C500057D1E6 /* DreamBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DreamBook.xcdatamodel; sourceTree = "<group>"; };
 		11B8A65F24596D480057D1E6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		11C45B4D2479F99C00E98DCC /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
-		11D2E597246D963A006F2706 /* DreamListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListHeader.swift; sourceTree = "<group>"; };
-		11D2E599246D9678006F2706 /* DreamListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamListItemView.swift; sourceTree = "<group>"; };
+		11D2E597246D963A006F2706 /* HomeDreamListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDreamListHeaderView.swift; sourceTree = "<group>"; };
+		11D2E599246D9678006F2706 /* HomeDreamListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDreamListItemView.swift; sourceTree = "<group>"; };
 		11D3068D246F45860086C615 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailBottomBar.swift; sourceTree = "<group>"; };
 		11D568F5247C000700618ECF /* DreamDetailTagsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailTagsSheet.swift; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 		11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11F5ED2F245B3BC500667B4E /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11FE3E1F247F3D6500E84469 /* FilterObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterObserver.swift; sourceTree = "<group>"; };
-		11FE3E21247F3EAA00E84469 /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
+		11FE3E21247F3EAA00E84469 /* HomeFilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,10 +226,10 @@
 			children = (
 				111BA7202479EC4B000E48DF /* HomeContainer.swift */,
 				111BA7222479ED10000E48DF /* HomeView.swift */,
-				11559B30245A2AB900025F9F /* DreamListView.swift */,
-				11D2E597246D963A006F2706 /* DreamListHeader.swift */,
-				11D2E599246D9678006F2706 /* DreamListItemView.swift */,
-				11FE3E21247F3EAA00E84469 /* FilterSheet.swift */,
+				11559B30245A2AB900025F9F /* HomeDreamListView.swift */,
+				11D2E597246D963A006F2706 /* HomeDreamListHeaderView.swift */,
+				11D2E599246D9678006F2706 /* HomeDreamListItemView.swift */,
+				11FE3E21247F3EAA00E84469 /* HomeFilterSheet.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -467,10 +467,10 @@
 				11AF16C62463105B009A150B /* DreamDetailKeyboardBar.swift in Sources */,
 				11944D7F24695E5F00A8A3B2 /* CustomTextView.swift in Sources */,
 				117749AF247D40C300DBA937 /* MainNavigationView.swift in Sources */,
-				11D2E59A246D9678006F2706 /* DreamListItemView.swift in Sources */,
+				11D2E59A246D9678006F2706 /* HomeDreamListItemView.swift in Sources */,
 				11564C1824641FBC00CDAE93 /* TagViewModel.swift in Sources */,
 				117F5677247AB39E00F72434 /* Gradients.swift in Sources */,
-				11559B31245A2AB900025F9F /* DreamListView.swift in Sources */,
+				11559B31245A2AB900025F9F /* HomeDreamListView.swift in Sources */,
 				11B1D5C52487AA4D00BC76B0 /* SettingsObserver.swift in Sources */,
 				111BA7212479EC4B000E48DF /* HomeContainer.swift in Sources */,
 				11FE3E20247F3D6500E84469 /* FilterObserver.swift in Sources */,
@@ -494,7 +494,7 @@
 				11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */,
 				118EA0E72453286900A2446F /* DreamDetailView.swift in Sources */,
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
-				11FE3E22247F3EAA00E84469 /* FilterSheet.swift in Sources */,
+				11FE3E22247F3EAA00E84469 /* HomeFilterSheet.swift in Sources */,
 				11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */,
 				114D1563245CB5FB0042A38B /* TagView.swift in Sources */,
 				11B4E24B246A1501006295B5 /* CustomTextField.swift in Sources */,
@@ -503,7 +503,7 @@
 				11019FE1247979B5005591C3 /* Fonts.swift in Sources */,
 				11ABA29B2473FB840091B0AA /* BetterButton.swift in Sources */,
 				11019FE52479888B005591C3 /* Colors.swift in Sources */,
-				11D2E598246D963A006F2706 /* DreamListHeader.swift in Sources */,
+				11D2E598246D963A006F2706 /* HomeDreamListHeaderView.swift in Sources */,
 				11E48F78247D535700F1D89F /* NavigationObserver.swift in Sources */,
 				1187E6322471F68E00320334 /* EditorObserver.swift in Sources */,
 				11019FE324797C1B005591C3 /* Sizes.swift in Sources */,

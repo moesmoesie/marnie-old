@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DreamListItemView : View {
+struct HomeDreamListItemView : View {
     @State var showDetail = false
     let dream : DreamViewModel
     

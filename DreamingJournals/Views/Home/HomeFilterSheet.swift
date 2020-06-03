@@ -10,26 +10,13 @@ import SwiftUI
 import CoreData
 import Combine
 
-struct FilterSheet: View {
+struct HomeFilterSheet: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-    
     @Binding var currentFilters : [FilterViewModel]
     @State var activeFilters : [FilterViewModel]
     @State var suggestionsTags : [TagViewModel] = []
     @State var searchText : String = ""
-    
-    var wordsFilters : [TagViewModel]{
-        var tags : [TagViewModel] = []
-        for filter in activeFilters{
-            switch filter.filter {
-            case let .containsWord(word):
-                tags.append(TagViewModel(text: word))
-            default: break
-            }
-        }
-        return tags
-    }
     
     init(initialFilters : Binding<[FilterViewModel]>) {
         _activeFilters = .init(initialValue: initialFilters.wrappedValue)
@@ -40,103 +27,14 @@ struct FilterSheet: View {
         return ZStack(alignment : .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)
             ScrollView{
-                VStack(alignment: .leading,spacing : 0){
-                    HStack{
-                        title
-                            .padding(.top, .medium)
-                            .padding(.bottom,.small)
-                    }
-                    boolFilterButtons
-                        .padding(.bottom,.small)
-                    
-                    WordFilterTextField(activeFilter: $activeFilters)
-                        .padding(.bottom,.medium)
-                    
-                    WordCollectionView(activeFilters: $activeFilters)
-                        .padding(.bottom,.medium)
-                    
-                    
-                    TagSearchTextField(text: $searchText, onChange: {
-                        self.suggestionsTags = self.getUniqueTags(text: self.searchText)
-                    })
-                    Tags(activeFilters: $activeFilters, suggestionTags: $suggestionsTags)
-                        .padding(.top, .medium)
-                }.padding(.horizontal, .medium)
+                mainContent
+                    .padding(.horizontal, .medium)
             }
             FilterSheetKeyboardBar()
-            buttonsBar
+            bottomButtonsBar
         }.onAppear{
             self.suggestionsTags = self.getUniqueTags(text: "")
         }
-    }
-    
-    var boolFilterButtons : some View{
-        HStack (spacing : .medium){
-            FilterButton(activeFilters: $activeFilters, iconName: "heart", filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
-            FilterButton(activeFilters: $activeFilters, iconName: "eye", filterViewModel: FilterViewModel(filter: .isLucid(true)))
-            FilterButton(activeFilters: $activeFilters, iconName: "tropicalstorm", filterViewModel: FilterViewModel(filter: .isNightmare(true)))
-        }
-    }
-    
-    var buttonsBar : some View{
-        VStack(spacing : .small){
-            HStack{
-                Spacer()
-                
-                if activeFilters != currentFilters{
-                    Text("New Count : \(Dream.dreamCount(with: activeFilters, context: managedObjectContext)) ")
-                        .frame(height : .extraLarge)
-                        .truncationMode(.middle)
-                        .foregroundColor(.main2)
-                        .padding(.horizontal, .medium)
-                        .background(Color.background2)
-                        .cornerRadius(12.5)
-                }
-                
-                Text("Count : \(Dream.dreamCount(with: currentFilters, context: managedObjectContext)) ")
-                    .frame(height : .extraLarge)
-                    .foregroundColor(.main2)
-                    .padding(.horizontal, .medium)
-                    .background(Color.background2)
-                    .cornerRadius(12.5)
-            }
-            HStack{
-                if activeFilters.isEmpty || activeFilters == currentFilters{
-                    Spacer()
-                }else{
-                    if currentFilters.isEmpty{
-                        SaveFiltersButton(text: "Activate Filters"){
-                            mediumFeedback()
-                            self.currentFilters = self.activeFilters
-                        }.transition(.offset(x: -UIScreen.main.bounds.width))
-                    }else{
-                        SaveFiltersButton(text: "Update Filters"){
-                            mediumFeedback()
-                            self.currentFilters = self.activeFilters
-                        }.transition(.offset(x: -UIScreen.main.bounds.width))
-                    }
-                }
-                
-                if !currentFilters.isEmpty{
-                    DeleteFiltersButton{
-                        mediumFeedback()
-                        withAnimation{
-                            self.activeFilters = []
-                        }
-                        self.currentFilters = []
-                    }.transition(.offset(x: 200))
-                }
-            }
-        }
-        .animation(.easeInOut)
-        .padding(.horizontal,.medium)
-        .frame(maxHeight: .infinity, alignment: .bottom)
-    }
-    
-    var title : some View{
-        Text("Filters")
-            .font(.primaryLarge)
-            .foregroundColor(.main1)
     }
     
     func getUniqueTags(text : String) -> [TagViewModel]{
@@ -155,6 +53,109 @@ struct FilterSheet: View {
             print("Error")
             return []
         }
+    }
+    
+    //MARK: - HELPER VIEWS
+    
+    var mainContent : some View{
+        VStack(alignment: .leading,spacing : 0){
+            title
+                .padding(.top, .medium)
+                .padding(.bottom,.small)
+            
+            boolFilterButtons
+                .padding(.bottom,.small)
+            
+            WordFilterTextField(activeFilter: $activeFilters)
+                .padding(.bottom,.medium)
+            
+            WordCollectionView(activeFilters: $activeFilters)
+                .padding(.bottom,.medium)
+            
+            
+            TagSearchTextField(text: $searchText, onChange: {
+                self.suggestionsTags = self.getUniqueTags(text: self.searchText)
+            })
+            Tags(activeFilters: $activeFilters, suggestionTags: $suggestionsTags)
+                .padding(.top, .medium)
+        }
+    }
+    
+    var boolFilterButtons : some View{
+        HStack (spacing : .medium){
+            FilterButton(activeFilters: $activeFilters, iconName: "heart", filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
+            FilterButton(activeFilters: $activeFilters, iconName: "eye", filterViewModel: FilterViewModel(filter: .isLucid(true)))
+            FilterButton(activeFilters: $activeFilters, iconName: "tropicalstorm", filterViewModel: FilterViewModel(filter: .isNightmare(true)))
+        }
+    }
+    
+    var bottomButtonsBar : some View{
+        VStack(spacing : .small){
+            dreamCountBar
+            filterActivationButtons
+        }
+        .animation(.easeInOut)
+        .padding(.horizontal,.medium)
+        .frame(maxHeight: .infinity, alignment: .bottom)
+    }
+    
+    var filterActivationButtons : some View{
+        HStack{
+            if activeFilters.isEmpty || activeFilters == currentFilters{
+                Spacer()
+            }else{
+                if currentFilters.isEmpty{
+                    SaveFiltersButton(text: "Activate Filters"){
+                        mediumFeedback()
+                        self.currentFilters = self.activeFilters
+                    }.transition(.offset(x: -UIScreen.main.bounds.width))
+                }else{
+                    SaveFiltersButton(text: "Update Filters"){
+                        mediumFeedback()
+                        self.currentFilters = self.activeFilters
+                    }.transition(.offset(x: -UIScreen.main.bounds.width))
+                }
+            }
+            
+            if !currentFilters.isEmpty{
+                DeleteFiltersButton{
+                    mediumFeedback()
+                    withAnimation{
+                        self.activeFilters = []
+                    }
+                    self.currentFilters = []
+                }.transition(.offset(x: 200))
+            }
+        }
+    }
+    
+    var dreamCountBar : some View{
+        HStack{
+            Spacer()
+            
+            if activeFilters != currentFilters{
+                Text("New Count : \(Dream.dreamCount(with: activeFilters, context: managedObjectContext)) ")
+                    .frame(height : .extraLarge)
+                    .truncationMode(.middle)
+                    .foregroundColor(.main2)
+                    .padding(.horizontal, .medium)
+                    .background(Color.background2)
+                    .cornerRadius(12.5)
+            }
+            
+            Text("Count : \(Dream.dreamCount(with: currentFilters, context: managedObjectContext)) ")
+                .frame(height : .extraLarge)
+                .foregroundColor(.main2)
+                .padding(.horizontal, .medium)
+                .background(Color.background2)
+                .cornerRadius(12.5)
+        }
+    }
+    
+    var title : some View{
+        Text("Filters")
+            .font(.primaryLarge)
+            .foregroundColor(.main1)
     }
 }
 
@@ -278,7 +279,7 @@ private struct WordFilterTextField : View{
     }
 }
 
-struct WordCollectionView: View {
+private struct WordCollectionView: View {
     @Binding var activeFilters : [FilterViewModel]
     
     var wordsFilters : [TagViewModel]{
@@ -300,14 +301,14 @@ struct WordCollectionView: View {
                     if let index = self.activeFilters.firstIndex(of: FilterViewModel(filter: .containsWord(wordTag.text))){
                         self.activeFilters.remove(at: index)
                     }
-                }
             }
         }
     }
+}
 
 
 
-struct FilterSheetKeyboardBar: View {
+private struct FilterSheetKeyboardBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var editorObserver : EditorObserver
     

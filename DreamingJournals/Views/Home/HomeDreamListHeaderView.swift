@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-struct ListHeader : View {
+struct HomeDreamListHeaderView : View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View{
@@ -24,9 +24,6 @@ struct ListHeader : View {
                     .padding(.trailing, .medium)
             }.frame(height  : headerHeight, alignment: .bottom)
     }
-    
-
-    
 }
 
 private struct FilterButton : View {
@@ -54,7 +51,7 @@ private struct FilterButton : View {
         .cornerRadius(.medium)
         .primaryShadow()
         .sheet(isPresented: self.$showFilterSheet){
-            FilterSheet(initialFilters: self.$filterObserver.filters)
+            HomeFilterSheet(initialFilters: self.$filterObserver.filters)
                 .environment(\.managedObjectContext, self.managedObjectContext)
                 .environmentObject(self.keyboardObserver)
         }
@@ -62,7 +59,7 @@ private struct FilterButton : View {
 }
 
 
-struct Sky : View {
+private struct Sky : View {
     @Environment(\.colorScheme) var colorScheme
     let mainHeight : CGFloat
     var body: some View{
@@ -78,7 +75,7 @@ struct Sky : View {
     }
 }
 
-struct Mountains : View {
+private struct Mountains : View {
     let height : CGFloat
     var body: some View{
         Image("art1")
@@ -95,7 +92,7 @@ struct DreamListHeader_Previews: PreviewProvider {
         ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
             VStack {
-                ListHeader()
+                HomeDreamListHeaderView()
                     .environment(\.managedObjectContext, context)
                 Spacer()
             }

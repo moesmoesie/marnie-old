@@ -14,12 +14,9 @@ struct HomeView: View {
     var body: some View {
         ZStack(alignment: .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)
-            DreamList(dreams: dreams)
+            HomeDreamListView(dreams: dreams)
             MainNavigationBar()
         }.navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
-        .onAppear{
-            removeTableViewBackground()
-        }
     }
 }

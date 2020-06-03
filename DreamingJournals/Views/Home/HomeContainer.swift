@@ -29,7 +29,7 @@ private struct HomeFetchContainer: View {
                 .environmentObject(fetchObserver)
                 .onAppear{
                     self.fetchObserver.update = false
-                }
+        }
     }
 }
 
@@ -49,18 +49,16 @@ private struct HomeContent : View{
                 if self.fetchObserver.update == false{
                     self.fetchObserver.update = true
                 }
-            }
+        }
     }
 }
 
 class FetchObserver: ObservableObject {
     @Published var fetchlimit : Int = 100
     @Published var update : Bool = false
-
+    
     var lastDream : Dream?
     func incrementLimit(amount : Int = 100){
         fetchlimit += amount
     }
 }
-
-
