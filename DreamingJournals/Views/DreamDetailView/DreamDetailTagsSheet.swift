@@ -23,57 +23,40 @@ struct DreamDetailTagsSheet: View {
     }
     
     var body: some View {
+        let showSuggestions = !suggestionTags.filter({!activeTags.contains($0)}).isEmpty ||
+        (creationText.isEmpty && activeTags.isEmpty)
+        
         return ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment: .leading,spacing : 0){
                     title
-                        .padding(.top, .medium)
-                        .padding(.bottom,.medium)
+                    .padding(.top, .medium)
+                    .padding(.bottom,.medium)
                     
-                    TagCreationField(text: $creationText, currentTags: $currentTags, onChange: {
-                        withAnimation{
-                            self.suggestionTags =  self.getUniqueTags(text: self.creationText)
-                        }
-                    }) {
-                        withAnimation{
-                            self.addTag()
-                        }
-                        
-                        self.currentTags = self.activeTags
-                        
-                    }.padding(.bottom, .medium)
+                    TagCreationField(
+                        text: $creationText,
+                        currentTags: $currentTags,
+                        onChange: onTagCreationChange,
+                        onReturn: onTagCreationReturn
+                    )
+                    .padding(.bottom, .medium)
                     
                     if !activeTags.isEmpty{
-                        HStack(alignment:.bottom){
-                            Text("Active Tags")
-                                .foregroundColor(.main1)
-                                .font(.secondaryLarge)
-                            
-                            Text("Tap to delete")
-                                .foregroundColor(.main2)
-                                .font(.primarySmall)
-                        }.padding(.bottom, .extraSmall)
-                        
-                        ActiveTags(currentTags: $currentTags, activeTags :$activeTags)
-                            .padding(.bottom, .large)
+                        ActiveTags(
+                            currentTags: $currentTags,
+                            activeTags :$activeTags
+                        )
+                        .padding(.bottom, .large)
                     }
                     
-                    if !suggestionTags.filter({!activeTags.contains($0)}).isEmpty ||
-                        (creationText.isEmpty && activeTags.isEmpty){
-                        HStack{
-                            Text("Tag Suggestions")
-                                .foregroundColor(.main1)
-                                .font(.secondaryLarge)
-                            
-                            Text("Tap to add")
-                                .foregroundColor(.main2)
-                                .font(.primarySmall)
-                        }.padding(.bottom, .extraSmall)
-                        
-                        
-                        SuggestionTags(currentTags: $currentTags, activeTags: $activeTags, suggestionTags: $suggestionTags)
-                            .frame(minHeight: .extraLarge * 2, alignment: .top)
+                    if showSuggestions{
+                        SuggestionTags(
+                            currentTags: $currentTags,
+                            activeTags: $activeTags,
+                            suggestionTags: $suggestionTags
+                        )
+                        .frame(minHeight: .extraLarge * 2, alignment: .top)
                     }
                 }.padding(.horizontal, .medium)
             }
@@ -82,12 +65,24 @@ struct DreamDetailTagsSheet: View {
         }
     }
     
-    
-    
     var title : some View{
         Text("Tags")
             .font(.primaryLarge)
             .foregroundColor(.main1)
+    }
+    
+    func onTagCreationChange(textField: UITextField){
+        withAnimation{
+            self.suggestionTags =  self.getUniqueTags(text: self.creationText)
+        }
+    }
+    
+    func onTagCreationReturn(textField: UITextField) -> Bool{
+        withAnimation{
+            self.addTag()
+        }
+        self.currentTags = self.activeTags
+        return true
     }
     
     func addTag(){
@@ -128,22 +123,38 @@ private struct ActiveTags : View {
     @Binding var activeTags : [TagViewModel]
     
     var body: some View{
-        CollectionView(data: activeTags){ tag in
-            TagView(
-                tag: tag
-            )
-                .onTapGesture {
-                    mediumFeedback()
-                    withAnimation{
-                        if let index = self.activeTags.firstIndex(of: tag){
-                            self.activeTags.remove(at: index)
-                        }else{
-                            self.activeTags.append(tag)
-                        }
-                    }
-                    self.currentTags = self.activeTags
+        VStack(alignment: .leading, spacing : 0){
+            title
+                .padding(.bottom, .extraSmall)
+            CollectionView(data: activeTags){ tag in
+                TagView(tag: tag)
+                    .onTapGesture(perform: {self.onTagTap(tag)})
             }
         }
+    }
+    
+    var title : some View{
+        HStack(alignment:.bottom){
+            Text("Active Tags")
+                .foregroundColor(.main1)
+                .font(.secondaryLarge)
+            
+            Text("Tap to delete")
+                .foregroundColor(.main2)
+                .font(.primarySmall)
+        }
+    }
+    
+    func onTagTap(_ tag : TagViewModel){
+        mediumFeedback()
+        withAnimation{
+            if let index = self.activeTags.firstIndex(of: tag){
+                self.activeTags.remove(at: index)
+            }else{
+                self.activeTags.append(tag)
+            }
+        }
+        self.currentTags = self.activeTags
     }
 }
 
@@ -153,22 +164,39 @@ private struct SuggestionTags : View {
     @Binding var suggestionTags : [TagViewModel]
     
     var body: some View{
-        CollectionView(data: suggestionTags.filter({!activeTags.contains($0)})){ tag in
-            TagView(
-                tag: tag
-            )
-                .onTapGesture {
-                    mediumFeedback()
-                    withAnimation{
-                        if let index = self.activeTags.firstIndex(of: tag){
-                            self.activeTags.remove(at: index)
-                        }else{
-                            self.activeTags.append(tag)
-                        }
-                    }
-                    self.currentTags = self.activeTags
+        let tags = suggestionTags.filter({!activeTags.contains($0)})
+        return VStack(alignment:.leading,spacing: 0){
+            title
+                .padding(.bottom, .extraSmall)
+            CollectionView(data: tags){ tag in
+                TagView(tag: tag)
+                    .onTapGesture {self.onTagTap(tag: tag)}
             }
         }
+    }
+    
+    var title : some View{
+        HStack{
+            Text("Tag Suggestions")
+                .foregroundColor(.main1)
+                .font(.secondaryLarge)
+            
+            Text("Tap to add")
+                .foregroundColor(.main2)
+                .font(.primarySmall)
+        }
+    }
+    
+    func onTagTap(tag : TagViewModel){
+        mediumFeedback()
+        withAnimation{
+            if let index = self.activeTags.firstIndex(of: tag){
+                self.activeTags.remove(at: index)
+            }else{
+                self.activeTags.append(tag)
+            }
+        }
+        self.currentTags = self.activeTags
     }
 }
 
@@ -176,17 +204,21 @@ private struct SuggestionTags : View {
 private struct TagCreationField : View{
     @Binding var text : String
     @Binding var currentTags : [TagViewModel]
-    let onChange : () -> ()
-    let onReturn : () -> ()
+    let onChange : (UITextField) -> ()
+    let onReturn : (UITextField) -> (Bool)
     
     var body: some View{
-        CustomTextField(text: $text, placeholder: "Create new tag", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, maxCharacters: 25, font: .primaryRegular,
-                        onChange: { (textField) in
-                            self.onChange()
-        }){ (textField) in
-            self.onReturn()
-            return true
-        }
+        CustomTextField(
+            text: $text,
+            placeholder: "Create new tag",
+            textColor: .main1,
+            placeholderColor: .main2,
+            tintColor: .accent1,
+            maxCharacters: 25,
+            font: .primaryRegular,
+            onChange: self.onChange,
+            onReturn: self.onReturn
+        )
         .padding(.horizontal,.small)
         .padding(.vertical, .small)
         .background(Color.background2)

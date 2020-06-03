@@ -12,6 +12,7 @@ struct DreamDetailTopBar: View {
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var oldDream : OldDream
     @State var showSaveButton = false
+    
     var body: some View {
         onViewUpdate()
         return ZStack{
@@ -20,9 +21,8 @@ struct DreamDetailTopBar: View {
                 BackButton()
                 Spacer()
                 if showSaveButton{
-                    SaveButton()
+                    SaveButton(text: dream.isNewDream ?  "Save" : "Update")
                         .transition(.offset(x: .extraLarge * 2))
-                        .animation(.easeInOut)
                 }
             }.padding(.vertical, .extraSmall)
         }
@@ -32,14 +32,15 @@ struct DreamDetailTopBar: View {
         let isDreamChanged = dream.isEqualTo(oldDream.dream)
         if showSaveButton == isDreamChanged{
             DispatchQueue.main.async {
-                self.showSaveButton.toggle()
+                withAnimation{
+                    self.showSaveButton.toggle()
+                }
             }
         }
     }
 }
 
 private struct DreamDateView : View{
-    
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{
@@ -56,15 +57,20 @@ private struct SaveButton : View{
     @Environment(\.presentationMode) var presentationMode
     @State var showAlert = false
     @State var message = ""
+    let text : String
     
     var body: some View{
         Button(action: dream.isNewDream ? saveDream : updateDream){
-            Text(dream.isNewDream ?  "Save" : "Update")
+            Text(text)
                 .foregroundColor(.main1)
                 .font(.secondaryLarge)
                 .padding(.trailing, .medium)
         }.buttonStyle(PlainButtonStyle())
             .alert(isPresented: $showAlert, content: InvalidSaveAlert)
+    }
+    
+    func InvalidSaveAlert() -> Alert{
+        Alert(title: Text(self.dream.isNewDream ? "Invalid Save" : "Invalid Update"), message: Text(self.message), dismissButton: .default(Text("OK")))
     }
     
     func saveDream(){
@@ -79,10 +85,6 @@ private struct SaveButton : View{
         } catch{
             print("Unexpected error: \(error).")
         }
-    }
-    
-    func InvalidSaveAlert() -> Alert{
-        Alert(title: Text(self.dream.isNewDream ? "Invalid Save" : "Invalid Update"), message: Text(self.message), dismissButton: .default(Text("OK")))
     }
     
     func updateDream(){

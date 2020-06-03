@@ -9,10 +9,7 @@
 import SwiftUI
 
 struct DreamDetailMainContentView: View {
-    @EnvironmentObject var keyboardObserver : KeyboardObserver
-    
     @EnvironmentObject var dream : DreamViewModel
-    
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
@@ -21,36 +18,58 @@ struct DreamDetailMainContentView: View {
                     .padding(.top, .extraSmall)
                     .padding(.bottom, .extraSmall)
                 if !self.dream.tags.isEmpty{
-                    CollectionView(data: self.dream.tags){(tag : TagViewModel) in
-                        TagView(tag: tag)
-                            .onTapGesture {
-                                mediumFeedback()
-                                let index = self.dream.tags.firstIndex(of: tag)!
-                                self.dream.tags.remove(at: index)
-                        }
-                    }.padding(.bottom, .extraSmall)
+                    DreamTagCollectionView(tags: $dream.tags)
+                    .padding(.bottom, .extraSmall)
                 }
                 DreamTextView()
-                Spacer()
-                    .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)
+                KeyboardSpacer()
             }
         }
     }
 }
 
-private struct DreamTitleView : View{
-    
-    @EnvironmentObject var dream : DreamViewModel
+private struct KeyboardSpacer : View{
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
     
     var body: some View{
-        CustomTextView(text: $dream.title, placeholder: "Title", placeholderColor: .main2, placeholderFont: .primaryLarge, textColor: .main1, tintColor: .accent1, font: .primaryLarge)
+        Spacer()
+            .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)
     }
 }
 
+private struct DreamTagCollectionView : View{
+    @Binding var tags : [TagViewModel]
+    
+    var body: some View{
+        CollectionView(data: tags){(tag : TagViewModel) in
+            TagView(tag: tag)
+                .onTapGesture {
+                    mediumFeedback()
+                    let index = self.tags.firstIndex(of: tag)!
+                    self.tags.remove(at: index)
+                }
+        }
+    }
+}
+
+private struct DreamTitleView : View{
+    @EnvironmentObject var dream : DreamViewModel
+    
+    var body: some View{
+        CustomTextView(
+            text: $dream.title,
+            placeholder: "Title",
+            placeholderColor: .main2,
+            placeholderFont: .primaryLarge,
+            textColor: .main1,
+            tintColor: .accent1,
+            font: .primaryLarge
+        )
+    }
+}
 
 private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
-    
     @EnvironmentObject var editorObserver : EditorObserver
     
     var body: some View{
@@ -67,7 +86,6 @@ private struct DreamTextView : View{
 }
 
 private struct DreamDateView : View{
-    
     @EnvironmentObject var dream : DreamViewModel
     
     var body: some View{

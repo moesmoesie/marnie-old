@@ -61,15 +61,6 @@ struct DreamDetailContentView : View {
     }
 }
 
-
-struct BlurView : View {
-    var body: some View{
-        ZStack{
-            Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
-        }
-    }
-}
-
 class OldDream : ObservableObject{
     let dream : DreamViewModel
     
