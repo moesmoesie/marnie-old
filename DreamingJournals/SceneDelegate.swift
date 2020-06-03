@@ -13,7 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     let settingsObserver = SettingsObserver()
-
+    let filterObserver = FilterObserver()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -24,20 +25,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let keyboardObserver = KeyboardObserver()
-        let filterObserver = FilterObserver()
-        let navigationObserver = NavigationObserver()
+
+     
         
         let contentView = MainNavigationView()
             .environment(\.managedObjectContext, context)
-            .environmentObject(keyboardObserver)
             .environmentObject(filterObserver)
-            .environmentObject(navigationObserver)
+            .environmentObject((UIApplication.shared.delegate as! AppDelegate).navigationObserver)
             .environmentObject(settingsObserver)
 
         if UserDefaults.standard.string(forKey: "isFirstBoot") == nil{
             UserDefaults.standard.set("false", forKey: "isFirstBoot")
-            navigationObserver.currentPage = .onboarding
+            (UIApplication.shared.delegate as! AppDelegate).navigationObserver.currentPage = .onboarding
             for dream in sampleData{
                 print(dream.title)
                 try? Dream.saveDream(dream, context: context)

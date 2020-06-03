@@ -27,7 +27,7 @@ struct MainNavigationView: View {
             else{
                 ConstructionPage()
             }
-    }
+        }.environmentObject(KeyboardObserver())
 }
 }
 
@@ -74,11 +74,11 @@ struct MainNavigationBar: View {
     
     private struct NewDreamButton : View{
         let size : CGFloat
-        @State var showNewDream : Bool = false
-        
+        @EnvironmentObject var navigationObserver : NavigationObserver
+
         var body: some View{
             ZStack{
-                NavigationLink(destination: LazyView(DreamDetailView() ), isActive: $showNewDream){
+                NavigationLink(destination: LazyView(DreamDetailView().environmentObject(KeyboardObserver())), isActive: $navigationObserver.showNewDream){
                     EmptyView()
                 }.hidden()
                 Image(systemName: "plus")
@@ -89,7 +89,7 @@ struct MainNavigationBar: View {
                     .clipShape(Circle())
                     .onTapGesture {
                         mediumFeedback()
-                        self.showNewDream = true
+                        self.navigationObserver.showNewDream = true
                 }
             }.frame(width :size ,height: size)
         }

@@ -10,6 +10,7 @@ import Foundation
 
 class NavigationObserver : ObservableObject{
     @Published var currentPage = Pages.home
+    @Published var showNewDream = false
     
     func setPage(page : Pages){
         if currentPage != page{
