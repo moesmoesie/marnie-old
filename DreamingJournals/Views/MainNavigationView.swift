@@ -18,35 +18,39 @@ struct MainNavigationView: View {
             else if navigationObserver.currentPage == Pages.onboarding{
                 OnboardingView()
                     .transition(.opacity)
-            }else{
+            }
+            else if navigationObserver.currentPage == Pages.settings{
+                SettingsView()
+            }
+            else{
                 ConstructionPage()
             }
-        }
     }
+}
 }
 
 
 struct MainNavigationBar: View {
-
+    
     var body: some View {
-            HStack{
-                Spacer()
-                
-                BarButton(iconName: "house", page: Pages.home)
-                
-                Spacer()
-                
-                NewDreamButton(size: .extraLarge * 1.2)
-                
-                Spacer()
+        HStack{
+            Spacer()
             
-                BarButton(iconName: "gear", page: .settings)
-                
-                Spacer()
-                
-              
-            }
-            .modifier(BottomBarStyling())
+            BarButton(iconName: "house", page: Pages.home)
+            
+            Spacer()
+            
+            NewDreamButton(size: .extraLarge * 1.2)
+            
+            Spacer()
+            
+            BarButton(iconName: "gear", page: .settings)
+            
+            Spacer()
+            
+            
+        }
+        .modifier(BottomBarStyling())
     }
     
     
@@ -69,7 +73,7 @@ struct MainNavigationBar: View {
     private struct NewDreamButton : View{
         let size : CGFloat
         @State var showNewDream : Bool = false
-
+        
         var body: some View{
             ZStack{
                 NavigationLink(destination: LazyView(DreamDetailView() ), isActive: $showNewDream){
@@ -105,8 +109,8 @@ struct ConstructionPage : View {
             return "Construction"
         }
     }
-
-
+    
+    
     var body: some View{
         NavigationView{
             ZStack(alignment: .bottom){
