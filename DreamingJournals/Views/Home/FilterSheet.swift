@@ -13,7 +13,7 @@ import Combine
 struct FilterSheet: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var keyboardObserver : KeyboardObserver
-
+    
     @Binding var currentFilters : [FilterViewModel]
     @State var activeFilters : [FilterViewModel]
     @State var suggestionsTags : [TagViewModel] = []
@@ -29,9 +29,11 @@ struct FilterSheet: View {
             Color.background1.edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment: .leading,spacing : 0){
-                    title
-                        .padding(.top, .medium)
-                        .padding(.bottom,.small)
+                    HStack{
+                        title
+                            .padding(.top, .medium)
+                            .padding(.bottom,.small)
+                    }
                     boolFilterButtons
                         .padding(.bottom,.small)
                     TagSearchTextField(text: $searchText, onChange: {
@@ -56,31 +58,53 @@ struct FilterSheet: View {
     }
     
     var buttonsBar : some View{
-        HStack{
-            if activeFilters.isEmpty || activeFilters == currentFilters{
+        VStack(spacing : .small){
+            HStack{
                 Spacer()
-            }else{
-                if currentFilters.isEmpty{
-                    SaveFiltersButton(text: "Activate Filters"){
-                        mediumFeedback()
-                        self.currentFilters = self.activeFilters
-                    }.transition(.offset(x: -UIScreen.main.bounds.width))
-                }else{
-                    SaveFiltersButton(text: "Update Filters"){
-                        mediumFeedback()
-                        self.currentFilters = self.activeFilters
-                    }.transition(.offset(x: -UIScreen.main.bounds.width))
+        
+                if activeFilters != currentFilters{
+                    Text("New Count : \(Dream.dreamCount(with: activeFilters, context: managedObjectContext)) ")
+                        .frame(height : .extraLarge)
+                        .truncationMode(.middle)
+                        .foregroundColor(.main2)
+                        .padding(.horizontal, .medium)
+                        .background(Color.background2)
+                        .cornerRadius(12.5)
                 }
+                
+                Text("Count : \(Dream.dreamCount(with: currentFilters, context: managedObjectContext)) ")
+                    .frame(height : .extraLarge)
+                    .foregroundColor(.main2)
+                    .padding(.horizontal, .medium)
+                    .background(Color.background2)
+                    .cornerRadius(12.5)
             }
-            
-            if !currentFilters.isEmpty{
-                DeleteFiltersButton{
-                    mediumFeedback()
-                    withAnimation{
-                        self.activeFilters = []
+            HStack{
+                if activeFilters.isEmpty || activeFilters == currentFilters{
+                    Spacer()
+                }else{
+                    if currentFilters.isEmpty{
+                        SaveFiltersButton(text: "Activate Filters"){
+                            mediumFeedback()
+                            self.currentFilters = self.activeFilters
+                        }.transition(.offset(x: -UIScreen.main.bounds.width))
+                    }else{
+                        SaveFiltersButton(text: "Update Filters"){
+                            mediumFeedback()
+                            self.currentFilters = self.activeFilters
+                        }.transition(.offset(x: -UIScreen.main.bounds.width))
                     }
-                    self.currentFilters = []
-                }.transition(.offset(x: 200))
+                }
+                
+                if !currentFilters.isEmpty{
+                    DeleteFiltersButton{
+                        mediumFeedback()
+                        withAnimation{
+                            self.activeFilters = []
+                        }
+                        self.currentFilters = []
+                    }.transition(.offset(x: 200))
+                }
             }
         }
         .animation(.easeInOut)
@@ -96,22 +120,22 @@ struct FilterSheet: View {
     }
     
     func getUniqueTags(text : String) -> [TagViewModel]{
-         let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
-         fetch.fetchLimit = 50
-         
-         if !text.isEmpty{
-             let predicate = NSPredicate(format: "text contains %@", text)
-             fetch.predicate = predicate
-         }
-         
-         do {
-             let fetchedTags = try self.managedObjectContext.fetch(fetch)
-             return fetchedTags.map({TagViewModel(text: $0["text"] as! String)})
-         } catch {
-             print("Error")
-             return []
-         }
-     }
+        let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
+        fetch.fetchLimit = 50
+        
+        if !text.isEmpty{
+            let predicate = NSPredicate(format: "text contains %@", text)
+            fetch.predicate = predicate
+        }
+        
+        do {
+            let fetchedTags = try self.managedObjectContext.fetch(fetch)
+            return fetchedTags.map({TagViewModel(text: $0["text"] as! String)})
+        } catch {
+            print("Error")
+            return []
+        }
+    }
 }
 
 private struct FilterButton : View {
@@ -150,7 +174,7 @@ private struct Tags : View {
         tags.append(contentsOf: suggestionTags.filter({!tags.contains($0)}))
         return tags
     }
-
+    
     var body: some View{
         CollectionView(data: tagsToShow){ tag in
             TagView(
@@ -166,7 +190,7 @@ private struct Tags : View {
                             self.activeFilters.append(FilterViewModel(filter: .tag(tag)))
                         }
                     }
-                }
+            }
         }
     }
 }
@@ -188,7 +212,7 @@ private struct SaveFiltersButton : View{
 
 private struct DeleteFiltersButton : View{
     let onPress : () -> ()
-
+    
     var body: some View{
         Button(action: onPress){
             Image(systemName: "trash")
@@ -211,9 +235,9 @@ private struct TagSearchTextField : View{
         CustomTextField(text: $text, placeholder: "Search for Tags", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, maxCharacters: 25, font: .primaryRegular, onChange: { (textField) in
             self.onChange()
         })
-        .padding(.horizontal,.medium)
-        .padding(.vertical, .small)
-        .background(Color.background2)
-        .cornerRadius(12.5)
+            .padding(.horizontal,.medium)
+            .padding(.vertical, .small)
+            .background(Color.background2)
+            .cornerRadius(12.5)
     }
 }

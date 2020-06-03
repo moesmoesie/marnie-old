@@ -31,6 +31,28 @@ public class Dream: NSManagedObject {
         return fetch
     }
     
+    @nonobjc class func dreamCount(with filterViewModels : [FilterViewModel] = [],context managedObjectContext : NSManagedObjectContext) -> Int{
+        let fetch  = NSFetchRequest<NSNumber>(entityName: "Dream")
+        var predicates  : [NSPredicate] = []
+        fetch.resultType = .countResultType
+        
+        for filterViewModel in filterViewModels{
+            predicates.append(filterViewModel.filter.getPredicate())
+        }
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        fetch.predicate = NSPredicate(format : compoundPredicate.predicateFormat)
+        
+        do {
+            let count = try managedObjectContext.fetch(fetch)
+            return count.first!.intValue
+        } catch {
+            return 0
+        }
+    }
+    
+    
+    
     
     @nonobjc class func fetchDream(id : UUID, context managedObjectContext: NSManagedObjectContext ) -> Dream?{
         let fetch : NSFetchRequest<Dream> = NSFetchRequest<Dream>(entityName: "Dream")
