@@ -9,34 +9,38 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var enableReminders = false
-    @State var reminderDate : Date = Date()
+    @EnvironmentObject var settingsObserver : SettingsObserver
+    @State var showDatePicker : Bool = false
+    
     var body: some View {
         NavigationView{
-            ZStack{
+            ZStack(alignment: .bottom){
                 Color.background1.edgesIgnoringSafeArea(.all)
                 Form{
                     Section{
-                        Toggle(isOn: $enableReminders){
+                        Toggle(isOn: $settingsObserver.allowReminders){
                             Text("Dream Reminders")
                                 .foregroundColor(.main1)
                                 .font(.secondaryLarge)
+                        }.alert(isPresented: $settingsObserver.showAlarm){
+                            Alert(title: Text("Permission Needed"), message: Text("To set dream reminders you need to enable notifications for this app in the settings of your phone."))
                         }
-                        DatePicker(selection: $reminderDate, displayedComponents: .hourAndMinute){
+                        DatePicker(selection: $settingsObserver.alarmTime, displayedComponents: .hourAndMinute){
                             Text("Reminder Time")
-                                .foregroundColor(.main1)
+                                .foregroundColor(showDatePicker ? .main1 : .main2)
                                 .font(.secondaryLarge)
-                        }.opacity(enableReminders ? 1 : 0)
-                        .disabled(!enableReminders)
-                    }.animation(.easeInOut)                    
+                        }.opacity(showDatePicker ? 1 : 0)
+                        .disabled(!showDatePicker)
+                    }
                 }.navigationBarTitle("Settings")
+                MainNavigationBar()
+            }.onReceive(settingsObserver.$allowReminders.debounce(for: 0.2, scheduler: RunLoop.main)){ (value) in
+                withAnimation{
+                    self.showDatePicker = value
+                }
+            }.onAppear{
+                self.showDatePicker = self.settingsObserver.allowReminders
             }
         }.colorScheme(.dark)
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
     }
 }

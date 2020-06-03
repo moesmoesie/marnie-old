@@ -12,7 +12,8 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    
+    let settingsObserver = SettingsObserver()
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -26,11 +27,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let keyboardObserver = KeyboardObserver()
         let filterObserver = FilterObserver()
         let navigationObserver = NavigationObserver()
+        
         let contentView = MainNavigationView()
             .environment(\.managedObjectContext, context)
             .environmentObject(keyboardObserver)
             .environmentObject(filterObserver)
             .environmentObject(navigationObserver)
+            .environmentObject(settingsObserver)
 
         if UserDefaults.standard.string(forKey: "isFirstBoot") == nil{
             UserDefaults.standard.set("false", forKey: "isFirstBoot")
@@ -70,6 +73,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        settingsObserver.checkForPermissionChanges()
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {

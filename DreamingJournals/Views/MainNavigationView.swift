@@ -10,6 +10,8 @@ import SwiftUI
 
 struct MainNavigationView: View {
     @EnvironmentObject var navigationObserver : NavigationObserver
+    @EnvironmentObject var settingsObserver : SettingsObserver
+
     var body: some View {
         ZStack(alignment: .bottom){
             if navigationObserver.currentPage == Pages.home{
