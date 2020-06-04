@@ -30,12 +30,39 @@ struct HomeFilterSheet: View {
                 mainContent
                     .padding(.horizontal, .medium)
             }
+            BottomBar(activeFilters: $activeFilters, currentFilters: $currentFilters)
+                .padding(.horizontal, .medium)
+            
             FilterSheetKeyboardBar()
-            bottomButtonsBar
         }.onAppear{
             self.suggestionsTags = self.getUniqueTags(text: "")
         }
     }
+        
+    var mainContent : some View{
+        VStack(alignment: .leading,spacing : 0){
+            TopBar(currentFilters: $currentFilters, activeFilters: $activeFilters)
+                .padding(.top, .medium)
+                .padding(.bottom,.small)
+            
+            BooleanButtonsBar(activeFilters: $activeFilters, currentFilters: $currentFilters)
+                .padding(.bottom,.small)
+            
+            WordFilterTextField(activeFilter: $activeFilters)
+                .padding(.bottom,.medium)
+            
+            WordCollectionView(activeFilters: $activeFilters)
+                .padding(.bottom,.medium)
+            
+            TagSearchTextField(text: $searchText, onChange: {
+                self.suggestionsTags = self.getUniqueTags(text: self.searchText)
+            })
+            
+            Tags(activeFilters: $activeFilters, suggestionTags: $suggestionsTags)
+                .padding(.top, .medium)
+        }
+    }
+
     
     func getUniqueTags(text : String) -> [TagViewModel]{
         let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
@@ -54,53 +81,27 @@ struct HomeFilterSheet: View {
             return []
         }
     }
-    
-    //MARK: - HELPER VIEWS
-    
-    var mainContent : some View{
-        VStack(alignment: .leading,spacing : 0){
-            title
-                .padding(.top, .medium)
-                .padding(.bottom,.small)
-            
-            boolFilterButtons
-                .padding(.bottom,.small)
-            
-            WordFilterTextField(activeFilter: $activeFilters)
-                .padding(.bottom,.medium)
-            
-            WordCollectionView(activeFilters: $activeFilters)
-                .padding(.bottom,.medium)
-            
-            
-            TagSearchTextField(text: $searchText, onChange: {
-                self.suggestionsTags = self.getUniqueTags(text: self.searchText)
-            })
-            Tags(activeFilters: $activeFilters, suggestionTags: $suggestionsTags)
-                .padding(.top, .medium)
-        }
-    }
-    
-    var boolFilterButtons : some View{
+}
+
+private struct BooleanButtonsBar : View{
+    @Binding var activeFilters : [FilterViewModel]
+    @Binding var currentFilters : [FilterViewModel]
+
+    var body: some View{
         HStack (spacing : .medium){
-            FilterButton(activeFilters: $activeFilters, icon: Image.bookmarkIcon, filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
-            FilterButton(activeFilters: $activeFilters, icon: Image.lucidIcon, filterViewModel: FilterViewModel(filter: .isLucid(true)))
-            FilterButton(activeFilters: $activeFilters, icon: Image.nightmareIcon, filterViewModel: FilterViewModel(filter: .isNightmare(true)))
-        }
+              FilterButton(activeFilters: $activeFilters, icon: Image.bookmarkIcon, filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
+              FilterButton(activeFilters: $activeFilters, icon: Image.lucidIcon, filterViewModel: FilterViewModel(filter: .isLucid(true)))
+              FilterButton(activeFilters: $activeFilters, icon: Image.nightmareIcon, filterViewModel: FilterViewModel(filter: .isNightmare(true)))
+          }
     }
+}
+
+
+private struct BottomBar : View{
+    @Binding var activeFilters : [FilterViewModel]
+    @Binding var currentFilters : [FilterViewModel]
     
-    var bottomButtonsBar : some View{
-        VStack(spacing : .small){
-            dreamCountBar
-            filterActivationButtons
-        }
-        .animation(.easeInOut)
-        .padding(.horizontal,.medium)
-        .padding(.bottom, getBottomSaveArea() > 0 ? 0 : .medium )
-        .frame(maxHeight: .infinity, alignment: .bottom)
-    }
-    
-    var filterActivationButtons : some View{
+    var body: some View{
         HStack{
             if activeFilters.isEmpty || activeFilters == currentFilters{
                 Spacer()
@@ -129,27 +130,18 @@ struct HomeFilterSheet: View {
             }
         }
     }
+}
+
+private struct TopBar : View{
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Binding var currentFilters : [FilterViewModel]
+    @Binding var activeFilters : [FilterViewModel]
     
-    var dreamCountBar : some View{
-        HStack{
+    var body: some View{
+        HStack(alignment: .bottom){
+            title
             Spacer()
-            
-            if activeFilters != currentFilters{
-                Text("New Count : \(Dream.dreamCount(with: activeFilters, context: managedObjectContext)) ")
-                    .frame(height : .extraLarge)
-                    .truncationMode(.middle)
-                    .foregroundColor(.main2)
-                    .padding(.horizontal, .medium)
-                    .background(Color.background2)
-                    .cornerRadius(12.5)
-            }
-            
-            Text("Count : \(Dream.dreamCount(with: currentFilters, context: managedObjectContext)) ")
-                .frame(height : .extraLarge)
-                .foregroundColor(.main2)
-                .padding(.horizontal, .medium)
-                .background(Color.background2)
-                .cornerRadius(12.5)
+            filterCount
         }
     }
     
@@ -157,6 +149,19 @@ struct HomeFilterSheet: View {
         Text("Filters")
             .font(.primaryLarge)
             .foregroundColor(.main1)
+    }
+    
+    var filterCount : some View{
+        let newFilterActive = activeFilters != currentFilters
+        let dreamCount = Dream.dreamCount(with: activeFilters, context: managedObjectContext)
+        
+        return Text(" \(dreamCount) ")
+            .frame(minWidth : .medium)
+            .font(.secondaryRegular)
+            .padding(.extraSmall)
+            .background(newFilterActive ? Color.accent1 : Color.background2)
+            .clipShape(RoundedRectangle(cornerRadius: 12.5))
+            .foregroundColor(newFilterActive ? .main1  : .main2)
     }
 }
 
