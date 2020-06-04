@@ -11,6 +11,7 @@ import SwiftUI
 struct HomeDreamListItemView : View {
     @State var showDetail = false
     let dream : DreamViewModel
+    @EnvironmentObject var filterObserver : FilterObserver
     
     init(dream : Dream) {
         self.dream = DreamViewModel(dream: dream)
@@ -61,23 +62,48 @@ struct HomeDreamListItemView : View {
     private var details : some View{
         HStack(spacing: .medium){
             if dream.isBookmarked{
-                CustomIconButton(icon: Image.bookmarkIcon, iconSize: .medium)
+                CustomIconButton(
+                    icon: Image.bookmarkIcon,
+                    iconSize: .medium,
+                    isActive: filterObserver.filters.contains(FilterViewModel(filter: .isBookmarked(true)))
+                )
             }
             
             if dream.isLucid{
-                CustomIconButton(icon: Image.lucidIcon, iconSize: .medium)
+                CustomIconButton(
+                    icon: Image.lucidIcon,
+                    iconSize: .medium,
+                    isActive: filterObserver.filters.contains(FilterViewModel(filter: .isLucid(true)))
+                )
             }
             
             if dream.isNightmare{
-                CustomIconButton(icon: Image.nightmareIcon, iconSize: .medium)
+                CustomIconButton(
+                    icon: Image.nightmareIcon,
+                    iconSize: .medium,
+                    isActive: filterObserver.filters.contains(FilterViewModel(filter: .isNightmare(true)))
+                )
             }
         }
     }
     
     private var tags : some View{
-        HStack{
-            ForEach(self.dream.tags.prefix(2)){ tag in
-                TagView(tag: tag)
+        let tags = self.dream.tags.sorted { (tag1, tag2) -> Bool in
+            let isFilter1 = filterObserver.filters.contains(FilterViewModel(filter: .tag(tag1)))
+            let isFilter2 = filterObserver.filters.contains(FilterViewModel(filter: .tag(tag2)))
+            
+            if isFilter1 && !isFilter2{
+                return true
+            }
+            return false
+        }
+        
+        return HStack{
+            ForEach(tags.prefix(3)){ tag in
+                TagView(
+                    tag: tag,
+                    isActive: self.filterObserver.filters.contains(FilterViewModel(filter: .tag(tag)))
+                )
             }
         }
     }
