@@ -111,12 +111,16 @@ private struct BottomBar : View{
                 if currentFilters.isEmpty{
                     SaveFiltersButton(text: "Activate Filters"){
                         mediumFeedback()
-                        self.currentFilters = self.activeFilters
+                        withAnimation{
+                            self.currentFilters = self.activeFilters
+                        }
                     }.transition(.offset(x: -UIScreen.main.bounds.width))
                 }else{
                     SaveFiltersButton(text: "Update Filters"){
                         mediumFeedback()
-                        self.currentFilters = self.activeFilters
+                        withAnimation{
+                            self.currentFilters = self.activeFilters
+                        }
                     }.transition(.offset(x: -UIScreen.main.bounds.width))
                 }
             }
@@ -130,7 +134,7 @@ private struct BottomBar : View{
                     self.currentFilters = []
                 }.transition(.offset(x: 200))
             }
-        }
+        }.animation(.easeInOut)
     }
 }
 
@@ -152,7 +156,7 @@ private struct TopBar : View{
                 .padding(.leading, .small)
         }
     }
-
+    
     
     var title : some View{
         Text("Filters")
@@ -235,14 +239,13 @@ private struct SaveFiltersButton : View{
     let text : String
     let onPress : () -> ()
     var body: some View{
-        Button(action: onPress){
-            Text(text)
-                .foregroundColor(.main2)
-        }
-        .frame(maxWidth : .infinity)
-        .frame(height: .extraLarge)
-        .background(Color.background2)
-        .cornerRadius(12.5)
+        Text(text)
+            .foregroundColor(.main2)
+            .frame(maxWidth : .infinity)
+            .frame(height: .extraLarge)
+            .background(Color.background2)
+            .cornerRadius(12.5)
+            .onTapGesture(perform: onPress)
     }
 }
 
@@ -250,16 +253,15 @@ private struct DeleteFiltersButton : View{
     let onPress : () -> ()
     
     var body: some View{
-        Button(action: onPress){
             Image.trashIcon
                 .foregroundColor(.red)
                 .imageScale(.medium)
-        }
-        .frame(height: .extraLarge)
-        .padding(.horizontal,.large)
-        .background(Color.background1)
-        .cornerRadius(12.5)
-        .overlay(RoundedRectangle(cornerRadius: 12.5).stroke(Color.red, lineWidth: 1))
+                .frame(height: .extraLarge)
+                .padding(.horizontal,.large)
+                .background(Color.background1)
+                .cornerRadius(12.5)
+                .overlay(RoundedRectangle(cornerRadius: 12.5).stroke(Color.red, lineWidth: 1))
+                .onTapGesture(perform: onPress)
     }
 }
 
@@ -328,25 +330,25 @@ private struct FilterSheetKeyboardBar: View {
     @EnvironmentObject var editorObserver : EditorObserver
     @Binding var currentFilters : [FilterViewModel]
     @Binding var activeFilters : [FilterViewModel]
-
+    
     var body: some View {
         return HStack(alignment: .center, spacing: .medium){
             Spacer()
             Group{
-                 if keyboardObserver.isKeyboardShowing{
-                     if activeFilters != currentFilters{
-                         if currentFilters.isEmpty{
-                             activateButton
-                                 .transition(.offset(y: 50))
-                         }else{
-                             updateButton
+                if keyboardObserver.isKeyboardShowing{
+                    if activeFilters != currentFilters{
+                        if currentFilters.isEmpty{
+                            activateButton
                                 .transition(.offset(y: 50))
-                         }
-                     }
-                 }
-             }.animation(.easeInOut)
-            .padding(.bottom, .small)
-
+                        }else{
+                            updateButton
+                                .transition(.offset(y: 50))
+                        }
+                    }
+                }
+            }.animation(.easeInOut)
+                .padding(.bottom, .small)
+            
             
             CustomPassiveIconButton(icon: Image.dismissKeyboardIcon, iconSize: .small) {
                 self.keyboardObserver.dismissKeyboard()
@@ -375,17 +377,17 @@ private struct FilterSheetKeyboardBar: View {
     }
     
     var activateButton : some View{
-         Button(action: {
-             mediumFeedback()
-             self.currentFilters = self.activeFilters
-         }){
-             Text("Activate")
-                 .frame(height: .medium * 1.8)
+        Button(action: {
+            mediumFeedback()
+            self.currentFilters = self.activeFilters
+        }){
+            Text("Activate")
+                .frame(height: .medium * 1.8)
                 .padding(.horizontal,.medium)
-                 .font(.secondaryRegular)
-                 .background(Color.background2)
-                 .foregroundColor(.main2)
-                 .clipShape(RoundedRectangle(cornerRadius: 12.5))
-         }
-     }
+                .font(.secondaryRegular)
+                .background(Color.background2)
+                .foregroundColor(.main2)
+                .clipShape(RoundedRectangle(cornerRadius: 12.5))
+        }
+    }
 }
