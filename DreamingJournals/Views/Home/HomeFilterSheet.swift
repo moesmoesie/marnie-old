@@ -30,8 +30,10 @@ struct HomeFilterSheet: View {
                 mainContent
                     .padding(.horizontal, .medium)
             }
+            
             BottomBar(activeFilters: $activeFilters, currentFilters: $currentFilters)
                 .padding(.horizontal, .medium)
+                .padding(.bottom, getBottomSaveArea() > 0 ? 0 : .small)
             
             FilterSheetKeyboardBar(currentFilters: $currentFilters, activeFilters: $activeFilters)
         }.onAppear{
