@@ -38,7 +38,7 @@ struct MainNavigationBar: View {
         HStack{
             Spacer()
             
-            BarButton(iconName: "house", page: Pages.home)
+            BarButton(icon: .homeIcon, page: Pages.home)
             
             Spacer()
             
@@ -46,7 +46,7 @@ struct MainNavigationBar: View {
             
             Spacer()
             
-            BarButton(iconName: "gear", page: .settings)
+            BarButton(icon: .settingsIcon, page: .settings)
             
             Spacer()
             
@@ -58,11 +58,11 @@ struct MainNavigationBar: View {
     
     private struct BarButton : View{
         @EnvironmentObject var navigationObserver : NavigationObserver
-        let iconName : String
+        let icon : Image
         let page : Pages
         
         var body: some View{
-            Image(systemName: iconName)
+            icon
                 .imageScale(.medium)
                 .foregroundColor(navigationObserver.currentPage == page ? .main1 : .main2)
                 .frame(width: .medium, height: .medium)
@@ -81,7 +81,7 @@ struct MainNavigationBar: View {
                 NavigationLink(destination: LazyView(DreamDetailView().environmentObject(KeyboardObserver())), isActive: $navigationObserver.showNewDream){
                     EmptyView()
                 }.hidden()
-                Image(systemName: "plus")
+                Image.addDreamIcon
                     .imageScale(.large)
                     .frame(width: size , height: size)
                     .background(Color.accent1)

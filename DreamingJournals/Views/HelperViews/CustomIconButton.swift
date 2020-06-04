@@ -9,20 +9,20 @@
 import SwiftUI
 
 struct CustomIconButton: View {
-    let iconName : String
+    let icon : Image
     let isActive : Bool
     let action : () -> ()
     let iconSize : IconSize
     
-    init(iconName : String,iconSize : IconSize, isActive : Bool = false, action: @escaping () -> () = {}) {
-        self.iconName = iconName
+    init(icon : Image,iconSize : IconSize, isActive : Bool = false, action: @escaping () -> () = {}) {
+        self.icon = icon
         self.isActive = isActive
         self.action = action
         self.iconSize = iconSize
     }
     
     var body: some View {
-        return Image(systemName: iconName)
+        return icon
             .imageScale(iconSize.getIconSize())
             .foregroundColor(isActive ? Color.main1 : Color.main2 )
             .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
@@ -36,18 +36,18 @@ struct CustomIconButton: View {
 
 
 struct CustomPassiveIconButton: View {
-    let iconName : String
+    let icon : Image
     let action : () -> ()
     let iconSize : IconSize
     
-    init(iconName : String,iconSize : IconSize, isActive : Bool = false, action: @escaping () -> () = {}) {
-        self.iconName = iconName
+    init(icon : Image,iconSize : IconSize, isActive : Bool = false, action: @escaping () -> () = {}) {
+        self.icon = icon
         self.action = action
         self.iconSize = iconSize
     }
     
     var body: some View {
-        return Image(systemName: iconName)
+        return icon
             .imageScale(iconSize.getIconSize())
             .foregroundColor(Color.main2 )
             .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
@@ -62,15 +62,15 @@ struct CustomPassiveIconButton: View {
 struct CustomIconButton_Previews: PreviewProvider {
     static var previews: some View {
         HStack{
-            CustomIconButton(iconName: "eye",iconSize: .small, isActive: false){
+            CustomIconButton(icon: Image.lucidIcon,iconSize: .small, isActive: false){
                 print("Hello World")
             }
             
-            CustomIconButton(iconName: "eye",iconSize: .medium, isActive: false){
+            CustomIconButton(icon: Image.bookmarkIcon,iconSize: .medium, isActive: false){
                 print("Hello World")
             }
             
-            CustomIconButton(iconName: "eye",iconSize: .large, isActive: false){
+            CustomIconButton(icon: Image.nightmareIcon,iconSize: .large, isActive: false){
                 print("Hello World")
             }
         }

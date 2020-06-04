@@ -61,15 +61,15 @@ struct HomeDreamListItemView : View {
     private var details : some View{
         HStack(spacing: .medium){
             if dream.isBookmarked{
-                CustomIconButton(iconName: "heart", iconSize: .medium)
+                CustomIconButton(icon: Image.bookmarkIcon, iconSize: .medium)
             }
             
             if dream.isLucid{
-                CustomIconButton(iconName: "eye", iconSize: .medium)
+                CustomIconButton(icon: Image.lucidIcon, iconSize: .medium)
             }
             
             if dream.isNightmare{
-                CustomIconButton(iconName: "tropicalstorm", iconSize: .medium)
+                CustomIconButton(icon: Image.nightmareIcon, iconSize: .medium)
             }
         }
     }

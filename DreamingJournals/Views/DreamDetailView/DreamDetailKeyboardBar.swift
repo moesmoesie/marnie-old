@@ -36,7 +36,7 @@ private struct ActivateTagFilterSheetButton : View{
     @EnvironmentObject var editorObserver : EditorObserver
 
     var body: some View{
-        CustomPassiveIconButton(iconName: "tag", iconSize: .small) {
+        CustomPassiveIconButton(icon: .tagIcon, iconSize: .small) {
             self.editorObserver.currentMode = Modes.tagMode
         }
     }
@@ -46,7 +46,7 @@ private struct DismissKeyboardButton : View{
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     
     var body: some View{
-        CustomPassiveIconButton(iconName: "chevron.down.square", iconSize: .small) {
+        CustomPassiveIconButton(icon: .dismissKeyboardIcon, iconSize: .small) {
             self.keyboardObserver.dismissKeyboard()
         }
     }

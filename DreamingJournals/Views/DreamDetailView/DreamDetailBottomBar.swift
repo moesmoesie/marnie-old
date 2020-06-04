@@ -31,11 +31,11 @@ struct DreamDetailBottomBar: View {
     
     var toggleButtons : some View{
         Group{
-            ToggleButton(value: $dream.isBookmarked, iconName: "heart")
+            ToggleButton(value: $dream.isBookmarked, icon: Image.bookmarkIcon)
             Spacer()
-            ToggleButton(value: $dream.isLucid, iconName: "eye")
+            ToggleButton(value: $dream.isLucid, icon: Image.lucidIcon)
             Spacer()
-            ToggleButton(value: $dream.isNightmare, iconName: "tropicalstorm")
+            ToggleButton(value: $dream.isNightmare, icon: Image.nightmareIcon)
         }
     }
     
@@ -63,7 +63,7 @@ private struct ActivateTagSheetButton : View  {
     @State var showSheet : Bool = false
     
     var body: some View{
-        CustomIconButton(iconName: "tag", iconSize: .medium){
+        CustomIconButton(icon: .tagIcon, iconSize: .medium){
             mediumFeedback()
             self.editorObserver.currentMode = Modes.tagMode
         }.sheet(isPresented: $showSheet, onDismiss: {
@@ -89,7 +89,7 @@ private struct DeleteDreamButton : View{
 
     var body: some View{
         CustomIconButton(
-            iconName: "trash",
+            icon: .trashIcon,
             iconSize: .medium,
             action: self.deleteDream
         )
@@ -104,10 +104,10 @@ private struct DeleteDreamButton : View{
 
 struct ToggleButton : View {
     @Binding var value : Bool
-    let iconName : String
+    let icon : Image
     
     var body: some View{
-        CustomIconButton(iconName: iconName, iconSize: .medium, isActive: value) {
+        CustomIconButton(icon: icon, iconSize: .medium, isActive: value) {
             mediumFeedback()
             self.value.toggle()
         }

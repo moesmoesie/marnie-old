@@ -88,21 +88,21 @@ struct OnboardingView: View {
             
             VStack(alignment: .leading, spacing : .extraLarge){
                 HStack{
-                    CustomPassiveIconButton(iconName: "eye", iconSize: .medium)
+                    CustomPassiveIconButton(icon: Image.lucidIcon, iconSize: .medium)
                     Text("A Vivid/Lucid Dream")
                         .font(.secondaryLarge)
                         .foregroundColor(.white)
                 }
                 
                 HStack{
-                    CustomPassiveIconButton(iconName: "heart", iconSize: .medium)
+                    CustomPassiveIconButton(icon: Image.bookmarkIcon, iconSize: .medium)
                     Text("A Bookmarked Dream")
                         .font(.secondaryLarge)
                         .foregroundColor(.white)
                 }
                 
                 HStack{
-                    CustomPassiveIconButton(iconName: "tropicalstorm", iconSize: .medium)
+                    CustomPassiveIconButton(icon: Image.nightmareIcon, iconSize: .medium)
                     Text("A Nightmare")
                         .font(.secondaryLarge)
                         .foregroundColor(.white)

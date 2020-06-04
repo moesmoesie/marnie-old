@@ -83,9 +83,9 @@ struct HomeFilterSheet: View {
     
     var boolFilterButtons : some View{
         HStack (spacing : .medium){
-            FilterButton(activeFilters: $activeFilters, iconName: "heart", filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
-            FilterButton(activeFilters: $activeFilters, iconName: "eye", filterViewModel: FilterViewModel(filter: .isLucid(true)))
-            FilterButton(activeFilters: $activeFilters, iconName: "tropicalstorm", filterViewModel: FilterViewModel(filter: .isNightmare(true)))
+            FilterButton(activeFilters: $activeFilters, icon: Image.bookmarkIcon, filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
+            FilterButton(activeFilters: $activeFilters, icon: Image.lucidIcon, filterViewModel: FilterViewModel(filter: .isLucid(true)))
+            FilterButton(activeFilters: $activeFilters, icon: Image.nightmareIcon, filterViewModel: FilterViewModel(filter: .isNightmare(true)))
         }
     }
     
@@ -162,11 +162,11 @@ struct HomeFilterSheet: View {
 
 private struct FilterButton : View {
     @Binding var activeFilters : [FilterViewModel]
-    let iconName : String
+    let icon : Image
     let filterViewModel : FilterViewModel
     var body: some View{
         CustomIconButton(
-            iconName: iconName,
+            icon: icon,
             iconSize: .medium,
             isActive: activeFilters.contains(filterViewModel))
         {
@@ -237,7 +237,7 @@ private struct DeleteFiltersButton : View{
     
     var body: some View{
         Button(action: onPress){
-            Image(systemName: "trash")
+            Image.trashIcon
                 .foregroundColor(.red)
                 .imageScale(.medium)
         }
@@ -316,7 +316,7 @@ private struct FilterSheetKeyboardBar: View {
     var body: some View {
         return HStack(alignment: .center){
             Spacer()
-            CustomPassiveIconButton(iconName: "chevron.down.square", iconSize: .small) {
+            CustomPassiveIconButton(icon: Image.dismissKeyboardIcon, iconSize: .small) {
                 self.keyboardObserver.dismissKeyboard()
             }.padding(.trailing, .medium)
                 .padding(.bottom, .small)

@@ -52,6 +52,7 @@
 		11D568F4247BD1AC00618ECF /* DreamDetailBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */; };
 		11D568F6247C000700618ECF /* DreamDetailTagsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D568F5247C000700618ECF /* DreamDetailTagsSheet.swift */; };
 		11D568FA247C2D0200618ECF /* CustomIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D568F9247C2D0200618ECF /* CustomIconButton.swift */; };
+		11DF6D122488CC0F0001548A /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DF6D112488CC0F0001548A /* Icons.swift */; };
 		11E48F78247D535700F1D89F /* NavigationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E48F77247D535700F1D89F /* NavigationObserver.swift */; };
 		11E48F7A247D6D3800F1D89F /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E48F79247D6D3800F1D89F /* Modifiers.swift */; };
 		11E48F7D247D815A00F1D89F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 11E48F7C247D815A00F1D89F /* Lottie */; };
@@ -126,6 +127,7 @@
 		11D568F3247BD1AC00618ECF /* DreamDetailBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailBottomBar.swift; sourceTree = "<group>"; };
 		11D568F5247C000700618ECF /* DreamDetailTagsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailTagsSheet.swift; sourceTree = "<group>"; };
 		11D568F9247C2D0200618ECF /* CustomIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIconButton.swift; sourceTree = "<group>"; };
+		11DF6D112488CC0F0001548A /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		11E48F77247D535700F1D89F /* NavigationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationObserver.swift; sourceTree = "<group>"; };
 		11E48F79247D6D3800F1D89F /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		11E48F7E247D81BD00F1D89F /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				11C45B4D2479F99C00E98DCC /* Shadows.swift */,
 				117F5676247AB39E00F72434 /* Gradients.swift */,
 				11E48F79247D6D3800F1D89F /* Modifiers.swift */,
+				11DF6D112488CC0F0001548A /* Icons.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				110F88F324530F6700C7B797 /* AppDelegate.swift in Sources */,
 				11FE3E22247F3EAA00E84469 /* HomeFilterSheet.swift in Sources */,
 				11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */,
+				11DF6D122488CC0F0001548A /* Icons.swift in Sources */,
 				114D1563245CB5FB0042A38B /* TagView.swift in Sources */,
 				11B4E24B246A1501006295B5 /* CustomTextField.swift in Sources */,
 				11B8A65E24596C500057D1E6 /* DreamBook.xcdatamodeld in Sources */,
