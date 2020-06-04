@@ -27,7 +27,6 @@
 		11564C1824641FBC00CDAE93 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11564C1724641FBC00CDAE93 /* TagViewModel.swift */; };
 		117726BD248671AF008FBB3E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117726BC248671AF008FBB3E /* OnboardingView.swift */; };
 		117726C124867EC7008FBB3E /* sleeping_animal.json in Resources */ = {isa = PBXBuildFile; fileRef = 117726C024867EC6008FBB3E /* sleeping_animal.json */; };
-		117726C7248695DD008FBB3E /* milk_and_cookie.json in Resources */ = {isa = PBXBuildFile; fileRef = 117726C6248695DD008FBB3E /* milk_and_cookie.json */; };
 		117726E724869BB8008FBB3E /* DreamCrudTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117726E624869BB8008FBB3E /* DreamCrudTests.swift */; };
 		117749AF247D40C300DBA937 /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117749AE247D40C300DBA937 /* MainNavigationView.swift */; };
 		117F5677247AB39E00F72434 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117F5676247AB39E00F72434 /* Gradients.swift */; };
@@ -57,7 +56,6 @@
 		11E48F7A247D6D3800F1D89F /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E48F79247D6D3800F1D89F /* Modifiers.swift */; };
 		11E48F7D247D815A00F1D89F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 11E48F7C247D815A00F1D89F /* Lottie */; };
 		11E48F7F247D81BD00F1D89F /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E48F7E247D81BD00F1D89F /* LottieView.swift */; };
-		11E48F8B247DA4A100F1D89F /* construction.json in Resources */ = {isa = PBXBuildFile; fileRef = 11E48F8A247DA4A100F1D89F /* construction.json */; };
 		11F5ED26245B250000667B4E /* Dream+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */; };
 		11F5ED27245B250000667B4E /* Dream+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */; };
 		11F5ED30245B3BC500667B4E /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */; };
@@ -100,7 +98,6 @@
 		11564C1724641FBC00CDAE93 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
 		117726BC248671AF008FBB3E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		117726C024867EC6008FBB3E /* sleeping_animal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sleeping_animal.json; sourceTree = "<group>"; };
-		117726C6248695DD008FBB3E /* milk_and_cookie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = milk_and_cookie.json; sourceTree = "<group>"; };
 		117726DA24869B51008FBB3E /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		117726DE24869B51008FBB3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		117726E624869BB8008FBB3E /* DreamCrudTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamCrudTests.swift; sourceTree = "<group>"; };
@@ -131,7 +128,6 @@
 		11E48F77247D535700F1D89F /* NavigationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationObserver.swift; sourceTree = "<group>"; };
 		11E48F79247D6D3800F1D89F /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		11E48F7E247D81BD00F1D89F /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		11E48F8A247DA4A100F1D89F /* construction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = construction.json; sourceTree = "<group>"; };
 		11F5ED24245B250000667B4E /* Dream+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F5ED25245B250000667B4E /* Dream+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dream+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11F5ED2E245B3BC500667B4E /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -347,8 +343,6 @@
 		11E48F81247D83C500F1D89F /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				117726C6248695DD008FBB3E /* milk_and_cookie.json */,
-				11E48F8A247DA4A100F1D89F /* construction.json */,
 				117726C024867EC6008FBB3E /* sleeping_animal.json */,
 			);
 			path = Animations;
@@ -441,9 +435,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11E48F8B247DA4A100F1D89F /* construction.json in Resources */,
 				110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */,
-				117726C7248695DD008FBB3E /* milk_and_cookie.json in Resources */,
 				110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */,
 				117726C124867EC7008FBB3E /* sleeping_animal.json in Resources */,
 				110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */,
@@ -666,7 +658,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
@@ -690,7 +682,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;

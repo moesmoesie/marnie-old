@@ -19,7 +19,7 @@ struct OnboardingView: View {
                 
                 if state == 1{
                     text1
-                        .padding(.top, screen.height / 4)
+                        .padding(.top, screen.height / 3)
                         .transition(.asymmetric(insertion: .offset(x: screen.width), removal: .offset(x: -screen.width)))
                 }
                 
@@ -67,9 +67,6 @@ struct OnboardingView: View {
                 .foregroundColor(.main1)
                 .font(.secondaryLarge)
                 .multilineTextAlignment(.center)
-            
-            LottieView(fileName: "sleeping_animal")
-                .offset(y: -.extraLarge * 2.2)
         }
     }
     
@@ -113,11 +110,11 @@ struct OnboardingView: View {
     
     var text3 : some View{
         VStack{
-            Text("Enjoy!")
+            Text("Sweet Dreams")
                 .foregroundColor(.main1)
                 .font(.primaryLarge)
             
-            LottieView(fileName: "milk_and_cookie")
+            LottieView(fileName: "sleeping_animal")
                 .offset(y: -.extraLarge * 2.2)
         }
     }
