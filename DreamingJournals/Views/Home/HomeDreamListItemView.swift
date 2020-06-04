@@ -94,7 +94,7 @@ struct HomeDreamListItemView : View {
         Text(dream.title)
             .font(.primaryLarge)
             .foregroundColor(.main1)
-            .lineLimit(1)
+            .lineLimit(2)
     }
     
     private var textView : some View {
