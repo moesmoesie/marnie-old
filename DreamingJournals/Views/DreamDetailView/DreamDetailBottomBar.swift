@@ -84,19 +84,37 @@ private struct ActivateTagSheetButton : View  {
 
 private struct DeleteDreamButton : View{
     @EnvironmentObject var dream : DreamViewModel
+    @EnvironmentObject var oldDream : OldDream
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
-
+    @State var showAlert : Bool = false
+    
     var body: some View{
         CustomIconButton(
             icon: .trashIcon,
             iconSize: .medium,
-            action: self.deleteDream
-        )
+            action: self.onButtonPress
+        ).alert(isPresented: $showAlert, content: deleteAlert)
+    }
+    
+    func deleteAlert() -> Alert{
+        Alert(
+            title: Text("Delete Confirmation"),
+            message: Text("Are you sure you want to delete this dream?"),
+            primaryButton: .cancel(),
+            secondaryButton: .destructive(Text("DELETE"), action: deleteDream))
+    }
+    
+    func onButtonPress(){
+        heavyFeedback()
+        if dream.isNewDream && dream.isEqualTo(oldDream.dream){
+            presentationMode.wrappedValue.dismiss()
+        }else{
+            showAlert = true
+        }
     }
     
     func deleteDream(){
-        heavyFeedback()
         try? Dream.deleteDream(dream, context: managedObjectContext)
         presentationMode.wrappedValue.dismiss()
     }
