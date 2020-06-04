@@ -33,12 +33,12 @@ struct HomeFilterSheet: View {
             BottomBar(activeFilters: $activeFilters, currentFilters: $currentFilters)
                 .padding(.horizontal, .medium)
             
-            FilterSheetKeyboardBar()
+            FilterSheetKeyboardBar(currentFilters: $currentFilters, activeFilters: $activeFilters)
         }.onAppear{
             self.suggestionsTags = self.getUniqueTags(text: "")
         }
     }
-        
+    
     var mainContent : some View{
         VStack(alignment: .leading,spacing : 0){
             TopBar(currentFilters: $currentFilters, activeFilters: $activeFilters)
@@ -62,7 +62,7 @@ struct HomeFilterSheet: View {
                 .padding(.top, .medium)
         }
     }
-
+    
     
     func getUniqueTags(text : String) -> [TagViewModel]{
         let fetch : NSFetchRequest<NSDictionary> = Tag.uniqueTagTextFetch()
@@ -86,13 +86,13 @@ struct HomeFilterSheet: View {
 private struct BooleanButtonsBar : View{
     @Binding var activeFilters : [FilterViewModel]
     @Binding var currentFilters : [FilterViewModel]
-
+    
     var body: some View{
         HStack (spacing : .medium){
-              FilterButton(activeFilters: $activeFilters, icon: Image.bookmarkIcon, filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
-              FilterButton(activeFilters: $activeFilters, icon: Image.lucidIcon, filterViewModel: FilterViewModel(filter: .isLucid(true)))
-              FilterButton(activeFilters: $activeFilters, icon: Image.nightmareIcon, filterViewModel: FilterViewModel(filter: .isNightmare(true)))
-          }
+            FilterButton(activeFilters: $activeFilters, icon: Image.bookmarkIcon, filterViewModel: FilterViewModel(filter: .isBookmarked(true)))
+            FilterButton(activeFilters: $activeFilters, icon: Image.lucidIcon, filterViewModel: FilterViewModel(filter: .isLucid(true)))
+            FilterButton(activeFilters: $activeFilters, icon: Image.nightmareIcon, filterViewModel: FilterViewModel(filter: .isNightmare(true)))
+        }
     }
 }
 
@@ -134,16 +134,23 @@ private struct BottomBar : View{
 
 private struct TopBar : View{
     @Environment(\.managedObjectContext) var managedObjectContext
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+    
     @Binding var currentFilters : [FilterViewModel]
     @Binding var activeFilters : [FilterViewModel]
     
     var body: some View{
-        HStack(alignment: .bottom){
+        
+        return HStack(alignment: .bottom, spacing: 0){
             title
+                .animation(nil)
             Spacer()
+            
             filterCount
+                .padding(.leading, .small)
         }
     }
+
     
     var title : some View{
         Text("Filters")
@@ -317,10 +324,28 @@ private struct WordCollectionView: View {
 private struct FilterSheetKeyboardBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     @EnvironmentObject var editorObserver : EditorObserver
-    
+    @Binding var currentFilters : [FilterViewModel]
+    @Binding var activeFilters : [FilterViewModel]
+
     var body: some View {
-        return HStack(alignment: .center){
+        return HStack(alignment: .center, spacing: .medium){
             Spacer()
+            Group{
+                 if keyboardObserver.isKeyboardShowing{
+                     if activeFilters != currentFilters{
+                         if currentFilters.isEmpty{
+                             activateButton
+                                 .transition(.offset(y: 50))
+                         }else{
+                             updateButton
+                                .transition(.offset(y: 50))
+                         }
+                     }
+                 }
+             }.animation(.easeInOut)
+            .padding(.bottom, .small)
+
+            
             CustomPassiveIconButton(icon: Image.dismissKeyboardIcon, iconSize: .small) {
                 self.keyboardObserver.dismissKeyboard()
             }.padding(.trailing, .medium)
@@ -331,4 +356,34 @@ private struct FilterSheetKeyboardBar: View {
         .disabled(!keyboardObserver.isKeyboardShowing)
         .animation(.easeOut(duration: 0.4))
     }
+    
+    var updateButton : some View{
+        Button(action: {
+            mediumFeedback()
+            self.currentFilters = self.activeFilters
+        }){
+            Text("Update")
+                .frame(height: .medium * 1.8)
+                .padding(.horizontal,.small * 1.5)
+                .font(.secondaryRegular)
+                .background(Color.background2)
+                .foregroundColor(.main2)
+                .clipShape(RoundedRectangle(cornerRadius: 12.5))
+        }
+    }
+    
+    var activateButton : some View{
+         Button(action: {
+             mediumFeedback()
+             self.currentFilters = self.activeFilters
+         }){
+             Text("Activate")
+                 .frame(height: .medium * 1.8)
+                .padding(.horizontal,.medium)
+                 .font(.secondaryRegular)
+                 .background(Color.background2)
+                 .foregroundColor(.main2)
+                 .clipShape(RoundedRectangle(cornerRadius: 12.5))
+         }
+     }
 }
