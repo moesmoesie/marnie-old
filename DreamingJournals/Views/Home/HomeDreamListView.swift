@@ -11,6 +11,9 @@ import CoreData
 
 struct HomeDreamListView : View {
     @EnvironmentObject var fetchObserver : FetchObserver
+    @EnvironmentObject var filterObserver : FilterObserver
+    @Environment(\.managedObjectContext) var managedObjectContext
+
     var dreams: FetchedResults<Dream>
     
     var body: some View{
@@ -32,6 +35,9 @@ struct HomeDreamListView : View {
     }
     
     func onDreamListAppear(){
+        if Dream.dreamCount(context: managedObjectContext) == 0{
+            self.filterObserver.filters.removeAll()
+        }
         removeTableViewBackground()
     }
     

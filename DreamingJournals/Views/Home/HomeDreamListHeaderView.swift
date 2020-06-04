@@ -11,6 +11,7 @@ import CoreData
 
 struct HomeDreamListHeaderView : View {
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var filterObserver : FilterObserver
     let hasDreams : Bool
     var body: some View{
         let headerHeight = UIScreen.main.bounds.height / 2
@@ -19,7 +20,7 @@ struct HomeDreamListHeaderView : View {
             ZStack(alignment:.bottom){
                 Sky(mainHeight: headerHeight)
                 Mountains(height: headerHeight)
-                if hasDreams{
+                if hasDreams || !filterObserver.filters.isEmpty {
                     FilterButton()
                         .frame(maxWidth : .infinity, alignment: .trailing)
                         .padding(.trailing, .medium)
