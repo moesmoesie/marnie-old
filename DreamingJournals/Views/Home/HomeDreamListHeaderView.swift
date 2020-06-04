@@ -11,7 +11,7 @@ import CoreData
 
 struct HomeDreamListHeaderView : View {
     @Environment(\.colorScheme) var colorScheme
-    
+    let hasDreams : Bool
     var body: some View{
         let headerHeight = UIScreen.main.bounds.height / 2
         
@@ -19,9 +19,11 @@ struct HomeDreamListHeaderView : View {
             ZStack(alignment:.bottom){
                 Sky(mainHeight: headerHeight)
                 Mountains(height: headerHeight)
-                FilterButton()
-                    .frame(maxWidth : .infinity, alignment: .trailing)
-                    .padding(.trailing, .medium)
+                if hasDreams{
+                    FilterButton()
+                        .frame(maxWidth : .infinity, alignment: .trailing)
+                        .padding(.trailing, .medium)
+                }
             }.frame(height  : headerHeight, alignment: .bottom)
     }
 }
@@ -92,7 +94,7 @@ struct DreamListHeader_Previews: PreviewProvider {
         ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
             VStack {
-                HomeDreamListHeaderView()
+                HomeDreamListHeaderView(hasDreams: true)
                     .environment(\.managedObjectContext, context)
                 Spacer()
             }

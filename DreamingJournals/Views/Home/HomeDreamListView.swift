@@ -15,7 +15,7 @@ struct HomeDreamListView : View {
     
     var body: some View{
         return List{
-            HomeDreamListHeaderView()
+            HomeDreamListHeaderView(hasDreams: !dreams.isEmpty)
                 .listRowInsets(EdgeInsets())
                 .padding(.bottom, .medium)
             ForEach(dreams, id : \.self){ (dream : Dream) in
