@@ -80,7 +80,10 @@ struct OnboardingView: View {
                 .foregroundColor(.main1)
                 .font(.secondaryLarge)
                 .multilineTextAlignment(.center)
-                .padding(.bottom, .large)
+                .lineLimit(3)
+            
+            Spacer()
+                .frame(height : .large)
             
             
             VStack(alignment: .leading, spacing : .extraLarge){
