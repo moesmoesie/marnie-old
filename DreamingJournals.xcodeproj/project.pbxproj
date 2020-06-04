@@ -81,7 +81,7 @@
 		11019FE224797C1B005591C3 /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		11019FE42479888B005591C3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		1102AD9024747651005FCB27 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
-		110F88EF24530F6700C7B797 /* Dreaming Journals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dreaming Journals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		110F88EF24530F6700C7B797 /* Marnie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marnie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		110F88F224530F6700C7B797 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		110F88F424530F6700C7B797 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		110F88FB24530F6900C7B797 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		110F88F024530F6700C7B797 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				110F88EF24530F6700C7B797 /* Dreaming Journals.app */,
+				110F88EF24530F6700C7B797 /* Marnie.app */,
 				117726DA24869B51008FBB3E /* AppTests.xctest */,
 			);
 			name = Products;
@@ -374,7 +374,7 @@
 				11E48F7C247D815A00F1D89F /* Lottie */,
 			);
 			productName = "dream-book";
-			productReference = 110F88EF24530F6700C7B797 /* Dreaming Journals.app */;
+			productReference = 110F88EF24530F6700C7B797 /* Marnie.app */;
 			productType = "com.apple.product-type.application";
 		};
 		117726D924869B51008FBB3E /* AppTests */ = {
@@ -678,7 +678,7 @@
 				);
 				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
-				PRODUCT_NAME = "Dreaming Journals";
+				PRODUCT_NAME = Marnie;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -702,7 +702,7 @@
 				);
 				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moesmoesie.dreamingjournals;
-				PRODUCT_NAME = "Dreaming Journals";
+				PRODUCT_NAME = Marnie;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
