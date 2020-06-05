@@ -22,42 +22,36 @@ private struct HomeFetchContainer: View {
     @ObservedObject var fetchObserver = FetchObserver()
     let filters : [FilterViewModel]
     
-    
     var body: some View {
         return
             HomeContent(filters: filters, limit: fetchObserver.fetchlimit)
                 .environmentObject(fetchObserver)
-                .onAppear{
-                    self.fetchObserver.update = false
-        }
     }
 }
 
 private struct HomeContent : View{
-    @FetchRequest var fetchRequest : FetchedResults<Dream>
-    @EnvironmentObject var fetchObserver : FetchObserver
     @Environment(\.managedObjectContext) var managedObjectContext
+    var fetchRequest : FetchRequest<Dream>
+    
+    var fetchedResults : FetchedResults<Dream>{
+        fetchRequest.wrappedValue
+    }
+    
     init(filters:[FilterViewModel], limit : Int) {
-        self._fetchRequest = FetchRequest(fetchRequest: Dream.customFetchRequest(filterViewModels: filters, limit: limit))
+        self.fetchRequest = FetchRequest(fetchRequest: Dream.customFetchRequest(filterViewModels: filters, limit: limit))
     }
     
     var body: some View{
-        fetchObserver.lastDream = fetchRequest.last
-        return HomeView(dreams: fetchRequest)
+        return HomeView(dreams: fetchedResults)
             .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { (_) in
                 Tag.deleteDreamlessTags(context: self.managedObjectContext)
-                if self.fetchObserver.update == false{
-                    self.fetchObserver.update = true
-                }
-        }
+            }
     }
 }
 
 class FetchObserver: ObservableObject {
     @Published var fetchlimit : Int = 100
-    @Published var update : Bool = false
     
-    var lastDream : Dream?
     func incrementLimit(amount : Int = 100){
         fetchlimit += amount
     }
