@@ -15,17 +15,22 @@ struct DreamDetailTopBar: View {
     
     var body: some View {
         onViewUpdate()
-        return ZStack{
-            DreamDateView()
-            HStack(alignment : .center,spacing : .medium){
+        return
+            HStack(spacing : .medium){
                 BackButton()
                 Spacer()
+                ShareButton()
+                    .offset(y : -2.5)
+                    
                 if showSaveButton{
                     SaveButton(text: dream.isNewDream ?  "Save" : "Update")
-                        .transition(.offset(x: .extraLarge * 2))
+                         .transition(.offset(x: .extraLarge * 2))
                 }
-            }.padding(.vertical, .extraSmall)
-        }
+            }
+            .frame(height: .extraLarge)
+            .padding(.top,getTopSaveArea())
+            .padding(.horizontal,.medium)
+            .background(Color.background1.opacity(0.99))
     }
     
     func onViewUpdate(){
@@ -37,16 +42,6 @@ struct DreamDetailTopBar: View {
                 }
             }
         }
-    }
-}
-
-private struct DreamDateView : View{
-    @EnvironmentObject var dream : DreamViewModel
-    
-    var body: some View{
-        Text(dream.wrapperDateString)
-            .font(.primarySmall)
-            .foregroundColor(.main2)
     }
 }
 
@@ -63,10 +58,9 @@ private struct SaveButton : View{
         Button(action: dream.isNewDream ? saveDream : updateDream){
             Text(text)
                 .foregroundColor(.main1)
-                .font(.secondaryLarge)
-                .padding(.trailing, .medium)
+                .font(.primaryRegular)
         }.buttonStyle(PlainButtonStyle())
-            .alert(isPresented: $showAlert, content: InvalidSaveAlert)
+        .alert(isPresented: $showAlert, content: InvalidSaveAlert)
     }
     
     func InvalidSaveAlert() -> Alert{
@@ -117,8 +111,6 @@ private struct BackButton : View{
     var body: some View{
         Button(action:backButtonPress){
             Image.backIcon.foregroundColor(.main1)
-                .padding(.vertical, .extraSmall)
-                .padding(.horizontal, .medium)
         }.alert(isPresented: $showAlert, content: unsavedChangesAlert)
     }
     
@@ -137,5 +129,24 @@ private struct BackButton : View{
         Alert(title: Text("Unsaved Changes"), message: Text("You have made changes without saving!"), primaryButton: .destructive(Text("Discard"), action:{
             self.presentationMode.wrappedValue.dismiss()
         }), secondaryButton: .cancel())
+    }
+}
+
+private struct ShareButton : View{
+    @EnvironmentObject var dream : DreamViewModel
+    @State var showAlert = false
+    
+    var body: some View{
+        Button(action:onButtonPress){
+            Image(systemName: "square.and.arrow.up").foregroundColor(.main1)
+        }.sheet(isPresented: $showAlert) {
+            ShareView(activityItems: ["Hello World"])
+                .colorScheme(.dark)
+                .background(Color.background1.edgesIgnoringSafeArea(.all))
+        }
+    }
+    
+    func onButtonPress(){
+        self.showAlert = true
     }
 }

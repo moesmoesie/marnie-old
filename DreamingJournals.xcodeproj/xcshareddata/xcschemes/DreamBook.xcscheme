@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "110F88EE24530F6700C7B797"
-               BuildableName = "Dreaming Journals.app"
+               BuildableName = "Marnie.app"
                BlueprintName = "DreamingJournals"
                ReferencedContainer = "container:DreamingJournals.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "110F88EE24530F6700C7B797"
-            BuildableName = "Dreaming Journals.app"
+            BuildableName = "Marnie.app"
             BlueprintName = "DreamingJournals"
             ReferencedContainer = "container:DreamingJournals.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "110F88EE24530F6700C7B797"
-            BuildableName = "Dreaming Journals.app"
+            BuildableName = "Marnie.app"
             BlueprintName = "DreamingJournals"
             ReferencedContainer = "container:DreamingJournals.xcodeproj">
          </BuildableReference>

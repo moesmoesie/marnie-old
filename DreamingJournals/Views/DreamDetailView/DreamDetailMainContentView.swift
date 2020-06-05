@@ -14,9 +14,12 @@ struct DreamDetailMainContentView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack(alignment : .leading, spacing:0){
+                DreamDateView()
+                    .padding(.top, .extraLarge)
+                
                 DreamTitleView()
-                    .padding(.top, .extraSmall)
                     .padding(.bottom, .extraSmall)
+                
                 if !self.dream.tags.isEmpty{
                     DreamTagCollectionView(tags: $dream.tags)
                     .padding(.bottom, .extraSmall)
@@ -92,5 +95,6 @@ private struct DreamDateView : View{
         Text(dream.wrapperDateString)
             .font(.primarySmall)
             .foregroundColor(.main2)
+            .frame(maxWidth: .infinity, alignment: .center)
     }
 }
