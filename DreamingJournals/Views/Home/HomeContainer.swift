@@ -31,6 +31,7 @@ private struct HomeFetchContainer: View {
 
 private struct HomeContent : View{
     @Environment(\.managedObjectContext) var managedObjectContext
+    @EnvironmentObject var fetchObserver : FetchObserver
     var fetchRequest : FetchRequest<Dream>
     
     var fetchedResults : FetchedResults<Dream>{
@@ -45,6 +46,7 @@ private struct HomeContent : View{
         return HomeView(dreams: fetchedResults)
             .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { (_) in
                 Tag.deleteDreamlessTags(context: self.managedObjectContext)
+                self.fetchObserver.objectWillChange.send()
             }
     }
 }
