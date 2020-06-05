@@ -21,12 +21,14 @@ struct HomeDreamListView : View {
             HomeDreamListHeaderView(hasDreams: !dreams.isEmpty)
                 .listRowInsets(EdgeInsets())
                 .padding(.bottom, .medium)
-            ForEach(dreams, id : \.self){ (dream : Dream) in
-                HomeDreamListItemView(dream: dream)
+            ForEach(0..<dreams.count, id : \.self){ (index : Int) in
+                HomeDreamListItemView(dream: self.dreams[index])
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
-                    .onAppear{self.onDreamAppear(dream)}
+                    .onAppear{
+                        self.onDreamAppear(index)
+                    }
             }
             Spacer(minLength: .navigationBarHeight * 1.5)
         }
@@ -41,12 +43,10 @@ struct HomeDreamListView : View {
         removeTableViewBackground()
     }
     
-    func onDreamAppear(_ dream : Dream){
-        if let lastDream = self.fetchObserver.lastDream{
-            if dream == lastDream{
-                DispatchQueue.main.async {
-                    self.fetchObserver.incrementLimit()
-                }
+    func onDreamAppear(_ index : Int){
+        if index + 1 == self.fetchObserver.fetchlimit{
+            DispatchQueue.main.async {
+                self.fetchObserver.incrementLimit()
             }
         }
     }
