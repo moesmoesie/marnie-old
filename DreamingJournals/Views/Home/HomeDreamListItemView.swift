@@ -45,7 +45,6 @@ struct HomeDreamListItemView : View {
         .padding(.top,.small)
         .background(Color.background1)
         .cornerRadius(30)
-        .primaryShadow()
         .onTapGesture {
             self.showDetail = true
         }
