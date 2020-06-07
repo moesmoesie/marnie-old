@@ -59,12 +59,15 @@ struct DreamDetailContentView : View {
             DreamDetailTopBar()
                 .edgesIgnoringSafeArea(.all)
                 .frame(maxHeight: .infinity, alignment: .top)
-
-            DreamDetailKeyboardBar()
+            
             if editorObserver.isInTagMode{
                 DreamDetailTagsSheet()
                     .zIndex(2)
             }
+
+            DreamDetailKeyboardBar()
+            .zIndex(3)
+          
         }
         .navigationBarTitle("",displayMode: .inline)
         .navigationBarHidden(true)

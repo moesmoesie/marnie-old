@@ -13,22 +13,32 @@ struct DreamDetailKeyboardBar: View {
     @EnvironmentObject var editorObserver : EditorObserver
 
     var body: some View {
-        return HStack(alignment: .center){
-            Spacer()
-            
-            ActivateTagFilterSheetButton()
-                .padding(.trailing, .medium)
-                .padding(.bottom, .small)
-            
-            DismissKeyboardButton()
-                .padding(.trailing, .medium)
-                .padding(.bottom, .small)
-            
-        }
-        .padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.heightWithoutSaveArea : 100)
-        .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
-        .disabled(!keyboardObserver.isKeyboardShowing)
-        .animation(.easeOut(duration: 0.4))
+        return
+            ZStack{
+                if editorObserver.currentMode == Modes.tagMode{
+                    HStack(alignment: .center){
+                        Spacer()
+                        DismissTagSheetButton()
+                            .padding(.trailing, .medium)
+                            .padding(.bottom, .small)
+                    }
+                }
+                if editorObserver.currentMode == .regularMode{
+                    HStack(alignment: .center){
+                        Spacer()
+                        ActivateTagFilterSheetButton()
+                            .padding(.trailing, .medium)
+                            .padding(.bottom, .small)
+                        
+                        DismissKeyboardButton()
+                            .padding(.trailing, .medium)
+                            .padding(.bottom, .small)
+                    }
+                }
+            }.padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.heightWithoutSaveArea : 100)
+            .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
+            .disabled(!keyboardObserver.isKeyboardShowing)
+            .animation(.spring())
     }
 }
 
@@ -50,6 +60,28 @@ private struct DismissKeyboardButton : View{
     var body: some View{
         CustomPassiveIconButton(icon: .dismissKeyboardIcon, iconSize: .small) {
             self.keyboardObserver.dismissKeyboard()
+        }
+    }
+}
+
+private struct DismissTagSheetButton : View{
+    @EnvironmentObject var editorObserver : EditorObserver
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+
+    var body: some View{
+        Button(action: {
+            withAnimation(.spring()){
+                self.keyboardObserver.dismissKeyboard()
+                self.editorObserver.currentMode = Modes.regularMode
+            }
+        }){
+            Text("Done")
+                .padding(.horizontal,.small * 1.2)
+                .padding(.vertical,.extraSmall)
+                .background(Color.background2)
+                .foregroundColor(.main2)
+                .font(.secondarySmall)
+                .cornerRadius(12.5)
         }
     }
 }
