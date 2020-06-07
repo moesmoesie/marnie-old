@@ -26,12 +26,6 @@ struct DreamDetailMainContentView: View {
                 }
                 DreamTextView()
                 KeyboardSpacer()
-                
-                if editorObserver.isInTagMode{
-                    CustomSheet(showFullScreen: true){
-                        DreamDetailTagsSheet(currentTags: self.$dream.tags)
-                    }
-                }
             }
         }
     }

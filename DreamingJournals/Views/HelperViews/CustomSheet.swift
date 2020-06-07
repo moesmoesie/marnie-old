@@ -22,7 +22,6 @@ struct CustomSheet<Content: View>: View {
         let screen = UIScreen.main.bounds
         return VStack(spacing: 0) {
             content()
-            .animation(nil)
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
@@ -31,6 +30,5 @@ struct CustomSheet<Content: View>: View {
         .edgesIgnoringSafeArea(.all)
         .offset(y : .extraSmall)
         .transition(.offset(y : screen.height))
-        .animation(.timingCurve(0.4, 0.8, 0.2, 1, duration : 0.7))
     }
 }

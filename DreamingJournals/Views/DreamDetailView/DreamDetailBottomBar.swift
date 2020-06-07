@@ -65,7 +65,9 @@ private struct ActivateTagSheetButton : View  {
     var body: some View{
         CustomIconButton(icon: .tagIcon, iconSize: .medium){
             mediumFeedback()
-            self.editorObserver.currentMode = Modes.tagMode
+            withAnimation(.timingCurve(0.4, 0.8, 0.2, 1, duration : 0.7)){
+                self.editorObserver.currentMode = Modes.tagMode
+            }
         }
     }
 }

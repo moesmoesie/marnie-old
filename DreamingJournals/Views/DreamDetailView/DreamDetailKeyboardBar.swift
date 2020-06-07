@@ -37,7 +37,9 @@ private struct ActivateTagFilterSheetButton : View{
 
     var body: some View{
         CustomPassiveIconButton(icon: .tagIcon, iconSize: .small) {
-            self.editorObserver.currentMode = Modes.tagMode
+            withAnimation(.timingCurve(0.4, 0.8, 0.2, 1, duration : 0.7)){
+                self.editorObserver.currentMode = Modes.tagMode
+            }
         }
     }
 }

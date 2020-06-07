@@ -12,6 +12,8 @@ struct DreamDetailView: View {
     let dream : DreamViewModel
     let oldDream : OldDream
     @ObservedObject var editorObserver = EditorObserver()
+    @ObservedObject var tagSuggestionObserver = TagSuggestionObserver()
+
     @EnvironmentObject var keyboardObserver : KeyboardObserver
     
     init(dream : DreamViewModel) {
@@ -30,6 +32,7 @@ struct DreamDetailView: View {
             .environmentObject(dream)
             .environmentObject(editorObserver)
             .environmentObject(oldDream)
+            .environmentObject(tagSuggestionObserver)
             .onReceive(editorObserver.$currentMode, perform: { (mode) in
                 if mode == .actionMode{
                     self.keyboardObserver.dismissKeyboard()
@@ -58,14 +61,15 @@ struct DreamDetailContentView : View {
                 .frame(maxHeight: .infinity, alignment: .top)
 
             DreamDetailKeyboardBar()
-            DreamDetailTagsSheetContainer()
-            .zIndex(2)
+            if editorObserver.isInTagMode{
+                DreamDetailTagsSheet()
+                    .zIndex(2)
+            }
         }
         .navigationBarTitle("",displayMode: .inline)
         .navigationBarHidden(true)
     }
 }
-
 
 class OldDream : ObservableObject{
     let dream : DreamViewModel

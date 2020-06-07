@@ -16,6 +16,7 @@
 		110F88FC24530F6900C7B797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FB24530F6900C7B797 /* Assets.xcassets */; };
 		110F88FF24530F6900C7B797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F88FE24530F6900C7B797 /* Preview Assets.xcassets */; };
 		110F890224530F6900C7B797 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110F890024530F6900C7B797 /* LaunchScreen.storyboard */; };
+		111524FA248D4E7E002E1324 /* TagSuggestionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111524F9248D4E7E002E1324 /* TagSuggestionObserver.swift */; };
 		111BA7212479EC4B000E48DF /* HomeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111BA7202479EC4B000E48DF /* HomeContainer.swift */; };
 		111BA7232479ED10000E48DF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111BA7222479ED10000E48DF /* HomeView.swift */; };
 		111BA7272479F5B2000E48DF /* StyleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111BA7262479F5B2000E48DF /* StyleHelper.swift */; };
@@ -90,6 +91,7 @@
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dreaming Journals.entitlements"; sourceTree = "<group>"; };
+		111524F9248D4E7E002E1324 /* TagSuggestionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSuggestionObserver.swift; sourceTree = "<group>"; };
 		111BA7202479EC4B000E48DF /* HomeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContainer.swift; sourceTree = "<group>"; };
 		111BA7222479ED10000E48DF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		111BA7262479F5B2000E48DF /* StyleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleHelper.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				11E48F77247D535700F1D89F /* NavigationObserver.swift */,
 				11FE3E1F247F3D6500E84469 /* FilterObserver.swift */,
 				11B1D5C42487AA4D00BC76B0 /* SettingsObserver.swift */,
+				111524F9248D4E7E002E1324 /* TagSuggestionObserver.swift */,
 			);
 			path = Observers;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				11564C1824641FBC00CDAE93 /* TagViewModel.swift in Sources */,
 				117F5677247AB39E00F72434 /* Gradients.swift in Sources */,
 				11559B31245A2AB900025F9F /* HomeDreamListView.swift in Sources */,
+				111524FA248D4E7E002E1324 /* TagSuggestionObserver.swift in Sources */,
 				11B1D5C52487AA4D00BC76B0 /* SettingsObserver.swift in Sources */,
 				111BA7212479EC4B000E48DF /* HomeContainer.swift in Sources */,
 				11FE3E20247F3D6500E84469 /* FilterObserver.swift in Sources */,
