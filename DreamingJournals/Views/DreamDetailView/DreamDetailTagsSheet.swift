@@ -80,7 +80,8 @@ private struct SuggestionTags : View{
 
 private struct TopBar : View{
     @EnvironmentObject var editorObserver : EditorObserver
-    
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+
     var body: some View{
         HStack(alignment: .firstTextBaseline){
             title
@@ -92,6 +93,7 @@ private struct TopBar : View{
     var closeButton : some View{
         Button(action: {
             mediumFeedback()
+            self.keyboardObserver.dismissKeyboard()
             withAnimation(.timingCurve(0.4, 0.8, 0.2, 1, duration : 0.7)){
                 self.editorObserver.currentMode = .regularMode
             }
@@ -160,6 +162,7 @@ private struct TagCreationField : View{
             textColor: .main1,
             placeholderColor: .main2,
             tintColor: .accent1,
+            autoFocus: true,
             maxCharacters: 25,
             font: .primaryRegular,
             onChange: onChange,
@@ -183,6 +186,8 @@ private struct TagCreationField : View{
         
         let tag = TagViewModel(text: self.text)
         self.text = ""
+        tagSuggestionObserver.suggestionTags = tagSuggestionObserver.getUniqueTags(text: self.text)
+
         if dream.tags.contains(tag) || self.text.count > 25 {
             return true
         }

@@ -18,14 +18,23 @@ struct CustomTextField : View {
     let tintColor : UIColor
     let font : UIFont
     let maxCharacters : Int
+    var autoFocus : Bool
     let onReturn : (UITextField) -> Bool
     let onChange : (UITextField) -> ()
-
     let placeholderFont : Font
     
-    init(text : Binding<String>, placeholder : String, placeholderFont : Font = Font.primaryRegular, textColor : UIColor = .white,
+    init(text : Binding<String>,
+         placeholder : String,
+         placeholderFont : Font = Font.primaryRegular,
+         textColor : UIColor = .white,
          placeholderColor : Color = .white,
-         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, maxCharacters : Int = .max, font : UIFont = UIFont.preferredFont(forTextStyle: .body),onChange: @escaping (UITextField) -> () = {_ in },  onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
+         backgroundColor : UIColor = .clear,
+         tintColor : UIColor = .systemBlue,
+         autoFocus : Bool = false,
+         maxCharacters : Int = .max,
+         font : UIFont = UIFont.preferredFont(forTextStyle: .body),
+         onChange: @escaping (UITextField) -> () = {_ in },
+         onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
         self._text = text
         self.placeholder = placeholder
         self.textColor = textColor
@@ -35,6 +44,7 @@ struct CustomTextField : View {
         self.onReturn = onReturn
         self.placeholderColor = placeholderColor
         self.maxCharacters = maxCharacters
+        self.autoFocus = autoFocus
         self.placeholderFont = placeholderFont
         self.onChange = onChange
     }
@@ -52,10 +62,17 @@ struct CustomTextField : View {
                     .font(placeholderFont)
                     .foregroundColor(placeholderColor)
             }
-            UICustomTextField(text: self.$text, width: width, height: self.$height, onReturn: onReturn, onChange: self.onChange, make: self.make)
+            UICustomTextField(
+                text: self.$text,
+                height: self.$height,
+                autoFocus: self.autoFocus,
+                width: width, onReturn:
+                onReturn,
+                onChange: self.onChange,
+                make: self.make
+            )
         }
     }
-    
     
     private func make(coordinator: UICustomTextField.Coordinator) -> UITextField {
         let textField = UITextField(frame: .zero)
@@ -74,11 +91,12 @@ struct CustomTextField : View {
     }
 }
 
-
 private struct UICustomTextField : UIViewRepresentable{
     @Binding var text : String
-    let width : CGFloat
     @Binding var height : CGFloat
+    let autoFocus : Bool
+
+    let width : CGFloat
     let onReturn : (UITextField) -> Bool
     let onChange : (UITextField) -> ()
 
@@ -87,11 +105,14 @@ private struct UICustomTextField : UIViewRepresentable{
         make(context.coordinator)
     }
 
-    
     func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = self.text
         DispatchQueue.main.async {
             self.height = uiView.sizeThatFits(CGSize(width: self.width, height: .infinity)).height
+            if self.autoFocus && !context.coordinator.didBecomeFirstResponder{
+                uiView.becomeFirstResponder()
+                context.coordinator.didBecomeFirstResponder = true
+            }
         }
     }
     
@@ -104,6 +125,8 @@ private struct UICustomTextField : UIViewRepresentable{
         var maxCharacters : Int = .max
         let onReturn : (UITextField) -> Bool
         let onChange : (UITextField) -> ()
+        var didBecomeFirstResponder = false
+
 
         init(_ text : Binding<String>, onChange : @escaping (UITextField) -> () ,onReturn : @escaping (UITextField) -> Bool) {
             self._text = text
