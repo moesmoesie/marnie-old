@@ -47,9 +47,6 @@ struct DreamDetailContentView : View {
         ZStack(alignment: .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)
             
-       
-
-            
             DreamDetailMainContentView()
                 .padding(.horizontal, .medium)
             
@@ -59,13 +56,16 @@ struct DreamDetailContentView : View {
             DreamDetailTopBar()
                 .edgesIgnoringSafeArea(.all)
                 .frame(maxHeight: .infinity, alignment: .top)
-            
+
             DreamDetailKeyboardBar()
+            DreamDetailTagsSheetContainer()
+            .zIndex(2)
         }
         .navigationBarTitle("",displayMode: .inline)
         .navigationBarHidden(true)
     }
 }
+
 
 class OldDream : ObservableObject{
     let dream : DreamViewModel

@@ -66,18 +66,6 @@ private struct ActivateTagSheetButton : View  {
         CustomIconButton(icon: .tagIcon, iconSize: .medium){
             mediumFeedback()
             self.editorObserver.currentMode = Modes.tagMode
-        }.sheet(isPresented: $showSheet, onDismiss: {
-            self.editorObserver.currentMode = Modes.regularMode
-        }){
-            DreamDetailTagsSheet(currentTags: self.$dream.tags)
-                .environmentObject(self.dream)
-                .environment(\.managedObjectContext, self.managedObjectContext)
-        }.onReceive(editorObserver.$currentMode) { (mode : Modes) in
-            if mode == .tagMode{
-                self.showSheet = true
-            }else{
-                self.showSheet = false
-            }
         }
     }
 }

@@ -10,6 +10,30 @@ import SwiftUI
 import CoreData
 import Combine
 
+
+struct DreamDetailTagsSheetContainer: View {
+    @EnvironmentObject var dream : DreamViewModel
+    @EnvironmentObject var editorObserver : EditorObserver
+    @State var showSheet : Bool = false
+    var body: some View{
+        Group{
+            if showSheet{
+                CustomSheet(showFullScreen: true){
+                    DreamDetailTagsSheet(currentTags: self.$dream.tags)
+                }
+            }
+        }.onReceive(editorObserver.$currentMode) { (mode) in
+            withAnimation{
+                if mode == .tagMode{
+                    self.showSheet = true
+                }else{
+                    self.showSheet = false
+                }
+            }
+        }
+    }
+}
+
 struct DreamDetailTagsSheet: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Binding var currentTags : [TagViewModel]
@@ -30,7 +54,7 @@ struct DreamDetailTagsSheet: View {
             Color.background1.edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment: .leading,spacing : 0){
-                    title
+                    TopBar()
                     .padding(.top, .medium)
                     .padding(.bottom,.medium)
                     
@@ -115,6 +139,35 @@ struct DreamDetailTagsSheet: View {
             print("Error")
             return []
         }
+    }
+}
+
+
+private struct TopBar : View{
+    @EnvironmentObject var editorObserver : EditorObserver
+    var body: some View{
+        HStack(alignment: .firstTextBaseline){
+            title
+            Spacer()
+            closeButton
+        }
+    }
+    
+    var closeButton : some View{
+        Button(action: {
+            mediumFeedback()
+            self.editorObserver.currentMode = .regularMode
+        }){
+            Image(systemName: "xmark.circle.fill")
+            .font(.primaryLarge)
+            .foregroundColor(.main1)
+        }
+    }
+    
+    var title : some View{
+        Text("Tags")
+            .font(.primaryLarge)
+            .foregroundColor(.main1)
     }
 }
 

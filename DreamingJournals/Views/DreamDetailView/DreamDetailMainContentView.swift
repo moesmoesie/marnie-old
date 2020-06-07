@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DreamDetailMainContentView: View {
     @EnvironmentObject var dream : DreamViewModel
-    
+    @EnvironmentObject var editorObserver : EditorObserver
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack(alignment : .leading, spacing:0){
@@ -26,6 +26,12 @@ struct DreamDetailMainContentView: View {
                 }
                 DreamTextView()
                 KeyboardSpacer()
+                
+                if editorObserver.isInTagMode{
+                    CustomSheet(showFullScreen: true){
+                        DreamDetailTagsSheet(currentTags: self.$dream.tags)
+                    }
+                }
             }
         }
     }
