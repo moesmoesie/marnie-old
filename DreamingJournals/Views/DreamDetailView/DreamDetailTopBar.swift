@@ -140,7 +140,7 @@ private struct ShareButton : View{
         Button(action:onButtonPress){
             Image(systemName: "square.and.arrow.up").foregroundColor(.main1)
         }.sheet(isPresented: $showAlert) {
-            ShareView(activityItems: ["Hello World"])
+            ShareView(activityItems:  [PDFCreator.createDreamPDF(dream: self.dream)])
                 .colorScheme(.dark)
                 .background(Color.background1.edgesIgnoringSafeArea(.all))
         }

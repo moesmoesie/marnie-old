@@ -20,5 +20,18 @@ extension Image{
     static var settingsIcon = Image(systemName: "gear")
     static var homeIcon = Image(systemName: "house")
     static var addDreamIcon = Image(systemName: "plus")
+}
 
+extension UIImage{
+    static var bookmarkIcon = UIImage(systemName: "bookmark")!
+    static var lucidIcon = UIImage(systemName: "eye")!
+    static var nightmareIcon = UIImage(systemName: "tropicalstorm")!
+    static var searchIcon = UIImage(systemName: "magnifyingglass")!
+    static var trashIcon = UIImage(systemName: "trash")!
+    static var dismissKeyboardIcon = UIImage(systemName: "chevron.down.square")!
+    static var backIcon = UIImage(systemName: "chevron.left")!
+    static var tagIcon = UIImage(systemName: "tag")!
+    static var settingsIcon = UIImage(systemName: "gear")!
+    static var homeIcon = UIImage(systemName: "house")!
+    static var addDreamIcon = UIImage(systemName: "plus")!
 }
