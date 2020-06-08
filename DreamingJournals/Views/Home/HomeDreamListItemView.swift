@@ -20,34 +20,29 @@ struct HomeDreamListItemView : View {
     var body: some View{
         VStack(alignment : .leading, spacing: 0){
             naviagationLink
+            ListItemDate(text: dream.wrapperDateString)
             
-            dateView
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.bottom, .extraSmall)
 
+            ListItemTitle(text: dream.title)
             
-            titleView
             
             if !dream.tags.isEmpty{
-                tags
-                    .padding(.vertical, .extraSmall)
+                ListItemsTags(tags: dream.tags, filters: filterObserver.filters)
+                    .padding(.top, .extraSmall)
             }
-        
-            textView
-            
-            Spacer()
 
-            details
+            ListItemText(text: dream.text)
+                .padding(.vertical, .extraSmall)
+            
+            ListItemsDetails(dream: dream)
         }
-        .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(.horizontal,.medium)
-        .padding(.bottom, .medium)
-        .padding(.top,.small)
+        .padding(.top, .small)
+        .padding(.bottom,.medium)
+        .frame(maxWidth : .infinity)
         .background(Color.background1)
         .cornerRadius(30)
-        .onTapGesture {
-            self.showDetail = true
-        }
+        .primaryShadow()
     }
     
     // MARK: - HELPER VIEWS
@@ -57,8 +52,43 @@ struct HomeDreamListItemView : View {
             EmptyView()
         }.hidden()
     }
+}
+
+private struct ListItemsTags : View{
+    let tagsToShow : [TagViewModel]
+    let filters : [FilterViewModel]
     
-    private var details : some View{
+    init(tags : [TagViewModel], filters : [FilterViewModel]) {
+        self.filters = filters
+        self.tagsToShow = tags.sorted { (tag1, tag2) -> Bool in
+            let isFilter1 = filters.contains(FilterViewModel(filter: .tag(tag1)))
+            let isFilter2 = filters.contains(FilterViewModel(filter: .tag(tag2)))
+            
+            if isFilter1 && !isFilter2{
+                return true
+            }
+            return false
+        }
+    }
+    
+    var body: some View{
+        HStack{
+            ForEach(tagsToShow.prefix(3)){ tag in
+                TagView(
+                    tag: tag,
+                    isActive: self.filters.contains(FilterViewModel(filter: .tag(tag)))
+                )
+            }
+        }
+    }
+}
+
+
+private struct ListItemsDetails : View{
+    @EnvironmentObject var filterObserver : FilterObserver
+    let dream : DreamViewModel
+    
+    var body: some View{
         HStack(spacing: .medium){
             if dream.isBookmarked{
                 CustomIconButton(
@@ -85,54 +115,38 @@ struct HomeDreamListItemView : View {
             }
         }
     }
-    
-    private var tags : some View{
-        let tags = self.dream.tags.sorted { (tag1, tag2) -> Bool in
-            let isFilter1 = filterObserver.filters.contains(FilterViewModel(filter: .tag(tag1)))
-            let isFilter2 = filterObserver.filters.contains(FilterViewModel(filter: .tag(tag2)))
-            
-            if isFilter1 && !isFilter2{
-                return true
-            }
-            return false
-        }
-        
-        return HStack{
-            ForEach(tags.prefix(3)){ tag in
-                TagView(
-                    tag: tag,
-                    isActive: self.filterObserver.filters.contains(FilterViewModel(filter: .tag(tag)))
-                )
-            }
-        }
-    }
-    
-    private var seperator : some View{
-        Rectangle()
-            .foregroundColor(Color.main1)
-            .frame(maxWidth :.infinity)
-            .frame(height: 1)
-            .opacity(0.1)
-    }
-    
-    private var titleView: some View{
-        Text(dream.title)
-            .font(.primaryLarge)
-            .foregroundColor(.main1)
-            .lineLimit(2)
-    }
-    
-    private var textView : some View {
-        let textToShow = dream.text.replacingOccurrences(of: "\n", with: "")
-        return Text(textToShow)
-            .foregroundColor(.main1)
-            .lineSpacing(.extraSmall)
-            .frame(maxHeight: 100)
-    }
-    
-    private var dateView : some View{
-        Text(dream.wrapperDateString)
+}
+
+
+private struct ListItemDate : View{
+    let text : String
+    var body : some View{
+        Text(text)
+            .frame(maxWidth : .infinity, alignment: .center)
             .font(.primarySmall)
             .foregroundColor(.main2)
+    }
+}
+
+private struct ListItemTitle : View{
+    let text : String
+    
+    var body : some View{
+        Text(text)
+            .foregroundColor(.main1)
+            .font(.primaryLarge)
+            .lineLimit(2)
+    }
+}
+
+private struct ListItemText : View{
+    let text : String
+    
+    var body : some View{
+        Text(text)
+            .foregroundColor(.main1)
+            .font(.primaryRegular)
+            .lineLimit(4)
+            .lineSpacing(5)
     }
 }
