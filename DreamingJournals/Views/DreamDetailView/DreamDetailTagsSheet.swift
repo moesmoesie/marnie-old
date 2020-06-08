@@ -158,15 +158,13 @@ private struct TagCreationField : View{
     var body: some View{
         CustomTextField(
             text: $text,
-            placeholder: "Create new tag",
-            textColor: .main1,
-            placeholderColor: .main2,
-            tintColor: .accent1,
-            autoFocus: true,
-            maxCharacters: 25,
             font: .primaryRegular,
-            onChange: onChange,
-            onReturn: onReturn
+            placeholder: "Create new Tag",
+            placeholderFont: .primaryRegular,
+            maxCharacters: 25,
+            autoFocus: true,
+            onReturn: onReturn,
+            onChange: onChange
         )
         .padding(.horizontal,.small)
         .padding(.vertical, .small)

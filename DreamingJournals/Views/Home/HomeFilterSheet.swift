@@ -270,7 +270,7 @@ private struct TagSearchTextField : View{
     let onChange : () -> ()
     
     var body: some View{
-        CustomTextField(text: $text, placeholder: "Search for Tags", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, maxCharacters: 25, font: .primaryRegular, onChange: { (textField) in
+        CustomTextField(text: $text, placeholder: "Search for tags", maxCharacters: 25, onChange: {(_) in
             self.onChange()
         })
             .padding(.horizontal,.medium)
@@ -284,15 +284,21 @@ private struct WordFilterTextField : View{
     @State var text : String = ""
     @Binding var activeFilter : [FilterViewModel]
     var body: some View{
-        CustomTextField(text: $text, placeholder: "Create a word filter", textColor: .main1, placeholderColor: .main2, tintColor: .accent1, maxCharacters: 25, font: .primaryRegular, onReturn: { (textField) in
-            self.activeFilter.append(FilterViewModel(filter: .containsWord(self.text)))
-            self.text = ""
-            return true
-        })
+        CustomTextField(
+            text: $text,
+            placeholder: "Create a word filter",
+            maxCharacters: 25,
+            onReturn: onReturn)
             .padding(.horizontal,.medium)
             .padding(.vertical, .small)
             .background(Color.background2)
             .cornerRadius(12.5)
+    }
+    
+    func onReturn(textField : UITextField) -> Bool{
+        self.activeFilter.append(FilterViewModel(filter: .containsWord(self.text)))
+        self.text = ""
+        return true
     }
 }
 
@@ -322,8 +328,6 @@ private struct WordCollectionView: View {
         }
     }
 }
-
-
 
 private struct FilterSheetKeyboardBar: View {
     @EnvironmentObject var keyboardObserver : KeyboardObserver

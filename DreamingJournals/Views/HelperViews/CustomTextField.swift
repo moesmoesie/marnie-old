@@ -9,45 +9,22 @@
 import SwiftUI
 
 struct CustomTextField : View {
-    @State var height : CGFloat = 0
+    @State private var height : CGFloat = 0
     @Binding var text : String
-    let textColor : UIColor
-    let backgroundColor : UIColor
-    let placeholder : String
-    let placeholderColor : Color
-    let tintColor : UIColor
-    let font : UIFont
-    let maxCharacters : Int
-    var autoFocus : Bool
-    let onReturn : (UITextField) -> Bool
-    let onChange : (UITextField) -> ()
-    let placeholderFont : Font
-    
-    init(text : Binding<String>,
-         placeholder : String,
-         placeholderFont : Font = Font.primaryRegular,
-         textColor : UIColor = .white,
-         placeholderColor : Color = .white,
-         backgroundColor : UIColor = .clear,
-         tintColor : UIColor = .systemBlue,
-         autoFocus : Bool = false,
-         maxCharacters : Int = .max,
-         font : UIFont = UIFont.preferredFont(forTextStyle: .body),
-         onChange: @escaping (UITextField) -> () = {_ in },
-         onReturn : @escaping (UITextField) -> Bool = {_ in true}) {
-        self._text = text
-        self.placeholder = placeholder
-        self.textColor = textColor
-        self.backgroundColor = backgroundColor
-        self.tintColor = tintColor
-        self.font = font
-        self.onReturn = onReturn
-        self.placeholderColor = placeholderColor
-        self.maxCharacters = maxCharacters
-        self.autoFocus = autoFocus
-        self.placeholderFont = placeholderFont
-        self.onChange = onChange
-    }
+    var font : UIFont = UIFont.primaryRegular
+    var textColor : UIColor = .main1
+    var tintColor : UIColor = .accent1
+    var backgroundColor : UIColor = .clear
+    var placeholder : String = "placeholder"
+    var placeholderColor : Color = .main2
+    var placeholderFont : Font = .primaryRegular
+    var maxCharacters : Int = .max
+    var autocorrect : Bool = true
+    var autoFocus : Bool = false
+    var autoFocusDelay : Double = 0
+    var returnKeyType : UIReturnKeyType = .done
+    var onReturn : (UITextField) -> Bool = {_ in true}
+    var onChange : (UITextField) -> () = {_ in}
     
     var body: some View{
         GeometryReader{ geo in
@@ -62,77 +39,71 @@ struct CustomTextField : View {
                     .font(placeholderFont)
                     .foregroundColor(placeholderColor)
             }
+            
             UICustomTextField(
-                text: self.$text,
-                height: self.$height,
-                autoFocus: self.autoFocus,
-                width: width, onReturn:
-                onReturn,
-                onChange: self.onChange,
-                make: self.make
-            )
+                make: { coordinator in
+                    let textField = UITextField(frame: .zero)
+                    textField.delegate = coordinator
+                    textField.backgroundColor = self.backgroundColor
+                    textField.tintColor = self.tintColor
+                    textField.textColor = self.textColor
+                    textField.font = self.font
+                    textField.autocorrectionType = self.autocorrect ? .default : .no
+                    textField.returnKeyType = self.returnKeyType
+                    coordinator.maxCharacters = self.maxCharacters
+                    coordinator.text = self.$text
+                    coordinator.onReturn = self.onReturn
+                    coordinator.onChange = self.onChange
+                    
+                    textField.addTarget(coordinator,
+                                        action: #selector(coordinator.textFieldDidChange),
+                                        for: .editingChanged)
+                    
+                    return textField
+                },
+     
+                update: { (uiView, coordinator)  in
+                    uiView.text = self.text
+                    let newHeight = uiView.sizeThatFits(CGSize(width: width, height: .infinity)).height
+                    if self.height != newHeight{
+                        DispatchQueue.main.async {
+                            self.height = newHeight
+                        }
+                    }
+                    
+                    if self.autoFocus && !coordinator.didBecomeFirstResponder{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + self.autoFocusDelay) {
+                            uiView.becomeFirstResponder()
+                            coordinator.didBecomeFirstResponder = true
+                        }
+                    }
+            })
         }
-    }
-    
-    private func make(coordinator: UICustomTextField.Coordinator) -> UITextField {
-        let textField = UITextField(frame: .zero)
-        textField.delegate = coordinator
-        textField.backgroundColor = self.backgroundColor
-        textField.tintColor = self.tintColor
-        textField.textColor = self.textColor
-        textField.font = self.font
-        textField.returnKeyType = .done
-        coordinator.maxCharacters = self.maxCharacters
-        textField.addTarget(coordinator,
-            action: #selector(coordinator.textFieldDidChange),
-            for: .editingChanged)
-        
-        return textField
     }
 }
 
 private struct UICustomTextField : UIViewRepresentable{
-    @Binding var text : String
-    @Binding var height : CGFloat
-    let autoFocus : Bool
-
-    let width : CGFloat
-    let onReturn : (UITextField) -> Bool
-    let onChange : (UITextField) -> ()
-
     let make: (Coordinator) -> UIViewType
+    let update: (UITextField, Coordinator) -> ()
+
     func makeUIView(context: Context) -> UITextField {
         make(context.coordinator)
     }
 
     func updateUIView(_ uiView: UITextField, context: Context) {
-        uiView.text = self.text
-        DispatchQueue.main.async {
-            self.height = uiView.sizeThatFits(CGSize(width: self.width, height: .infinity)).height
-            if self.autoFocus && !context.coordinator.didBecomeFirstResponder{
-                uiView.becomeFirstResponder()
-                context.coordinator.didBecomeFirstResponder = true
-            }
-        }
+        update(uiView,context.coordinator)
     }
     
     func makeCoordinator() -> UICustomTextField.Coordinator {
-        return Coordinator($text,onChange: onChange, onReturn: onReturn)
+        return Coordinator()
     }
     
     class Coordinator: NSObject, UITextFieldDelegate{
-        @Binding var text : String
+        var text : Binding<String>? = nil
         var maxCharacters : Int = .max
-        let onReturn : (UITextField) -> Bool
-        let onChange : (UITextField) -> ()
+        var onReturn : (UITextField) -> Bool = {_ in true}
+        var onChange : (UITextField) -> () = {_ in}
         var didBecomeFirstResponder = false
-
-
-        init(_ text : Binding<String>, onChange : @escaping (UITextField) -> () ,onReturn : @escaping (UITextField) -> Bool) {
-            self._text = text
-            self.onReturn = onReturn
-            self.onChange = onChange
-        }
         
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
             let currentString: NSString = textField.text! as NSString
@@ -142,7 +113,7 @@ private struct UICustomTextField : UIViewRepresentable{
         }
         
         @objc func textFieldDidChange(_ textField: UITextField) {
-            text = textField.text ?? ""
+            self.text?.wrappedValue = textField.text ?? ""
             onChange(textField)
          }
         

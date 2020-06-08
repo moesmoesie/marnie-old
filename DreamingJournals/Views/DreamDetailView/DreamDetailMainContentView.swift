@@ -25,18 +25,8 @@ struct DreamDetailMainContentView: View {
                     .padding(.bottom, .extraSmall)
                 }
                 DreamTextView()
-                KeyboardSpacer()
             }
         }
-    }
-}
-
-private struct KeyboardSpacer : View{
-    @EnvironmentObject var keyboardObserver : KeyboardObserver
-    
-    var body: some View{
-        Spacer()
-            .frame(height : self.keyboardObserver.height < 500 ? 500 : self.keyboardObserver.heightWithoutSaveArea + 50)
     }
 }
 
@@ -61,12 +51,12 @@ private struct DreamTitleView : View{
     var body: some View{
         CustomTextView(
             text: $dream.title,
+            font: .primaryLarge,
             placeholder: "Title",
-            placeholderColor: .main2,
             placeholderFont: .primaryLarge,
-            textColor: .main1,
-            tintColor: .accent1,
-            font: .primaryLarge
+            autoCorrect: false,
+            autoFocus: dream.isNewDream,
+            autoFocusDelay: 0.5
         )
     }
 }
@@ -74,16 +64,13 @@ private struct DreamTitleView : View{
 private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var editorObserver : EditorObserver
-    
+    @EnvironmentObject var keyboardObserver : KeyboardObserver
+    let bottomExtraClickableAreaHeight = UIScreen.main.bounds.height / 2
     var body: some View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
-            placeholderColor: .main2,
-            cursorPosition: self.$editorObserver.cursorPosition,
-            textColor: .main1,
-            tintColor: .accent1,
-            font: .primaryRegular
+            bottomExtraClickableAreaHeight: bottomExtraClickableAreaHeight
         )
     }
 }

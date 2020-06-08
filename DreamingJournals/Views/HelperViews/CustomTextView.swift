@@ -9,31 +9,23 @@
 import SwiftUI
 
 struct CustomTextView : View {
-    @State var height : CGFloat = 0
+    @State private var height : CGFloat = 0
     @Binding var text : String
-    @Binding var focus : Bool
-    @Binding var cursorPosition : Int
-    let textColor : UIColor
-    let backgroundColor : UIColor
-    let placeholder : String
-    let placeholderColor : Color
-    let tintColor : UIColor
-    let font : UIFont
-    let placeholderFont : Font
-    
-    init(text : Binding<String>, placeholder : String, placeholderColor : Color, placeholderFont : Font = .body, focus : Binding<Bool> = .constant(false), cursorPosition : Binding<Int> = .constant(0), textColor : UIColor = .white,
-         backgroundColor : UIColor = .clear, tintColor : UIColor = .systemBlue, font : UIFont = UIFont.preferredFont(forTextStyle: .body)) {
-        self._text = text
-        self._focus = focus
-        self._cursorPosition = cursorPosition
-        self.placeholder = placeholder
-        self.textColor = textColor
-        self.backgroundColor = backgroundColor
-        self.tintColor = tintColor
-        self.placeholderColor = placeholderColor
-        self.font = font
-        self.placeholderFont = placeholderFont
-    }
+    var font : UIFont = UIFont.primaryRegular
+    var textColor : UIColor = .main1
+    var tintColor : UIColor = .accent1
+    var backgroundColor : UIColor = .clear
+    var placeholder : String = "placeholder"
+    var placeholderColor : Color = .main2
+    var placeholderFont : Font = .primaryRegular
+    var maxCharacters : Int = .max
+    var autoCorrect : Bool = true
+    var autoFocus : Bool = false
+    var autoFocusDelay : Double = 0
+    var returnKeyType : UIReturnKeyType = .default
+    var bottomExtraClickableAreaHeight : CGFloat = 0
+    var onReturn : (UITextView) -> Bool = {_ in true}
+    var onChange : (UITextView) -> () = {_ in}
     
     var body: some View{
         GeometryReader{ geo in
@@ -48,83 +40,80 @@ struct CustomTextView : View {
                     .font(placeholderFont)
                     .foregroundColor(placeholderColor)
             }
-            UICustomTextView(text: self.$text, width: width, height: self.$height, focus: $focus, make: self.make)
+            
+            UICustomTextView(
+                make: { coordinator in
+                    let textView = UITextView(frame: .zero)
+                    textView.delegate = coordinator
+                    textView.backgroundColor = self.backgroundColor
+                    textView.tintColor = self.tintColor
+                    textView.textColor = self.textColor
+                    textView.font = self.font
+                    textView.textContainerInset = .zero
+                    textView.textContainer.lineFragmentPadding = 0
+                    textView.returnKeyType = self.returnKeyType
+                    textView.autocorrectionType = self.autoCorrect ? .default : .no
+                    coordinator.text = self.$text
+                    coordinator.maxCharacters = self.maxCharacters
+                    coordinator.onReturn = self.onReturn
+                    coordinator.onChange = self.onChange
+                    return textView
+            },
+                update: { uiView, coordinator in
+                    uiView.text = self.text
+                    let newHeight = uiView.sizeThatFits(CGSize(width: width, height: .infinity)).height + self.bottomExtraClickableAreaHeight
+                    
+                    if self.height != newHeight{
+                        DispatchQueue.main.async {
+                            self.height = newHeight
+                        }
+                    }
+                    
+                    if self.autoFocus && !coordinator.didBecomeFirstResponder{
+                        coordinator.didBecomeFirstResponder = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + self.autoFocusDelay) {
+                            uiView.becomeFirstResponder()
+                        }
+                    }
+                })
+            }
         }
-    }
-    
-    
-    private func make(coordinator: UICustomTextView.Coordinator) -> UITextView {
-        let textView = UITextView(frame: .zero)
-        textView.delegate = coordinator
-        textView.backgroundColor = self.backgroundColor
-        textView.tintColor = self.tintColor
-        textView.textColor = self.textColor
-        textView.font = self.font
-        textView.textContainerInset = .zero
-        textView.textContainer.lineFragmentPadding = 0
-        textView.returnKeyType = .next
-        coordinator.cursorPosition = self.$cursorPosition
-        return textView
-    }
 }
 
 
 private struct UICustomTextView : UIViewRepresentable{
-    @Binding var text : String
-    let width : CGFloat
-    @Binding var height : CGFloat
-    @Binding var focus : Bool
- 
-    
     let make: (Coordinator) -> UIViewType
+    let update: (UITextView, Coordinator) -> ()
     
     func makeUIView(context: Context) -> UITextView {
         make(context.coordinator)
     }
-
     
     func updateUIView(_ uiView: UITextView, context: Context) {
-        uiView.text = self.text
-        DispatchQueue.main.async {
-            self.height = uiView.sizeThatFits(CGSize(width: self.width, height: .infinity)).height
-        }
-        
-        if focus && !uiView.isFocused{
-            uiView.becomeFirstResponder()
-        }
-        
-       
+        update(uiView, context.coordinator)
     }
     
     func makeCoordinator() -> UICustomTextView.Coordinator {
-        return Coordinator($text,$focus)
+        return Coordinator()
     }
     
     class Coordinator: NSObject, UITextViewDelegate{
-        @Binding var text : String
-        @Binding var focus : Bool
-        var cursorPosition : Binding<Int> = .constant(0)
-
-
-        init(_ text : Binding<String>, _ focus : Binding <Bool>) {
-            self._text = text
-            self._focus = focus
-        }
+        var text : Binding<String>? = nil
+        var maxCharacters : Int = .max
+        var onReturn : (UITextView) -> Bool = {_ in true}
+        var onChange : (UITextView) -> () = {_ in}
+        var didBecomeFirstResponder = false
         
-        
-        func textViewDidEndEditing(_ textView: UITextView) {
-            focus = false
-            
-        }
-        
-        func textViewDidBeginEditing(_ textView: UITextView) {
-            focus = true
-            cursorPosition.wrappedValue = textView.selectedRange.lowerBound
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            let currentString: NSString = textView.text! as NSString
+            let newString: NSString =
+                currentString.replacingCharacters(in: range, with: text) as NSString
+            return newString.length <= self.maxCharacters
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            self.text = textView.text
-            cursorPosition.wrappedValue = textView.selectedRange.lowerBound
+            self.text?.wrappedValue = textView.text
+            onChange(textView)
         }
     }
 }

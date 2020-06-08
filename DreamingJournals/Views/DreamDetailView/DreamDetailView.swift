@@ -67,10 +67,10 @@ struct DreamDetailContentView : View {
 
             DreamDetailKeyboardBar()
             .zIndex(3)
-          
         }
         .navigationBarTitle("",displayMode: .inline)
         .navigationBarHidden(true)
+        .colorScheme(.dark)
     }
 }
 
