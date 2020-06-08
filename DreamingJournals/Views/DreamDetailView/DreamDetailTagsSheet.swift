@@ -23,33 +23,53 @@ struct DreamDetailTagsSheet : View {
 struct DreamDetailTagsSheetContent : View{
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var tagSuggestionObserver : TagSuggestionObserver
+    @EnvironmentObject var dream : DreamViewModel
+    @State var text: String = ""
 
     var body: some View{
-        ZStack{
+        let tags = getTags()
+        let screen = UIScreen.main.bounds
+        return ZStack{
             Color.background1.edgesIgnoringSafeArea(.all)
-            ScrollView(){
+            ScrollView(showsIndicators : false){
                 VStack(spacing : 0){
                     TopBar()
                         .padding(.bottom,.small)
-                    TagCreationField()
+                    
+                    TagCreationField(text: $text)
                         .padding(.bottom,.small)
+                    
                     ActiveTags()
                         .padding(.bottom,.medium)
-                    if !tagSuggestionObserver.suggestionTags.isEmpty{
-                        SuggestionTags()
+                    
+                    if !tags.isEmpty{
+                        SuggestionTags(tags: tags)
                     }
+                    
+                    Spacer().frame(height : screen.height / 2)
                 }
             }.padding(.medium)
         }
     }
+    
+    func getTags() -> [TagViewModel]{
+        var tags : [TagViewModel] = []
+        for tag in tagSuggestionObserver.textSuggestionTags{
+            let tagText =  tag.text.lowercased()
+            if tagText.contains(text.lowercased()) || text.isEmpty{
+                tags.append(tag)
+            }
+        }
+        tags += tagSuggestionObserver.suggestionTags
+        return tags.filter({!dream.tags.contains($0)})
+    }
 }
 
 private struct SuggestionTags : View{
-    @EnvironmentObject var tagSuggestionObserver : TagSuggestionObserver
+    let tags : [TagViewModel]
     @EnvironmentObject var dream : DreamViewModel
 
     var body: some View{
-        let tags = tagSuggestionObserver.suggestionTags.filter({!dream.tags.contains($0)})
         return
             VStack(alignment: .leading, spacing: .extraSmall){
                 title
@@ -152,8 +172,7 @@ private struct ActiveTags : View {
 private struct TagCreationField : View{
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var tagSuggestionObserver : TagSuggestionObserver
-
-    @State var text: String = ""
+    @Binding var text: String
 
     var body: some View{
         CustomTextField(

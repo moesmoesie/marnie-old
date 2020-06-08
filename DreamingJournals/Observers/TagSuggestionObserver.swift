@@ -10,10 +10,31 @@ import CoreData
 
 class TagSuggestionObserver : ObservableObject{
     @Published var suggestionTags : [TagViewModel] = []
+    @Published var textSuggestionTags : [TagViewModel] = []
+
     let context =  (UIApplication.shared.delegate as! AppDelegate).coreDataStack.managedObjectContext
     
     init() {
         suggestionTags = getUniqueTags(text: "")
+    }
+    
+    func updateTagSuggestions(text : String){
+        let setences = text.components(separatedBy: CharacterSet(charactersIn: "!.?"))
+        var tags : [TagViewModel] = []
+        for sentence in setences.suffix(3){
+            for word in sentence.split(separator: " "){
+                let tag = TagViewModel(text: word.capitalized)
+                if !tags.contains(tag) && tag.text.count > 3 {
+                    tags.append(tag)
+                }
+            }
+        }
+    
+        tags.sort { (tag, tag2) -> Bool in
+            tag.text.count > tag2.text.count
+        }
+        
+        self.textSuggestionTags = tags
     }
     
     func getUniqueTags(text : String) -> [TagViewModel]{

@@ -76,11 +76,12 @@ private struct DismissTagSheetButton : View{
             }
         }){
             Text("Done")
+                .font(.primarySmall)
+                .fontWeight(.heavy)
                 .padding(.horizontal,.small * 1.2)
                 .padding(.vertical,.extraSmall)
-                .background(Color.background2)
-                .foregroundColor(.main2)
-                .font(.secondarySmall)
+                .background(Color.main1)
+                .foregroundColor(.background1)
                 .cornerRadius(12.5)
         }
     }

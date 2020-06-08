@@ -65,15 +65,22 @@ private struct DreamTitleView : View{
 
 private struct DreamTextView : View{
     @EnvironmentObject var dream : DreamViewModel
-    @EnvironmentObject var editorObserver : EditorObserver
-    @EnvironmentObject var keyboardObserver : KeyboardObserver
+    @EnvironmentObject var tagSuggestionObserver : TagSuggestionObserver
+
     let bottomExtraClickableAreaHeight = UIScreen.main.bounds.height / 2
     var body: some View{
         CustomTextView(
             text: self.$dream.text,
             placeholder: "Begin your journey..",
-            bottomExtraClickableAreaHeight: bottomExtraClickableAreaHeight
+            bottomExtraClickableAreaHeight: bottomExtraClickableAreaHeight,
+            onChange: self.onChange
         )
+    }
+    
+    func onChange(textView : UITextView){
+        let location = textView.selectedRange.location
+        let text = dream.text.prefix(location).suffix(100)
+        tagSuggestionObserver.updateTagSuggestions(text: String(text))
     }
 }
 
