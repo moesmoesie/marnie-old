@@ -54,9 +54,11 @@ private struct DreamTitleView : View{
             font: .primaryLarge,
             placeholder: "Title",
             placeholderFont: .primaryLarge,
+            maxCharacters: 40,
             autoCorrect: false,
             autoFocus: dream.isNewDream,
-            autoFocusDelay: 0.5
+            autoFocusDelay: 0.5,
+            allowNewLine: false
         )
     }
 }

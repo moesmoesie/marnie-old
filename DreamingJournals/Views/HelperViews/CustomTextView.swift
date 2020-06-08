@@ -24,6 +24,7 @@ struct CustomTextView : View {
     var autoFocusDelay : Double = 0
     var returnKeyType : UIReturnKeyType = .default
     var bottomExtraClickableAreaHeight : CGFloat = 0
+    var allowNewLine = true
     var onReturn : (UITextView) -> Bool = {_ in true}
     var onChange : (UITextView) -> () = {_ in}
     
@@ -57,6 +58,7 @@ struct CustomTextView : View {
                     coordinator.maxCharacters = self.maxCharacters
                     coordinator.onReturn = self.onReturn
                     coordinator.onChange = self.onChange
+                    coordinator.allowNewLine = self.allowNewLine
                     return textView
             },
                 update: { uiView, coordinator in
@@ -103,11 +105,17 @@ private struct UICustomTextView : UIViewRepresentable{
         var onReturn : (UITextView) -> Bool = {_ in true}
         var onChange : (UITextView) -> () = {_ in}
         var didBecomeFirstResponder = false
+        var allowNewLine = true
         
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             let currentString: NSString = textView.text! as NSString
             let newString: NSString =
                 currentString.replacingCharacters(in: range, with: text) as NSString
+            
+            if !allowNewLine && newString.contains("\n"){
+                return false
+            }
+            
             return newString.length <= self.maxCharacters
         }
         
