@@ -36,17 +36,17 @@ private struct FilterButton : View {
 
     @State var showFilterSheet  = false
     var body: some View{
-        Button(action: {
+        
+        HStack{
+            Image(systemName: "magnifyingglass")
+                .imageScale(.medium)
+                .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
+            Text("Filter")
+                .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
+        }
+        .onTapGesture {
             mediumFeedback()
             self.showFilterSheet = true
-        }){
-            HStack{
-                Image(systemName: "magnifyingglass")
-                    .imageScale(.medium)
-                    .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
-                Text("Filter")
-                    .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
-            }
         }
         .padding(.horizontal, .medium)
         .padding(.vertical,.small)
