@@ -81,7 +81,7 @@ extension Dream{
         
     func setDreamValues(from dreamViewModel : DreamViewModel, context managedObjectContext: NSManagedObjectContext){
         self.id = dreamViewModel.id
-        self.title = dreamViewModel.title
+        self.title = dreamViewModel.title.isEmpty ? "Title" : dreamViewModel.title
         self.text = dreamViewModel.text
         self.date = dreamViewModel.date
         self.isBookmarked = dreamViewModel.isBookmarked
