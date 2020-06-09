@@ -45,7 +45,6 @@ private struct FilterButton : View {
                 .foregroundColor(filterObserver.filters.isEmpty ? .main2 : .main1)
         }
         .onTapGesture {
-            mediumFeedback()
             self.showFilterSheet = true
         }
         .padding(.horizontal, .medium)

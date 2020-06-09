@@ -110,14 +110,12 @@ private struct BottomBar : View{
             }else{
                 if currentFilters.isEmpty{
                     SaveFiltersButton(text: "Activate Filters"){
-                        mediumFeedback()
                         withAnimation{
                             self.currentFilters = self.activeFilters
                         }
                     }.transition(.offset(x: -UIScreen.main.bounds.width))
                 }else{
                     SaveFiltersButton(text: "Update Filters"){
-                        mediumFeedback()
                         withAnimation{
                             self.currentFilters = self.activeFilters
                         }
@@ -127,7 +125,6 @@ private struct BottomBar : View{
             
             if !currentFilters.isEmpty{
                 DeleteFiltersButton{
-                    mediumFeedback()
                     withAnimation{
                         self.activeFilters = []
                     }
@@ -188,7 +185,6 @@ private struct FilterButton : View {
             iconSize: .medium,
             isActive: activeFilters.contains(filterViewModel))
         {
-            mediumFeedback()
             if let index = self.activeFilters.firstIndex(of: self.filterViewModel){
                 self.activeFilters.remove(at: index)
             }else{
@@ -222,7 +218,6 @@ private struct Tags : View {
                 isActive: self.activeFilters.contains(FilterViewModel(filter: .tag(tag)))
             )
                 .onTapGesture {
-                    mediumFeedback()
                     withAnimation{
                         if let index = self.activeFilters.firstIndex(of: FilterViewModel(filter: .tag(tag))){
                             self.activeFilters.remove(at: index)
@@ -372,7 +367,6 @@ private struct FilterSheetKeyboardBar: View {
     
     var updateButton : some View{
         Button(action: {
-            mediumFeedback()
             self.currentFilters = self.activeFilters
         }){
             Text("Update")
@@ -387,7 +381,6 @@ private struct FilterSheetKeyboardBar: View {
     
     var activateButton : some View{
         Button(action: {
-            mediumFeedback()
             self.currentFilters = self.activeFilters
         }){
             Text("Activate")

@@ -37,7 +37,6 @@ private struct DreamTagCollectionView : View{
         CollectionView(data: tags){(tag : TagViewModel) in
             TagView(tag: tag)
                 .onTapGesture {
-                    mediumFeedback()
                     let index = self.tags.firstIndex(of: tag)!
                     self.tags.remove(at: index)
                 }

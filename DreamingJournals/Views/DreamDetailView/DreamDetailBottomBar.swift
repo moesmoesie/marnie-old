@@ -64,7 +64,6 @@ private struct ActivateTagSheetButton : View  {
     
     var body: some View{
         CustomIconButton(icon: .tagIcon, iconSize: .medium){
-            mediumFeedback()
             withAnimation(.spring()){
                 self.editorObserver.currentMode = Modes.tagMode
             }
@@ -116,7 +115,6 @@ struct ToggleButton : View {
     
     var body: some View{
         CustomIconButton(icon: icon, iconSize: .medium, isActive: value) {
-            mediumFeedback()
             self.value.toggle()
         }
     }

@@ -69,7 +69,6 @@ private struct SuggestionTags : View{
                 CollectionView(data: tags) { tag in
                     TagView(tag: tag)
                         .onTapGesture {
-                            mediumFeedback()
                             withAnimation{
                                 self.dream.tags.append(tag)
                             }
@@ -105,7 +104,6 @@ private struct TopBar : View{
 
     var closeButton : some View{
         Button(action: {
-            mediumFeedback()
             self.keyboardObserver.dismissKeyboard()
             withAnimation(.timingCurve(0.4, 0.8, 0.2, 1, duration : 0.7)){
                 self.editorObserver.currentMode = .regularMode
@@ -151,7 +149,6 @@ private struct ActiveTags : View {
     }
 
     func onTagTap(_ tag : TagViewModel){
-        mediumFeedback()
         withAnimation{
             if let index = self.dream.tags.firstIndex(of: tag){
                 self.dream.tags.remove(at: index)

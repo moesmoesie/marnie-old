@@ -69,8 +69,8 @@ private struct SaveButton : View{
     }
     
     func saveDream(){
-        mediumFeedback()
         self.showAlert = false
+        heavyFeedback()
         do {
             try Dream.saveDream(dream, context: managedObjectContext)
             presentationMode.wrappedValue.dismiss()
@@ -83,9 +83,8 @@ private struct SaveButton : View{
     }
     
     func updateDream(){
-        mediumFeedback()
         self.showAlert = false
-        
+        heavyFeedback()
         do {
             try Dream.updateDream(dream, context: managedObjectContext)
             presentationMode.wrappedValue.dismiss()
@@ -117,7 +116,6 @@ private struct BackButton : View{
     }
     
     func backButtonPress(){
-        mediumFeedback()
         keyboardObserver.dismissKeyboard()
         
         if !oldDream.dream.isEqualTo(dream){
