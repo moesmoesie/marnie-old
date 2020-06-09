@@ -34,7 +34,13 @@ struct ReminderSection : View {
                     .foregroundColor(.main1)
                     .font(.secondaryLarge)
             }.alert(isPresented: $settingsObserver.showAlarm){
-                Alert(title: Text("Permission Needed"), message: Text("To set dream reminders you need to enable notifications for this app in the settings of your phone."))
+                Alert(
+                    title: Text("Permission Needed"),
+                    message: Text("To set dream reminders you need to enable notifications for this app."),
+                    primaryButton: .default(Text("Settings"), action: {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }),
+                    secondaryButton: .cancel())
             }
             
             DatePicker(selection: $settingsObserver.alarmTime, displayedComponents: .hourAndMinute){
