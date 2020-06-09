@@ -49,24 +49,28 @@ struct DreamDetailContentView : View {
     var body: some View{
         ZStack(alignment: .bottom){
             Color.background1.edgesIgnoringSafeArea(.all)
+            .zIndex(0)
             
             DreamDetailMainContentView()
                 .padding(.horizontal, .medium)
+            .zIndex(1)
             
             DreamDetailBottomBar()
                 .modifier(BottomBarStyling())
+            .zIndex(2)
             
             DreamDetailTopBar()
                 .edgesIgnoringSafeArea(.all)
                 .frame(maxHeight: .infinity, alignment: .top)
+            .zIndex(3)
             
             if editorObserver.isInTagMode{
                 DreamDetailTagsSheet()
-                    .zIndex(2)
+                    .zIndex(4)
             }
 
             DreamDetailKeyboardBar()
-            .zIndex(3)
+            .zIndex(5)
         }
         .navigationBarTitle("",displayMode: .inline)
         .navigationBarHidden(true)

@@ -13,32 +13,32 @@ struct DreamDetailKeyboardBar: View {
     @EnvironmentObject var editorObserver : EditorObserver
 
     var body: some View {
+        let showMainKeyboard = keyboardObserver.isKeyboardShowing && !editorObserver.isInTagMode
+        let showTagKeyboard = keyboardObserver.isKeyboardShowing && editorObserver.isInTagMode
+        
         return
             ZStack{
-                if editorObserver.currentMode == Modes.tagMode{
-                    HStack(alignment: .center){
-                        Spacer()
-                        DismissTagSheetButton()
-                            .padding(.trailing, .medium)
-                            .padding(.bottom, .small)
-                    }
+                HStack(spacing : .medium){
+                    Spacer()
+                    ActivateTagFilterSheetButton()
+                    DismissKeyboardButton()
                 }
-                if editorObserver.currentMode == .regularMode{
-                    HStack(alignment: .center){
-                        Spacer()
-                        ActivateTagFilterSheetButton()
-                            .padding(.trailing, .medium)
-                            .padding(.bottom, .small)
-                        
-                        DismissKeyboardButton()
-                            .padding(.trailing, .medium)
-                            .padding(.bottom, .small)
-                    }
-                }
-            }.padding(.bottom,keyboardObserver.isKeyboardShowing ?  keyboardObserver.heightWithoutSaveArea : 100)
-            .opacity(keyboardObserver.isKeyboardShowing ? 1 : 0)
-            .disabled(!keyboardObserver.isKeyboardShowing)
-            .animation(.spring())
+                .padding(.bottom, .small)
+                .opacity(showMainKeyboard ? 1 : 0)
+                .offset(y : showMainKeyboard ? 0 : 300)
+                .disabled(!showMainKeyboard)
+                
+                HStack(spacing : .medium){
+                    Spacer()
+                    DismissTagSheetButton()
+                }.padding(.bottom, .small)
+                .opacity(showTagKeyboard ? 1 : 0)
+                .offset(y : showTagKeyboard ? 0 : 300)
+                .disabled(!showTagKeyboard)
+            }
+            .animation(Animation.spring().speed(1.3))
+            .padding(.bottom, keyboardObserver.heightWithoutSaveArea)
+            .padding(.horizontal, .medium)
     }
 }
 

@@ -11,9 +11,18 @@ import CoreData
 import Combine
 
 class EditorObserver : ObservableObject{
-    @Published var currentMode : Modes = .regularMode
-    @Published var cursorPosition : Int = 0
-
+    @Published var currentMode : Modes{
+        willSet{
+            previousMode = currentMode
+        }
+    }
+    
+    var previousMode : Modes = .regularMode
+    
+    init() {
+        self.currentMode = .regularMode
+    }
+    
     var isInTagMode : Bool{
         currentMode == Modes.tagMode
     }
