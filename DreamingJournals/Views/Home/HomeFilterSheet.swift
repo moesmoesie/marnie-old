@@ -296,7 +296,12 @@ private struct WordFilterTextField : View{
     }
     
     func onReturn(textField : UITextField) -> Bool{
-        self.activeFilter.append(FilterViewModel(filter: .containsWord(self.text)))
+        if !text.isEmpty{
+            let filter = FilterViewModel(filter: .containsWord(self.text))
+            if !activeFilter.contains(filter){
+                self.activeFilter.append(filter)
+            }
+        }
         self.text = ""
         return true
     }
@@ -351,7 +356,7 @@ private struct FilterSheetKeyboardBar: View {
                     }
                 }
             }.animation(.easeInOut)
-                .padding(.bottom, .small)
+            .padding(.bottom, .small)
             
             
             CustomPassiveIconButton(icon: Image.dismissKeyboardIcon, iconSize: .small) {
