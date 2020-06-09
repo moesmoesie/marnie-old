@@ -291,6 +291,7 @@ private struct WordFilterTextField : View{
     }
     
     func onReturn(textField : UITextField) -> Bool{
+        self.text = self.text.trimmingCharacters(in: .whitespacesAndNewlines)
         if !text.isEmpty{
             let filter = FilterViewModel(filter: .containsWord(self.text))
             if !activeFilter.contains(filter){

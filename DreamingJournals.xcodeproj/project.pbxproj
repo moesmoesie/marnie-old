@@ -674,7 +674,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
@@ -698,7 +698,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;

@@ -75,9 +75,9 @@ enum Filter{
     }
     
     private func containsWordPredicate(_ word : String) -> NSPredicate{
-        NSPredicate(
-            format: "%K contains %@",
-            argumentArray: [#keyPath(Dream.text.localizedLowercase), word.lowercased()]
+        return NSPredicate(
+            format: "%K contains[c] %@",
+            argumentArray: [#keyPath(Dream.text), word]
         )
     }
     
