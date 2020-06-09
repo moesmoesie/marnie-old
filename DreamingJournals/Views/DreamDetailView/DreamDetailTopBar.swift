@@ -16,20 +16,21 @@ struct DreamDetailTopBar: View {
     var body: some View {
         onViewUpdate()
         return
-            HStack(spacing : .medium){
+            HStack(spacing : 0){
                 BackButton()
                 Spacer()
                 ShareButton()
                     .offset(y : -2.5)
-                    
+                    .padding(.horizontal,.medium)
+
                 if showSaveButton{
                     SaveButton(text: dream.isNewDream ?  "Save" : "Update")
+                        .padding(.trailing, .medium)
                          .transition(.offset(x: .extraLarge * 2))
                 }
             }
             .frame(height: .extraLarge)
             .padding(.top,getTopSaveArea())
-            .padding(.horizontal,.medium)
             .background(Color.background1.opacity(0.99))
     }
     
@@ -111,6 +112,7 @@ private struct BackButton : View{
     var body: some View{
         Button(action:backButtonPress){
             Image.backIcon.foregroundColor(.main1)
+                .padding(.medium)
         }.alert(isPresented: $showAlert, content: unsavedChangesAlert)
     }
     
