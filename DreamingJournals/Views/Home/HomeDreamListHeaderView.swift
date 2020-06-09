@@ -75,6 +75,7 @@ private struct Sky : View {
             startPoint: .bottom,
             endPoint: .top)
             .frame(height : totalHeight)
+            .animation(.easeInOut)
     }
 }
 
