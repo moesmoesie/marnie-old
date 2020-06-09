@@ -11,16 +11,7 @@ import CoreData
 import Combine
 
 
-
-struct DreamDetailTagsSheet : View {
-    var body: some View{
-        CustomSheet(showFullScreen: true) {
-            DreamDetailTagsSheetContent()
-        }
-    }
-}
-
-struct DreamDetailTagsSheetContent : View{
+struct DreamDetailTagsSheet : View{
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var tagSuggestionObserver : TagSuggestionObserver
     @EnvironmentObject var dream : DreamViewModel
@@ -172,6 +163,8 @@ private struct ActiveTags : View {
 private struct TagCreationField : View{
     @EnvironmentObject var dream : DreamViewModel
     @EnvironmentObject var tagSuggestionObserver : TagSuggestionObserver
+    @EnvironmentObject var editorObserver : EditorObserver
+
     @Binding var text: String
 
     var body: some View{
@@ -181,7 +174,7 @@ private struct TagCreationField : View{
             placeholder: "Create new Tag",
             placeholderFont: .primaryRegular,
             maxCharacters: 25,
-            autoFocus: true,
+            autoFocus: editorObserver.isInTagMode,
             onReturn: onReturn,
             onChange: onChange
         )

@@ -12,10 +12,12 @@ import SwiftUI
 struct CustomSheet<Content: View>: View {
     let content : () -> Content
     let showFullScreen : Bool
+    let show : Bool
     
-    init(showFullScreen : Bool, content: @escaping () -> Content) {
+    init(show : Bool, showFullScreen : Bool, content: @escaping () -> Content) {
         self.showFullScreen = showFullScreen
         self.content = content
+        self.show = show
     }
     
     var body: some View{
@@ -29,6 +31,7 @@ struct CustomSheet<Content: View>: View {
         .shadow(radius: 20)
         .edgesIgnoringSafeArea(.all)
         .offset(y : .extraSmall)
-        .transition(.offset(y : screen.height))
+        .offset(y : show ? 0 : screen.height)
+        .disabled(!show)
     }
 }

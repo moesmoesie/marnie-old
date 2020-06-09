@@ -71,10 +71,19 @@ struct CustomTextView : View {
                         }
                     }
                     
+                    if self.autoFocus == false{
+                        coordinator.didBecomeFirstResponder = false
+                    }
+                    
                     if self.autoFocus && !coordinator.didBecomeFirstResponder{
-                        coordinator.didBecomeFirstResponder = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + self.autoFocusDelay) {
+                        if self.autoFocusDelay > 0{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + self.autoFocusDelay) {
+                                uiView.becomeFirstResponder()
+                                coordinator.didBecomeFirstResponder = true
+                            }
+                        }else{
                             uiView.becomeFirstResponder()
+                            coordinator.didBecomeFirstResponder = true
                         }
                     }
                 })

@@ -64,10 +64,14 @@ struct DreamDetailContentView : View {
                 .frame(maxHeight: .infinity, alignment: .top)
             .zIndex(3)
             
-            if editorObserver.isInTagMode{
+            
+            CustomSheet(show: editorObserver.isInTagMode, showFullScreen: true) {
                 DreamDetailTagsSheet()
-                    .zIndex(4)
-            }
+            }.zIndex(4)
+
+           
+                
+            
 
             DreamDetailKeyboardBar()
             .zIndex(5)
