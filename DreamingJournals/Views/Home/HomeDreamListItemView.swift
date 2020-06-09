@@ -77,7 +77,7 @@ private struct ListItemsTags : View{
                 TagView(
                     tag: tag,
                     isActive: self.filters.contains(FilterViewModel(filter: .tag(tag)))
-                )
+                ).drawingGroup()
             }
         }
     }

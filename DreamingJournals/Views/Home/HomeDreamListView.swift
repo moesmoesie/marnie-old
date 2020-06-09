@@ -24,8 +24,6 @@ struct HomeDreamListView : View {
             ForEach(0..<dreams.count, id : \.self){ (index : Int) in
                 HomeDreamListItemView(dream: self.dreams[index])
                     .listRowInsets(EdgeInsets())
-                    .drawingGroup()
-                    .primaryShadow()
                     .padding(.vertical, .medium / 2)
                     .padding(.horizontal, .medium)
                     .onAppear{
