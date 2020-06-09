@@ -13,11 +13,9 @@ extension Gradient{
         let endMainLocation = mainHeight / totalHeight * 0.90
         if darkMode{
             return Gradient(stops: [
-                Stop(color: Color(red: 69 / 255.0, green: 93 / 255.0, blue: 131 / 255.0), location: 0.0),
-                Stop(color: Color(red:32 / 255.0, green: 47 / 255.0, blue: 86 / 255.0), location: endMainLocation * 0.4),
-                Stop(color: Color(red:13 / 255.0, green: 17 / 255.0, blue: 32 / 255.0), location: endMainLocation),
-                Stop(color: Color(red:9 / 255.0, green: 10 / 255.0, blue: 22 / 255.0), location: endMainLocation * 1.2),
-                Stop(color: Color(red:3 / 255.0, green: 4 / 255.0, blue: 10 / 255.0), location: endMainLocation * 2.8),
+                Stop(color: Color(red:32 / 255.0, green: 47 / 255.0, blue: 86 / 255.0), location: endMainLocation * 0),
+           
+                Stop(color: Color(red:9 / 255.0, green: 10 / 255.0, blue: 22 / 255.0), location: endMainLocation),
             ])
         }else{
             return Gradient(stops: [
