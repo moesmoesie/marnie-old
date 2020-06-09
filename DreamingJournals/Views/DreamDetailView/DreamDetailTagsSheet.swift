@@ -30,8 +30,10 @@ struct DreamDetailTagsSheet : View{
                     TagCreationField(text: $text)
                         .padding(.bottom,.small)
                     
-                    ActiveTags()
-                        .padding(.bottom,.medium)
+                    if !dream.tags.isEmpty{
+                        ActiveTags()
+                            .padding(.bottom,.medium)
+                    }
                     
                     if !tags.isEmpty{
                         SuggestionTags(tags: tags)
@@ -201,7 +203,10 @@ private struct TagCreationField : View{
         if dream.tags.contains(tag) || self.text.count > 25 {
             return true
         }
-        self.dream.tags.append(tag)
+        
+        withAnimation{
+            self.dream.tags.append(tag)
+        }
         
         return true
     }
