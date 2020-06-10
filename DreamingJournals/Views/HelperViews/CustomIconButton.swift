@@ -89,11 +89,11 @@ enum IconSize : CGFloat{
         
         switch self {
             case .small:
-                return .medium * 1.8
+                return .medium * 1.4
             case .medium:
-                return .medium * 2.2
+                return .medium * 1.8
             case .large:
-                return .medium * 2.8
+                return .medium * 2.2
         }
     }
     
