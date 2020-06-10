@@ -27,7 +27,7 @@ struct CustomIconButton: View {
             .foregroundColor(isActive ? Color.main1 : Color.main2 )
             .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
             .background(isActive ? Color.accent1 : Color.clear)
-            .clipShape(RoundedRectangle(cornerRadius: 12.5))
+            .clipShape(RoundedRectangle(cornerRadius: iconSize.getCornerRadius()))
             .onTapGesture{
                 self.action()
         }
@@ -52,7 +52,7 @@ struct CustomPassiveIconButton: View {
             .foregroundColor(Color.main2 )
             .frame(width: iconSize.getFrameSize(), height: iconSize.getFrameSize())
             .background(Color.background2)
-            .clipShape(RoundedRectangle(cornerRadius: 12.5))
+            .clipShape(RoundedRectangle(cornerRadius: iconSize.getCornerRadius()))
             .onTapGesture{
                 self.action()
         }
@@ -98,7 +98,7 @@ enum IconSize : CGFloat{
     }
     
     func getCornerRadius() -> CGFloat{
-        return getFrameSize() / 5
+        return getFrameSize() / 4
     }
     
     
