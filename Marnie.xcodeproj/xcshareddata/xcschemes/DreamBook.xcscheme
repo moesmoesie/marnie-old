@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "110F88EE24530F6700C7B797"
                BuildableName = "Marnie.app"
-               BlueprintName = "DreamingJournals"
-               ReferencedContainer = "container:DreamingJournals.xcodeproj">
+               BlueprintName = "Marnie"
+               ReferencedContainer = "container:Marnie.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "114F656B2459C70A0056EB4C"
                BuildableName = "DreamingJournalsTests.xctest"
                BlueprintName = "DreamingJournalsTests"
-               ReferencedContainer = "container:DreamingJournals.xcodeproj">
+               ReferencedContainer = "container:Marnie.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "117726D924869B51008FBB3E"
                BuildableName = "AppTests.xctest"
                BlueprintName = "AppTests"
-               ReferencedContainer = "container:DreamingJournals.xcodeproj">
+               ReferencedContainer = "container:Marnie.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -66,8 +66,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "110F88EE24530F6700C7B797"
             BuildableName = "Marnie.app"
-            BlueprintName = "DreamingJournals"
-            ReferencedContainer = "container:DreamingJournals.xcodeproj">
+            BlueprintName = "Marnie"
+            ReferencedContainer = "container:Marnie.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -83,8 +83,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "110F88EE24530F6700C7B797"
             BuildableName = "Marnie.app"
-            BlueprintName = "DreamingJournals"
-            ReferencedContainer = "container:DreamingJournals.xcodeproj">
+            BlueprintName = "Marnie"
+            ReferencedContainer = "container:Marnie.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

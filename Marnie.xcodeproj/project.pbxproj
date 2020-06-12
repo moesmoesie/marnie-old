@@ -90,7 +90,7 @@
 		110F88FE24530F6900C7B797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		110F890124530F6900C7B797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110F890324530F6900C7B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dreaming Journals.entitlements"; sourceTree = "<group>"; };
+		110FF3A4246ACB7C00E10AD3 /* Marnie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Marnie.entitlements; sourceTree = "<group>"; };
 		111524F9248D4E7E002E1324 /* TagSuggestionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSuggestionObserver.swift; sourceTree = "<group>"; };
 		111BA7202479EC4B000E48DF /* HomeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContainer.swift; sourceTree = "<group>"; };
 		111BA7222479ED10000E48DF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 		110F88E624530F6700C7B797 = {
 			isa = PBXGroup;
 			children = (
-				110F88F124530F6700C7B797 /* DreamingJournals */,
+				110F88F124530F6700C7B797 /* Marnie */,
 				117726DB24869B51008FBB3E /* AppTests */,
 				110F88F024530F6700C7B797 /* Products */,
 			);
@@ -181,7 +181,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		110F88F124530F6700C7B797 /* DreamingJournals */ = {
+		110F88F124530F6700C7B797 /* Marnie */ = {
 			isa = PBXGroup;
 			children = (
 				1166455E2459B4FA000F2DC0 /* Views */,
@@ -196,12 +196,12 @@
 				110F890024530F6900C7B797 /* LaunchScreen.storyboard */,
 				11B8A65C24596C500057D1E6 /* DreamBook.xcdatamodeld */,
 				110F890324530F6900C7B797 /* Info.plist */,
-				110FF3A4246ACB7C00E10AD3 /* Dreaming Journals.entitlements */,
+				110FF3A4246ACB7C00E10AD3 /* Marnie.entitlements */,
 				110F88FD24530F6900C7B797 /* Preview Content */,
 				11E48F81247D83C500F1D89F /* Animations */,
 				110F88FB24530F6900C7B797 /* Assets.xcassets */,
 			);
-			path = DreamingJournals;
+			path = Marnie;
 			sourceTree = "<group>";
 		};
 		110F88FD24530F6900C7B797 /* Preview Content */ = {
@@ -363,9 +363,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		110F88EE24530F6700C7B797 /* DreamingJournals */ = {
+		110F88EE24530F6700C7B797 /* Marnie */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "DreamingJournals" */;
+			buildConfigurationList = 110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "Marnie" */;
 			buildPhases = (
 				110F88EB24530F6700C7B797 /* Sources */,
 				110F88EC24530F6700C7B797 /* Frameworks */,
@@ -375,7 +375,7 @@
 			);
 			dependencies = (
 			);
-			name = DreamingJournals;
+			name = Marnie;
 			packageProductDependencies = (
 				11E48F7C247D815A00F1D89F /* Lottie */,
 			);
@@ -420,7 +420,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "DreamingJournals" */;
+			buildConfigurationList = 110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "Marnie" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -436,7 +436,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				110F88EE24530F6700C7B797 /* DreamingJournals */,
+				110F88EE24530F6700C7B797 /* Marnie */,
 				117726D924869B51008FBB3E /* AppTests */,
 			);
 		};
@@ -537,7 +537,7 @@
 /* Begin PBXTargetDependency section */
 		117726E024869B51008FBB3E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 110F88EE24530F6700C7B797 /* DreamingJournals */;
+			target = 110F88EE24530F6700C7B797 /* Marnie */;
 			targetProxy = 117726DF24869B51008FBB3E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -672,13 +672,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Marnie/Marnie.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 21;
-				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Marnie/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DreamingJournals/Info.plist;
+				INFOPLIST_FILE = Marnie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -696,13 +696,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "DreamingJournals/Dreaming Journals.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Marnie/Marnie.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 21;
-				DEVELOPMENT_ASSET_PATHS = "\"DreamingJournals/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Marnie/Preview Content\"";
 				DEVELOPMENT_TEAM = C342Q22M8Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DreamingJournals/Info.plist;
+				INFOPLIST_FILE = Marnie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -761,7 +761,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "DreamingJournals" */ = {
+		110F88EA24530F6700C7B797 /* Build configuration list for PBXProject "Marnie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				110F890424530F6900C7B797 /* Debug */,
@@ -770,7 +770,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "DreamingJournals" */ = {
+		110F890624530F6900C7B797 /* Build configuration list for PBXNativeTarget "Marnie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				110F890724530F6900C7B797 /* Debug */,
