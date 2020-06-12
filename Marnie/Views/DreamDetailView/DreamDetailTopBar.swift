@@ -142,8 +142,8 @@ private struct ShareButton : View{
             Image(systemName: "square.and.arrow.up").foregroundColor(.main1)
         }.sheet(isPresented: $showAlert) {
             ShareView(activityItems:  [self.getDreamPDF()])
+                .edgesIgnoringSafeArea(.all)
                 .colorScheme(.dark)
-                .background(Color.background1.edgesIgnoringSafeArea(.all))
         }
     }
     

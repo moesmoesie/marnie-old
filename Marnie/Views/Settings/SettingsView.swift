@@ -85,6 +85,8 @@ struct ExportSection : View {
         }
         .sheet(isPresented: $showShareSheet){
             ShareView(activityItems: [self.getData()])
+            .edgesIgnoringSafeArea(.all)
+            .colorScheme(.dark)
         }
     }
 }
