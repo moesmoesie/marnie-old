@@ -135,15 +135,20 @@ private struct BackButton : View{
 private struct ShareButton : View{
     @EnvironmentObject var dream : DreamViewModel
     @State var showAlert = false
+
     
     var body: some View{
         Button(action:onButtonPress){
             Image(systemName: "square.and.arrow.up").foregroundColor(.main1)
         }.sheet(isPresented: $showAlert) {
-            ShareView(activityItems:  [PDFCreator.createDreamPDF(dream: self.dream)])
+            ShareView(activityItems:  [self.getDreamPDF()])
                 .colorScheme(.dark)
                 .background(Color.background1.edgesIgnoringSafeArea(.all))
         }
+    }
+    
+    func getDreamPDF() -> Data{
+        PDFCreator.createDreamPDF(dream: dream)
     }
     
     func onButtonPress(){
